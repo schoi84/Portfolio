@@ -1,0 +1,122 @@
+{
+  "Primitive/Color/Gray": {
+    "bg":    "#F6F3F0",
+    "white": "#FEFEFE",
+    "50":    "#F0EDE9",
+    "100":   "#E8E4DF",
+    "200":   "#D8D2CC",
+    "300":   "#BDB5AE",
+    "400":   "#9E9590",
+    "500":   "#6B635C",
+    "700":   "#3A3530",
+    "900":   "#1F1A17"
+  },
+  "Primitive/Color/Orange": {
+    "50":  "#FEF4EE",
+    "100": "#FDEADF",
+    "200": "#FDE0CF",
+    "300": "#FFA979",
+    "500": "#FA7F3B",
+    "600": "#E16018",
+    "900": "#A83800"
+  },
+  "Primitive/Radius": {
+    "xs":   "4",
+    "sm":   "5",
+    "md":   "12",
+    "lg":   "16",
+    "xl":   "18",
+    "2xl":  "22",
+    "full": "9999"
+  },
+  "Primitive/Space": {
+    "4":   "4",
+    "8":   "8",
+    "12":  "12",
+    "16":  "16",
+    "20":  "20",
+    "24":  "24",
+    "28":  "28",
+    "32":  "32",
+    "40":  "40",
+    "48":  "48",
+    "52":  "52",
+    "56":  "56",
+    "64":  "64",
+    "80":  "80",
+    "100": "100",
+    "160": "160"
+  },
+  "Primitive/Font/Size": {
+    "10": "10",
+    "11": "11",
+    "12": "12",
+    "13": "13",
+    "14": "14",
+    "15": "15",
+    "17": "17",
+    "18": "18",
+    "19": "19",
+    "26": "26",
+    "96": "96"
+  },
+  "Primitive/Font/Weight": {
+    "light":    "300",
+    "regular":  "400",
+    "medium":   "500",
+    "semibold": "600",
+    "bold":     "700"
+  },
+  "Semantic/Color/Background": {
+    "page":      "#F6F3F0",
+    "surface":   "#FEFEFE",
+    "subtle":    "#F0EDE9",
+    "muted":     "#E8E4DF",
+    "brand-lo":  "#FEF4EE",
+    "brand-md":  "#FDEADF",
+    "brand-hi":  "#FDE0CF"
+  },
+  "Semantic/Color/Text": {
+    "primary":            "#1F1A17",
+    "secondary":          "#6B635C",
+    "tertiary":           "#9E9590",
+    "muted":              "#BDB5AE",
+    "inverse":            "#FEFEFE",
+    "brand":              "#E16018",
+    "brand-accessible":   "#A83800"
+  },
+  "Semantic/Color/Border": {
+    "default":   "#D8D2CC",
+    "strong":    "#BDB5AE",
+    "brand":     "#FA7F3B",
+    "brand-lo":  "#FDE0CF"
+  },
+  "Semantic/Color/Action": {
+    "primary":         "#E16018",
+    "primary-hover":   "#A83800",
+    "primary-surface": "#FEF4EE"
+  },
+  "Semantic/Spacing": {
+    "gap-xs":         "4",
+    "gap-sm":         "8",
+    "gap-md":         "12",
+    "gap-lg":         "16",
+    "gap-xl":         "24",
+    "gap-2xl":        "40",
+    "gap-3xl":        "56",
+    "section-pad":    "100",
+    "section-pad-sm": "80",
+    "hero-pad-top":   "160",
+    "card-pad":       "52",
+    "card-pad-sm":    "28",
+    "wrap-pad":       "40"
+  },
+  "Semantic/Radius": {
+    "badge":     "4",
+    "button":    "5",
+    "card-sm":   "12",
+    "card":      "16",
+    "card-lg":   "18",
+    "card-hero": "22"
+  }
+}

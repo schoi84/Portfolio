@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Widget Animation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CARD ── */
+.card {
+  width: 360px; height: 592px;
+  background: #1A1917;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* ── TOP PANEL ── */
+.top-panel {
+  margin: 16px 14px 0;
+  background: #252220;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 26px 16px;
+  display: flex; flex-direction: column; gap: 26px;
+  flex-shrink: 0;
+}
+
+.bg-row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.bg-text {
+  font-size: 13px; font-weight: 400; color: #FAFAFA;
+}
+
+/* Label pill — dark background, white text */
+.label-pill {
+  width: 120px; height: 36px;
+  background: #3A3836;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.label-track {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(.52, 0, 0, 1);
+}
+.label-item {
+  flex: 0 0 120px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.01em;
+}
+
+/* Toggle grid */
+.toggle-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px;
+}
+.toggle-cell {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0;
+}
+.tg-label {
+  font-size: 14px; font-weight: 400; color: #FAFAFA; flex: 1;
+  line-height: 1.3;
+}
+
+/* Toggle — rectangular track, rectangular knob */
+.tg-track {
+  width: 52px; height: 28px;
+  border-radius: 8px;
+  background: #3E3B38;
+  position: relative;
+  transition: background 0.35s ease;
+  flex-shrink: 0;
+}
+.tg-track.on { background: #22C55E; }
+
+.tg-knob {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: #AEABA7;       /* gray when OFF */
+  position: absolute;
+  top: 3px; left: 3px;
+  transition: left 0.35s cubic-bezier(.52, 0, 0, 1), background 0.35s ease;
+}
+.tg-track.on .tg-knob { left: 27px; background: #FFFFFF; } /* white when ON */
+
+/* ── BOTTOM WIDGET AREA ── */
+.bottom-area {
+  width: 328px; height: 328px;
+  align-self: center;
+  position: relative;
+  margin: 14px 0 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #252220;
+  flex-shrink: 0;
+}
+.widget-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+.widget-img.active { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- TOP PANEL -->
+  <div class="top-panel">
+    <div class="bg-row">
+      <span class="bg-text">Background</span>
+      <div class="label-pill">
+        <div class="label-track" id="labelTrack">
+          <div class="label-item">Notice</div>
+          <div class="label-item">Elevator</div>
+          <div class="label-item">Heating</div>
+          <div class="label-item">Light</div>
+          <div class="label-item">Notice</div><!-- clone for seamless loop -->
+        </div>
+      </div>
+    </div>
+    <div class="toggle-grid">
+      <div class="toggle-cell">
+        <span class="tg-label">Button</span>
+        <div class="tg-track" id="tg-button"><div class="tg-knob"></div></div>
+      </div>
+      <div class="toggle-cell">
+        <span class="tg-label">Sub<br>button</span>
+        <div class="tg-track" id="tg-sub"><div class="tg-knob"></div></div>
+      </div>
+      <div class="toggle-cell">
+        <span class="tg-label">Stepper</span>
+        <div class="tg-track" id="tg-stepper"><div class="tg-knob"></div></div>
+      </div>
+      <div class="toggle-cell">
+        <span class="tg-label">Content</span>
+        <div class="tg-track on" id="tg-content"><div class="tg-knob"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM WIDGET IMAGES -->
+  <div class="bottom-area">
+    <img src="engram.resource/widget-01.webp" class="widget-img active" alt="Notice widget">
+    <img src="engram.resource/widget-02.webp" class="widget-img" alt="Elevator widget">
+    <img src="engram.resource/widget-03.webp" class="widget-img" alt="Heating widget">
+    <img src="engram.resource/widget-04.webp" class="widget-img" alt="Light widget">
+  </div>
+</div>
+
+<script>
+(function () {
+  var PILL_W  = 120;
+  var HOLD    = 3000;
+  var TRANS_MS = 400; // must match CSS transition duration
+
+  var states = [
+    { button: false, sub: false, stepper: false, content: true  }, // Notice
+    { button: true,  sub: false, stepper: false, content: false }, // Elevator
+    { button: true,  sub: false, stepper: true,  content: false }, // Heating
+    { button: true,  sub: true,  stepper: true,  content: false }, // Light
+  ];
+
+  var labelTrack = document.getElementById('labelTrack');
+  var imgs       = document.querySelectorAll('.widget-img');
+  var tg = {
+    button:  document.getElementById('tg-button'),
+    sub:     document.getElementById('tg-sub'),
+    stepper: document.getElementById('tg-stepper'),
+    content: document.getElementById('tg-content'),
+  };
+
+  var current = 0;
+
+  function applyState(idx) {
+    var s = states[idx];
+    Object.keys(tg).forEach(function(k) {
+      tg[k].classList.toggle('on', s[k]);
+    });
+    imgs.forEach(function(img, i) {
+      img.classList.toggle('active', i === idx);
+    });
+  }
+
+  function goTo(next) {
+    if (current === 3 && next === 0) {
+      // Slide to the clone "Notice" at position 4 (continues leftward, no jump)
+      labelTrack.style.transform = 'translateX(' + (-4 * PILL_W) + 'px)';
+      applyState(0);
+      // After the slide finishes, snap silently back to real position 0
+      setTimeout(function () {
+        labelTrack.style.transition = 'none';
+        labelTrack.style.transform  = 'translateX(0px)';
+        labelTrack.getBoundingClientRect(); // force reflow so snap is instant
+        labelTrack.style.transition = '';   // restore CSS transition
+        current = 0;
+      }, TRANS_MS + 20);
+    } else {
+      labelTrack.style.transform = 'translateX(' + (-next * PILL_W) + 'px)';
+      applyState(next);
+      current = next;
+    }
+  }
+
+  setInterval(function () {
+    goTo((current + 1) % 4);
+  }, HOLD);
+})();
+</script>
+</body>
+</html>
