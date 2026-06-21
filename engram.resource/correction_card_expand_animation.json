@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "name": "Correction Card Expand Animation",
+    "version": "1.0.0",
+    "description": "Two-state correction card animation: collapsed → expanded (Details) → collapsed (Close)",
+    "totalDuration": 7010,
+    "loop": true
+  },
+  "design": {
+    "card": {
+      "width": 492,
+      "borderRadius": 8,
+      "border": "1px solid #E5E5E5",
+      "background": "#FFFFFF",
+      "padding": 20,
+      "fontFamily": "Pretendard",
+      "heightCollapsed": 112,
+      "heightExpanded": "auto (measured from scrollHeight)"
+    },
+    "typography": {
+      "sentence":      { "fontSize": 16, "lineHeight": 24, "color": "#1A1A1A" },
+      "deleted":       { "fontSize": 16, "lineHeight": 24, "color": "#C13F3F", "textDecoration": "line-through" },
+      "inserted":      { "fontSize": 16, "lineHeight": 24, "color": "#FF8C50" },
+      "sectionLabel":  { "fontSize": 13, "lineHeight": 18, "color": "#1A1A1A", "fontWeight": 600 },
+      "exampleLabel":  { "fontSize": 13, "lineHeight": 18, "color": "#1A1A1A", "fontWeight": 600 },
+      "exampleItalic": { "fontSize": 14, "lineHeight": 20, "color": "#888888", "fontStyle": "italic" },
+      "examplePlain":  { "fontSize": 14, "lineHeight": 20, "color": "#1A1A1A" },
+      "bottomAction":  { "fontSize": 14, "lineHeight": 14, "color": "#888888" },
+      "buttonLabel":   { "fontSize": 14, "lineHeight": 14 }
+    },
+    "buttons": {
+      "width": 96,
+      "height": 36,
+      "borderRadius": 6,
+      "iconSize": 24,
+      "gap": 4,
+      "default": {
+        "background": "#FFFFFF",
+        "border": "1px solid #D0D0D0",
+        "color": "#888888"
+      },
+      "accept": {
+        "background": "#FF8C50",
+        "border": "none",
+        "color": "#FFFFFF"
+      },
+      "acceptOutline": {
+        "background": "#FFFFFF",
+        "border": "1px solid #FF8C50",
+        "color": "#FF8C50"
+      }
+    },
+    "spacing": {
+      "cardPadding": 20,
+      "sectionTopPadding": "20px 20px 0 20px",
+      "collapsedActionsPadding": "12px 20px 20px 20px",
+      "sectionOtherPadding": "16px 20px 0 20px",
+      "exampleBoxMargin": "20px 20px 0 20px",
+      "exampleBoxPadding": 16,
+      "bottomBarPadding": "12px 20px 20px 20px",
+      "bottomBarMarginTop": 16,
+      "dividerMargin": "0 20px",
+      "btnRowOtherPadding": "12px 0 0 0",
+      "btnRowTopPadding": "12px 0 16px 0"
+    },
+    "colors": {
+      "accent": "#FF8C50",
+      "deleted": "#C13F3F",
+      "muted": "#888888",
+      "border": "#E5E5E5",
+      "buttonBorder": "#D0D0D0",
+      "iconFill": "#555555",
+      "iconMuted": "rgba(31,26,23,0.36)",
+      "iconMutedMed": "rgba(31,26,23,0.6)"
+    }
+  },
+  "cards": {
+    "collapsed": {
+      "height": 112,
+      "sections": [
+        {
+          "type": "textRow",
+          "padding": "20px 20px 0 20px",
+          "segments": [
+            { "text": "Greaphing designing", "style": "deleted" },
+            { "text": "Graphic design",      "style": "inserted" },
+            { "text": " is a strong suit of mine.", "style": "sentence" }
+          ]
+        },
+        {
+          "type": "actionRow",
+          "padding": "12px 20px 20px 20px",
+          "left": [
+            { "id": "bookmark-icon", "icon": "bookmark" },
+            { "id": "ignore-icon",   "icon": "ignore" }
+          ],
+          "right": [
+            { "id": "details-btn",    "buttonType": "default",  "icon": "drop",         "label": "Details" },
+            { "id": "main-accept-btn","buttonType": "accept",   "icon": "successWhite", "label": "Accept",  "marginLeft": 8 }
+          ]
+        }
+      ]
+    },
+    "expanded": {
+      "height": "auto",
+      "sections": [
+        {
+          "type": "textRow",
+          "showSectionLabel": true,
+          "sectionLabel": "Top Pick",
+          "padding": "20px 20px 0 20px",
+          "segments": [
+            { "text": "Greaphing designing", "style": "deleted" },
+            { "text": "Graphic design",      "style": "inserted" },
+            { "text": " is a strong suit of mine.", "style": "sentence" }
+          ],
+          "actionRight": [
+            { "id": "top-accept-btn", "buttonType": "accept", "icon": "successWhite", "label": "Accept" }
+          ]
+        },
+        {
+          "type": "divider",
+          "margin": "0 20px"
+        },
+        {
+          "type": "textRow",
+          "showSectionLabel": true,
+          "sectionLabel": "Other Option",
+          "padding": "16px 20px 0 20px",
+          "segments": [
+            { "text": "Graphic",     "style": "inserted" },
+            { "text": "designing is a strong suit of mine.", "style": "sentence" }
+          ],
+          "actionRight": [
+            { "id": "other-accept-btn", "buttonType": "acceptOutline", "icon": "successOrange", "label": "Accept" }
+          ]
+        },
+        {
+          "type": "exampleBox",
+          "margin": "20px 20px 0 20px",
+          "padding": 16,
+          "border": "1px solid #E5E5E5",
+          "borderRadius": 8,
+          "items": [
+            { "label": "Example Sentence", "text": "I am good at graphic design.",       "style": "italic" },
+            { "label": "Similar Sentence",  "text": "I have a talent in graphic design",  "style": "plain" }
+          ]
+        },
+        {
+          "type": "bottomBar",
+          "padding": "12px 20px 20px 20px",
+          "marginTop": 16,
+          "borderTop": "1px solid #E5E5E5",
+          "left": [
+            { "id": "ignore-action",   "icon": "ignore",   "label": "Ignore" },
+            { "id": "feedback-action", "icon": "feedback", "label": "Feedback" }
+          ],
+          "right": [
+            { "id": "close-btn", "buttonType": "default", "icon": "chevronUp", "label": "Close" }
+          ]
+        }
+      ]
+    }
+  },
+  "icons": {
+    "bookmark": {
+      "viewBox": "0 0 24 24",
+      "fill": "#555555",
+      "path": "M6.667 19.117V7.667C6.667 6.197 7.864 5 9.334 5H14.667C16.137 5 17.334 6.197 17.334 7.667V19.117L12 14.547L6.667 19.117ZM9.334 6.333C8.597 6.333 8 6.93 8 7.667V16.217L12 12.787L16 16.217V7.667C16 6.93 15.404 6.333 14.667 6.333H9.334Z"
+    },
+    "ignore": {
+      "viewBox": "0 0 24 24",
+      "fill": "#555555",
+      "paths": [
+        "M16.843 15.904C18.306 14.751 19.313 13.238 19.666 12.002C19 9.669 16 6.337 12 6.337C10.695 6.342 9.414 6.686 8.283 7.336L5.803 4.86C5.678 4.736 5.509 4.667 5.333 4.667C5.157 4.667 4.988 4.736 4.863 4.86C4.739 4.985 4.669 5.154 4.669 5.33C4.669 5.506 4.739 5.675 4.863 5.8L7.153 8.093C5.693 9.246 4.686 10.759 4.333 11.995C5 14.328 8 17.66 12 17.66C13.304 17.655 14.585 17.311 15.716 16.661L18.196 19.137C18.321 19.262 18.49 19.332 18.666 19.333C18.843 19.332 19.012 19.262 19.136 19.137C19.261 19.012 19.33 18.843 19.33 18.667C19.33 18.491 19.261 18.322 19.136 18.197L16.843 15.904Z",
+        "M12 7.67C15.046 7.67 17.513 10.112 18.26 12.002C17.742 13.175 16.925 14.191 15.89 14.948L14.78 13.838C15.142 13.294 15.334 12.655 15.333 12.002C15.333 11.118 14.982 10.27 14.357 9.645C13.732 9.02 12.884 8.669 12 8.669C11.346 8.668 10.707 8.861 10.163 9.223L9.273 8.333C10.119 7.904 11.052 7.677 12 7.67Z",
+        "M12 16.334C8.953 16.334 6.486 13.891 5.74 12.002C6.257 10.829 7.075 9.813 8.11 9.056L9.22 10.166C8.858 10.71 8.665 11.349 8.666 12.002C8.666 12.886 9.018 13.733 9.643 14.358C10.268 14.983 11.116 15.334 12 15.334C12.653 15.336 13.292 15.143 13.836 14.781L14.726 15.671C13.881 16.099 12.948 16.326 12 16.334Z"
+      ]
+    },
+    "successWhite": {
+      "viewBox": "0 0 24 24",
+      "paths": [
+        { "d": "M12 4C10.418 4 8.871 4.469 7.555 5.348C6.24 6.227 5.214 7.477 4.609 8.939C4.003 10.4 3.845 12.009 4.154 13.561C4.462 15.113 5.224 16.538 6.343 17.657C7.462 18.776 8.887 19.538 10.439 19.846C11.991 20.155 13.6 19.997 15.062 19.391C16.523 18.786 17.773 17.76 18.652 16.445C19.531 15.129 20 13.582 20 12C20 9.878 19.157 7.843 17.657 6.343C16.157 4.843 14.122 4 12 4ZM12 18.667C10.682 18.667 9.393 18.276 8.296 17.543C7.2 16.811 6.345 15.769 5.841 14.551C5.336 13.333 5.204 11.993 5.461 10.699C5.719 9.406 6.354 8.218 7.286 7.286C8.218 6.354 9.406 5.719 10.699 5.461C11.993 5.204 13.333 5.336 14.551 5.841C15.769 6.345 16.811 7.2 17.543 8.296C18.276 9.393 18.667 10.682 18.667 12C18.667 13.753 17.965 15.434 16.714 16.714C15.434 17.965 13.753 18.667 12 18.667Z", "fill": "white" },
+        { "d": "M14.863 9.53L10.887 13.503L9.273 11.776C9.155 11.641 8.99 11.556 8.812 11.541C8.634 11.525 8.457 11.58 8.319 11.695C8.181 11.809 8.093 11.974 8.074 12.153C8.054 12.332 8.106 12.512 8.218 12.653L10.091 14.653C10.261 14.839 10.497 14.951 10.749 14.957H10.766C11.016 14.952 11.255 14.85 11.432 14.674L15.676 10.427C15.896 10.171 15.94 9.806 15.786 9.505C15.632 9.204 15.309 9.022 14.965 9.04L14.863 9.53Z", "fill": "white" }
+      ]
+    },
+    "successOrange": {
+      "viewBox": "0 0 24 24",
+      "paths": [
+        { "d": "M12 4C10.418 4 8.871 4.469 7.555 5.348C6.24 6.227 5.214 7.477 4.609 8.939C4.003 10.4 3.845 12.009 4.154 13.561C4.462 15.113 5.224 16.538 6.343 17.657C7.462 18.776 8.887 19.538 10.439 19.846C11.991 20.155 13.6 19.997 15.062 19.391C16.523 18.786 17.773 17.76 18.652 16.445C19.531 15.129 20 13.582 20 12C20 9.878 19.157 7.843 17.657 6.343C16.157 4.843 14.122 4 12 4ZM12 18.667C10.682 18.667 9.393 18.276 8.296 17.543C7.2 16.811 6.345 15.769 5.841 14.551C5.336 13.333 5.204 11.993 5.461 10.699C5.719 9.406 6.354 8.218 7.286 7.286C8.218 6.354 9.406 5.719 10.699 5.461C11.993 5.204 13.333 5.336 14.551 5.841C15.769 6.345 16.811 7.2 17.543 8.296C18.276 9.393 18.667 10.682 18.667 12C18.667 13.753 17.965 15.434 16.714 16.714C15.434 17.965 13.753 18.667 12 18.667Z", "fill": "#FF8C50" },
+        { "d": "M14.863 9.53L10.887 13.503L9.273 11.776C9.155 11.641 8.99 11.556 8.812 11.541C8.634 11.525 8.457 11.58 8.319 11.695C8.181 11.809 8.093 11.974 8.074 12.153C8.054 12.332 8.106 12.512 8.218 12.653L10.091 14.653C10.261 14.839 10.497 14.951 10.749 14.957H10.766C11.016 14.952 11.255 14.85 11.432 14.674L15.676 10.427C15.896 10.171 15.94 9.806 15.786 9.505C15.632 9.204 15.309 9.022 14.965 9.04L14.863 9.53Z", "fill": "#FF8C50" }
+      ]
+    },
+    "chevronUp": {
+      "viewBox": "0 0 22 22",
+      "fill": "rgba(31,26,23,0.36)",
+      "path": "M15.401 13.567C15.286 13.681 15.132 13.744 14.97 13.744C14.809 13.744 14.654 13.681 14.54 13.567L11 10.002L7.46 13.567C7.345 13.678 7.192 13.74 7.033 13.739C6.874 13.737 6.722 13.673 6.609 13.56C6.496 13.447 6.433 13.295 6.431 13.136C6.43 12.977 6.491 12.824 6.602 12.709L10.571 8.739C10.685 8.625 10.84 8.561 11.001 8.561C11.163 8.561 11.317 8.625 11.431 8.739L15.401 12.709C15.515 12.823 15.579 12.978 15.579 13.139C15.579 13.3 15.515 13.454 15.401 13.567Z"
+    },
+    "drop": {
+      "viewBox": "0 0 22 22",
+      "fill": "rgba(31,26,23,0.36)",
+      "path": "M7.029 8.25C7.197 8.252 7.358 8.32 7.46 8.433L11 12.005L14.54 8.433C14.654 8.32 14.809 8.256 14.97 8.256C15.132 8.256 15.286 8.32 15.401 8.433C15.516 8.548 15.583 8.706 15.583 8.869C15.583 9.032 15.516 9.189 15.401 9.304L11 13.75L6.599 9.304C6.484 9.189 6.416 9.032 6.416 8.869C6.416 8.706 6.484 8.548 6.599 8.433C6.713 8.32 6.868 8.252 7.029 8.25Z"
+    },
+    "feedback": {
+      "viewBox": "0 0 24 24",
+      "fill": "rgba(31,26,23,0.6)",
+      "path": "M17.2834 10.8166L4.89341 4.54994C4.54284 4.37004 4.14631 4.2996 3.75523 4.34774C3.36415 4.39589 2.99655 4.56039 2.70008 4.81994C2.40105 5.07109 2.18341 5.40544 2.0748 5.78054C1.96619 6.15563 1.97151 6.55454 2.09007 6.92661L3.42341 11.9999L2.09007 17.0733C1.97544 17.4472 1.97297 17.8466 2.08295 18.2219C2.19294 18.5972 2.41056 18.9321 2.70889 19.185C3.00722 19.4379 3.37317 19.5978 3.76144 19.6449C4.14971 19.692 4.54327 19.6242 4.89341 19.4499L17.2934 13.1733C17.5044 13.0586 17.6806 12.889 17.8032 12.6825C17.9258 12.476 17.9904 12.2401 17.9901 11.9999C17.9912 11.757 17.926 11.5184 17.8015 11.3099C17.677 11.1013 17.4978 10.9308 17.2834 10.8166ZM4.28341 18.2599C4.166 18.3178 4.03417 18.3397 3.90436 18.3231C3.77455 18.3065 3.65249 18.2521 3.55341 18.1666C3.45233 18.083 3.37908 17.9706 3.34336 17.8444C3.30763 17.7182 3.31114 17.5841 3.35341 17.4599L4.62007 12.6666H9.32341C9.50022 12.6666 9.66979 12.5964 9.79481 12.4713C9.91984 12.3463 9.99007 12.1768 9.99007 11.9999C9.99007 11.8231 9.91984 11.6536 9.79481 11.5285C9.66979 11.4035 9.50022 11.3333 9.32341 11.3333H4.62007L3.3734 6.57328C3.33114 6.41577 3.32763 6.28168 3.36335 6.15546C3.39908 6.02925 3.47233 5.91688 3.57341 5.83328C3.67219 5.74846 3.79364 5.69443 3.92277 5.67784C4.05191 5.66126 4.18307 5.68284 4.30007 5.73994L16.6834 11.9999L4.28341 18.2599Z"
+    }
+  },
+  "sequence": [
+    {
+      "step": 1,
+      "label": "Initial collapsed state",
+      "card": "collapsed",
+      "startTime": 0,
+      "duration": 1000
+    },
+    {
+      "step": 2,
+      "label": "Cursor appears and moves to Details button",
+      "card": "collapsed",
+      "startTime": 1000,
+      "duration": 850,
+      "cursor": {
+        "action": "move",
+        "target": "details-btn",
+        "from": { "offsetX": 80, "offsetY": 40 },
+        "to":   { "offsetX": 0,  "offsetY": 0  },
+        "easing": "easeInOut"
+      }
+    },
+    {
+      "step": 3,
+      "label": "Click Details button",
+      "card": "collapsed",
+      "startTime": 1850,
+      "duration": 460,
+      "cursor": {
+        "action": "click",
+        "target": "details-btn",
+        "press": {
+          "scaleDown": 0.72,
+          "scaleUp": 1.08,
+          "duration": 280,
+          "easing": "easeOut"
+        },
+        "ripple": {
+          "color": "rgba(255,140,80,0.28)",
+          "size": 40,
+          "expandScale": 2.4,
+          "duration": 450
+        }
+      }
+    },
+    {
+      "step": 4,
+      "label": "Cursor disappears, card expands to fit content",
+      "transition": {
+        "from": "collapsed",
+        "to": "expanded",
+        "type": "height",
+        "heightMethod": "scrollHeight",
+        "duration": 400,
+        "easing": "cubic-bezier(0.4,0,0.2,1)",
+        "contentFadeDelay": 200,
+        "contentFadeDuration": 120
+      },
+      "startTime": 2310,
+      "duration": 400
+    },
+    {
+      "step": 5,
+      "label": "Hold expanded card",
+      "card": "expanded",
+      "startTime": 2710,
+      "duration": 2400
+    },
+    {
+      "step": 6,
+      "label": "Cursor appears and moves to Close button",
+      "card": "expanded",
+      "startTime": 5110,
+      "duration": 850,
+      "cursor": {
+        "action": "move",
+        "target": "close-btn",
+        "from": { "offsetX": 80, "offsetY": -40 },
+        "to":   { "offsetX": 0,  "offsetY": 0   },
+        "easing": "easeInOut"
+      }
+    },
+    {
+      "step": 7,
+      "label": "Click Close button",
+      "card": "expanded",
+      "startTime": 5960,
+      "duration": 460,
+      "cursor": {
+        "action": "click",
+        "target": "close-btn",
+        "press": {
+          "scaleDown": 0.72,
+          "scaleUp": 1.08,
+          "duration": 280,
+          "easing": "easeOut"
+        },
+        "ripple": {
+          "color": "rgba(255,140,80,0.28)",
+          "size": 40,
+          "expandScale": 2.4,
+          "duration": 450
+        }
+      }
+    },
+    {
+      "step": 8,
+      "label": "Card collapses back to 112px",
+      "transition": {
+        "from": "expanded",
+        "to": "collapsed",
+        "type": "height",
+        "targetHeight": 112,
+        "duration": 420,
+        "easing": "cubic-bezier(0.4,0,0.2,1)",
+        "contentFadeFirst": true
+      },
+      "startTime": 6420,
+      "duration": 420
+    },
+    {
+      "step": 9,
+      "label": "Hold collapsed, then loop",
+      "card": "collapsed",
+      "startTime": 6840,
+      "duration": 1400,
+      "next": "loop"
+    }
+  ],
+  "cursor": {
+    "width": 20,
+    "height": 28,
+    "svgPath": "M2 2L2 22L7.5 16.5L11 24L13.5 23L10 15.5H17.5L2 2Z",
+    "fill": "white",
+    "stroke": "#222222",
+    "strokeWidth": 1.4,
+    "transformOrigin": "4px 4px",
+    "fadeIn":  { "duration": 200, "easing": "linear" },
+    "fadeOut": { "duration": 200, "easing": "linear" },
+    "clickAnimation": {
+      "keyframes": [
+        { "offset": 0,    "scale": 1    },
+        { "offset": 0.35, "scale": 0.72 },
+        { "offset": 0.70, "scale": 1.08 },
+        { "offset": 1,    "scale": 1    }
+      ],
+      "duration": 280,
+      "easing": "ease-out"
+    }
+  }
+}

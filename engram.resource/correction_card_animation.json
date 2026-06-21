@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "name": "Correction Card Animation",
+    "version": "1.0.0",
+    "description": "Three-state correction card animation: Accept → Undo → Ignore",
+    "frameRate": 60,
+    "totalDuration": 8500,
+    "loop": true
+  },
+  "design": {
+    "card": {
+      "width": 492,
+      "borderRadius": 8,
+      "border": "1px solid #E5E5E5",
+      "background": "#FFFFFF",
+      "padding": 20,
+      "fontFamily": "Pretendard"
+    },
+    "typography": {
+      "sentence": { "fontSize": 16, "lineHeight": 24, "color": "#1A1A1A" },
+      "deleted": { "fontSize": 16, "lineHeight": 24, "color": "#C13F3F", "textDecoration": "line-through" },
+      "inserted": { "fontSize": 16, "lineHeight": 24, "color": "#FF8C50" },
+      "statusText": { "fontSize": 14, "lineHeight": 14, "color": "#FF8C50" },
+      "ignoredText": { "fontSize": 16, "lineHeight": 16, "color": "#888888" },
+      "buttonLabel": { "fontSize": 14, "lineHeight": 14 }
+    },
+    "buttons": {
+      "width": 96,
+      "height": 36,
+      "borderRadius": 6,
+      "iconSize": 24,
+      "default": {
+        "background": "#FFFFFF",
+        "border": "1px solid #D0D0D0",
+        "color": "#888888"
+      },
+      "accept": {
+        "background": "#FF8C50",
+        "border": "none",
+        "color": "#FFFFFF"
+      }
+    },
+    "colors": {
+      "accent": "#FF8C50",
+      "deleted": "#C13F3F",
+      "muted": "#888888",
+      "border": "#E5E5E5",
+      "buttonBorder": "#D0D0D0",
+      "iconFill": "#555555"
+    }
+  },
+  "cards": {
+    "card01": {
+      "height": 112,
+      "layout": "column",
+      "justifyContent": "space-between",
+      "rows": [
+        {
+          "type": "text",
+          "segments": [
+            { "text": "Greaphing designing", "style": "deleted" },
+            { "text": "Graphic design", "style": "inserted" },
+            { "text": " is a strong suit of mine.", "style": "sentence" }
+          ]
+        },
+        {
+          "type": "actions",
+          "left": [
+            { "id": "bookmark-icon", "icon": "bookmark_off", "size": 24 },
+            { "id": "ignore-icon",   "icon": "ignore",        "size": 24 }
+          ],
+          "right": [
+            { "id": "details-btn", "type": "default", "icon": "drop",           "label": "Details" },
+            { "id": "accept-btn",  "type": "accept",  "icon": "success_button", "label": "Accept"  }
+          ]
+        }
+      ]
+    },
+    "card02": {
+      "height": 112,
+      "layout": "column",
+      "justifyContent": "space-between",
+      "rows": [
+        {
+          "type": "text",
+          "segments": [
+            { "text": "Greaphing designing", "style": "deleted" },
+            { "text": "Graphic design", "style": "inserted" },
+            { "text": " is a strong suit of mine.", "style": "sentence" }
+          ]
+        },
+        {
+          "type": "actions",
+          "left": [
+            { "id": "status-label", "type": "status", "icon": "success_status", "label": "Suggestion accepted" }
+          ],
+          "right": [
+            { "id": "undo-btn", "type": "default", "icon": "undo", "label": "Undo" }
+          ]
+        }
+      ]
+    },
+    "card03": {
+      "height": 64,
+      "layout": "row",
+      "alignItems": "center",
+      "left": [
+        { "id": "ignored-icon",  "icon": "ignore", "size": 24 },
+        { "id": "ignored-label", "type": "ignoredText", "label": "Ignored." }
+      ],
+      "right": [
+        { "id": "undo-btn2",   "type": "default", "icon": "undo",   "label": "Undo"   },
+        { "id": "delete-btn",  "type": "default", "icon": "delete", "label": "Delete" }
+      ]
+    }
+  },
+  "icons": {
+    "bookmark_off": {
+      "viewBox": "0 0 24 24",
+      "path": "M6.667 19.117V7.667C6.667 6.197 7.864 5 9.334 5H14.667C16.137 5 17.334 6.197 17.334 7.667V19.117L12 14.547L6.667 19.117ZM9.334 6.333C8.597 6.333 8 6.93 8 7.667V16.217L12 12.787L16 16.217V7.667C16 6.93 15.404 6.333 14.667 6.333H9.334Z",
+      "fill": "#555555"
+    },
+    "ignore": {
+      "viewBox": "0 0 24 24",
+      "path": "M16.843 15.904C18.306 14.751 19.313 13.238 19.666 12.002C19 9.669 16 6.337 12 6.337C10.695 6.342 9.414 6.686 8.283 7.336L5.803 4.86C5.678 4.736 5.509 4.667 5.333 4.667C5.157 4.667 4.988 4.736 4.863 4.86C4.739 4.985 4.669 5.154 4.669 5.33C4.669 5.506 4.739 5.675 4.863 5.8L7.153 8.093C5.693 9.246 4.686 10.759 4.333 11.995C5 14.328 8 17.66 12 17.66C13.304 17.655 14.585 17.311 15.716 16.661L18.196 19.137C18.321 19.262 18.49 19.332 18.666 19.333C18.843 19.332 19.012 19.262 19.136 19.137C19.261 19.012 19.33 18.843 19.33 18.667C19.33 18.491 19.261 18.322 19.136 18.197L16.843 15.904Z M12 7.67C15.046 7.67 17.513 10.112 18.26 12.002C17.742 13.175 16.925 14.191 15.89 14.948L14.78 13.838C15.142 13.294 15.334 12.655 15.333 12.002C15.333 11.118 14.982 10.27 14.357 9.645C13.732 9.02 12.884 8.669 12 8.669C11.346 8.668 10.707 8.861 10.163 9.223L9.273 8.333C10.119 7.904 11.052 7.677 12 7.67Z",
+      "fill": "#555555"
+    },
+    "success_button": {
+      "viewBox": "0 0 24 24",
+      "paths": [
+        {
+          "d": "M12 4C10.418 4 8.871 4.469 7.555 5.348C6.24 6.227 5.214 7.477 4.609 8.939C4.003 10.4 3.845 12.009 4.154 13.561C4.462 15.113 5.224 16.538 6.343 17.657C7.462 18.776 8.887 19.538 10.439 19.846C11.991 20.155 13.6 19.997 15.062 19.391C16.523 18.786 17.773 17.76 18.652 16.445C19.531 15.129 20 13.582 20 12C20 9.878 19.157 7.843 17.657 6.343C16.157 4.843 14.122 4 12 4ZM12 18.667C10.682 18.667 9.393 18.276 8.296 17.543C7.2 16.811 6.345 15.769 5.841 14.551C5.336 13.333 5.204 11.993 5.461 10.699C5.719 9.406 6.354 8.218 7.286 7.286C8.218 6.354 9.406 5.719 10.699 5.461C11.993 5.204 13.333 5.336 14.551 5.841C15.769 6.345 16.811 7.2 17.543 8.296C18.276 9.393 18.667 10.682 18.667 12C18.667 13.753 17.965 15.434 16.714 16.714C15.434 17.965 13.753 18.667 12 18.667Z",
+          "fill": "white"
+        },
+        {
+          "d": "M14.863 9.53L10.887 13.503L9.273 11.776C9.155 11.641 8.99 11.556 8.812 11.541C8.634 11.525 8.457 11.58 8.319 11.695C8.181 11.809 8.093 11.974 8.074 12.153C8.054 12.332 8.106 12.512 8.218 12.653L10.091 14.653C10.261 14.839 10.497 14.951 10.749 14.957H10.766C11.016 14.952 11.255 14.85 11.432 14.674L15.676 10.427C15.896 10.171 15.94 9.806 15.786 9.505C15.632 9.204 15.309 9.022 14.965 9.04L14.863 9.53Z",
+          "fill": "white"
+        }
+      ]
+    },
+    "success_status": {
+      "viewBox": "0 0 24 24",
+      "paths": [
+        {
+          "d": "M12 4C10.418 4 8.871 4.469 7.555 5.348C6.24 6.227 5.214 7.477 4.609 8.939C4.003 10.4 3.845 12.009 4.154 13.561C4.462 15.113 5.224 16.538 6.343 17.657C7.462 18.776 8.887 19.538 10.439 19.846C11.991 20.155 13.6 19.997 15.062 19.391C16.523 18.786 17.773 17.76 18.652 16.445C19.531 15.129 20 13.582 20 12C20 9.878 19.157 7.843 17.657 6.343C16.157 4.843 14.122 4 12 4ZM12 18.667C10.682 18.667 9.393 18.276 8.296 17.543C7.2 16.811 6.345 15.769 5.841 14.551C5.336 13.333 5.204 11.993 5.461 10.699C5.719 9.406 6.354 8.218 7.286 7.286C8.218 6.354 9.406 5.719 10.699 5.461C11.993 5.204 13.333 5.336 14.551 5.841C15.769 6.345 16.811 7.2 17.543 8.296C18.276 9.393 18.667 10.682 18.667 12C18.667 13.753 17.965 15.434 16.714 16.714C15.434 17.965 13.753 18.667 12 18.667Z",
+          "fill": "#FF8C50"
+        },
+        {
+          "d": "M14.863 9.53L10.887 13.503L9.273 11.776C9.155 11.641 8.99 11.556 8.812 11.541C8.634 11.525 8.457 11.58 8.319 11.695C8.181 11.809 8.093 11.974 8.074 12.153C8.054 12.332 8.106 12.512 8.218 12.653L10.091 14.653C10.261 14.839 10.497 14.951 10.749 14.957H10.766C11.016 14.952 11.255 14.85 11.432 14.674L15.676 10.427C15.896 10.171 15.94 9.806 15.786 9.505C15.632 9.204 15.309 9.022 14.965 9.04L14.863 9.53Z",
+          "fill": "#FF8C50"
+        }
+      ]
+    },
+    "undo": {
+      "viewBox": "0 0 22 22",
+      "path": "M12.834 7.341H6.469L8.965 5.045C9.087 4.936 9.16 4.784 9.169 4.621C9.178 4.458 9.122 4.298 9.013 4.177C8.904 4.055 8.751 3.982 8.588 3.973C8.425 3.964 8.265 4.02 8.143 4.129L3.973 7.952L8.14 11.762C8.26 11.871 8.418 11.928 8.579 11.92C8.741 11.913 8.893 11.842 9.002 11.723C9.056 11.664 9.098 11.594 9.126 11.519C9.153 11.443 9.165 11.363 9.162 11.283C9.158 11.202 9.139 11.124 9.104 11.051C9.07 10.978 9.022 10.913 8.962 10.859L6.469 8.563H12.834C15.064 8.563 16.806 10.373 16.806 12.685C16.806 14.996 15.064 16.806 12.834 16.806H10.695C10.533 16.806 10.377 16.871 10.263 16.985C10.148 17.1 10.084 17.255 10.084 17.417C10.084 17.579 10.148 17.734 10.263 17.849C10.377 17.963 10.533 18.028 10.695 18.028H12.834C15.749 18.028 18.028 15.68 18.028 12.685C18.028 9.689 15.749 7.341 12.834 7.341Z",
+      "fill": "#1F1A17",
+      "fillOpacity": 0.36
+    },
+    "delete": {
+      "viewBox": "0 0 22 22",
+      "path": "M11 3.667C11.704 3.666 12.387 3.91 12.933 4.355C13.478 4.8 13.853 5.421 13.994 6.111H17.11C17.272 6.111 17.428 6.175 17.543 6.29C17.658 6.404 17.722 6.56 17.722 6.722C17.722 6.884 17.657 7.039 17.543 7.154C17.428 7.268 17.272 7.334 17.11 7.334H16.701L15.48 16.225C15.398 16.809 15.108 17.345 14.663 17.732C14.218 18.119 13.648 18.333 13.059 18.334H8.916C8.326 18.333 7.756 18.119 7.312 17.732C6.867 17.345 6.577 16.809 6.496 16.225L5.273 7.334H4.889C4.727 7.334 4.571 7.268 4.456 7.154C4.342 7.039 4.277 6.884 4.277 6.722C4.277 6.56 4.341 6.404 4.456 6.29C4.571 6.175 4.727 6.111 4.889 6.111H8.005C8.146 5.421 8.521 4.8 9.066 4.355C9.612 3.91 10.296 3.666 11 3.667Z",
+      "fill": "#1F1A17",
+      "fillOpacity": 0.36
+    },
+    "drop": {
+      "viewBox": "0 0 22 22",
+      "path": "M7.029 8.25C7.197 8.252 7.358 8.32 7.46 8.433L11 12.005L14.54 8.433C14.654 8.32 14.809 8.256 14.97 8.256C15.132 8.256 15.286 8.32 15.401 8.433C15.516 8.548 15.583 8.706 15.583 8.869C15.583 9.032 15.516 9.189 15.401 9.304L11 13.75L6.599 9.304C6.484 9.189 6.416 9.032 6.416 8.869C6.416 8.706 6.484 8.548 6.599 8.433C6.713 8.32 6.868 8.252 7.029 8.25Z",
+      "fill": "#1F1A17",
+      "fillOpacity": 0.36
+    }
+  },
+  "sequence": [
+    {
+      "step": 1,
+      "label": "Initial state",
+      "card": "card01",
+      "startTime": 0,
+      "duration": 900
+    },
+    {
+      "step": 2,
+      "label": "Cursor appears and moves to Accept button",
+      "card": "card01",
+      "startTime": 900,
+      "duration": 800,
+      "cursor": {
+        "action": "move",
+        "target": "accept-btn",
+        "from": { "offsetX": -80, "offsetY": 40 },
+        "to":   { "offsetX": 0,   "offsetY": 0  },
+        "easing": "easeInOut"
+      }
+    },
+    {
+      "step": 3,
+      "label": "Click Accept button",
+      "card": "card01",
+      "startTime": 1700,
+      "duration": 550,
+      "cursor": {
+        "action": "click",
+        "target": "accept-btn",
+        "ripple": true
+      }
+    },
+    {
+      "step": 4,
+      "label": "Cursor disappears, card fades to card02",
+      "transition": {
+        "from": "card01",
+        "to":   "card02",
+        "type": "fade",
+        "duration": 200
+      },
+      "startTime": 2250,
+      "duration": 200
+    },
+    {
+      "step": 5,
+      "label": "Hold card02",
+      "card": "card02",
+      "startTime": 2450,
+      "duration": 1100
+    },
+    {
+      "step": 6,
+      "label": "Cursor appears and moves to Undo button",
+      "card": "card02",
+      "startTime": 3550,
+      "duration": 800,
+      "cursor": {
+        "action": "move",
+        "target": "undo-btn",
+        "from": { "offsetX": 90, "offsetY": -35 },
+        "to":   { "offsetX": 0,  "offsetY": 0   },
+        "easing": "easeInOut"
+      }
+    },
+    {
+      "step": 7,
+      "label": "Click Undo button",
+      "card": "card02",
+      "startTime": 4350,
+      "duration": 550,
+      "cursor": {
+        "action": "click",
+        "target": "undo-btn",
+        "ripple": true
+      }
+    },
+    {
+      "step": 8,
+      "label": "Cursor disappears, card fades back to card01",
+      "transition": {
+        "from": "card02",
+        "to":   "card01",
+        "type": "fade",
+        "duration": 200
+      },
+      "startTime": 4900,
+      "duration": 200
+    },
+    {
+      "step": 9,
+      "label": "Hold card01",
+      "card": "card01",
+      "startTime": 5100,
+      "duration": 1100
+    },
+    {
+      "step": 10,
+      "label": "Cursor appears and moves to Ignore icon",
+      "card": "card01",
+      "startTime": 6200,
+      "duration": 800,
+      "cursor": {
+        "action": "move",
+        "target": "ignore-icon",
+        "from": { "offsetX": 110, "offsetY": 45 },
+        "to":   { "offsetX": 0,   "offsetY": 0  },
+        "easing": "easeInOut"
+      }
+    },
+    {
+      "step": 11,
+      "label": "Click Ignore icon",
+      "card": "card01",
+      "startTime": 7000,
+      "duration": 550,
+      "cursor": {
+        "action": "click",
+        "target": "ignore-icon",
+        "ripple": true
+      }
+    },
+    {
+      "step": 12,
+      "label": "Cursor disappears, card fades to card03",
+      "transition": {
+        "from": "card01",
+        "to":   "card03",
+        "type": "fade",
+        "duration": 200
+      },
+      "startTime": 7550,
+      "duration": 200
+    },
+    {
+      "step": 13,
+      "label": "Hold card03, then loop",
+      "card": "card03",
+      "startTime": 7750,
+      "duration": 2200,
+      "next": "loop"
+    }
+  ],
+  "cursor": {
+    "width": 20,
+    "height": 28,
+    "shape": "arrow",
+    "fill": "white",
+    "stroke": "#222222",
+    "strokeWidth": 1.4,
+    "svgPath": "M2 2L2 22L7.5 16.5L11 24L13.5 23L10 15.5H17.5L2 2Z",
+    "fadeIn":  { "duration": 200, "easing": "linear" },
+    "fadeOut": { "duration": 200, "easing": "linear" }
+  },
+  "transitions": {
+    "cardFade": {
+      "type": "opacity",
+      "outDuration": 200,
+      "inDuration": 0,
+      "easing": "linear"
+    }
+  },
+  "ripple": {
+    "size": 40,
+    "color": "rgba(255, 140, 80, 0.28)",
+    "expandScale": 2.2,
+    "duration": 400,
+    "easing": "easeOut"
+  }
+}
