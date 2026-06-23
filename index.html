@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simon Choi — UI/UX Designer</title>
+<meta name="description" content="UI/UX designer with 5+ years of experience. Currently at Hyundai HT building smart home interfaces. Previously increased retention 21% at Data B.">
+<link rel="canonical" href="https://schoi84.github.io/Portfolio/">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-65W9FB36T6"></script>
 <script>
@@ -50,6 +54,10 @@ body {
   min-width: 360px;
 }
 a { text-decoration: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 
 /* ─────────────────────
    GRADIENT VARIANTS
@@ -613,7 +621,6 @@ nav {
 .contact-right {
   display: flex; align-items: flex-end; padding-bottom: 0.4rem; flex: 1; justify-content: flex-end;
 }
-.contact-email {
   font-size: clamp(13px, 1.3vw, 16px); font-weight: 400;
   color: var(--gray-500); transition: color 0.2s;
 }
@@ -726,10 +733,9 @@ nav {
     align-items: center;
     justify-content: center;
   }
-  .hero-quotes { width: 100% !important; height: auto !important; position: relative; }
-  /* Active card sets container height; inactive cards are absolute + faded */
-  .quote-card.qc-active  { position: relative !important; top: auto !important; left: auto !important; width: 100% !important; height: auto !important; transform: none !important; }
-  .quote-card:not(.qc-active) { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: auto !important; transform: none !important; pointer-events: none; }
+  .hero-quotes { width: 100%; height: auto; position: relative; }
+  .quote-card { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform: none; pointer-events: none; }
+  .quote-card.qc-active { position: relative; top: auto; left: auto; pointer-events: auto; }
   .work, .about, .contact, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
 
   .nav-avail { font-size: 12px; padding: 3px 10px; }
@@ -770,6 +776,7 @@ nav {
   </div>
 </nav>
 
+<main>
 
 <!-- ════════════════════════════
      HERO
@@ -822,7 +829,7 @@ nav {
     <a href="hyundai-ht-design-system.html" class="proj-card reveal" data-glow-color="rgba(255,8,78,0.12)">
       <div class="proj-cover">
         <div class="cover-inner">
-          <img src="engram.resource/triangle-ui cover.webp" alt="Smart Home Wallpad triangle UI cover" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="engram.resource/triangle-ui cover.webp" loading="lazy" alt="Smart Home Wallpad triangle UI cover" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="proj-cover-overlay"></div>
       </div>
@@ -841,7 +848,7 @@ nav {
     <a href="pcanpi-case-study-v7.html" class="proj-card reveal d1" data-glow-color="rgba(249,115,22,0.12)">
       <div class="proj-cover">
         <div class="cover-inner">
-          <img src="engram.resource/cover-engram.webp" alt="Engram UIUX Redesign cover" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="engram.resource/cover-engram.webp" loading="lazy" alt="Engram UIUX Redesign cover" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="proj-cover-overlay"></div>
       </div>
@@ -944,7 +951,6 @@ nav {
         <span class="tool-chip">After Effects</span>
         <span class="tool-chip">Illustrator</span>
         <span class="tool-chip">XD</span>
-
       </div>
     </div>
     <div>
@@ -978,9 +984,11 @@ nav {
   </div>
 </section>
 
+</main>
+
 <footer class="footer">
   <div class="footer-left">
-    <span class="footer-copy">© 2025 Simon Choi</span>
+    <span class="footer-copy">© <span id="yr"></span> Simon Choi</span>
     <div class="footer-divider"></div>
     <span class="footer-copy">12schoi@naver.com</span>
   </div>
@@ -1191,5 +1199,6 @@ function setLang(lang) {
 const stored = localStorage.getItem('lang') || 'en';
 setLang(stored);
 </script>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>

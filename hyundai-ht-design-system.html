@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hyundai HT — Triangle UI Design System</title>
+<meta name="description" content="How I built a scalable white-label design system for smart home wallpads at Hyundai HT, configurable per client through a two-layer token architecture.">
+<link rel="canonical" href="https://schoi84.github.io/Portfolio/hyundai-ht-design-system.html">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://www.googletagmanager.com">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-65W9FB36T6"></script>
 <script>
@@ -49,6 +53,10 @@ html::-webkit-scrollbar { display: none; }
   100% { background-position: 0%   50%; }
 }
 body { font-family: var(--font); background: var(--bg); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+:focus-visible { outline: 2px solid var(--orange, #E16018); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 
 /* ── REVEAL ── */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
@@ -290,6 +298,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   </div>
 </nav>
 
+<main>
 <!-- ── HERO ── -->
 <div class="hero" style="padding-top:64px;">
   <div class="hero-inner">
@@ -338,7 +347,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     <h2 class="sec-headline" data-i18n="s01.headline">One product.<br>Unlimited clients.</h2>
     <p class="sec-lead" data-i18n="s01.lead">The wallpad is Hyundai HT's smart home interface, available in a 10" form factor. It ships as a fixed product to Hyundai Construction and as a white-label B2B product to architecture firms integrating it into residential developments.</p>
   </div>
-  <img src="engram.resource/ht-context-image.webp" alt="Hyundai HT wallpad context" class="reveal d1" style="width:1024px;max-width:100%;height:auto;display:block;border-radius:16px;">
+  <img loading="lazy" src="engram.resource/ht-context-image.webp" alt="Hyundai HT wallpad context" class="reveal d1" style="width:1024px;max-width:100%;height:auto;display:block;border-radius:16px;">
   <div class="s01-callout reveal d2">
     <span class="callout-label" data-i18n="s01.callout.label">Design Constraint</span>
     <p class="callout-text" data-i18n="s01.callout.text">Every client arrives with different brand colors, feature sets, and CI guidelines. There's no fixed end state. The system has to be ready for clients we haven't met yet.</p>
@@ -356,21 +365,21 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   </div>
   <div class="dl-cards">
     <div class="dl-card reveal d1">
-      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img src="engram.resource/3-Layer System.webp" alt="3-Layer System" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
+      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/3-Layer System.webp" alt="3-Layer System" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl1.title">3-Layer System</p>
         <p class="dl-desc" data-i18n="s02.dl1.desc">Triangle-UI creates visual hierarchy through layered surfaces. Each layer uses a progressively lighter tone. The topmost surface uses a glass-like effect, a functional choice since shadows don't read clearly on the smoked-glass display hardware.</p>
       </div>
     </div>
     <div class="dl-card reveal d1">
-      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img src="engram.resource/Categorized Colors.webp" alt="Categorized Colors" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
+      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Categorized Colors.webp" alt="Categorized Colors" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl2.title">Categorized Colors</p>
         <p class="dl-desc" data-i18n="s02.dl2.desc">Category colors are part of the wallpad's design heritage: green for communication, blue for control, orange for information. We preserved the hues for continuity and recalibrated values to meet WCAG, achieving a 3.5:1 contrast ratio against each background.</p>
       </div>
     </div>
     <div class="dl-card reveal d2">
-      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img src="engram.resource/Iconography.webp" alt="Iconography" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
+      <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Iconography.webp" alt="Iconography" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl3.title">Iconography</p>
         <p class="dl-desc" data-i18n="s02.dl3.desc">Icons use the roofline of a house as a consistent visual motif across the set. Usage drives the style: solid icons for buttons and actions, line icons for information. Built from basic geometric shapes to prioritize recognition over expression.</p>
@@ -391,28 +400,28 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   <div class="tok-container reveal d1">
     <div class="tok-grid">
       <div class="tok-card">
-        <img src="engram.resource/token01.webp" alt="Color token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
+        <img loading="lazy" src="engram.resource/token01.webp" alt="Color token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok1.name">Color</p>
           <p class="tok-desc" data-i18n="s03.tok1.desc">60-step primitive palette across neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, overlay.</p>
         </div>
       </div>
       <div class="tok-card">
-        <img src="engram.resource/token02.webp" alt="Typography token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
+        <img loading="lazy" src="engram.resource/token02.webp" alt="Typography token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok2.name">Typography</p>
           <p class="tok-desc" data-i18n="s03.tok2.desc">Scale from 12px to 80px with named semantic roles. Font family and weight configurable per client at the semantic level.</p>
         </div>
       </div>
       <div class="tok-card">
-        <img src="engram.resource/token03.webp" alt="Spacing token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
+        <img loading="lazy" src="engram.resource/token03.webp" alt="Spacing token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok3.name">Spacing</p>
           <p class="tok-desc" data-i18n="s03.tok3.desc">4px base grid with 8 named steps. Resolution modes (10" vs 13") switch spacing values by context. Same token, different output.</p>
         </div>
       </div>
       <div class="tok-card">
-        <img src="engram.resource/token04.webp" alt="Radius token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
+        <img loading="lazy" src="engram.resource/token04.webp" alt="Radius token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok4.name">Radius</p>
           <p class="tok-desc" data-i18n="s03.tok4.desc">Corner radius from sharp to pill. Blur tokens for overlay and panel surfaces. Both configurable per client CI guidelines.</p>
@@ -421,7 +430,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
   </div>
   <p class="sec-body-sm reveal d2" data-i18n="s03.caption">Most new client configurations are a token exercise.<br>Tokens cover color, typography, spacing, radius, and blur.</p>
-  <img src="engram.resource/token.webp" alt="Token Sheet" class="reveal d2" style="width:min(610px,100%);height:auto;max-height:560px;object-fit:contain;display:block;border-radius:16px;">
+  <img loading="lazy" src="engram.resource/token.webp" alt="Token Sheet" class="reveal d2" style="width:min(610px,100%);height:auto;max-height:560px;object-fit:contain;display:block;border-radius:16px;">
 </div>
 
 <!-- ── 04 COMPONENT LOGIC ── -->
@@ -435,9 +444,9 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   </div>
   <div class="reveal d1" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
     <div class="comp-fade-wrap">
-      <img src="engram.resource/main_var00.webp" alt="Component variant 1" class="cf-active">
-      <img src="engram.resource/main_var01.webp" alt="Component variant 2">
-      <img src="engram.resource/main_var02.webp" alt="Component variant 3">
+      <img loading="lazy" src="engram.resource/main_var00.webp" alt="Component variant 1" class="cf-active">
+      <img loading="lazy" src="engram.resource/main_var01.webp" alt="Component variant 2">
+      <img loading="lazy" src="engram.resource/main_var02.webp" alt="Component variant 3">
     </div>
   </div>
 </div>
@@ -453,7 +462,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   </div>
   <div style="display:flex;flex-direction:column;gap:24px;align-items:center;width:1024px;max-width:100%;" class="reveal d1">
     <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;">
-      <img src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
+      <img loading="lazy" src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,transparent,var(--bg));"></div>
     </div>
     <p class="branch-caption" data-i18n="s05.caption">All changes are documented in the version history page.</p>
@@ -471,15 +480,15 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   </div>
 
   <div class="fd-fade-wrap reveal d1">
-    <img src="engram.resource/06widget-01.webp" alt="Widget screen 1" class="fd-img fd-active">
-    <img src="engram.resource/06widget-02.webp" alt="Widget screen 2" class="fd-img">
-    <img src="engram.resource/06widget-03.webp" alt="Widget screen 3" class="fd-img">
-    <img src="engram.resource/06widget-04.webp" alt="Widget screen 4" class="fd-img">
-    <img src="engram.resource/06widget-05.webp" alt="Widget screen 5" class="fd-img">
-    <img src="engram.resource/06widget-06.webp" alt="Widget screen 6" class="fd-img">
-    <img src="engram.resource/06widget-07.webp" alt="Widget screen 7" class="fd-img">
-    <img src="engram.resource/06widget-08.webp" alt="Widget screen 8" class="fd-img">
-    <img src="engram.resource/06widget-09.webp" alt="Widget screen 9" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-01.webp" alt="Widget screen 1" class="fd-img fd-active">
+    <img loading="lazy" src="engram.resource/06widget-02.webp" alt="Widget screen 2" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-03.webp" alt="Widget screen 3" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-04.webp" alt="Widget screen 4" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-05.webp" alt="Widget screen 5" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-06.webp" alt="Widget screen 6" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-07.webp" alt="Widget screen 7" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-08.webp" alt="Widget screen 8" class="fd-img">
+    <img loading="lazy" src="engram.resource/06widget-09.webp" alt="Widget screen 9" class="fd-img">
   </div>
 
   <!-- Adaptive Control -->
@@ -490,8 +499,8 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
     <div class="adaptive-screens-wrap">
       <div class="adaptive-screens">
-        <div class="adaptive-dummy" style="overflow:hidden;"><img src="engram.resource/control-screen01.webp" alt="Adaptive Control Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
-        <div class="adaptive-dummy" style="overflow:hidden;"><img src="engram.resource/control-screen02.webp" alt="Adaptive Control Screen 2" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
+        <div class="adaptive-dummy" style="overflow:hidden;"><img loading="lazy" src="engram.resource/control-screen01.webp" alt="Adaptive Control Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
+        <div class="adaptive-dummy" style="overflow:hidden;"><img loading="lazy" src="engram.resource/control-screen02.webp" alt="Adaptive Control Screen 2" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       </div>
     </div>
   </div>
@@ -503,7 +512,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
         <p class="immersive-title" data-i18n="s06.immersive.title">Immersive <span class="hl-green">Calling</span></p>
         <p class="immersive-body" data-i18n="s06.immersive.body">The call interface uses the full 10" display. Floating buttons keep the field of view open, while the 3-layer system surfaces high-priority actions without cluttering the frame.</p>
       </div>
-      <img src="engram.resource/immersive-calling.webp" alt="Immersive Calling Screen" style="width:100%;max-width:768px;display:block;border-radius:16px;">
+      <img loading="lazy" src="engram.resource/immersive-calling.webp" alt="Immersive Calling Screen" style="width:100%;max-width:768px;display:block;border-radius:16px;">
     </div>
   </div>
 
@@ -515,9 +524,9 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
     <div class="clear-dummies">
       <div class="clear-track">
-        <img src="engram.resource/info-01.webp" alt="Clear Information screen 1" class="clear-dummy" style="object-fit:cover;display:block;">
-        <img src="engram.resource/info-02.webp" alt="Clear Information screen 2" class="clear-dummy" style="object-fit:cover;display:block;">
-        <img src="engram.resource/info-03.webp" alt="Clear Information screen 3" class="clear-dummy" style="object-fit:cover;display:block;">
+        <img loading="lazy" src="engram.resource/info-01.webp" alt="Clear Information screen 1" class="clear-dummy" style="object-fit:cover;display:block;">
+        <img loading="lazy" src="engram.resource/info-02.webp" alt="Clear Information screen 2" class="clear-dummy" style="object-fit:cover;display:block;">
+        <img loading="lazy" src="engram.resource/info-03.webp" alt="Clear Information screen 3" class="clear-dummy" style="object-fit:cover;display:block;">
       </div>
     </div>
   </div>
@@ -538,9 +547,10 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
 </div>
 
 <!-- FOOTER -->
+</main>
 <footer>
   <span class="ft" data-i18n="footer.left">Hyundai HT — Triangle UI Design System</span>
-  <span class="ft" data-i18n="footer.right">Simon Choi © 2025</span>
+  <span class="ft">Simon Choi © <span id="yr"></span></span>
 </footer>
 
 <script>
@@ -683,7 +693,7 @@ const i18n = {
     's07.lead1': 'Building a design system from scratch meant every structural decision, from token naming and component slots to branching conventions, needed a rationale the whole team could stand behind. Nothing shipped until we agreed on why.',
     's07.lead2': 'The sharpest tension was iconography: deciding to split the set into solid icons for actions and line icons for information. It was a small call with a large surface area. Once that rule was set, every icon that followed had to fit it.',
     'footer.left': 'Hyundai HT — Triangle UI Design System',
-    'footer.right': 'Simon Choi © 2025',
+
   },
   ko: {
     'nav.tag': '디자인 시스템 · 현대HT',
@@ -747,7 +757,7 @@ const i18n = {
     's07.lead1': '확립된 디자인 언어 위에 디자인 시스템을 구축한 첫 번째 경험이었습니다. 모든 결정에는 명확한 근거가 필요했습니다 — 시스템이 작동하기 위해서, 그리고 팀이 그것에 동의하기 위해서.',
     's07.lead2': '더 어려운 과제는 그 언어에서 벗어나지 않으면서 확장성을 유지하는 것이었습니다. 새 컴포넌트마다 기능적으로만이 아니라 시각적으로도 여전히 맞는지 질문이 필요했습니다.',
     'footer.left': 'Hyundai HT — Triangle UI 디자인 시스템',
-    'footer.right': 'Simon Choi © 2025',
+
   }
 };
 
@@ -840,6 +850,7 @@ setLang(stored);
   // Recenter on resize
   window.addEventListener('resize', () => applyPosition(false));
 })();
+document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
