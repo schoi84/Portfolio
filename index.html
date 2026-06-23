@@ -118,7 +118,7 @@ nav {
 }
 .nav-center {
   position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 28px;
+  display: flex; align-items: center; gap: clamp(12px, 2.5vw, 28px);
 }
 .nav-center a { font-size: 14px; color: var(--gray-500); transition: color 0.2s; }
 .nav-center a:hover { color: var(--black); }
@@ -769,7 +769,7 @@ nav {
     <div class="hero-inner">
 
       <div class="hero-tag reveal" data-i18n="hero.tag">
-        UIUX Designer with 5+ Years of Experience
+        UI/UX Designer · 5+ Years
       </div>
 
       <h1 class="hero-title">
@@ -780,7 +780,7 @@ nav {
       <div class="hero-bottom">
         <p class="hero-desc reveal d2" data-i18n="hero.desc">
           Currently designing smart home interfaces at Hyundai HT.<br>
-          Previously sole designer on an AI writing tool that grew retention by 21%.
+          Previously sole designer on an AI writing tool that increased retention by 21%.
         </p>
       </div>
 
@@ -818,7 +818,7 @@ nav {
         <div class="proj-name">Triangle UI</div>
         <div class="proj-meta" data-i18n="proj1.meta">GUI Design <span class="proj-meta-divider">|</span> Hyundai HT</div>
         <div class="proj-chips">
-          <span class="chip" data-i18n="proj1.chip1">Visual Identity</span>
+          <span class="chip" data-i18n="proj1.chip1">Design System</span>
           <span class="chip" data-i18n="proj1.chip2">Design System Lead</span>
         </div>
       </div>
@@ -835,7 +835,7 @@ nav {
       <div class="proj-info">
         <div class="proj-num">2021 – 2024</div>
         <div class="proj-name">Engram UIUX Redesign</div>
-        <div class="proj-meta" data-i18n="proj2.meta">End-to-end Design <span class="proj-meta-divider">|</span> Data B</div>
+        <div class="proj-meta" data-i18n="proj2.meta">UI/UX Redesign <span class="proj-meta-divider">|</span> Data B</div>
         <div class="proj-chips">
           <span class="chip" data-i18n="proj2.chip1">Sole Designer</span>
           <span class="chip" data-i18n="proj2.chip2">+21% Retention</span>
@@ -890,10 +890,10 @@ nav {
       <span class="grad-text-warm">Feel Simple.</span>
     </h2>
     <div class="about-body reveal d2" data-i18n="about.body">
-      <p>I'm a UI/UX designer at <strong>Hyundai HT</strong>, a smart home technology company, where I lead the design system for wallpad interfaces used across residential and commercial buildings in Korea. My work focuses on building scalable interface systems that support complex device ecosystems while keeping interactions simple and predictable.</p>
-      <p>Previously, I spent three years at the start-up <strong>Data B</strong> as the <strong>sole designer</strong> on an AI-powered English writing platform. I owned the product end-to-end — from UX flows to UI design and brand identity — and helped <strong>increase user retention by 21%</strong></p>
-      <p>My background in <strong>industrial design</strong> shapes how I approach digital products. I think about interfaces in terms of interaction: where attention lands, how people physically move through systems, and what feedback they expect at each step. In practice, that means reducing flows to their essential decisions and building design systems that scale without adding noise.</p>
-      <p>I work closely with PMs, engineers, and marketers throughout the entire product lifecycle — from early user flows to final handoff and QA. I care about how <strong>design drives business outcomes</strong>, so I bring cross-team feedback into the process to make sure every design decision helps move the product forward. </p>
+      <p>I'm a UI/UX designer at <strong>Hyundai HT</strong>, where I lead the design system for smart home wallpad interfaces deployed across residential and commercial buildings in Korea. My focus is building scalable systems that support complex device ecosystems while keeping every interaction simple and predictable.</p>
+      <p>Before that, I spent three years at <strong>Data B</strong> as the <strong>sole designer</strong> on an AI-powered English writing platform, owning the product end-to-end: UX flows, UI design, and brand identity. The redesign <strong>increased user retention by 21%</strong>.</p>
+      <p>My background in <strong>industrial design</strong> shapes how I approach digital products. I think about interfaces in terms of physical interaction: where attention lands, how people move through a system, and what feedback they expect at each step. That means reducing flows to their essential decisions and building systems that scale without adding noise.</p>
+      <p>I work closely with PMs, engineers, and marketers across the full product lifecycle. I care about how <strong>design drives business outcomes</strong>, and I bring cross-team input into the process so every design decision moves the product forward.</p>
     </div>
   </div>
 
@@ -1084,15 +1084,15 @@ const i18n = {
     'nav.work': 'Work',
     'nav.about': 'About',
     'nav.contact': 'Contact',
-    'hero.tag': 'UIUX Designer with 5+ Years of Experience',
+    'hero.tag': 'UI/UX Designer · 5+ Years',
     'hero.title1': 'Good Design',
     'hero.title2': 'Feels Obvious',
-    'hero.desc': 'Currently designing smart home interfaces at Hyundai HT.<br>Previously sole designer on an AI writing tool that grew retention by 21%.',
+    'hero.desc': 'Currently designing smart home interfaces at Hyundai HT.<br>Previously sole designer on an AI writing tool that increased retention by 21%.',
     'work.label': 'Selected Work',
     'proj1.meta': 'GUI Design <span class="proj-meta-divider">|</span> Hyundai HT',
-    'proj1.chip1': 'Visual Identity',
+    'proj1.chip1': 'Design System',
     'proj1.chip2': 'Design System Lead',
-    'proj2.meta': 'End-to-end Design <span class="proj-meta-divider">|</span> Data B',
+    'proj2.meta': 'UI/UX Redesign <span class="proj-meta-divider">|</span> Data B',
     'proj2.chip1': 'Sole Designer',
     'proj2.chip2': '+21% Retention',
     'proj3.meta': 'End-to-end Design <span class="proj-meta-divider">|</span> ZUSIN',
@@ -1100,7 +1100,7 @@ const i18n = {
     'proj3.chip2': '0→1 Product',
     'about.label': 'About Me',
     'about.headline': 'Making Complex Products<br><span class="grad-text-warm">Feel Simple.</span>',
-    'about.body': '<p>I\'m a UI/UX designer at <strong>Hyundai HT</strong>, a smart home technology company, where I lead the design system for wallpad interfaces used across residential and commercial buildings in Korea. My work focuses on building scalable interface systems that support complex device ecosystems while keeping interactions simple and predictable.</p><p>Previously, I spent three years at the start-up <strong>Data B</strong> as the <strong>sole designer</strong> on an AI-powered English writing platform. I owned the product end-to-end — from UX flows to UI design and brand identity — and helped <strong>increase user retention by 21%</strong></p><p>My background in <strong>industrial design</strong> shapes how I approach digital products. I think about interfaces in terms of interaction: where attention lands, how people physically move through systems, and what feedback they expect at each step. In practice, that means reducing flows to their essential decisions and building design systems that scale without adding noise.</p><p>I work closely with PMs, engineers, and marketers throughout the entire product lifecycle — from early user flows to final handoff and QA. I care about how <strong>design drives business outcomes</strong>, so I bring cross-team feedback into the process to make sure every design decision helps move the product forward.</p>',
+    'about.body': '<p>I\'m a UI/UX designer at <strong>Hyundai HT</strong>, where I lead the design system for smart home wallpad interfaces deployed across residential and commercial buildings in Korea. My focus is building scalable systems that support complex device ecosystems while keeping every interaction simple and predictable.</p><p>Before that, I spent three years at <strong>Data B</strong> as the <strong>sole designer</strong> on an AI-powered English writing platform, owning the product end-to-end: UX flows, UI design, and brand identity. The redesign <strong>increased user retention by 21%</strong>.</p><p>My background in <strong>industrial design</strong> shapes how I approach digital products. I think about interfaces in terms of physical interaction: where attention lands, how people move through a system, and what feedback they expect at each step. That means reducing flows to their essential decisions and building systems that scale without adding noise.</p><p>I work closely with PMs, engineers, and marketers across the full product lifecycle. I care about how <strong>design drives business outcomes</strong>, and I bring cross-team input into the process so every design decision moves the product forward.</p>',
     'about.edu.label': 'Education',
     'about.edu.school': 'University of Illinois at Urbana Champaign',
     'about.edu.degree': 'BFA Industrial Design',
