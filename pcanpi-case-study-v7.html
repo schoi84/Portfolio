@@ -1073,7 +1073,7 @@ nav {
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2.5L4.5 7 9 11.5"/></svg>
     Simon Choi
   </a>
-  <span class="nav-tag" data-i18n="nav.tag">Case Study · Engram</span>
+  <span class="nav-tag" data-i18n="nav.tag">Engram</span>
   <div class="lang-switch">
     <button class="ls-btn active" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="ls-btn" data-lang="ko" onclick="setLang('ko')">KO</button>
@@ -1641,7 +1641,7 @@ nav {
       <div class="f-hero-text">
         <div class="f-hero-tag" data-i18n="s4.ch.tag">Checkout</div>
         <div class="f-hero-title" data-i18n="s4.ch.title">Plan first.<br>Payment after. One screen.</div>
-        <div class="f-hero-desc" data-i18n="s4.ch.desc">Session recordings showed users scrolling back to confirm plan details before entering payment. The layout was adjusted to show plan selection first, payment after — keeping full context visible without navigation.</div>
+        <div class="f-hero-desc" data-i18n="s4.ch.desc">Session recordings showed users scrolling back to confirm plan details before entering payment. The layout was adjusted to show plan selection first, payment after, keeping full context visible without navigation.</div>
       </div>
       <div class="f-hero-side-img">
         <img src="engram.resource/payment.webp" alt="Pricing and Checkout screen">
@@ -1736,7 +1736,7 @@ nav {
               </div>
               <div class="oc-mini">
                 <div class="oc-mini-num">↓ Nav</div>
-                <p class="oc-mini-desc" data-i18n="s5.q.mini3">Navigation simplified — secondary content moved to footer, primary nav focused on core tasks</p>
+                <p class="oc-mini-desc" data-i18n="s5.q.mini3">Navigation simplified: secondary content moved to footer, primary nav focused on core tasks</p>
               </div>
             </div>
           </div>
@@ -1747,9 +1747,9 @@ nav {
         <div class="oc-qual-section">
           <div class="oc-sublabel" data-i18n="s5.ql.sublabel">Qualitative — session recordings post-launch</div>
           <div class="kc-list">
-            <div class="kc-item" data-i18n="s5.ql.item1"><span class="kc-dash"></span>Less scrolling in the editor — faster progression through corrections per session</div>
-            <div class="kc-item" data-i18n="s5.ql.item2"><span class="kc-dash"></span>Faster progression through checkout — fewer abandoned sessions at payment step</div>
-            <div class="kc-item" data-i18n="s5.ql.item3"><span class="kc-dash"></span>Fewer repeated edits — correction cards reduced back-and-forth in the writing flow</div>
+            <div class="kc-item" data-i18n="s5.ql.item1"><span class="kc-dash"></span>Less scrolling in the editor, faster progression through corrections per session</div>
+            <div class="kc-item" data-i18n="s5.ql.item2"><span class="kc-dash"></span>Faster progression through checkout, fewer abandoned sessions at the payment step</div>
+            <div class="kc-item" data-i18n="s5.ql.item3"><span class="kc-dash"></span>Fewer repeated edits, correction cards reduced back-and-forth in the writing flow</div>
           </div>
         </div>
       </div>
@@ -2250,11 +2250,11 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 <script>
 const i18n = {
   en: {
-    'nav.tag': 'Case Study · Engram',
+    'nav.tag': 'Engram',
     'hero.eyebrow1': 'UI/UX Redesign',
     'hero.eyebrow2': 'AI Writing Tool',
     'hero.tagline': 'Checkout completion rose from 42% to 56%.<br>90-day retention improved in the following cohort.',
-    'hero.desc': 'Redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> focusing on structural and interaction-level friction.<br>Retention rate rose 21%.',
+    'hero.desc': 'Redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> targeting structural and interaction-level friction.<br>Retention rose 21%.',
     'meta.role': 'Role',
     'meta.role.v': 'UI/UX',
     'meta.company': 'Company',
@@ -2264,90 +2264,89 @@ const i18n = {
     'meta.timeline': 'Timeline',
     's1.name': 'Problem',
     's1.headline': 'The AI worked.<br>The experience didn\'t.',
-    's1.lead': 'Users were dropping off before reaching the core value of the product.<br>The issue wasn\'t the correction engine, it was everything around it.',
-    's1.body1': 'Navigation was unclear, account management was fragmented, and the payment flow required users to move across multiple steps at the point where clarity and trust were most critical. Even the correction experience required unnecessary effort due to layout inefficiencies.',
+    's1.lead': 'Users were dropping off before reaching the core value of the product.<br>The issue wasn\'t the correction engine. It was everything around it.',
+    's1.body1': 'Navigation was unclear, account management was fragmented, and the payment flow required multiple steps at exactly the point where trust mattered most. Even the correction experience added unnecessary effort through layout inefficiencies.',
     's1.body2': 'I worked as the sole designer, collaborating closely with a PM and developers to diagnose and redesign the core experience.',
     's1.img.caption': 'UI before redesign',
     's1.callout.label': 'The Data',
-    's1.callout.body': 'Internal data showed that 58% of users who reached the pricing page<br>did not complete checkout. Indicating a significant gap between intent and conversion.',
+    's1.callout.body': '58% of users who reached the pricing page did not complete checkout.<br>A significant gap between intent and conversion.',
     's2.name': 'Research',
     's2.headline': 'Where were users losing<br>trust and effort?',
-    's2.sub.q': 'Was drop-off caused by navigation confusion, structural friction,<br>or inefficiencies in the core writing experience?',
-    's2.sub.b': 'Through session recordings, support ticket review, and competitive benchmarking,<br>I mapped where users were losing trust and effort.',
+    's2.sub.q': 'Was drop-off caused by navigation confusion, structural friction, or inefficiencies in the core writing experience?',
+    's2.sub.b': 'Through session recordings, support ticket review, and competitive benchmarking, I mapped where users were losing trust and effort.',
     's2.m1.t': 'Session Recordings',
-    's2.m1.d': 'Analysis of 50+ session recordings to map where users slowed, reversed, or abandoned flows.',
+    's2.m1.d': 'Reviewed 50+ session recordings to map where users slowed, reversed, or abandoned flows.',
     's2.m2.t': 'Support Ticket Review',
-    's2.m2.d': 'Review of recurring support tickets to surface patterns<br>in user confusion and unmet expectations.',
+    's2.m2.d': 'Reviewed recurring support tickets to surface patterns of user confusion and unmet expectations.',
     's2.m3.t': 'Competitive Benchmarking',
-    's2.m3.d': 'Benchmarking against similar AI writing tools to<br>identify where Pcanpi broke category conventions.',
+    's2.m3.d': 'Benchmarked against similar AI writing tools to identify where Pcanpi broke category conventions.',
     's2.f1.label': 'Finding 01',
     's2.f1.title': 'Conflicting mental models in payment flows',
-    's2.f1.body': 'Users could upgrade through two paths: <u>\'Account\' &rarr; \'Plan\'</u> tab or <u>/pricing</u> page. These paths behaved differently, creating uncertainty about where the actual purchase happened. Users switched between both, unsure if they had completed payment, breaking trust at a critical moment.',
+    's2.f1.body': 'Users could upgrade through two paths: <u>\'Account\' &rarr; \'Plan\'</u> tab or <u>/pricing</u> page. Both behaved differently, creating uncertainty about where the purchase actually happened. Users switched between them, unsure if payment was complete, which broke trust at a critical moment.',
     's2.f2.label': 'Finding 02',
     's2.f2.title': 'Structural friction in account flows',
-    's2.f2.body': 'Account actions (profile, subscription, billing) were split across multiple tabs without clear hierarchy. Users often checked multiple sections to complete a single task, increasing effort for high-intent actions. Support tickets reflected this confusion.',
+    's2.f2.body': 'Account actions (profile, subscription, billing) were split across multiple tabs with no clear hierarchy. Completing a single task often meant checking several sections, adding effort at high-intent moments. Support tickets reflected the same confusion.',
     's2.f3.label': 'Finding 03',
     's2.f3.title': 'Category expectation mismatch',
-    's2.f3.body': 'Competitors used single-page checkout with plan and payment visible together. Engram required multiple steps across screens, breaking expected patterns at the point of purchase.',
+    's2.f3.body': 'Competitors used single-page checkout with plan and payment visible together. Pcanpi required multiple steps across screens, breaking the pattern users expected at the point of purchase.',
     's2.f4.label': 'Finding 04',
     's2.f4.title': 'Interaction friction in the core product',
-    's2.f4.body': 'The editor used a vertical layout, text input at the top, suggestions below. Users needed to scroll frequently to compare content, increasing cognitive load and slowing the editing experience.',
+    's2.f4.body': 'The editor used a vertical layout: text input at top, suggestions below. Users had to scroll frequently to compare content, increasing cognitive load and slowing every edit.',
     's2.ki.label': 'KEY INSIGHT',
-    's2.ki.text': 'Users were blocked at two levels, reaching the product,<br>and using it efficiently once inside.',
-    's2.ki.bridge': 'The problem was not visual, it was system-level friction across both flow and interaction. This required addressing navigation, payment, account structure, and the editor in a single coherent redesign.',
+    's2.ki.text': 'Users were blocked at two levels: reaching the product,<br>and using it efficiently once inside.',
+    's2.ki.bridge': 'The problem was not visual. It was system-level friction across flow and interaction both. That meant navigation, payment, account structure, and the editor all had to be addressed in one coherent redesign.',
     's3.name': 'Approach',
     's3.headline': 'Two problem spaces,<br>one system.',
-    's3.lead': 'Given the one-month timeline, the redesign focused on<br>high-impact flows directly tied to conversion and first-use experience rather than full product coverage.',
-    's3.body1': 'The work addressed both flow-level friction (navigation, account, payment) and interaction-level friction (writing experience).',
+    's3.lead': 'Given the one-month timeline, the redesign focused on high-impact flows directly tied to conversion and first-use experience rather than full product coverage.',
+    's3.body1': 'The work addressed flow-level friction (navigation, account, payment) and interaction-level friction (writing experience).',
     's3.body2': 'Reusable components were introduced to prototype key flows quickly and support consistent implementation.',
     's3.kc.label': 'Key Changes',
     's3.kc.item1': '<span class="kc-dash"></span>Removed competing upgrade flows to eliminate ambiguity at the point of conversion',
     's3.kc.item2': '<span class="kc-dash"></span>Consolidated checkout into a single screen with plan selection and payment visible together',
     's3.kc.item3': '<span class="kc-dash"></span>Simplified account structure into a clear hierarchy: Subscription → Usage → Billing → Profile → Security',
-    's3.kc.item4': '<span class="kc-dash"></span>Redesigned editor into a side-by-side layout to reduce scrolling and improve comparison during editing',
-    's4.name': 'Final Design',
-    's4.headline': 'Designing for continuity<br>not navigation.',
-    's4.intro.lead': 'Four core experiences redesigned to let users complete tasks<br>without losing context or switching screens.',
+    's3.kc.item4': '<span class="kc-dash"></span>Redesigned the editor into a side-by-side layout to reduce scrolling and improve comparison during editing',
+    's4.headline': 'Designing for continuity,<br>not navigation.',
+    's4.intro.lead': 'Four core experiences redesigned to let users complete tasks without losing context or switching screens.',
     's4.we.tag': 'Writing Experience',
     's4.we.title': 'The editor is the product.',
-    's4.we.p1': 'Layout restructured into a side-by-side system (4:6 ratio), input on the left, corrections on the right.',
-    's4.we.p2': 'Users can compare content and feedback without scrolling, reducing effort per edit.',
-    's4.cc.tag': 'Correction card',
+    's4.we.p1': 'Layout restructured into a side-by-side system (4:6 ratio): input on the left, corrections on the right.',
+    's4.we.p2': 'Users compare content and feedback without scrolling, reducing effort per edit.',
+    's4.cc.tag': 'Correction Card',
     's4.cc.title': 'High priority surfaced. Detail on demand.',
-    's4.cc.body': 'High-priority info surfaced immediately. Alternatives expand on request.',
+    's4.cc.body': 'High-priority corrections surface immediately. Alternatives expand on request.',
     's4.pr.tag': 'Pricing',
     's4.pr.title': 'CTA adapts to user state.',
     's4.pr.body': 'Logged-out users see "Sign up free." Logged-in users see "Upgrade to Pro."<br>Same page, different intent, different action.',
     's4.ch.tag': 'Checkout',
     's4.ch.title': 'Plan first.<br>Payment after. One screen.',
-    's4.ch.desc': 'Session recordings showed users scrolling back to confirm plan details before entering payment. The layout was adjusted to show plan selection first, payment after — keeping full context visible without navigation.',
+    's4.ch.desc': 'Session recordings showed users scrolling back to confirm plan details before entering payment. The layout was adjusted to show plan selection first, payment after, keeping full context visible without navigation.',
     's4.ac.tag': 'Account Management',
     's4.ac.title': 'One place. Clear hierarchy.',
     's4.ac.desc': 'Previously fragmented across multiple tabs with no clear hierarchy. Consolidated into a single structure: Subscription → Usage → Billing → Profile → Security.',
     's5.name': 'Outcomes',
     's5.headline': 'Reducing friction led to<br>measurable results.',
-    's5.lead': 'Improvements to key flows and core interactions produced measurable and qualitative improvements across conversion, retention, and usage.',
+    's5.lead': 'Improvements to key flows and core interactions produced measurable gains across conversion, retention, and usage.',
     's5.q.sublabel': 'Quantitative — following redesign launch',
     's5.q.stat.name': 'Checkout completion',
-    's5.q.stat.desc': 'Up from 42% following payment flow consolidation, the most direct measure of friction reduction at the conversion point.',
+    's5.q.stat.desc': 'Up from 42% following payment flow consolidation. The most direct measure of friction reduction at the conversion point.',
     's5.q.mini1': 'Retention improved in the following cohort, suggesting reduced early drop-off after first use',
-    's5.q.mini2': 'Checkout consolidated from multi-step flow to a single view with full plan and payment context',
-    's5.q.mini3': 'Navigation simplified — secondary content moved to footer, primary nav focused on core tasks',
+    's5.q.mini2': 'Checkout consolidated from a multi-step flow to a single view with full plan and payment context',
+    's5.q.mini3': 'Navigation simplified: secondary content moved to footer, primary nav focused on core tasks',
     's5.ql.sublabel': 'Qualitative — session recordings post-launch',
-    's5.ql.item1': '<span class="kc-dash"></span>Less scrolling in the editor — faster progression through corrections per session',
-    's5.ql.item2': '<span class="kc-dash"></span>Faster progression through checkout — fewer abandoned sessions at payment step',
-    's5.ql.item3': '<span class="kc-dash"></span>Fewer repeated edits — correction cards reduced back-and-forth in the writing flow',
+    's5.ql.item1': '<span class="kc-dash"></span>Less scrolling in the editor, faster progression through corrections per session',
+    's5.ql.item2': '<span class="kc-dash"></span>Faster progression through checkout, fewer abandoned sessions at the payment step',
+    's5.ql.item3': '<span class="kc-dash"></span>Fewer repeated edits, correction cards reduced back-and-forth in the writing flow',
     's5.ds.label': 'Design System',
-    's5.ds.body': 'Reusable components were introduced alongside the redesign to support consistency across flows and reduce one-off UI decisions. This helped streamline developer handoff and reduced iteration cycles during implementation.',
+    's5.ds.body': 'Reusable components were introduced alongside the redesign to support consistency across flows and reduce one-off UI decisions. This streamlined developer handoff and shortened iteration cycles during implementation.',
     's6.name': 'Reflection',
     's6.headline': 'Reducing friction can have<br>more impact than adding features.',
-    's6.lead': 'Improving the experience required addressing both how users reach the product, and how efficiently they use it once inside.',
+    's6.lead': 'Improving the experience meant addressing how users reach the product and how efficiently they use it once inside.',
     's6.c1.title': 'Instrument earlier',
-    's6.c1.text': 'Pre-defined funnel tracking would have allowed more precise attribution of impact, connecting specific design decisions to specific drop-off points, rather than attributing gains to the redesign as a whole.',
+    's6.c1.text': 'Pre-defined funnel tracking would have allowed more precise attribution, connecting specific design decisions to specific drop-off points rather than crediting gains to the redesign as a whole.',
     's6.c2.title': 'Test earlier',
-    's6.c2.text': 'Formal usability testing would have surfaced key friction points sooner, reducing the reliance on session recordings as a primary signal and enabling iteration before launch.',
+    's6.c2.text': 'Formal usability testing would have surfaced key friction points sooner, reducing reliance on session recordings and enabling iteration before launch.',
     's6.c3.title': 'Design mobile-first',
-    's6.c3.text': 'The editor and checkout were optimized for desktop first. The mobile experience remains less refined than intended, a limitation that became clearer only after launch.',
+    's6.c3.text': 'The editor and checkout were optimized for desktop first. The mobile experience is less refined than intended, a gap that only became clear after launch.',
   },
   ko: {
     'nav.tag': '케이스 스터디 · Engram',
