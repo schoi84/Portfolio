@@ -75,9 +75,9 @@ nav {
 
 /* ── SECTION HEADER ── */
 .sec-header { display: flex; flex-direction: column; align-items: center; gap: 32px; width: 1024px; max-width: 100%; }
-.sec-headline { font-size: 44px; font-weight: 700; letter-spacing: -1.02px; line-height: 66px; color: var(--black); text-align: center; }
-.sec-lead { font-size: 20px; font-weight: 400; color: var(--deep); line-height: 30px; text-align: center; max-width: 640px; }
-.sec-body-sm { font-size: 16px; font-weight: 400; color: var(--black); line-height: 24px; text-align: center; max-width: 640px; }
+.sec-headline { font-size: clamp(28px, 4vw, 44px); font-weight: 700; letter-spacing: -1.02px; line-height: 1.5; color: var(--black); text-align: center; }
+.sec-lead { font-size: clamp(16px, 1.6vw, 20px); font-weight: 400; color: var(--deep); line-height: 1.6; text-align: center; max-width: 640px; }
+.sec-body-sm { font-size: clamp(14px, 1.4vw, 16px); font-weight: 400; color: var(--black); line-height: 24px; text-align: center; max-width: 640px; }
 
 /* ── DUMMY BOX ── */
 .dummy {
@@ -98,20 +98,20 @@ nav {
 .eyebrow-text { font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-400); line-height: 21px; }
 .eyebrow-bar { display: block; width: 1px; height: 14px; background: var(--gray-300); flex-shrink: 0; }
 .hero-title {
-  font-size: 96px; font-weight: 700; letter-spacing: -4.32px; line-height: 96px; text-align: center;
+  font-size: clamp(48px, 10vw, 96px); font-weight: 700; letter-spacing: -4.32px; line-height: 1.0; text-align: center;
   padding-bottom: 0.15em;
   background: linear-gradient(to right, #ff0046 0%, #ff3831 44%, #ff006a 100%);
   background-size: 300% 300%;
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   animation: grad-flow 6s ease infinite;
 }
-.hero-copy { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: 20px; text-align: center; width: 100%; }
-.hero-tagline { font-weight: 500; color: var(--deep); line-height: 30px; max-width: 640px; }
-.hero-desc { font-weight: 400; color: var(--gray-500); line-height: 30px; max-width: 640px; }
-.hero-meta { display: flex; align-items: flex-start; justify-content: center; gap: 24px; width: 100%; }
+.hero-copy { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: clamp(16px, 1.8vw, 20px); text-align: center; width: 100%; }
+.hero-tagline { font-weight: 500; color: var(--deep); line-height: 1.5; max-width: 640px; }
+.hero-desc { font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 640px; }
+.hero-meta { display: flex; align-items: flex-start; justify-content: center; gap: 56px; width: 100%; flex-wrap: wrap; }
 .hm { display: flex; flex-direction: column; gap: 8px; }
-.hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.11px; line-height: 18px; text-align: center; }
-.hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.14px; line-height: 21px; white-space: nowrap; }
+.hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.01em; line-height: 18px; }
+.hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.01em; line-height: 21px; }
 .hero-dummy { width: 100%; height: 400px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: 0 6px 24px 0 rgba(0,0,0,0.06); }
 .hero-collage { position: relative; width: 100%; height: 480px; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
 .hero-card { position: absolute; border-radius: 16px; object-fit: cover; }
@@ -239,24 +239,40 @@ nav {
 footer { display: flex; align-items: center; justify-content: space-between; padding: 56px 40px; }
 .ft { font-size: 12px; color: var(--gray-400); }
 
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .sec { padding: 80px 20px; gap: 48px; }
-  .hero-inner { padding: 56px 20px 80px; }
+/* ── Tablet / Mobile (max-width: 1024px) ── */
+@media (max-width: 1024px) {
+  nav { padding: 0 1.2rem; height: 56px; }
+  .sec { padding: 80px 1.2rem; gap: 48px; }
+  .hero-inner { padding: 56px 1.2rem 80px; }
   .hero-title { font-size: clamp(48px, 14vw, 96px); letter-spacing: -2px; line-height: 1.1; }
   .sec-headline { font-size: clamp(28px, 7vw, 44px); line-height: 1.2; }
+  .sec-lead { font-size: 17px; }
+  .hero-meta { gap: 24px 40px; }
+  .hm { width: auto; }
   .dl-card { flex-direction: column; }
   .dl-dummy { flex: none; width: 100%; height: 220px; }
+  .dl-title { font-size: clamp(22px, 5vw, 32px); white-space: normal; }
   .tok-grid { flex-direction: column; }
-  .adaptive-card { flex-direction: column; height: auto; padding: 24px; gap: 24px; }
-  .adaptive-dummies { flex-direction: column; width: 100%; }
-  .adaptive-dummy { width: 100%; }
+  .tok-container { padding: 16px; }
+  .adaptive-card { gap: 32px; }
+  .adaptive-dummy { flex: 0 0 100%; height: 280px; }
   .immersive-inner { width: 100%; }
   .immersive-dummy { width: 100%; }
   .clear-dummies { padding: 20px 0; }
   .clear-dummy { flex: 0 0 280px; }
-  footer { padding: 40px 20px; flex-direction: column; gap: 8px; }
+  footer { padding: 40px 1.2rem; flex-direction: column; gap: 8px; }
+}
+
+/* ── Extra small (max-width: 592px) ── */
+@media (max-width: 592px) {
+  .hero-title { font-size: clamp(40px, 14vw, 64px); }
+  .sec-headline { font-size: clamp(24px, 8vw, 36px); }
+  .sec-lead { font-size: 16px; }
+  .dl-desc { font-size: 15px; }
+  .tok-card { padding: 16px; }
+  .adaptive-screens-wrap { border-radius: 12px; }
+  .hero-meta { justify-content: center; gap: 16px 0; }
+  .hm { width: 100%; align-items: center; }
 }
 </style>
 </head>
@@ -293,11 +309,8 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       </div>
       <div class="hero-meta">
         <div class="hm"><span class="hm-k" data-i18n="meta.role">Role</span><span class="hm-v" data-i18n="meta.role.v">Design System Lead</span></div>
-        <div style="width:1px;background:var(--gray-200);align-self:stretch;"></div>
         <div class="hm"><span class="hm-k" data-i18n="meta.company">Company</span><span class="hm-v">Hyundai HT</span></div>
-        <div style="width:1px;background:var(--gray-200);align-self:stretch;"></div>
         <div class="hm"><span class="hm-k" data-i18n="meta.platform">Platform</span><span class="hm-v" data-i18n="meta.platform.v">10" WallPad</span></div>
-        <div style="width:1px;background:var(--gray-200);align-self:stretch;"></div>
         <div class="hm"><span class="hm-k" data-i18n="meta.timeline">Timeline</span><span class="hm-v">2025 – 2026</span></div>
       </div>
     </div>
