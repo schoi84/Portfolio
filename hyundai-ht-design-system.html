@@ -129,7 +129,7 @@ nav {
 .hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.01em; line-height: 18px; }
 .hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.01em; line-height: 21px; }
 .hero-dummy { width: 100%; height: 400px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: 0 6px 24px 0 rgba(0,0,0,0.06); }
-.hero-collage { position: relative; width: 100%; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
+.hero-collage { position: relative; width: 1024px; max-width: 100%; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
 .hero-collage-inner { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-card { position: absolute; border-radius: 16px; object-fit: cover; transform-origin: top left; }
 @keyframes heroFloat {
@@ -170,7 +170,7 @@ nav {
 .comp-fade-wrap {
   position: relative;
   width: 896px; max-width: 100%;
-  height: clamp(220px, 50vw, 560px);
+  height: auto; aspect-ratio: 896/560;
   border-radius: 16px; overflow: hidden; flex-shrink: 0;
 }
 .comp-fade-wrap img {
@@ -186,8 +186,9 @@ nav {
 
 /* ── S06 FINAL DESIGN ── */
 .fd-main-dummy { width: 1024px; max-width: 100%; height: 380px; }
-.fd-fade-wrap { position: relative; display: inline-block; max-width: 100%; }
-.fd-fade-wrap .fd-img { display: block; width: auto; max-width: 100%; height: auto; border-radius: 16px; opacity: 0; transition: opacity 0.6s ease; }
+.fd-fade-wrap { position: relative; display: inline-block; max-width: 100%; overflow: hidden; }
+.fd-fade-wrap .fd-img { display: block; width: auto; height: auto; border-radius: 16px; opacity: 0; transition: opacity 0.6s ease; }
+.fd-fade-wrap .fd-img:first-child { zoom: 0.25; }
 .fd-fade-wrap .fd-img:not(:first-child) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 .fd-fade-wrap .fd-img.fd-active { opacity: 1; }
 
@@ -259,10 +260,12 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .hero-meta { gap: 24px 40px; }
   .hm { width: auto; }
   .dl-card { flex-direction: column; }
-  .dl-dummy { flex: none; width: 100%; height: 220px; }
-  .dl-title { font-size: clamp(22px, 5vw, 32px); white-space: normal; }
-  .tok-grid { flex-direction: column; }
-  .tok-container { padding: 16px; }
+  .dl-dummy { flex: none; width: 100%; max-width: 460px; height: auto; aspect-ratio: 460/280; }
+  .dl-title { font-size: clamp(22px, 5vw, 32px); white-space: normal; max-width: 460px; }
+  .dl-text { max-width: 460px; }
+  .tok-grid { display: grid; grid-template-columns: 235px 235px; gap: 12px; }
+  .tok-card { flex: none; }
+  .tok-container { padding: 16px; width: fit-content; margin: 0 auto; }
   .adaptive-card { gap: 32px; }
   .adaptive-screens-wrap { border-radius: 12px; }
   .immersive-inner { width: 100%; }
@@ -277,6 +280,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .sec-lead { font-size: 16px; }
   .dl-desc { font-size: 15px; }
   .tok-card { padding: 16px; }
+  .tok-grid { grid-template-columns: 235px; }
   .adaptive-screens-wrap { border-radius: 12px; }
   .hero-meta { justify-content: center; gap: 16px 0; }
   .hm { width: 100%; align-items: center; }
@@ -324,15 +328,15 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
     <div class="reveal d1 hero-collage" id="heroCollage">
       <div class="hero-collage-inner" id="heroCollageInner">
-        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" style="left:-176px;top:-105px;width:400px;height:320px;--fx:4px;--fy:-6px;animation:heroFloat 4.3s ease-in-out infinite alternate;animation-delay:0s;">
-        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" style="left:244px;top:-144px;width:120px;height:240px;--fx:-3px;--fy:5px;animation:heroFloat 3.7s ease-in-out infinite alternate;animation-delay:-0.8s;">
-        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" style="left:244px;top:115px;width:120px;height:408px;--fx:3px;--fy:4px;animation:heroFloat 5.1s ease-in-out infinite alternate;animation-delay:-1.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" style="left:-104px;top:247px;width:328px;height:328px;--fx:-5px;--fy:3px;animation:heroFloat 4.8s ease-in-out infinite alternate;animation-delay:-2.1s;">
-        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" style="left:384px;top:-120px;width:400px;height:400px;--fx:6px;--fy:-4px;animation:heroFloat 4.0s ease-in-out infinite alternate;animation-delay:-0.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" style="left:384px;top:300px;width:190px;height:190px;--fx:-4px;--fy:-6px;animation:heroFloat 3.5s ease-in-out infinite alternate;animation-delay:-1.9s;">
-        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" style="left:594px;top:300px;width:190px;height:190px;--fx:5px;--fy:3px;animation:heroFloat 4.6s ease-in-out infinite alternate;animation-delay:-0.3s;">
-        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" style="left:804px;top:-180px;width:292px;height:400px;--fx:-6px;--fy:4px;animation:heroFloat 3.9s ease-in-out infinite alternate;animation-delay:-1.2s;">
-        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" style="left:804px;top:240px;width:328px;height:328px;--fx:4px;--fy:-7px;animation:heroFloat 4.4s ease-in-out infinite alternate;animation-delay:-2.7s;">
+        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" style="left:-40px;top:247px;width:328px;height:328px;--fx:-5px;--fy:3px;animation:heroFloat 4.8s ease-in-out infinite alternate;animation-delay:-2.1s;">
+        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" style="left:308px;top:115px;width:120px;height:408px;--fx:3px;--fy:4px;animation:heroFloat 5.1s ease-in-out infinite alternate;animation-delay:-1.5s;">
+        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" style="left:448px;top:300px;width:190px;height:190px;--fx:-4px;--fy:-6px;animation:heroFloat 3.5s ease-in-out infinite alternate;animation-delay:-1.9s;">
+        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" style="left:658px;top:300px;width:190px;height:190px;--fx:5px;--fy:3px;animation:heroFloat 4.6s ease-in-out infinite alternate;animation-delay:-0.3s;">
+        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" style="left:-112px;top:-105px;width:400px;height:320px;--fx:4px;--fy:-6px;animation:heroFloat 4.3s ease-in-out infinite alternate;animation-delay:0s;">
+        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" style="left:448px;top:-120px;width:400px;height:400px;--fx:6px;--fy:-4px;animation:heroFloat 4.0s ease-in-out infinite alternate;animation-delay:-0.5s;">
+        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" style="left:868px;top:-180px;width:292px;height:400px;--fx:-6px;--fy:4px;animation:heroFloat 3.9s ease-in-out infinite alternate;animation-delay:-1.2s;">
+        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" style="left:868px;top:240px;width:328px;height:328px;--fx:4px;--fy:-7px;animation:heroFloat 4.4s ease-in-out infinite alternate;animation-delay:-2.7s;">
+        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" style="left:308px;top:-144px;width:120px;height:240px;--fx:-3px;--fy:5px;animation:heroFloat 3.7s ease-in-out infinite alternate;animation-delay:-0.8s;">
       </div>
     </div>
   </div>
@@ -461,7 +465,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     <p class="sec-lead" data-i18n="s05.lead">Every major update is captured as a named branch. Client projects are managed separately, but every client file carries a version reference, so it's always clear which Triangle-UI release it was built against.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:24px;align-items:center;width:1024px;max-width:100%;" class="reveal d1">
-    <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;">
+    <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;max-height:clamp(220px,38vw,380px);">
       <img loading="lazy" src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,transparent,var(--bg));"></div>
     </div>
@@ -561,20 +565,35 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
 
   var animating = false;
   var autoPlayed = false;
+  var currentIndex = 0;
 
-  // Auto-play once when scrolled into view — pause 1.2s so first image is seen
+  function getDummyW() {
+    var d = screens.querySelector('.adaptive-dummy');
+    return d ? d.offsetWidth : 576;
+  }
+
+  function setPosition(index, animate) {
+    var dummyW = getDummyW();
+    var gap = 16;
+    var center = (wrap.offsetWidth - dummyW) / 2;
+    var offset = center - index * (dummyW + gap);
+    screens.style.transition = animate ? 'transform 0.8s cubic-bezier(.52,0,0,1)' : 'none';
+    screens.style.transform = 'translateX(' + offset + 'px)';
+    currentIndex = index;
+  }
+
+  // Initialize centered on first image
+  setPosition(0, false);
+  window.addEventListener('resize', function() { setPosition(currentIndex, false); });
+
+  // Auto-play once when scrolled into view
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting && !autoPlayed) {
         autoPlayed = true;
         setTimeout(function() {
           animating = true;
-          var dummies = screens.querySelectorAll('.adaptive-dummy');
-          var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
-          var gap = 16;
-          var offset = dummyW + gap;
-          screens.style.transition = 'transform 0.8s cubic-bezier(.52,0,0,1)';
-          screens.style.transform = 'translateX(-' + offset + 'px)';
+          setPosition(1, true);
           setTimeout(function() { animating = false; }, 900);
         }, 1200);
         io.unobserve(wrap);
@@ -586,17 +605,12 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   // Hover takes over after auto-play
   wrap.addEventListener('mousemove', function(e) {
     if (animating) return;
-    var dummies = screens.querySelectorAll('.adaptive-dummy');
-    var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
-    var gap = 16;
     var rect = wrap.getBoundingClientRect();
-    screens.style.transform = e.clientX - rect.left < rect.width / 2
-      ? 'translateX(0)'
-      : 'translateX(-' + (dummyW + gap) + 'px)';
+    setPosition(e.clientX - rect.left < rect.width / 2 ? 0 : 1, true);
   });
   wrap.addEventListener('mouseleave', function() {
     if (animating) return;
-    screens.style.transform = 'translateX(0)';
+    setPosition(0, true);
   });
 })();
 
@@ -801,53 +815,43 @@ setLang(stored);
   const track = document.querySelector('.clear-track');
   const dummies = document.querySelector('.clear-dummies');
   if (!track || !dummies) return;
-  const items = track.querySelectorAll('.clear-dummy');
-  if (!items.length) return;
-  // Clone first image for seamless loop
-  track.appendChild(items[0].cloneNode(true));
-  let idx = 0;
-  const isMobile = window.innerWidth <= 1024;
-  const HOLD = isMobile ? 3200 : 2500;
+  const origItems = Array.from(track.querySelectorAll('.clear-dummy'));
+  if (!origItems.length) return;
+  const N = origItems.length;
+
+  function makeClone(item) { const c = item.cloneNode(true); c.removeAttribute('loading'); return c; }
+
+  // Prepend clone of last item — fills left side at start position
+  track.insertBefore(makeClone(origItems[N - 1]), track.firstChild);
+  // Append clones of all items as trailing buffer
+  origItems.forEach(item => track.appendChild(makeClone(item)));
+
+  // Track: [img3_pre, img1, img2, img3, img1', img2', img3']
+  // Start centered on img1 at index 1
+  let idx = 1;
+  const HOLD = window.innerWidth <= 1024 ? 3200 : 2500;
   const INITIAL_DELAY = 1400;
 
-  function getOffset() {
-    const itemW = items[0].offsetWidth;
-    const containerW = dummies.offsetWidth;
-    // Center the active image: shift track so image is centered in container
-    return Math.max(0, (containerW - itemW) / 2);
-  }
-
-  function getStep() {
-    return items[0].offsetWidth + 16;
-  }
-
+  function getStep() { return origItems[0].offsetWidth + 16; }
+  function getOffset() { return Math.max(0, (dummies.offsetWidth - origItems[0].offsetWidth) / 2); }
   function applyPosition(animated) {
-    const start = getOffset();
-    const pos = start - (idx * getStep());
+    const pos = getOffset() - idx * getStep();
     track.style.transition = animated ? 'transform 0.7s cubic-bezier(0.52,0,0,1)' : 'none';
     track.style.transform = `translateX(${pos}px)`;
   }
 
-  // Set initial centered position without animation
   applyPosition(false);
 
   function advance() {
     idx++;
     applyPosition(true);
-    if (idx >= items.length) {
-      setTimeout(() => {
-        idx = 0;
-        applyPosition(false);
-      }, 750);
+    // After sliding to img1' (idx = 1+N), reset to img1 original (idx = 1) — left side matches
+    if (idx >= 1 + N) {
+      setTimeout(() => { idx = 1; applyPosition(false); }, 750);
     }
   }
 
-  setTimeout(() => {
-    advance();
-    setInterval(advance, HOLD);
-  }, INITIAL_DELAY);
-
-  // Recenter on resize
+  setTimeout(() => { advance(); setInterval(advance, HOLD); }, INITIAL_DELAY);
   window.addEventListener('resize', () => applyPosition(false));
 })();
 document.getElementById('yr').textContent = new Date().getFullYear();
