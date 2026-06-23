@@ -221,7 +221,7 @@ nav {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .clear-body { font-size: clamp(14px, 1.4vw, 16px); font-weight: 400; color: var(--black); line-height: 1.6; }
-.clear-dummies { padding: 20px clamp(0px, 6vw, 96px); width: 100%; overflow: hidden; }
+.clear-dummies { padding: 20px 0; width: 100%; overflow: hidden; }
 .clear-track { display: flex; gap: 16px; transition: transform 0.7s cubic-bezier(0.52,0,0,1); will-change: transform; }
 .clear-dummy { flex: 0 0 clamp(260px, 80vw, 832px); height: clamp(160px, 50vw, 520px); border-radius: 16px; }
 
@@ -544,19 +544,21 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   var animating = false;
   var autoPlayed = false;
 
-  // Auto-play once when scrolled into view
+  // Auto-play once when scrolled into view — pause 1.2s so first image is seen
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting && !autoPlayed) {
         autoPlayed = true;
-        animating = true;
-        var dummies = screens.querySelectorAll('.adaptive-dummy');
-        var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
-        var gap = 16;
-        var offset = dummyW + gap;
-        screens.style.transition = 'transform 0.8s cubic-bezier(.52,0,0,1)';
-        screens.style.transform = 'translateX(-' + offset + 'px)';
-        setTimeout(function() { animating = false; }, 900);
+        setTimeout(function() {
+          animating = true;
+          var dummies = screens.querySelectorAll('.adaptive-dummy');
+          var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
+          var gap = 16;
+          var offset = dummyW + gap;
+          screens.style.transition = 'transform 0.8s cubic-bezier(.52,0,0,1)';
+          screens.style.transform = 'translateX(-' + offset + 'px)';
+          setTimeout(function() { animating = false; }, 900);
+        }, 1200);
         io.unobserve(wrap);
       }
     });
@@ -779,26 +781,56 @@ setLang(stored);
 
 (function() {
   const track = document.querySelector('.clear-track');
-  if (!track) return;
+  const dummies = document.querySelector('.clear-dummies');
+  if (!track || !dummies) return;
   const items = track.querySelectorAll('.clear-dummy');
   if (!items.length) return;
   // Clone first image for seamless loop
   track.appendChild(items[0].cloneNode(true));
   let idx = 0;
-  setInterval(() => {
-    // Read actual item width at scroll time so clamp values are respected
-    const itemW = items[0].offsetWidth + 16; // width + gap
+  const isMobile = window.innerWidth <= 1024;
+  const HOLD = isMobile ? 3200 : 2500;
+  const INITIAL_DELAY = 1400;
+
+  function getOffset() {
+    const itemW = items[0].offsetWidth;
+    const containerW = dummies.offsetWidth;
+    // Center the active image: shift track so image is centered in container
+    return Math.max(0, (containerW - itemW) / 2);
+  }
+
+  function getStep() {
+    return items[0].offsetWidth + 16;
+  }
+
+  function applyPosition(animated) {
+    const start = getOffset();
+    const pos = start - (idx * getStep());
+    track.style.transition = animated ? 'transform 0.7s cubic-bezier(0.52,0,0,1)' : 'none';
+    track.style.transform = `translateX(${pos}px)`;
+  }
+
+  // Set initial centered position without animation
+  applyPosition(false);
+
+  function advance() {
     idx++;
-    track.style.transition = 'transform 0.7s cubic-bezier(0.52,0,0,1)';
-    track.style.transform = `translateX(-${idx * itemW}px)`;
+    applyPosition(true);
     if (idx >= items.length) {
       setTimeout(() => {
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(0)';
         idx = 0;
+        applyPosition(false);
       }, 750);
     }
-  }, 2500);
+  }
+
+  setTimeout(() => {
+    advance();
+    setInterval(advance, HOLD);
+  }, INITIAL_DELAY);
+
+  // Recenter on resize
+  window.addEventListener('resize', () => applyPosition(false));
 })();
 </script>
 </body>
