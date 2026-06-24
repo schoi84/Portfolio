@@ -1057,22 +1057,25 @@ document.querySelectorAll('.contact-btn').forEach(btn => {
     container.appendChild(card);
   });
 
-  // Size container: width fits widest author (single line) + padding, height fits tallest card
   const cards = container.querySelectorAll('.quote-card');
-  const isMobile = window.innerWidth <= 680;
-  const HPAD = 64; // 32px left + 32px right
-  if (!isMobile) {
-    let maxAuthorW = 0;
-    cards.forEach(c => {
-      const author = c.querySelector('.quote-author');
-      if (author) {
-        c.style.position = 'relative'; c.style.opacity = '1'; c.style.width = '0';
-        maxAuthorW = Math.max(maxAuthorW, author.scrollWidth);
-        c.style.position = ''; c.style.opacity = ''; c.style.width = '';
-      }
-    });
-    container.style.width = Math.min(maxAuthorW + HPAD, 302) + 'px';
-    // Measure height at final width
+
+  // Size container after fonts are ready to ensure accurate measurement
+  function sizeContainer() {
+    const isMobile = window.innerWidth <= 680;
+    const HPAD = 64;
+    if (!isMobile) {
+      let maxAuthorW = 0;
+      cards.forEach(c => {
+        const author = c.querySelector('.quote-author');
+        if (author) {
+          c.style.position = 'relative'; c.style.opacity = '1'; c.style.width = '0';
+          maxAuthorW = Math.max(maxAuthorW, author.scrollWidth);
+          c.style.position = ''; c.style.opacity = ''; c.style.width = '';
+        }
+      });
+      container.style.width = Math.min(maxAuthorW + HPAD, 302) + 'px';
+    }
+    // Measure tallest card and lock container height so page never shifts
     let maxH = 0;
     cards.forEach(c => {
       c.style.position = 'relative'; c.style.opacity = '1';
@@ -1080,7 +1083,16 @@ document.querySelectorAll('.contact-btn').forEach(btn => {
       c.style.position = ''; c.style.opacity = '';
     });
     container.style.height = maxH + 'px';
+    container.style.minHeight = maxH + 'px';
   }
+
+  // Run after fonts load for accurate text measurement
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(sizeContainer);
+  } else {
+    sizeContainer();
+  }
+  window.addEventListener('resize', sizeContainer);
 
   let current = 0;
   const HOLD = 4200;   // ms visible
