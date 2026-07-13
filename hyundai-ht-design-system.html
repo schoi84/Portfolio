@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hyundai HT | Triangle UI Design System</title>
+<title>Hyundai HT — Triangle UI Design System</title>
 <meta name="description" content="How I built a scalable white-label design system for smart home wallpads at Hyundai HT, configurable per client through a two-layer token architecture.">
 <link rel="canonical" href="https://schoi84.github.io/Portfolio/hyundai-ht-design-system.html">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -16,7 +16,7 @@
   gtag('js', new Date());
   gtag('config', 'G-65W9FB36T6');
 </script>
-<meta property="og:title" content="Simon Choi | UI/UX Designer">
+<meta property="og:title" content="Simon Choi — UI/UX Designer">
 <meta property="og:description" content="Product designer focused on reducing friction and building clarity.">
 <meta property="og:image" content="https://schoi84.github.io/Portfolio/engram.resource/OG.png">
 <meta property="og:url" content="https://schoi84.github.io/Portfolio/">
@@ -129,7 +129,7 @@ nav {
 .hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.01em; line-height: 18px; }
 .hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.01em; line-height: 21px; }
 .hero-dummy { width: 100%; height: 400px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: 0 6px 24px 0 rgba(0,0,0,0.06); }
-.hero-collage { position: relative; width: 1024px; max-width: 100%; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
+.hero-collage { position: relative; width: 100%; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
 .hero-collage-inner { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-card { position: absolute; border-radius: 16px; object-fit: cover; transform-origin: top left; }
 @keyframes heroFloat {
@@ -170,7 +170,7 @@ nav {
 .comp-fade-wrap {
   position: relative;
   width: 896px; max-width: 100%;
-  height: auto; aspect-ratio: 896/560;
+  height: clamp(220px, 50vw, 560px);
   border-radius: 16px; overflow: hidden; flex-shrink: 0;
 }
 .comp-fade-wrap img {
@@ -186,8 +186,9 @@ nav {
 
 /* ── S06 FINAL DESIGN ── */
 .fd-main-dummy { width: 1024px; max-width: 100%; height: 380px; }
-.fd-fade-wrap { position: relative; display: inline-block; width: 328px; height: 328px; max-width: 100%; overflow: hidden; border-radius: 16px; }
-.fd-fade-wrap .fd-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; opacity: 0; transition: opacity 0.6s ease; }
+.fd-fade-wrap { position: relative; display: inline-block; max-width: 100%; }
+.fd-fade-wrap .fd-img { display: block; width: auto; max-width: 100%; height: auto; border-radius: 16px; opacity: 0; transition: opacity 0.6s ease; }
+.fd-fade-wrap .fd-img:not(:first-child) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 .fd-fade-wrap .fd-img.fd-active { opacity: 1; }
 
 /* Adaptive Control */
@@ -258,12 +259,10 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .hero-meta { gap: 24px 40px; }
   .hm { width: auto; }
   .dl-card { flex-direction: column; }
-  .dl-dummy { flex: none; width: 100%; max-width: 460px; height: auto; aspect-ratio: 460/280; }
-  .dl-title { font-size: clamp(22px, 5vw, 32px); white-space: normal; max-width: 460px; }
-  .dl-text { max-width: 460px; }
-  .tok-grid { display: grid; grid-template-columns: 235px 235px; gap: 12px; }
-  .tok-card { flex: none; }
-  .tok-container { padding: 16px; width: fit-content; margin: 0 auto; }
+  .dl-dummy { flex: none; width: 100%; height: 220px; }
+  .dl-title { font-size: clamp(22px, 5vw, 32px); white-space: normal; }
+  .tok-grid { flex-direction: column; }
+  .tok-container { padding: 16px; }
   .adaptive-card { gap: 32px; }
   .adaptive-screens-wrap { border-radius: 12px; }
   .immersive-inner { width: 100%; }
@@ -278,7 +277,6 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .sec-lead { font-size: 16px; }
   .dl-desc { font-size: 15px; }
   .tok-card { padding: 16px; }
-  .tok-grid { grid-template-columns: 235px; }
   .adaptive-screens-wrap { border-radius: 12px; }
   .hero-meta { justify-content: center; gap: 16px 0; }
   .hm { width: 100%; align-items: center; }
@@ -315,7 +313,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       </div>
       <div class="hero-copy">
         <p class="hero-tagline" data-i18n="hero.tagline">A scalable, white-label UI system for<br>residential smart home wallpads.</p>
-        <p class="hero-desc" data-i18n="hero.desc">The system serves any architecture client without a rebuild. A team of three designed it from the ground up and made every decision together.</p>
+        <p class="hero-desc" data-i18n="hero.desc">Built to serve any architecture client without rebuilding from scratch. Designed from the ground up by a team of three, with every decision made collaboratively.</p>
       </div>
       <div class="hero-meta">
         <div class="hm"><span class="hm-k" data-i18n="meta.role">Role</span><span class="hm-v" data-i18n="meta.role.v">Design System Lead</span></div>
@@ -326,15 +324,15 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
     <div class="reveal d1 hero-collage" id="heroCollage">
       <div class="hero-collage-inner" id="heroCollageInner">
-        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" style="left:-40px;top:247px;width:328px;height:328px;--fx:-5px;--fy:3px;animation:heroFloat 4.8s ease-in-out infinite alternate;animation-delay:-2.1s;">
-        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" style="left:308px;top:115px;width:120px;height:408px;--fx:3px;--fy:4px;animation:heroFloat 5.1s ease-in-out infinite alternate;animation-delay:-1.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" style="left:448px;top:300px;width:190px;height:190px;--fx:-4px;--fy:-6px;animation:heroFloat 3.5s ease-in-out infinite alternate;animation-delay:-1.9s;">
-        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" style="left:658px;top:300px;width:190px;height:190px;--fx:5px;--fy:3px;animation:heroFloat 4.6s ease-in-out infinite alternate;animation-delay:-0.3s;">
-        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" style="left:-112px;top:-105px;width:400px;height:320px;--fx:4px;--fy:-6px;animation:heroFloat 4.3s ease-in-out infinite alternate;animation-delay:0s;">
-        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" style="left:448px;top:-120px;width:400px;height:400px;--fx:6px;--fy:-4px;animation:heroFloat 4.0s ease-in-out infinite alternate;animation-delay:-0.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" style="left:868px;top:-180px;width:292px;height:400px;--fx:-6px;--fy:4px;animation:heroFloat 3.9s ease-in-out infinite alternate;animation-delay:-1.2s;">
-        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" style="left:868px;top:240px;width:328px;height:328px;--fx:4px;--fy:-7px;animation:heroFloat 4.4s ease-in-out infinite alternate;animation-delay:-2.7s;">
-        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" style="left:308px;top:-144px;width:120px;height:240px;--fx:-3px;--fy:5px;animation:heroFloat 3.7s ease-in-out infinite alternate;animation-delay:-0.8s;">
+        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" style="left:-176px;top:-105px;width:400px;height:320px;--fx:4px;--fy:-6px;animation:heroFloat 4.3s ease-in-out infinite alternate;animation-delay:0s;">
+        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" style="left:244px;top:-144px;width:120px;height:240px;--fx:-3px;--fy:5px;animation:heroFloat 3.7s ease-in-out infinite alternate;animation-delay:-0.8s;">
+        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" style="left:244px;top:115px;width:120px;height:408px;--fx:3px;--fy:4px;animation:heroFloat 5.1s ease-in-out infinite alternate;animation-delay:-1.5s;">
+        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" style="left:-104px;top:247px;width:328px;height:328px;--fx:-5px;--fy:3px;animation:heroFloat 4.8s ease-in-out infinite alternate;animation-delay:-2.1s;">
+        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" style="left:384px;top:-120px;width:400px;height:400px;--fx:6px;--fy:-4px;animation:heroFloat 4.0s ease-in-out infinite alternate;animation-delay:-0.5s;">
+        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" style="left:384px;top:300px;width:190px;height:190px;--fx:-4px;--fy:-6px;animation:heroFloat 3.5s ease-in-out infinite alternate;animation-delay:-1.9s;">
+        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" style="left:594px;top:300px;width:190px;height:190px;--fx:5px;--fy:3px;animation:heroFloat 4.6s ease-in-out infinite alternate;animation-delay:-0.3s;">
+        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" style="left:804px;top:-180px;width:292px;height:400px;--fx:-6px;--fy:4px;animation:heroFloat 3.9s ease-in-out infinite alternate;animation-delay:-1.2s;">
+        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" style="left:804px;top:240px;width:328px;height:328px;--fx:4px;--fy:-7px;animation:heroFloat 4.4s ease-in-out infinite alternate;animation-delay:-2.7s;">
       </div>
     </div>
   </div>
@@ -347,7 +345,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">01</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s01.name">Context</span>
     </div>
     <h2 class="sec-headline" data-i18n="s01.headline">One product.<br>Unlimited clients.</h2>
-    <p class="sec-lead" data-i18n="s01.lead">The wallpad is Hyundai HT's smart home interface, built in a 10" form factor. It ships as a fixed product to Hyundai Construction and as a white-label B2B product to architecture firms that build it into residential developments.</p>
+    <p class="sec-lead" data-i18n="s01.lead">The wallpad is Hyundai HT's smart home interface, available in a 10" form factor. It ships as a fixed product to Hyundai Construction and as a white-label B2B product to architecture firms integrating it into residential developments.</p>
   </div>
   <img loading="lazy" src="engram.resource/ht-context-image.webp" alt="Hyundai HT wallpad context" class="reveal d1" style="width:1024px;max-width:100%;height:auto;display:block;border-radius:16px;">
   <div class="s01-callout reveal d2">
@@ -363,28 +361,28 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">02</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s02.name">Design Language</span>
     </div>
     <h2 class="sec-headline" data-i18n="s02.headline">Simpler, Better.</h2>
-    <p class="sec-lead" data-i18n="s02.lead">Working within the design center's visual direction, our team of three built a shared design language from scratch and arrived at every decision together. My role was to translate it into the system: minimal tokens, minimal components, nothing that felt out of place on the hardware it lives on.</p>
+    <p class="sec-lead" data-i18n="s02.lead">Working within the design center's existing visual direction, our team of three built a shared design language from scratch, arriving at every decision together. My role was to translate that into the system: minimal tokens, minimal components, nothing that felt out of place on the hardware it lives on.</p>
   </div>
   <div class="dl-cards">
     <div class="dl-card reveal d1">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/3-Layer System.webp" alt="3-Layer System" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl1.title">3-Layer System</p>
-        <p class="dl-desc" data-i18n="s02.dl1.desc">Triangle-UI builds visual hierarchy with layered surfaces, each one a step lighter in tone. The top surface uses a glass-like effect, a functional choice since shadows don't read clearly on the smoked-glass display.</p>
+        <p class="dl-desc" data-i18n="s02.dl1.desc">Triangle-UI creates visual hierarchy through layered surfaces. Each layer uses a progressively lighter tone. The topmost surface uses a glass-like effect, a functional choice since shadows don't read clearly on the smoked-glass display hardware.</p>
       </div>
     </div>
     <div class="dl-card reveal d1">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Categorized Colors.webp" alt="Categorized Colors" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl2.title">Categorized Colors</p>
-        <p class="dl-desc" data-i18n="s02.dl2.desc">Category colors are part of the wallpad's design heritage: green for communication, blue for control, orange for information. We kept the hues for continuity and adjusted the values to pass the WCAG 3:1 requirement for UI components, reaching a 3.5:1 contrast against each background.</p>
+        <p class="dl-desc" data-i18n="s02.dl2.desc">Category colors are part of the wallpad's design heritage: green for communication, blue for control, orange for information. We preserved the hues for continuity and recalibrated values to meet WCAG, achieving a 3.5:1 contrast ratio against each background.</p>
       </div>
     </div>
     <div class="dl-card reveal d2">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Iconography.webp" alt="Iconography" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
         <p class="dl-title" data-i18n="s02.dl3.title">Iconography</p>
-        <p class="dl-desc" data-i18n="s02.dl3.desc">Icons share one visual motif across the set: the roofline of a house. Usage drives the style, with solid icons for actions and line icons for information. All are built from basic geometric shapes to put recognition before expression.</p>
+        <p class="dl-desc" data-i18n="s02.dl3.desc">Icons use the roofline of a house as a consistent visual motif across the set. Usage drives the style: solid icons for buttons and actions, line icons for information. Built from basic geometric shapes to prioritize recognition over expression.</p>
       </div>
     </div>
   </div>
@@ -397,7 +395,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">03</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s03.name">Token Architecture</span>
     </div>
     <h2 class="sec-headline" data-i18n="s03.headline">One system,<br>Configurable by Tokens.</h2>
-    <p class="sec-lead" data-i18n="s03.lead">The token system runs in two layers. A new client's brand colors go into the primitive layer and flow through the semantic tokens automatically.</p>
+    <p class="sec-lead" data-i18n="s03.lead">The token system runs in two layers. When a new client configuration is created, their brand colors are added to the primitive layer and flow through the semantic tokens automatically.</p>
   </div>
   <div class="tok-container reveal d1">
     <div class="tok-grid">
@@ -405,28 +403,28 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
         <img loading="lazy" src="engram.resource/token01.webp" alt="Color token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok1.name">Color</p>
-          <p class="tok-desc" data-i18n="s03.tok1.desc">A 60-step primitive palette covers neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, and overlay.</p>
+          <p class="tok-desc" data-i18n="s03.tok1.desc">60-step primitive palette across neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, overlay.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token02.webp" alt="Typography token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok2.name">Typography</p>
-          <p class="tok-desc" data-i18n="s03.tok2.desc">The scale runs from 12px to 80px with named semantic roles. Font family and weight are configurable per client at the semantic level.</p>
+          <p class="tok-desc" data-i18n="s03.tok2.desc">Scale from 12px to 80px with named semantic roles. Font family and weight configurable per client at the semantic level.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token03.webp" alt="Spacing token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok3.name">Spacing</p>
-          <p class="tok-desc" data-i18n="s03.tok3.desc">The grid uses a 4px base with 8 named steps. Resolution modes (10" vs 13") switch spacing values by context. Same token, different output.</p>
+          <p class="tok-desc" data-i18n="s03.tok3.desc">4px base grid with 8 named steps. Resolution modes (10" vs 13") switch spacing values by context. Same token, different output.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token04.webp" alt="Radius token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok4.name">Radius</p>
-          <p class="tok-desc" data-i18n="s03.tok4.desc">Corner radius ranges from sharp to pill, and blur tokens cover overlay and panel surfaces. Both are configurable to each client's CI guidelines.</p>
+          <p class="tok-desc" data-i18n="s03.tok4.desc">Corner radius from sharp to pill. Blur tokens for overlay and panel surfaces. Both configurable per client CI guidelines.</p>
         </div>
       </div>
     </div>
@@ -442,7 +440,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">04</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s04.name">Component Logic</span>
     </div>
     <h2 class="sec-headline" data-i18n="s04.headline">Built to be Reconfigured,<br>Not Rebuilt.</h2>
-    <p class="sec-lead" data-i18n="s04.lead">Every component is built from a master with every possible slot. Each instance shows only what its context needs and hides the rest through Figma's property system. All instances stay connected to one source, so a client configuration is composition, not reconstruction.</p>
+    <p class="sec-lead" data-i18n="s04.lead">Every component is built from a master with all possible slots included. Each instance exposes only what its context requires; the rest is hidden via Figma's property system. Every instance stays connected to one source, and client configurations become a matter of composition, not reconstruction.</p>
   </div>
   <div class="reveal d1" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
     <div class="comp-fade-wrap">
@@ -460,10 +458,10 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">05</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s05.name">Version Control</span>
     </div>
     <h2 class="sec-headline" data-i18n="s05.headline">Every Change<br>Documented.</h2>
-    <p class="sec-lead" data-i18n="s05.lead">Every major update becomes a named branch. Client projects live separately, but each file carries a version reference, so it's always clear which Triangle-UI release it was built against.</p>
+    <p class="sec-lead" data-i18n="s05.lead">Every major update is captured as a named branch. Client projects are managed separately, but every client file carries a version reference, so it's always clear which Triangle-UI release it was built against.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:24px;align-items:center;width:1024px;max-width:100%;" class="reveal d1">
-    <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;max-height:clamp(220px,38vw,380px);">
+    <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;">
       <img loading="lazy" src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,transparent,var(--bg));"></div>
     </div>
@@ -478,7 +476,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
       <span class="sec-num">06</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s06.name">Final Design</span>
     </div>
     <h2 class="sec-headline" data-i18n="s06.headline">Widget-Based<br>Home Screen.</h2>
-    <p class="sec-lead" data-i18n="s06.lead">The main screen is built from freely customizable widgets. Control widgets use category colors; information widgets stay neutral, so users can tell them apart at a glance.</p>
+    <p class="sec-lead" data-i18n="s06.lead">The main screen is built from freely customizable widgets. Control widgets use category colors; information widgets stay neutral, letting users distinguish type at a glance.</p>
   </div>
 
   <div class="fd-fade-wrap reveal d1">
@@ -497,7 +495,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   <div class="adaptive-card reveal d1">
     <div class="adaptive-header">
       <p class="adaptive-title" data-i18n="s06.adaptive.title">Adaptive <span class="hl-blue">Control</span></p>
-      <p class="adaptive-body" data-i18n="s06.adaptive.body">Tapping a widget expands it into a full control panel. Dimmed icons show off states; category colors light up when a device is on.</p>
+      <p class="adaptive-body" data-i18n="s06.adaptive.body">Tapping a widget expands it into a detailed control panel. Dimmed icons indicate off states; category colors activate when a device is on.</p>
     </div>
     <div class="adaptive-screens-wrap">
       <div class="adaptive-screens">
@@ -542,7 +540,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
     </div>
     <h2 class="sec-headline" data-i18n="s07.headline">Translating a<br>Design Language.</h2>
     <div class="refl-body-wrap reveal d1">
-      <p class="sec-lead" data-i18n="s07.lead1">We built the design system on the design center's design philosophy: consistency, intuitiveness, and scalability. Every structural decision, from token naming and component slots to branching rules, needed a rationale that fit those principles and that the whole team could stand behind. Nothing shipped until we agreed on why.</p>
+      <p class="sec-lead" data-i18n="s07.lead1">Building a design system from scratch meant every structural decision, from token naming and component slots to branching conventions, needed a rationale the whole team could stand behind. Nothing shipped until we agreed on why.</p>
       <p class="sec-lead" data-i18n="s07.lead2">The sharpest tension was iconography: deciding to split the set into solid icons for actions and line icons for information. It was a small call with a large surface area. Once that rule was set, every icon that followed had to fit it.</p>
     </div>
   </div>
@@ -551,7 +549,7 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
 <!-- FOOTER -->
 </main>
 <footer>
-  <span class="ft" data-i18n="footer.left">Hyundai HT | Triangle UI Design System</span>
+  <span class="ft" data-i18n="footer.left">Hyundai HT — Triangle UI Design System</span>
   <span class="ft">Simon Choi © <span id="yr"></span></span>
 </footer>
 
@@ -563,35 +561,20 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
 
   var animating = false;
   var autoPlayed = false;
-  var currentIndex = 0;
 
-  function getDummyW() {
-    var d = screens.querySelector('.adaptive-dummy');
-    return d ? d.offsetWidth : 576;
-  }
-
-  function setPosition(index, animate) {
-    var dummyW = getDummyW();
-    var gap = 16;
-    var center = (wrap.offsetWidth - dummyW) / 2;
-    var offset = center - index * (dummyW + gap);
-    screens.style.transition = animate ? 'transform 0.8s cubic-bezier(.52,0,0,1)' : 'none';
-    screens.style.transform = 'translateX(' + offset + 'px)';
-    currentIndex = index;
-  }
-
-  // Initialize centered on first image
-  setPosition(0, false);
-  window.addEventListener('resize', function() { setPosition(currentIndex, false); });
-
-  // Auto-play once when scrolled into view
+  // Auto-play once when scrolled into view — pause 1.2s so first image is seen
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting && !autoPlayed) {
         autoPlayed = true;
         setTimeout(function() {
           animating = true;
-          setPosition(1, true);
+          var dummies = screens.querySelectorAll('.adaptive-dummy');
+          var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
+          var gap = 16;
+          var offset = dummyW + gap;
+          screens.style.transition = 'transform 0.8s cubic-bezier(.52,0,0,1)';
+          screens.style.transform = 'translateX(-' + offset + 'px)';
           setTimeout(function() { animating = false; }, 900);
         }, 1200);
         io.unobserve(wrap);
@@ -603,12 +586,17 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   // Hover takes over after auto-play
   wrap.addEventListener('mousemove', function(e) {
     if (animating) return;
+    var dummies = screens.querySelectorAll('.adaptive-dummy');
+    var dummyW = dummies.length ? dummies[0].offsetWidth : 576;
+    var gap = 16;
     var rect = wrap.getBoundingClientRect();
-    setPosition(e.clientX - rect.left < rect.width / 2 ? 0 : 1, true);
+    screens.style.transform = e.clientX - rect.left < rect.width / 2
+      ? 'translateX(0)'
+      : 'translateX(-' + (dummyW + gap) + 'px)';
   });
   wrap.addEventListener('mouseleave', function() {
     if (animating) return;
-    setPosition(0, true);
+    screens.style.transform = 'translateX(0)';
   });
 })();
 
@@ -648,7 +636,7 @@ const i18n = {
     'hero.eyebrow1': 'Design System',
     'hero.eyebrow2': 'Smart Home',
     'hero.tagline': 'A scalable, white-label UI system for<br>residential smart home wallpads.',
-    'hero.desc': 'The system serves any architecture client without a rebuild. A team of three designed it from the ground up and made every decision together.',
+    'hero.desc': 'Built to serve any architecture client without rebuilding from scratch. Designed from the ground up by a team of three, with every decision made collaboratively.',
     'meta.role': 'Role',
     'meta.role.v': 'Design System Lead',
     'meta.company': 'Company',
@@ -657,62 +645,62 @@ const i18n = {
     'meta.timeline': 'Timeline',
     's01.name': 'Context',
     's01.headline': 'One product.<br>Unlimited clients.',
-    's01.lead': 'The wallpad is Hyundai HT\'s smart home interface, built in a 10" form factor. It ships as a fixed product to Hyundai Construction and as a white-label B2B product to architecture firms that build it into residential developments.',
-    's01.dummy': 'Default - Hyundai HT',
+    's01.lead': 'The wallpad is Hyundai HT\'s smart home interface, available in a 10" form factor. It ships as a fixed product to Hyundai Construction and as a white-label B2B product to architecture firms integrating it into residential developments.',
+    's01.dummy': 'Default — Hyundai HT',
     's01.callout.label': 'Design Constraint',
     's01.callout.text': 'Every client arrives with different brand colors, feature sets, and CI guidelines. There\'s no fixed end state. The system has to be ready for clients we haven\'t met yet.',
     's02.name': 'Design Language',
     's02.headline': 'Simpler, Better.',
-    's02.lead': 'Working within the design center\'s visual direction, our team of three built a shared design language from scratch and arrived at every decision together. My role was to translate it into the system: minimal tokens, minimal components, nothing that felt out of place on the hardware it lives on.',
+    's02.lead': 'Working within the design center\'s existing visual direction, our team of three built a shared design language from scratch, arriving at every decision together. My role was to translate that into the system: minimal tokens, minimal components, nothing that felt out of place on the hardware it lives on.',
     's02.dl1.title': '3-Layer System',
-    's02.dl1.desc': 'Triangle-UI builds visual hierarchy with layered surfaces, each one a step lighter in tone. The top surface uses a glass-like effect, a functional choice since shadows don\'t read clearly on the smoked-glass display.',
+    's02.dl1.desc': 'Triangle-UI creates visual hierarchy through layered surfaces. Each layer uses a progressively lighter tone. The topmost surface uses a glass-like effect, a functional choice since shadows don\'t read clearly on the smoked-glass display hardware.',
     's02.dl2.title': 'Categorized Colors',
-    's02.dl2.desc': 'Category colors are part of the wallpad\'s design heritage: green for communication, blue for control, orange for information. We kept the hues for continuity and adjusted the values to pass the WCAG 3:1 requirement for UI components, reaching a 3.5:1 contrast against each background.',
+    's02.dl2.desc': 'Category colors are part of the wallpad\'s design heritage: green for communication, blue for control, orange for information. We preserved the hues for continuity and recalibrated values to meet WCAG, achieving a 3.5:1 contrast ratio against each background.',
     's02.dl3.title': 'Iconography',
-    's02.dl3.desc': 'Icons share one visual motif across the set: the roofline of a house. Usage drives the style, with solid icons for actions and line icons for information. All are built from basic geometric shapes to put recognition before expression.',
+    's02.dl3.desc': 'Icons use the roofline of a house as a consistent visual motif across the set. Usage drives the style: solid icons for buttons and actions, line icons for information. Built from basic geometric shapes to prioritize recognition over expression.',
     's03.name': 'Token Architecture',
     's03.headline': 'One system,<br>Configurable by Tokens.',
-    's03.lead': 'The token system runs in two layers. A new client\'s brand colors go into the primitive layer and flow through the semantic tokens automatically.',
+    's03.lead': 'The token system runs in two layers. When a new client configuration is created, their brand colors are added to the primitive layer and flow through the semantic tokens automatically.',
     's03.tok1.name': 'Color',
-    's03.tok1.desc': 'A 60-step primitive palette covers neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, and overlay.',
+    's03.tok1.desc': '60-step primitive palette across neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, overlay.',
     's03.tok2.name': 'Typography',
-    's03.tok2.desc': 'The scale runs from 12px to 80px with named semantic roles. Font family and weight are configurable per client at the semantic level.',
+    's03.tok2.desc': 'Scale from 12px to 80px with named semantic roles. Font family and weight configurable per client at the semantic level.',
     's03.tok3.name': 'Spacing',
-    's03.tok3.desc': 'The grid uses a 4px base with 8 named steps. Resolution modes (10" vs 13") switch spacing values by context. Same token, different output.',
+    's03.tok3.desc': '4px base grid with 8 named steps. Resolution modes (10" vs 13") switch spacing values by context. Same token, different output.',
     's03.tok4.name': 'Radius & Blur',
-    's03.tok4.desc': 'Corner radius ranges from sharp to pill, and blur tokens cover overlay and panel surfaces. Both are configurable to each client\'s CI guidelines.',
+    's03.tok4.desc': 'Corner radius from sharp to pill. Blur tokens for overlay and panel surfaces. Both configurable per client CI guidelines.',
     's03.caption': 'Most new client configurations are a token exercise.<br>Tokens cover color, typography, spacing, radius, and blur.',
     's04.name': 'Component Logic',
     's04.headline': 'Built to be Reconfigured,<br>Not Rebuilt.',
-    's04.lead': 'Every component is built from a master with every possible slot. Each instance shows only what its context needs and hides the rest through Figma\'s property system. All instances stay connected to one source, so a client configuration is composition, not reconstruction.',
+    's04.lead': 'Every component is built from a master with all possible slots included. Each instance exposes only what its context requires; the rest is hidden via Figma\'s property system. Every instance stays connected to one source, and client configurations become a matter of composition, not reconstruction.',
     's05.name': 'Version Control',
     's05.headline': 'Every Change<br>Documented.',
-    's05.lead': 'Every major update becomes a named branch. Client projects live separately, but each file carries a version reference, so it\'s always clear which Triangle-UI release it was built against.',
+    's05.lead': 'Every major update is captured as a named branch. Client projects are managed separately, but every client file carries a version reference, so it\'s always clear which Triangle-UI release it was built against.',
     's05.dummy': 'History page',
     's05.caption': 'All changes are documented in the version history page.',
     's06.name': 'Final Design',
     's06.headline': 'Widget-Based<br>Home Screen.',
-    's06.lead': 'The main screen is built from freely customizable widgets. Control widgets use category colors; information widgets stay neutral, so users can tell them apart at a glance.',
+    's06.lead': 'The main screen is built from freely customizable widgets. Control widgets use category colors; information widgets stay neutral, letting users distinguish type at a glance.',
     's06.dummy': 'Main + widget',
     's06.adaptive.title': 'Adaptive <span class="hl-blue">Control</span>',
-    's06.adaptive.body': 'Tapping a widget expands it into a full control panel. Dimmed icons show off states; category colors light up when a device is on.',
+    's06.adaptive.body': 'Tapping a widget expands it into a detailed control panel. Dimmed icons indicate off states; category colors activate when a device is on.',
     's06.immersive.title': 'Immersive <span class="hl-green">Calling</span>',
     's06.immersive.body': 'The call interface uses the full 10" display. Floating buttons keep the field of view open, while the 3-layer system surfaces high-priority actions without cluttering the frame.',
     's06.clear.title': 'Clear <span class="hl-orange">Information</span>',
     's06.clear.body': 'Orange highlights draw attention to critical info at a glance.<br>List-based components keep the experience consistent across the full interface.',
     's07.name': 'Reflection',
     's07.headline': 'Translating a<br>Design Language.',
-    's07.lead1': 'We built the design system on the design center\'s design philosophy: consistency, intuitiveness, and scalability. Every structural decision, from token naming and component slots to branching rules, needed a rationale that fit those principles and that the whole team could stand behind. Nothing shipped until we agreed on why.',
+    's07.lead1': 'Building a design system from scratch meant every structural decision, from token naming and component slots to branching conventions, needed a rationale the whole team could stand behind. Nothing shipped until we agreed on why.',
     's07.lead2': 'The sharpest tension was iconography: deciding to split the set into solid icons for actions and line icons for information. It was a small call with a large surface area. Once that rule was set, every icon that followed had to fit it.',
-    'footer.left': 'Hyundai HT | Triangle UI Design System',
+    'footer.left': 'Hyundai HT — Triangle UI Design System',
 
   },
   ko: {
-    'nav.tag': '디자인 시스템 · 현대HT',
+    'nav.tag': 'Triangle UI',
     'hero.eyebrow1': '디자인 시스템',
     'hero.eyebrow2': '스마트홈',
-    'hero.tagline': '주거용 스마트홈 월패드를 위한<br>확장 가능한 화이트레이블 UI 시스템.',
-    'hero.desc': '클라이언트가 바뀌어도 처음부터 다시 만들지 않도록 설계한 시스템입니다. 새로 구성된 세 명의 팀이 모든 결정을 함께 내리며 만들었어요.',
+    'hero.tagline': '다양한 주거 브랜드에 대응하는<br>확장 가능한 화이트레이블 UI 시스템.',
+    'hero.desc': '새로운 프로젝트마다 처음부터 디자인하지 않아도 되도록 설계했습니다. 새롭게 구성된 3인 디자인팀의 첫 번째 프로젝트였습니다.',
     'meta.role': '역할',
     'meta.role.v': '디자인 시스템 리드',
     'meta.company': '회사',
@@ -720,55 +708,55 @@ const i18n = {
     'meta.platform.v': '10" 월패드',
     'meta.timeline': '기간',
     's01.name': '배경',
-    's01.headline': '하나의 제품,<br>무한한 클라이언트.',
-    's01.lead': '월패드는 현대HT의 스마트홈 인터페이스로, 10인치 크기로 만듭니다. 현대건설에는 고정 제품으로 납품하고, 주거 단지에 도입하는 건축 회사에는 화이트레이블 B2B 제품으로 제공해요.',
-    's01.dummy': '기본 - 현대HT',
-    's01.callout.label': '디자인 제약',
-    's01.callout.text': '클라이언트마다 브랜드 컬러, 기능 구성, CI 가이드라인이 모두 달라요. 정해진 최종 형태가 없습니다. 아직 만나지 않은 클라이언트까지 대비할 수 있는 시스템이어야 합니다.',
+    's01.headline': '하나의 제품으로<br>다양한 브랜드를 지원하다.',
+    's01.lead': '월패드는 현대HT의 스마트홈 인터페이스로, 10인치 월패드 환경에서 사용됩니다. 현대건설에는 기본 제품으로 공급되며, 다른 건설사에는 브랜드에 맞게 커스터마이징 가능한 화이트레이블 B2B 솔루션으로 제공됩니다.',
+    's01.dummy': '기본 — 현대HT',
+    's01.callout.label': '디자인 과제',
+    's01.callout.text': '건설사마다 브랜드 컬러와 기능 구성, CI 가이드라인이 모두 달랐습니다. 고정된 결과물을 만드는 것이 아니라, 아직 만나지 않은 새로운 고객사까지 대응할 수 있는 시스템이 필요했습니다.',
     's02.name': '디자인 언어',
-    's02.headline': '단순할수록 좋다.',
-    's02.lead': '디자인센터의 비주얼 방향 안에서 세 명의 팀이 함께 디자인 언어를 만들었고, 저는 이를 시스템으로 옮기는 역할을 맡았어요. 토큰과 컴포넌트는 최소한으로 유지하고, 하드웨어와 어울리지 않는 요소는 넣지 않았습니다.',
-    's02.dl1.title': '3레이어 시스템',
-    's02.dl1.desc': 'Triangle-UI는 레이어를 겹쳐 시각적 계층을 만듭니다. 위 레이어일수록 한 단계씩 밝은 톤을 사용해요. 가장 위 서피스에는 유리 같은 효과를 적용했는데, 스모크 글라스 디스플레이에서는 그림자가 잘 보이지 않기 때문이에요.',
+    's02.headline': '단순할수록<br>오래 사용할 수 있습니다.',
+    's02.lead': '새롭게 구성된 3인 디자인팀은 기존 현대HT의 비주얼 아이덴티티를 유지하면서 공통 디자인 언어를 정립했습니다. 저는 이를 최소한의 토큰과 컴포넌트로 구성된 디자인 시스템으로 구현해, 다양한 하드웨어 환경에서도 일관된 경험을 제공하는 데 집중했습니다.',
+    's02.dl1.title': '3단계 레이어 시스템',
+    's02.dl1.desc': 'HT Triangle-UI는 세 단계의 레이어를 통해 명확한 시각적 위계를 제공합니다. 각 레이어는 점진적으로 밝아지며, 가장 중요한 영역에는 글래스 효과를 적용해 자연스럽게 시선을 유도했습니다.',
     's02.dl2.title': '카테고리 컬러',
-    's02.dl2.desc': '카테고리 컬러는 월패드가 이어온 디자인 유산입니다. 커뮤니케이션은 초록색, 컨트롤은 파란색, 정보는 주황색을 써요. 연속성을 위해 색조는 유지하고, 값만 조정해 배경 대비 3.5:1을 확보했습니다. UI 컴포넌트에 대한 WCAG 3:1 기준을 충족하는 수치예요.',
-    's02.dl3.title': '아이콘그래피',
-    's02.dl3.desc': '아이콘 세트 전체에 집의 지붕선을 시각적 모티프로 사용했어요. 용도에 따라 스타일을 나눠, 액션에는 솔리드 아이콘을, 정보에는 라인 아이콘을 씁니다. 모든 아이콘은 기본 도형으로 만들어 표현보다 인식을 우선했습니다.',
+    's02.dl2.desc': '카테고리 컬러는 기존 월패드 디자인의 핵심 요소였습니다. 커뮤니케이션은 초록, 제어는 파랑, 정보는 주황으로 구분하는 규칙을 유지하면서도 WCAG 기준을 만족하도록 색상을 재조정해 최소 3.5:1의 대비를 확보했습니다.',
+    's02.dl3.title': '아이콘 시스템',
+    's02.dl3.desc': '브랜드 아이덴티티를 강화하기 위해 집의 지붕 형태를 공통 모티프로 적용했습니다. 모든 아이콘은 단순한 기하학적 형태를 기반으로 설계해 스타일보다 빠른 인식과 일관성을 우선했습니다.',
     's03.name': '토큰 아키텍처',
-    's03.headline': '하나의 시스템,<br>토큰으로 구성 가능.',
-    's03.lead': '토큰 시스템은 두 레이어로 구성됩니다. 새 클라이언트의 브랜드 컬러를 프리미티브 레이어에 추가하면, 시맨틱 토큰에 자동으로 반영돼요.',
+    's03.headline': '하나의 시스템을<br>토큰으로 확장하다.',
+    's03.lead': '디자인 토큰은 프리미티브와 시맨틱, 두 개의 레이어로 구성했습니다. 새로운 고객사가 추가되면 브랜드 컬러를 프리미티브에 등록하고, 시맨틱 토큰만 변경해 전체 UI에 반영할 수 있도록 설계했습니다.',
     's03.tok1.name': '컬러',
-    's03.tok1.desc': '프리미티브 팔레트는 중립색과 브랜드 색상을 60단계로 정의합니다. 시맨틱 토큰은 서피스, 브랜드, 텍스트, 상태, 오버레이 등 의도를 매핑해요.',
+    's03.tok1.desc': '중립색과 브랜드 컬러를 포함한 60단계의 프리미티브 팔레트를 구성했습니다. 시맨틱 레이어에서는 Surface, Brand, Text, Status, Overlay 등 역할 중심으로 관리해 고객사별 작업은 시맨틱 토큰만 수정하면 되도록 했습니다.',
     's03.tok2.name': '타이포그래피',
-    's03.tok2.desc': '스케일은 12px에서 80px까지 정의했습니다. 제목, 본문, 캡션, 레이블 같은 시맨틱 역할이 스케일 단계를 참조해요. 폰트 패밀리와 굵기는 시맨틱 레벨에서 클라이언트별로 설정할 수 있습니다.',
+    's03.tok2.desc': '10px부터 48px까지 타입 스케일을 정의했습니다. 제목, 본문, 캡션, 레이블 등 역할별 시맨틱 토큰을 통해 폰트와 굵기를 고객사별로 유연하게 적용할 수 있도록 구성했습니다.',
     's03.tok3.name': '간격',
-    's03.tok3.desc': '그리드는 4px 기준에 8개의 단계로 구성됩니다. 해상도 모드(10인치, 13인치)에 따라 간격 값이 전환돼요. 같은 토큰이 폼 팩터마다 다른 값으로 해석되는 방식입니다.',
-    's03.tok4.name': '반경 & 블러',
-    's03.tok4.desc': '코너 반경은 샤프부터 필 형태까지 토큰으로 정의했습니다. 블러 토큰은 오버레이와 패널 서피스에 사용해요. 둘 다 클라이언트 CI에 맞게 시맨틱 레벨에서 설정할 수 있습니다.',
-    's03.caption': '클라이언트의 새 구성 요청 대부분은 토큰 작업입니다.<br>토큰은 컬러, 타이포그래피, 간격, 반경, 블러를 다뤄요.',
-    's04.name': '컴포넌트 로직',
-    's04.headline': '재구성을 위해,<br>재구축이 아닌.',
-    's04.lead': '모든 컴포넌트는 가능한 슬롯을 전부 담은 마스터에서 만듭니다. 각 인스턴스는 상황에 필요한 것만 보여주고, 나머지는 Figma 프로퍼티로 숨겨요. 모든 인스턴스가 하나의 소스에 연결돼 있어서, 클라이언트 구성은 처음부터 다시 만드는 게 아니라 조합만 하면 됩니다.',
+    's03.tok3.desc': '4px 기반 그리드와 8단계 간격 시스템을 정의했습니다. 동일한 시맨틱 토큰을 유지하면서도 10인치와 13인치 등 디바이스 크기에 따라 실제 값만 변경할 수 있도록 설계했습니다.',
+    's03.tok4.name': 'Radius & Blur',
+    's03.tok4.desc': '코너 반경과 블러 역시 토큰으로 관리했습니다. 고객사 CI에 맞춰 부드러운 형태부터 각진 형태까지 시맨틱 레벨에서 쉽게 변경할 수 있도록 구성했습니다.',
+    's03.caption': '대부분의 고객사 커스터마이징은 토큰 수정만으로 대응했습니다.<br>컬러, 타이포그래피, 간격, Radius, Blur를 모두 토큰으로 관리했습니다.',
+    's04.name': '컴포넌트 구조',
+    's04.headline': '다시 만드는 대신<br>조합할 수 있도록.',
+    's04.lead': '모든 컴포넌트는 하나의 마스터 컴포넌트에서 시작합니다. 필요한 슬롯만 노출하고 나머지는 Figma Properties로 제어해, 모든 인스턴스가 하나의 소스를 유지하면서도 상황에 맞게 조합할 수 있도록 설계했습니다. 새로운 고객사 대응은 컴포넌트를 새로 만드는 작업이 아니라, 필요한 요소를 구성하는 작업이 되었습니다.',
     's05.name': '버전 관리',
     's05.headline': '모든 변경 사항<br>기록.',
-    's05.lead': '주요 업데이트는 이름을 붙인 브랜치로 남겨요. 클라이언트 프로젝트는 따로 관리하지만, 모든 파일에 버전 참조를 남겨서 어떤 Triangle-UI 버전을 바탕으로 했는지 언제든 확인할 수 있습니다.',
+    's05.lead': '모든 주요 업데이트마다 새 브랜치가 해당 시점의 시스템 상태를 캡처합니다. 클라이언트 프로젝트는 별도로 관리되지만, 모든 클라이언트 파일에는 어떤 Triangle-UI 버전을 기반으로 구축되었는지 나타내는 버전 참조가 포함됩니다.',
     's05.dummy': '히스토리 페이지',
     's05.caption': '모든 변경 사항은 버전 히스토리 페이지에 기록됩니다.',
     's06.name': '최종 디자인',
     's06.headline': '위젯 기반<br>홈 스크린.',
-    's06.lead': '메인 화면은 자유롭게 배치할 수 있는 위젯으로 구성돼요. 컨트롤 위젯은 카테고리 컬러를 사용하고 정보 위젯은 중립 톤을 유지해서, 사용자가 한눈에 유형을 구분할 수 있습니다.',
+    's06.lead': '메인 화면은 사용자가 자유롭게 커스터마이즈할 수 있는 위젯으로 구성됩니다. 컨트롤 위젯은 직관적인 색상을 사용하고 정보 위젯은 중립을 유지하여, 사용자가 한눈에 유형을 구분할 수 있게 합니다.',
     's06.dummy': '메인 + 위젯',
     's06.adaptive.title': '적응형 <span class="hl-blue">컨트롤</span>',
-    's06.adaptive.body': '위젯을 탭하면 상세 컨트롤 패널로 확장됩니다. 꺼진 기기는 아이콘이 흐리게 표시되고, 켜지면 카테고리 컬러가 활성화돼요.',
+    's06.adaptive.body': '세부 컨트롤이 사용 가능할 때 인터페이스가 확장됩니다. 흐릿해진 아이콘은 켜기/끄기 상태를 나타내고, 카테고리 컬러는 활성 디바이스 컨트롤을 강조합니다.',
     's06.immersive.title': '몰입형 <span class="hl-green">통화</span>',
-    's06.immersive.body': '통화 인터페이스는 10인치 디스플레이를 화면 전체로 씁니다. 플로팅 버튼이라 시야가 넓게 트여 있고, 3레이어 시스템 덕분에 화면을 어지럽히지 않으면서도 중요한 액션을 눈에 띄게 보여줘요.',
+    's06.immersive.body': '통화 인터페이스는 더 몰입적인 경험을 위해 10인치 디스플레이를 최대로 활용합니다. 플로팅 스타일 버튼은 더 넓은 시야를 제공하고, 3레벨 레이어 시스템은 명확한 시각적 계층 구조를 통해 우선순위 높은 액션을 강조합니다.',
     's06.clear.title': '명확한 <span class="hl-orange">정보</span>',
-    's06.clear.body': '중요한 정보는 주황색으로 강조해 한눈에 들어오게 했습니다.<br>리스트 기반 컴포넌트로 인터페이스 전반의 경험을 일관되게 유지해요.',
+    's06.clear.body': '중요한 정보는 즉각적인 가시성을 위해 주황색으로 강조되며,<br>리스트 기반 컴포넌트는 인터페이스 전반에 걸쳐 일관된 경험을 만듭니다.',
     's07.name': '회고',
     's07.headline': '디자인 언어를<br>번역하다.',
-    's07.lead1': '디자인센터의 디자인 철학인 일관성, 직관성, 확장성을 기반으로 디자인 시스템을 구축했습니다. 토큰 네이밍, 컴포넌트 슬롯, 브랜치 규칙까지 모든 구조적 결정에는 이 원칙에 맞고 팀 전체가 동의할 수 있는 근거가 필요했어요. 이유에 모두 동의하기 전까지는 아무것도 확정하지 않았습니다.',
-    's07.lead2': '가장 첨예했던 지점은 아이콘이었어요. 액션에는 솔리드 아이콘, 정보에는 라인 아이콘으로 세트를 나누기로 한 것입니다. 작은 결정이었지만 영향 범위는 넓었습니다. 규칙이 정해진 뒤에는 모든 아이콘이 그 기준에 맞아야 했어요.',
-    'footer.left': 'Hyundai HT | Triangle UI 디자인 시스템',
+    's07.lead1': '확립된 디자인 언어 위에 디자인 시스템을 구축한 첫 번째 경험이었습니다. 모든 결정에는 명확한 근거가 필요했습니다. 시스템이 작동하기 위해서, 그리고 팀이 그것에 동의하기 위해서.',
+    's07.lead2': '더 어려운 과제는 그 언어에서 벗어나지 않으면서 확장성을 유지하는 것이었습니다. 새 컴포넌트마다 기능적으로만이 아니라 시각적으로도 여전히 맞는지 질문이 필요했습니다.',
+    'footer.left': 'Hyundai HT — Triangle UI 디자인 시스템',
 
   }
 };
@@ -813,43 +801,53 @@ setLang(stored);
   const track = document.querySelector('.clear-track');
   const dummies = document.querySelector('.clear-dummies');
   if (!track || !dummies) return;
-  const origItems = Array.from(track.querySelectorAll('.clear-dummy'));
-  if (!origItems.length) return;
-  const N = origItems.length;
-
-  function makeClone(item) { const c = item.cloneNode(true); c.removeAttribute('loading'); return c; }
-
-  // Prepend clone of last item — fills left side at start position
-  track.insertBefore(makeClone(origItems[N - 1]), track.firstChild);
-  // Append clones of all items as trailing buffer
-  origItems.forEach(item => track.appendChild(makeClone(item)));
-
-  // Track: [img3_pre, img1, img2, img3, img1', img2', img3']
-  // Start centered on img1 at index 1
-  let idx = 1;
-  const HOLD = window.innerWidth <= 1024 ? 3200 : 2500;
+  const items = track.querySelectorAll('.clear-dummy');
+  if (!items.length) return;
+  // Clone first image for seamless loop
+  track.appendChild(items[0].cloneNode(true));
+  let idx = 0;
+  const isMobile = window.innerWidth <= 1024;
+  const HOLD = isMobile ? 3200 : 2500;
   const INITIAL_DELAY = 1400;
 
-  function getStep() { return origItems[0].offsetWidth + 16; }
-  function getOffset() { return Math.max(0, (dummies.offsetWidth - origItems[0].offsetWidth) / 2); }
+  function getOffset() {
+    const itemW = items[0].offsetWidth;
+    const containerW = dummies.offsetWidth;
+    // Center the active image: shift track so image is centered in container
+    return Math.max(0, (containerW - itemW) / 2);
+  }
+
+  function getStep() {
+    return items[0].offsetWidth + 16;
+  }
+
   function applyPosition(animated) {
-    const pos = getOffset() - idx * getStep();
+    const start = getOffset();
+    const pos = start - (idx * getStep());
     track.style.transition = animated ? 'transform 0.7s cubic-bezier(0.52,0,0,1)' : 'none';
     track.style.transform = `translateX(${pos}px)`;
   }
 
+  // Set initial centered position without animation
   applyPosition(false);
 
   function advance() {
     idx++;
     applyPosition(true);
-    // After sliding to img1' (idx = 1+N), reset to img1 original (idx = 1) — left side matches
-    if (idx >= 1 + N) {
-      setTimeout(() => { idx = 1; applyPosition(false); }, 750);
+    if (idx >= items.length) {
+      setTimeout(() => {
+        idx = 0;
+        applyPosition(false);
+      }, 750);
     }
   }
 
-  setTimeout(() => { advance(); setInterval(advance, HOLD); }, INITIAL_DELAY);
+  setTimeout(() => {
+    advance();
+    setInterval(advance, HOLD);
+  }, INITIAL_DELAY);
+
+  // Recenter on resize
   window.addEventListener('resize', () => applyPosition(false));
 })();
 document.getElementById('yr').textContent = new Date().getFullYear();
