@@ -857,5 +857,22 @@ setLang(stored, false);
 })();
 document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
+<script>
+(function() {
+  var milestones = [25, 50, 75, 100];
+  var fired = new Set();
+  window.addEventListener('scroll', function() {
+    var scrollPercent = Math.round(
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+    );
+    milestones.forEach(function(milestone) {
+      if (scrollPercent >= milestone && !fired.has(milestone)) {
+        fired.add(milestone);
+        gtag('event', 'scroll_depth', { 'percent_scrolled': milestone });
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

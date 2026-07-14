@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simon Choi — UI/UX Designer</title>
+<title>Simon Choi | UI/UX Designer</title>
 <meta name="description" content="UI/UX designer with 5+ years of experience. Currently at Hyundai HT building smart home interfaces. Previously increased retention 21% at Data B.">
 <link rel="canonical" href="https://schoi84.github.io/Portfolio/">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -16,7 +16,7 @@
   gtag('js', new Date());
   gtag('config', 'G-65W9FB36T6');
 </script>
-<meta property="og:title" content="Simon Choi — UI/UX Designer">
+<meta property="og:title" content="Simon Choi | UI/UX Designer">
 <meta property="og:description" content="Product designer focused on reducing friction and building clarity.">
 <meta property="og:image" content="https://schoi84.github.io/Portfolio/engram.resource/OG.png">
 <meta property="og:url" content="https://schoi84.github.io/Portfolio/">
@@ -1215,5 +1215,22 @@ const stored = localStorage.getItem('lang') || 'en';
 setLang(stored, false);
 </script>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+(function() {
+  var milestones = [25, 50, 75, 100];
+  var fired = new Set();
+  window.addEventListener('scroll', function() {
+    var scrollPercent = Math.round(
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+    );
+    milestones.forEach(function(milestone) {
+      if (scrollPercent >= milestone && !fired.has(milestone)) {
+        fired.add(milestone);
+        gtag('event', 'scroll_depth', { 'percent_scrolled': milestone });
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
