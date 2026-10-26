@@ -400,12 +400,12 @@ nav {
   border-color: var(--gray-300);
 }
 .proj-card--disabled {
-  opacity: 0.4;
   cursor: default;
-  transition: opacity 0.35s var(--ease);
 }
+/* Dim the content (not the whole card) so the in-progress badge stays fully visible on hover */
+.proj-card--disabled .cover-inner,
+.proj-card--disabled .proj-info { opacity: 0.4; }
 .proj-card--disabled:hover {
-  opacity: 1;
   box-shadow: none;
   transform: none;
   border-color: var(--gray-200);
@@ -433,10 +433,6 @@ nav {
 .proj-card--disabled:hover .proj-cover-overlay {
   background: rgba(26,23,20,0.2);
 }
-
-/* .reveal.visible sets opacity:1 with higher specificity, so restate the disabled look on top of it */
-.proj-card--disabled.reveal.visible { opacity: 0.4; }
-.proj-card--disabled.reveal.visible:hover { opacity: 1; }
 
 /* Cover image area */
 .proj-cover {
