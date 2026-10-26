@@ -434,6 +434,10 @@ nav {
   background: rgba(26,23,20,0.2);
 }
 
+/* .reveal.visible sets opacity:1 with higher specificity, so restate the disabled look on top of it */
+.proj-card--disabled.reveal.visible { opacity: 0.4; }
+.proj-card--disabled.reveal.visible:hover { opacity: 1; }
+
 /* Cover image area */
 .proj-cover {
   position: relative; overflow: hidden;
@@ -1319,7 +1323,7 @@ const i18n = {
     'toast.copied': '메일 주소가 복사되었습니다',
     'footer.credit': 'Claude Code로 제작',
     'quote.label': '내가 좋아하는 명언',
-    'proj.wip': '작업 중 ------------------------------------------------------------------------',
+    'proj.wip': '작업 중',
   }
 };
 
