@@ -700,6 +700,19 @@ nav {
   white-space: nowrap;
 }
 .contact-btn:hover { gap: 14px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 32px; z-index: 1000;
+  transform: translate(-50%, 12px);
+  max-width: calc(100vw - 32px);
+  padding: 12px 20px; border-radius: 999px;
+  background: var(--black); color: var(--white);
+  font-size: 14px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.4;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
 .contact-btn svg { width: 16px; height: 16px; transition: stroke 0.15s; flex-shrink: 0; }
 .contact-btn.grad-hover .btn-label {
   background: linear-gradient(90deg,
@@ -1053,6 +1066,8 @@ nav {
 
 </main>
 
+<div id="toast" class="toast" role="status" aria-live="polite" data-i18n="toast.copied">Email address copied</div>
+
 <footer class="footer">
   <div class="footer-left">
     <span class="footer-copy">© <span id="yr"></span> Simon Choi</span>
@@ -1092,6 +1107,48 @@ document.querySelectorAll('.contact-btn').forEach(btn => {
   btn.addEventListener('mouseenter', () => btn.classList.add('grad-hover'));
   btn.addEventListener('mouseleave', () => btn.classList.remove('grad-hover'));
 });
+
+/* ── Contact: open mail app; if none opens, copy the address and show a toast ── */
+(function () {
+  const EMAIL = '12schoi@naver.com';
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast() {
+    if (!toast) return;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+  function copyEmail() {
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = EMAIL; ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showToast();
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(EMAIL).then(showToast, fallback);
+    } else { fallback(); }
+  }
+  document.querySelectorAll('.contact-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      let opened = false;
+      const mark = () => { opened = true; };
+      window.addEventListener('blur', mark, { once: true });
+      document.addEventListener('visibilitychange', mark, { once: true });
+      window.location.href = 'mailto:' + EMAIL;
+      setTimeout(() => {
+        window.removeEventListener('blur', mark);
+        document.removeEventListener('visibilitychange', mark);
+        if (!opened) copyEmail();
+      }, 1200);
+    });
+  });
+})();
 
 /* ── Quote carousel ── */
 (function() {
@@ -1217,6 +1274,7 @@ const i18n = {
     'contact.label': 'Get in touch',
     'contact.title': 'Let\'s work<br>together.',
     'contact.btn': 'Contact Me',
+    'toast.copied': 'Email address copied',
     'footer.credit': 'Created with Claude Code',
     'quote.label': 'Quotes I live by',
     'proj.wip': 'In Progress',
@@ -1258,6 +1316,7 @@ const i18n = {
     'contact.label': '연락하기',
     'contact.title': '함께<br>일해요.',
     'contact.btn': '연락하기',
+    'toast.copied': '메일 주소가 복사되었습니다',
     'footer.credit': 'Claude Code로 제작',
     'quote.label': '내가 좋아하는 명언',
     'proj.wip': '작업 중 ------------------------------------------------------------------------',
