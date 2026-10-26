@@ -68,19 +68,26 @@
     if (!window.mixpanel || typeof mixpanel.time_event !== 'function') return;
     var visibleSince = null;
     function start() { if (visibleSince === null) { visibleSince = Date.now(); mixpanel.time_event('page_time'); } }
-    function flush() {
+    // end_reason: 'hidden' = tab switched / window minimized (or the first half of a close), 'pagehide' = page left
+    function flush(reason) {
       if (visibleSince === null) return;
       var secs = Math.round((Date.now() - visibleSince) / 1000);
       visibleSince = null;
       try {
-        mixpanel.track('page_time', { page_path: location.pathname, seconds_visible: secs }, { transport: 'sendBeacon' });
+        mixpanel.track('page_time', { page_path: location.pathname, seconds_visible: secs, end_reason: reason }, { transport: 'sendBeacon' });
       } catch (e) {}
     }
     if (document.visibilityState === 'visible') start();
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') flush(); else start();
+      if (document.visibilityState === 'hidden') flush('hidden'); else start();
     });
-    window.addEventListener('pagehide', flush);
+    // A tab close or navigation fires 'hidden' first and then 'pagehide', so page_exit marks a real exit
+    window.addEventListener('pagehide', function () {
+      flush('pagehide');
+      try {
+        mixpanel.track('page_exit', { page_path: location.pathname }, { transport: 'sendBeacon' });
+      } catch (e) {}
+    });
   })();
 </script>
 <meta property="og:title" content="Simon Choi | UI/UX Designer">
