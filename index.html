@@ -219,15 +219,12 @@ nav {
 }
 .nav-center a { font-size: 14px; color: var(--gray-400); transition: color 0.2s; }
 .nav-center a:hover { color: var(--black); }
-.nav-center a { display: inline-flex; flex-direction: column; align-items: center; }
-/* hidden bold copy reserves the bold width so the links do not shift when one becomes active */
-.nav-center a::after { content: attr(data-text); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
 .nav-center a[href="#work"]    { --ng: linear-gradient(120deg, #6366F1 0%, #3B82F6 25%, #06B6D4 50%, #3B82F6 75%, #6366F1 100%); }
 .nav-center a[href="#about"]   { --ng: linear-gradient(120deg, #65A30D 0%, #16A34A 35%, #059669 65%, #65A30D 100%); }
 .nav-center a[href="#contact"] { --ng: linear-gradient(120deg, #8B5CF6 0%, #EC4899 28%, #F97316 55%, #EC4899 78%, #8B5CF6 100%); }
-/* the link of the section being read: bold, with the same flowing gradient as that section's headline */
+/* the link of the section being read: same flowing gradient as that section's headline */
 .nav-center a.is-active {
-  font-weight: 700; color: var(--black);
+  color: var(--black);
   background: var(--ng); background-size: 300% 300%;
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -968,6 +965,21 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
 @media (hover: hover){
   .theme-fab:hover,.theme-fab:focus-visible{background:rgba(33,29,26,0.92);border-color:rgba(255,255,255,0.08)}
   html[data-theme="dark"] .theme-fab:hover,html[data-theme="dark"] .theme-fab:focus-visible{background:rgba(254,254,254,0.92);border-color:rgba(0,0,0,0.05)}
+}
+/* Narrow phones: compact nav; the links flow between logo and language switch so the gaps stay even (no overlap at 320–420px) */
+@media (max-width: 420px) {
+  nav { padding: 0 1rem; }
+  .nav-logo { font-size: 13px; letter-spacing: 0.04em; }
+  .nav-center { position: static; transform: none; gap: 12px; }
+  .nav-center a { font-size: 13px; }
+  .ls-btn { padding: 4px 8px; font-size: 11px; }
+}
+@media (max-width: 340px) {
+  nav { padding: 0 0.75rem; }
+  .nav-logo { font-size: 12px; }
+  .nav-center { gap: 8px; }
+  .nav-center a { font-size: 12px; }
+  .ls-btn { padding: 4px 6px; }
 }
 </style>
 </head>
@@ -1868,9 +1880,6 @@ setLang(stored, false);
   var items = links.map(function (a) { return { a: a, s: document.querySelector(a.getAttribute('href')) }; }).filter(function (i) { return i.s; });
   if (!items.length) return;
   var cur = null, ticking = false;
-  function sync() { links.forEach(function (a) { if (a.getAttribute('data-text') !== a.textContent) a.setAttribute('data-text', a.textContent); }); }
-  sync();
-  if (window.MutationObserver) links.forEach(function (a) { new MutationObserver(sync).observe(a, { childList: true, characterData: true, subtree: true }); });
   function update() {
     ticking = false;
     var line = 64 + window.innerHeight * 0.3, active = null;
