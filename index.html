@@ -942,7 +942,11 @@ html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shad
 .upd-toast .upd-go{width:32px;height:32px;padding:0;display:grid;place-items:center;background:var(--white);color:var(--black);flex-shrink:0}
 .upd-toast .upd-go svg{transition:transform .4s}
 .upd-toast .upd-go:hover svg{transform:rotate(180deg)}
-@media (max-width:480px){.upd-toast{bottom:72px;gap:8px;padding-left:14px;font-size:13px}}
+@media (max-width:480px){
+  /* same bottom line as the FAB (16px), sitting to its left */
+  .upd-toast{left:16px;bottom:16px;right:auto;max-width:calc(100vw - 16px - 44px - 8px - 16px);min-height:44px;gap:8px;padding:6px 6px 6px 16px;font-size:13px;transform:translateY(24px)}
+  .upd-toast.show{transform:translateY(0)}
+}
 /* FAB glass: same blur as nav, with a firmer tint and border so it reads on any background */
 .theme-fab{background:rgba(255,255,255,0.65);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);border:1px solid rgba(0,0,0,0.16)}
 html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:rgba(255,255,255,0.22)}
