@@ -130,6 +130,8 @@ body {
   min-width: 360px;
 }
 a { text-decoration: none; color: inherit; }
+/* remove the dark tap/click flash on nav links and buttons (mobile tap highlight) */
+a, button, [role="button"], .nav-center a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
