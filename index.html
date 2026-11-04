@@ -697,10 +697,7 @@ nav {
   font-weight: 700; letter-spacing: -0.045em; line-height: 1.1;
   padding-bottom: 0.1em;
 }
-.contact-cat {
-  flex-basis: 100%; display: flex; justify-content: center;
-  margin-top: 1rem;
-}
+.contact-cat { display: flex; justify-content: flex-end; }
 .cat-wrap { position: relative; width: clamp(140px, 16vw, 220px); cursor: default; border-radius: 12px; }
 .cat-wrap:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; }
 .cat-stage svg { display: block; width: 100%; height: auto; }
@@ -721,7 +718,7 @@ nav {
 .cat-wrap:hover .cat-tip, .cat-wrap:focus-visible .cat-tip, .cat-wrap.is-tip .cat-tip { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-reduced-motion: reduce) { .cat-tip { transition: none; } }
 .contact-right {
-  display: flex; align-items: flex-end; padding-bottom: 0.4rem; flex: 1; justify-content: flex-end;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 1.25rem; padding-bottom: 0.4rem; flex: 1; justify-content: flex-end;
 }
   font-size: clamp(13px, 1.3vw, 16px); font-weight: 400;
   color: var(--gray-500); transition: color 0.2s;
@@ -1114,16 +1111,16 @@ nav {
     </div>
   </div>
   <div class="contact-right reveal d2">
+    <div class="contact-cat" id="contactCat">
+      <div class="cat-wrap" id="catWrap" tabindex="0" aria-describedby="catTip">
+        <div class="cat-stage" id="catStage" aria-hidden="true"></div>
+        <div class="cat-tip" id="catTip" role="tooltip" data-i18n="contact.cat.tip">Why a cat?<br>Because I love cats.</div>
+      </div>
+    </div>
     <a href="mailto:12schoi@naver.com" class="contact-btn">
       <span class="btn-label" data-i18n="contact.btn">Contact Me</span>
       <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
     </a>
-  </div>
-  <div class="contact-cat" id="contactCat">
-    <div class="cat-wrap" id="catWrap" tabindex="0" aria-describedby="catTip">
-      <div class="cat-stage" id="catStage" aria-hidden="true"></div>
-      <div class="cat-tip" id="catTip" role="tooltip" data-i18n="contact.cat.tip">Why a cat?<br>Because I love cats.</div>
-    </div>
   </div>
 </section>
 
