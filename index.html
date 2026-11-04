@@ -662,6 +662,7 @@ nav {
 .about-body p+p { margin-top: 1.25rem; }
 
 .about-right { width: 50%; display: flex; flex-direction: column; gap: 2.5rem; }
+.edu-item .nw { white-space: nowrap; }
 .edu-item {
   display: flex; justify-content: space-between; align-items: center;
 }
@@ -1110,7 +1111,7 @@ html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shad
     <div>
       <div class="tools-label" data-i18n="about.edu.label">Education</div>
       <div class="edu-item">
-        <span class="exp-role" data-i18n="about.edu.school">University of Illinois at Urbana-Champaign</span>
+        <span class="exp-role" data-i18n="about.edu.school"><span class="nw">University of Illinois at</span> <span class="nw">Urbana-Champaign</span></span>
         <span class="exp-yr" data-i18n="about.edu.degree">BFA Industrial Design</span>
       </div>
     </div>
@@ -1509,7 +1510,7 @@ const i18n = {
     'about.headline': 'Making Complex Products<br><span class="grad-text-warm">Feel Simple.</span>',
     'about.body': '<p>I\'m a UI designer at <strong>Hyundai HT</strong>, where I own the design system for smart home wallpad interfaces deployed across residential and commercial buildings in Korea, on a team of three. My focus is building scalable systems that support complex device ecosystems while keeping every interaction simple and predictable.</p><p>Before that, I spent three years at <strong>Data B</strong> as the <strong>sole designer</strong> on an AI-powered English writing platform, owning the product end-to-end: UX flows, UI design, and brand identity. The redesign <strong>increased the retention rate by 21%</strong> in the month after launch.</p><p>My background in <strong>industrial design</strong> shapes how I approach digital products. I think about interfaces in terms of physical interaction: where attention lands, how people move through a system, and what feedback they expect at each step. That means reducing flows to their essential decisions and building systems that scale without adding noise.</p><p>I work closely with PMs, engineers, and marketers across the full product lifecycle. I care about how <strong>design drives business outcomes</strong>, and I bring cross-team input into the process so every design decision moves the product forward.</p>',
     'about.edu.label': 'Education',
-    'about.edu.school': 'University of Illinois at Urbana-Champaign',
+    'about.edu.school': '<span class="nw">University of Illinois at</span> <span class="nw">Urbana-Champaign</span>',
     'about.edu.degree': 'BFA Industrial Design',
     'about.exp.label': 'Experience',
     'about.exp1.role': 'GUI Designer',
