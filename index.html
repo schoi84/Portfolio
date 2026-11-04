@@ -222,7 +222,18 @@ nav {
 .nav-center a { display: inline-flex; flex-direction: column; align-items: center; }
 /* hidden bold copy reserves the bold width so the links do not shift when one becomes active */
 .nav-center a::after { content: attr(data-text); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
-.nav-center a.is-active { color: var(--black); font-weight: 700; }
+.nav-center a[href="#work"]    { --ng: linear-gradient(120deg, #6366F1 0%, #3B82F6 25%, #06B6D4 50%, #3B82F6 75%, #6366F1 100%); }
+.nav-center a[href="#about"]   { --ng: linear-gradient(120deg, #65A30D 0%, #16A34A 35%, #059669 65%, #65A30D 100%); }
+.nav-center a[href="#contact"] { --ng: linear-gradient(120deg, #8B5CF6 0%, #EC4899 28%, #F97316 55%, #EC4899 78%, #8B5CF6 100%); }
+/* the link of the section being read: bold, with the same flowing gradient as that section's headline */
+.nav-center a.is-active {
+  font-weight: 700; color: var(--black);
+  background: var(--ng); background-size: 300% 300%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: grad-flow 6s ease infinite;
+}
+@media (prefers-reduced-motion: reduce) { .nav-center a.is-active { animation: none; background-size: 100% 100%; } }
 .nav-right { display: flex; align-items: center; gap: 28px; }
 .lang-switch { display: flex; background: rgba(0,0,0,0.05); border: 1px solid var(--gray-200); border-radius: 8px; padding: 2px; gap: 2px; }
 .ls-btn { background: none; border: none; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-radius: 5px; letter-spacing: 0.04em; transition: all 0.15s; }
