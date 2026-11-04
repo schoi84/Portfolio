@@ -731,14 +731,36 @@ nav {
   color: var(--gray-500); transition: color 0.2s;
 }
 .contact-email:hover { color: var(--black); }
+/* Contact button: pill with a dot that expands on hover; label slides out, label + arrow slide in */
 .contact-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 0;
-  font-size: clamp(18px, 2vw, 24px); font-weight: 700; color: var(--black);
-  transition: gap 0.2s var(--ease);
-  white-space: nowrap;
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 200px; padding: 16px 32px 16px 52px;
+  border: 1px solid var(--gray-300); border-radius: 999px; overflow: hidden;
+  background: var(--bg); color: var(--black);
+  font-size: clamp(16px, 1.5vw, 20px); font-weight: 600; letter-spacing: -0.01em;
+  white-space: nowrap; cursor: pointer;
 }
-.contact-btn:hover { gap: 14px; }
+.contact-btn .btn-label {
+  display: inline-block; transform: translateX(0);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.contact-btn .btn-hover {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  color: var(--white); opacity: 0; transform: translateX(48px);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.contact-btn .btn-hover svg { width: 20px; height: 20px; flex-shrink: 0; }
+.contact-btn .btn-dot {
+  position: absolute; z-index: 1; left: calc(50% + 10px - var(--lw, 100px) / 2 - 22px); top: calc(50% - 4px);
+  width: 8px; height: 8px; border-radius: 8px; background: var(--black);
+  transition: left 0.3s var(--ease), top 0.3s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.contact-btn:hover .btn-label, .contact-btn:focus-visible .btn-label { transform: translateX(48px); opacity: 0; }
+.contact-btn:hover .btn-hover, .contact-btn:focus-visible .btn-hover { transform: translateX(0); opacity: 1; }
+.contact-btn:hover .btn-dot, .contact-btn:focus-visible .btn-dot { left: 0; top: 0; width: 100%; height: 100%; transform: scale(1.8); }
+.contact-btn:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .contact-btn .btn-label, .contact-btn .btn-hover, .contact-btn .btn-dot { transition: none; } }
 
 .toast {
   position: fixed; left: 50%; bottom: 32px; z-index: 1000;
@@ -752,32 +774,6 @@ nav {
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
-.contact-btn svg { width: 16px; height: 16px; transition: stroke 0.15s; flex-shrink: 0; }
-.contact-btn.grad-hover .btn-label {
-  background: linear-gradient(90deg,
-    #6366F1, #3B82F6, #06B6D4, #22C55E,
-    #F97316, #EC4899, #A855F7, #6366F1);
-  background-size: 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: btn-grad-live 3.5s linear infinite;
-}
-@keyframes btn-grad-live {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-.contact-btn.grad-hover svg {
-  animation: btn-stroke-live 3.5s linear infinite;
-}
-@keyframes btn-stroke-live {
-  0%   { stroke: #6366F1; }
-  20%  { stroke: #06B6D4; }
-  40%  { stroke: #22C55E; }
-  60%  { stroke: #F97316; }
-  80%  { stroke: #EC4899; }
-  100% { stroke: #6366F1; }
-}
 
 /* ─────────────────────
    FOOTER
@@ -1114,7 +1110,7 @@ nav {
   <div>
     <p class="contact-label reveal" data-i18n="contact.label">Get in touch</p>
     <div class="contact-title grad-text-vivid reveal d1" data-i18n="contact.title">
-      Let's work<br>together.
+      Let's Work<br>Together.
     </div>
   </div>
   <div class="contact-right reveal d2">
@@ -1126,7 +1122,11 @@ nav {
     </div>
     <a href="mailto:12schoi@naver.com" class="contact-btn">
       <span class="btn-label" data-i18n="contact.btn">Contact Me</span>
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+      <span class="btn-hover" aria-hidden="true">
+        <span data-i18n="contact.btn">Contact Me</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+      <span class="btn-dot" aria-hidden="true"></span>
     </a>
   </div>
 </section>
@@ -1142,6 +1142,40 @@ nav {
   var LIB = 'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js';
   var started = false;
   function hide() { root.style.display = 'none'; }
+  /* Recolor the cat's main body color with the same gradient as the headline.
+     Finds the fill color that covers the most area (ignoring full-size background shapes);
+     eyes, nose and other small details keep their original colors. */
+  function applyGradient(svg) {
+    if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    var vb = svg.viewBox && svg.viewBox.baseVal;
+    var total = vb && vb.width ? vb.width * vb.height : 0;
+    var areaByColor = {}, items = [];
+    svg.querySelectorAll('path, rect, circle, ellipse').forEach(function (el) {
+      var fill = (el.getAttribute('fill') || '').toLowerCase();
+      if (!fill || fill === 'none' || fill.indexOf('url') === 0) return;
+      var b; try { b = el.getBBox(); } catch (e) { return; }
+      var area = b.width * b.height;
+      if (!area || (total && area > total * 0.9)) return;
+      areaByColor[fill] = (areaByColor[fill] || 0) + area;
+      items.push({ el: el, fill: fill });
+    });
+    var main = null, best = 0;
+    Object.keys(areaByColor).forEach(function (c) { if (areaByColor[c] > best) { best = areaByColor[c]; main = c; } });
+    if (!main) return;
+    var defs = svg.querySelector('defs');
+    if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.insertBefore(defs, svg.firstChild); }
+    var g = document.createElementNS(NS, 'linearGradient');
+    g.setAttribute('id', 'catGradient');
+    g.setAttribute('x1', '0.067'); g.setAttribute('y1', '0.25'); g.setAttribute('x2', '0.933'); g.setAttribute('y2', '0.75');
+    [['0', '#8B5CF6'], ['0.28', '#EC4899'], ['0.55', '#F97316'], ['0.78', '#EC4899'], ['1', '#8B5CF6']].forEach(function (s) {
+      var st = document.createElementNS(NS, 'stop');
+      st.setAttribute('offset', s[0]); st.setAttribute('stop-color', s[1]);
+      g.appendChild(st);
+    });
+    defs.appendChild(g);
+    items.forEach(function (it) { if (it.fill === main) it.el.style.fill = 'url(#catGradient)'; });
+  }
   function start() {
     if (started) return; started = true;
     var s = document.createElement('script');
@@ -1151,6 +1185,7 @@ nav {
       try {
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var anim = lottie.loadAnimation({ container: box, renderer: 'svg', loop: !reduce, autoplay: !reduce, path: SRC });
+        anim.addEventListener('DOMLoaded', function () { try { applyGradient(box.querySelector('svg')); } catch (e) {} });
         anim.addEventListener('data_failed', hide);
         anim.addEventListener('error', hide);
       } catch (e) { hide(); }
@@ -1208,10 +1243,7 @@ document.querySelectorAll('.proj-card').forEach(card => {
   });
 });
 
-document.querySelectorAll('.contact-btn').forEach(btn => {
-  btn.addEventListener('mouseenter', () => btn.classList.add('grad-hover'));
-  btn.addEventListener('mouseleave', () => btn.classList.remove('grad-hover'));
-});
+
 
 /* ── Contact: open mail app; if none opens, copy the address and show a toast ── */
 (function () {
@@ -1238,6 +1270,15 @@ document.querySelectorAll('.contact-btn').forEach(btn => {
       navigator.clipboard.writeText(EMAIL).then(showToast, fallback);
     } else { fallback(); }
   }
+  /* Keep the idle dot a fixed distance left of the centered label, in any language */
+  document.querySelectorAll('.contact-btn').forEach(btn => {
+    const lab = btn.querySelector('.btn-label');
+    if (!lab) return;
+    const sync = () => btn.style.setProperty('--lw', lab.offsetWidth + 'px');
+    sync();
+    if (window.ResizeObserver) new ResizeObserver(sync).observe(lab);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+  });
   document.querySelectorAll('.contact-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -1382,7 +1423,7 @@ const i18n = {
     'about.lang.en': 'English',
     'about.lang.es': 'Spanish',
     'contact.label': 'Get in touch',
-    'contact.title': 'Let\'s work<br>together.',
+    'contact.title': 'Let\'s Work<br>Together.',
     'contact.btn': 'Contact Me',
     'toast.copied': 'Email address copied',
     'contact.cat.tip': 'Why a cat?<br>Because I love cats :)',
@@ -1431,7 +1472,7 @@ const i18n = {
     'about.lang.es': '스페인어',
     'contact.label': '연락하기',
     'contact.title': '함께<br>일해요.',
-    'contact.btn': '연락하기',
+    'contact.btn': 'Contact Me',
     'toast.copied': '메일 주소가 복사되었습니다',
     'contact.cat.tip': '웬 고양이냐구요?<br>제가 고양이를 좋아해서요 :)',
     'footer.credit': 'Claude Code로 제작',
