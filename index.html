@@ -217,8 +217,12 @@ nav {
   position: absolute; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: clamp(12px, 2.5vw, 28px);
 }
-.nav-center a { font-size: 14px; color: var(--gray-500); transition: color 0.2s; }
+.nav-center a { font-size: 14px; color: var(--gray-400); transition: color 0.2s; }
 .nav-center a:hover { color: var(--black); }
+.nav-center a { display: inline-flex; flex-direction: column; align-items: center; }
+/* hidden bold copy reserves the bold width so the links do not shift when one becomes active */
+.nav-center a::after { content: attr(data-text); font-weight: 700; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
+.nav-center a.is-active { color: var(--black); font-weight: 700; }
 .nav-right { display: flex; align-items: center; gap: 28px; }
 .lang-switch { display: flex; background: rgba(0,0,0,0.05); border: 1px solid var(--gray-200); border-radius: 8px; padding: 2px; gap: 2px; }
 .ls-btn { background: none; border: none; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-radius: 5px; letter-spacing: 0.04em; transition: all 0.15s; }
@@ -1844,6 +1848,35 @@ setLang(stored, false);
   go();
   window.addEventListener('load', function () { go(); setTimeout(go, 300); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+})();
+</script>
+<script>
+/* Nav: light up the link of the section being read */
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.nav-center a[href^="#"]'));
+  var items = links.map(function (a) { return { a: a, s: document.querySelector(a.getAttribute('href')) }; }).filter(function (i) { return i.s; });
+  if (!items.length) return;
+  var cur = null, ticking = false;
+  function sync() { links.forEach(function (a) { if (a.getAttribute('data-text') !== a.textContent) a.setAttribute('data-text', a.textContent); }); }
+  sync();
+  if (window.MutationObserver) links.forEach(function (a) { new MutationObserver(sync).observe(a, { childList: true, characterData: true, subtree: true }); });
+  function update() {
+    ticking = false;
+    var line = 64 + window.innerHeight * 0.3, active = null;
+    items.forEach(function (i) { if (i.s.getBoundingClientRect().top <= line) active = i; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = items[items.length - 1];
+    if (active === cur) return; cur = active;
+    items.forEach(function (i) {
+      var on = i === active;
+      i.a.classList.toggle('is-active', on);
+      if (on) i.a.setAttribute('aria-current', 'true'); else i.a.removeAttribute('aria-current');
+    });
+  }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', req);
+  window.addEventListener('load', req);
+  update();
 })();
 </script>
 </body>
