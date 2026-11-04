@@ -427,6 +427,13 @@ html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shad
 .upd-toast .upd-go svg{transition:transform .4s}
 .upd-toast .upd-go:hover svg{transform:rotate(180deg)}
 @media (max-width:480px){.upd-toast{bottom:72px;gap:8px;padding-left:14px;font-size:13px}}
+/* FAB glass: same blur as nav, with a firmer tint and border so it reads on any background */
+.theme-fab{background:rgba(255,255,255,0.65);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);border:1px solid rgba(0,0,0,0.16)}
+html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:rgba(255,255,255,0.22)}
+@media (hover: hover){
+  .theme-fab:hover,.theme-fab:focus-visible{background:rgba(33,29,26,0.92);border-color:rgba(255,255,255,0.08)}
+  html[data-theme="dark"] .theme-fab:hover,html[data-theme="dark"] .theme-fab:focus-visible{background:rgba(254,254,254,0.92);border-color:rgba(0,0,0,0.05)}
+}
 </style>
 </head>
 <body>
