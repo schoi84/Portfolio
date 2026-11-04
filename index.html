@@ -245,20 +245,6 @@ nav {
   position: relative; overflow: hidden;
 }
 
-/* Page-wide soft white glow that follows the cursor (mouse devices only) */
-.cursor-glow { display: none; }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .cursor-glow {
-    display: block; position: fixed; top: 0; left: 0; z-index: 90;
-    width: 720px; height: 720px; margin: -360px 0 0 -360px;
-    background: radial-gradient(circle closest-side, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 40%, rgba(255,255,255,0) 100%);
-    mix-blend-mode: overlay; /* lightens the background but never dims text */
-    pointer-events: none; opacity: 0; transition: opacity 0.4s ease;
-    will-change: transform;
-  }
-  .cursor-glow.on { opacity: 1; }
-}
-
 /* Ghost background letter */
 .hero-ghost {
   position: absolute; bottom: -0.18em; right: -0.04em;
@@ -897,7 +883,6 @@ nav {
 </style>
 </head>
 <body>
-<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav>
@@ -1270,25 +1255,6 @@ document.querySelectorAll('.proj-card').forEach(card => {
 });
 
 
-
-/* ── Cursor-following white glow ── */
-(function () {
-  const glow = document.getElementById('cursorGlow');
-  if (!glow || getComputedStyle(glow).display === 'none') return;
-  let tx = 0, ty = 0, x = 0, y = 0, raf = null, started = false;
-  function tick() {
-    x += (tx - x) * 0.16; y += (ty - y) * 0.16;
-    glow.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
-    raf = (Math.abs(tx - x) > 0.3 || Math.abs(ty - y) > 0.3) ? requestAnimationFrame(tick) : null;
-  }
-  window.addEventListener('mousemove', e => {
-    tx = e.clientX; ty = e.clientY;
-    if (!started) { x = tx; y = ty; started = true; }
-    glow.classList.add('on');
-    if (!raf) raf = requestAnimationFrame(tick);
-  }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => glow.classList.remove('on'));
-})();
 
 /* ── Contact: open mail app; if none opens, copy the address and show a toast ── */
 (function () {
