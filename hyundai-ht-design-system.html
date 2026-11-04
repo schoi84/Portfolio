@@ -400,6 +400,12 @@ html[data-theme="dark"] {
 /* dark overrides */
 html[data-theme="dark"] nav{background:rgba(21,18,16,0.6)}
 html[data-theme="dark"] .hero-collage{background:var(--white)}
+/* tok-card: same colors as light mode */
+html[data-theme="dark"] .tok-card{--white:#FEFEFE;--black:#3A3530;--deep:#1F1A17;--gray-400:#9E9590;--gray-500:#6B635C;--orange-lo:#FEF4EE}
+/* Adaptive Control / Clear Information screenshots: 40% white outline (dark only) */
+html[data-theme="dark"] .adaptive-dummy,html[data-theme="dark"] .clear-dummy{border:1px solid rgba(255,255,255,0.4)}
+/* Immersive Calling: white base instead of letting the dark page show through, with light-mode text colors */
+html[data-theme="dark"] .immersive-wrap{background-color:#FEFEFE;--deep:#1F1A17;--black:#3A3530}
 </style>
 </head>
 <body>
