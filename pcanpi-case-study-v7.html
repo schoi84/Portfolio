@@ -1214,6 +1214,19 @@ html[data-theme="dark"] .f-hero-side-img,html[data-theme="dark"] .acct-card-img-
 html[data-theme="dark"] .mock-corr-arrow,html[data-theme="dark"] .mock-pf.off{color:var(--gray-400)}
 html[data-theme="dark"] .s-title,html[data-theme="dark"] .sec-headline{background-image:linear-gradient(120deg,#FF9A62 0%,#FFB07F 40%,#FF9A62 100%)}
 html[data-theme="dark"] .kc-label,html[data-theme="dark"] .oc-sublabel,html[data-theme="dark"] .oc-ds-label,html[data-theme="dark"] .prob-callout-label,html[data-theme="dark"] .finding-label,html[data-theme="dark"] .ki-label{color:#FF9A62}
+/* language switch: stronger contrast in dark */
+html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,0.32);border-color:var(--gray-300)}
+html[data-theme="dark"] .ls-btn{color:var(--gray-500)}
+html[data-theme="dark"] .ls-btn:hover{color:var(--black)}
+html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shadow:0 1px 3px rgba(0,0,0,0.5)}
+/* new-version toast */
+.upd-toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));z-index:120;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);padding:8px 8px 8px 18px;background:var(--black);color:var(--white);border-radius:100px;box-shadow:0 8px 28px rgba(0,0,0,.22);font:500 14px/1.4 var(--font,'Pretendard',-apple-system,sans-serif);transform:translate(-50%,24px);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.upd-toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.upd-toast button{font:inherit;border:0;cursor:pointer;border-radius:100px}
+.upd-toast .upd-go{width:32px;height:32px;padding:0;display:grid;place-items:center;background:var(--white);color:var(--black);flex-shrink:0}
+.upd-toast .upd-go svg{transition:transform .4s}
+.upd-toast .upd-go:hover svg{transform:rotate(180deg)}
+@media (max-width:480px){.upd-toast{bottom:72px;gap:8px;padding-left:14px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -2781,6 +2794,54 @@ setLang(currentLang, false);
     }
   }
 
+})();
+</script>
+<div class="upd-toast" id="updToast" role="status" aria-live="polite">
+  <span class="upd-msg"></span>
+  <button type="button" class="upd-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+</div>
+<script>
+/* ── Notify visitors who are looking at an outdated copy of this page ── */
+(function () {
+  if (location.protocol !== 'https:' && location.protocol !== 'http:') return;
+  var T = {
+    en: { msg: 'This page has been updated.', go: 'Refresh' },
+    ko: { msg: '이 페이지는 업데이트되었습니다', go: '새로고침' }
+  };
+  var el = document.getElementById('updToast'); if (!el) return;
+  var url = location.href.split('#')[0];
+  var base = null, shown = false, dismissed = false, last = 0;
+  function lang() { try { return localStorage.getItem('lang') === 'ko' ? 'ko' : 'en'; } catch (e) { return 'en'; } }
+  function sig() {
+    return fetch(url, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      var s = r.headers.get('etag') || r.headers.get('last-modified');
+      if (s) return s;
+      return fetch(url, { cache: 'no-store' }).then(function (g) { return g.text(); }).then(function (t) {
+        var h = 0; for (var i = 0; i < t.length; i += 7) h = (h * 31 + t.charCodeAt(i)) | 0; return t.length + ':' + h;
+      });
+    });
+  }
+  function show() {
+    if (shown || dismissed) return; shown = true;
+    var L = T[lang()];
+    el.querySelector('.upd-msg').textContent = L.msg;
+    var go = el.querySelector('.upd-go'); go.setAttribute('aria-label', L.go); go.title = L.go;
+    el.classList.add('show');
+    try { track('update_notice_shown', {}); } catch (e) {}
+  }
+  function check() {
+    if (dismissed || shown || Date.now() - last < 30000) return; last = Date.now();
+    sig().then(function (s) {
+      if (base === null) base = s; else if (s && s !== base) show();
+    }).catch(function () {});
+  }
+  el.querySelector('.upd-go').addEventListener('click', function () {
+    try { track('update_notice_click', { action: 'refresh' }); } catch (e) {}
+    location.reload();
+  });
+  check();
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') check(); });
+  setInterval(check, 5 * 60 * 1000);
 })();
 </script>
 </body>
