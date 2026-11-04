@@ -1065,7 +1065,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   var sysDark = !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
 
   /* Attach to every later event: lets any report be split by mode / language / device */
-  function ctx() { return { theme: theme(), site_language: lang(), device_type: device(), system_prefers_dark: sysDark }; }
+  function ctx() { return { theme: theme(), site_language: lang(), browser_language: String(navigator.language || '').toLowerCase(), device_type: device(), system_prefers_dark: sysDark }; }
   function register() {
     var c = ctx();
     try { if (window.mixpanel && mixpanel.register) mixpanel.register(c); } catch (e) {}
@@ -1124,8 +1124,6 @@ document.getElementById('yr').textContent = new Date().getFullYear();
       var num = n ? n.textContent.trim() : '';
       return { el: el, key: num, name: (nm.textContent || '').replace(num, '').trim().toLowerCase() };
     }));
-    var back = document.querySelector('.nav-back');
-    if (back) back.addEventListener('click', function () { track('case_back_click', { from_page: location.pathname }); });
     var next = document.querySelector('.pf-next');
     if (next) next.addEventListener('click', function () { track('next_case_click', { target: 'angelring', status: 'coming_soon' }); });
     /* Case studies: also treat the end of the page as "finished reading" via scroll_depth (added below) */
@@ -1198,6 +1196,47 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   check();
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') check(); });
   setInterval(check, 5 * 60 * 1000);
+})();
+</script>
+<script>
+/* Back arrow: if the visitor came from the landing page, act like the browser's Back button (restores the exact scroll position);
+   otherwise fall back to the link (landing, Work section). */
+(function () {
+  var a = document.querySelector('.nav-back'); if (!a) return;
+  a.addEventListener('click', function (e) {
+    try {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      var r = document.referrer ? new URL(document.referrer) : null;
+      if (r && r.origin === location.origin && /(^|\/)(index\.html)?$/.test(r.pathname) && history.length > 1) {
+        track('case_back_click', { from_page: location.pathname, method: 'history_back' });
+        e.preventDefault(); history.back();
+        return;
+      }
+    } catch (x) {}
+    try { track('case_back_click', { from_page: location.pathname, method: 'link' }); } catch (x) {}
+  });
+})();
+</script>
+<script>
+/* Carousel interaction: fires once per carousel per page view, only when the visitor moves it (auto-advance does not count) */
+(function () {
+  var sent = {};
+  function fire(name, props) {
+    if (sent[name]) return; sent[name] = 1;
+    props = props || {}; props.carousel = name;
+    try { track('carousel_interact', props); } catch (e) {}
+  }
+  var wrap = document.querySelector('.adaptive-screens-wrap');
+  if (wrap) {
+    var seenAt = null;
+    wrap.addEventListener('mousemove', function (e) {
+      /* ignore the first moment so the page's own intro auto-slide is not counted */
+      if (seenAt === null) seenAt = Date.now();
+      if (Date.now() - seenAt < 1200) return;
+      var r = wrap.getBoundingClientRect();
+      fire('adaptive_control', { action: 'hover', slide: (e.clientX - r.left < r.width / 2) ? 1 : 2 });
+    });
+  }
 })();
 </script>
 </body>
