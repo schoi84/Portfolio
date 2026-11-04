@@ -305,6 +305,9 @@ nav {
   color: var(--gray-500); line-height: 1.8; max-width: clamp(380px, 34vw, 560px);
 }
 .hero-desc strong { font-weight: 500; color: var(--black); }
+/* Each sentence is its own block; balance keeps line lengths even so a short word never sits alone on a line */
+.hero-desc .nw { white-space: nowrap; }
+.hero-desc .hd-line { display: block; text-wrap: pretty; word-break: keep-all; overflow-wrap: break-word; }
 .hero-meta { display: flex; gap: 0; flex-shrink: 0; }
 
 /* ── Quote cards ── */
@@ -313,11 +316,13 @@ nav {
   width: auto;
   max-width: 302px;
   pointer-events: none;
+  perspective: 1200px;
 }
 .quote-card {
   position: absolute;
   top: 50%; left: 0; width: 100%;
-  transform: translateY(-50%);
+  --ry: -90deg;
+  transform: translateY(-50%) rotateY(var(--ry));
   background: rgba(255,255,255,0.40);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -325,7 +330,6 @@ nav {
   border-radius: 14px;
   padding: 32px 32px;
   opacity: 0;
-  transition: opacity 0.9s ease;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.75),
     0 8px 32px rgba(99,102,241,0.07),
@@ -345,7 +349,14 @@ nav {
     transparent 80%);
   pointer-events: none;
 }
-.quote-card.qc-active { opacity: 1; }
+/* Flip between quotes: the old card turns edge-on, then the next card turns in */
+.quote-card.qc-leave  { opacity: 1; --ry: 90deg; transition: transform 0.45s cubic-bezier(.5, 0, .75, 0); }
+.quote-card.qc-active { opacity: 1; --ry: 0deg;  transition: transform 0.45s cubic-bezier(.25, 1, .5, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .quote-card, .quote-card.qc-active, .quote-card.qc-leave { --ry: 0deg; }
+  .quote-card.qc-active { transition: opacity 0.6s ease; }
+  .quote-card.qc-leave { opacity: 0; transition: opacity 0.6s ease; }
+}
 .quote-card-inner { display: flex; flex-direction: column; gap: 16px; }
 .quote-card-label {
   font-size: 14px; font-weight: 500;
@@ -849,7 +860,7 @@ nav {
     justify-content: center;
   }
   .hero-quotes { width: 100%; height: auto; position: relative; }
-  .quote-card { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform: none; pointer-events: none; }
+  .quote-card { position: absolute; top: 0; left: 0; width: 100%; height: auto; transform: rotateY(var(--ry)); pointer-events: none; }
   .quote-card.qc-active { position: relative; top: auto; left: auto; pointer-events: auto; }
   .work, .about, .contact, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
 
@@ -914,8 +925,8 @@ nav {
 
       <div class="hero-bottom">
         <p class="hero-desc reveal d2" data-i18n="hero.desc">
-          Currently designing smart home interfaces at Hyundai HT.<br>
-          Previously sole designer of an AI writing tool, where my redesign raised retention by 21%.
+          <span class="hd-line">Currently designing <span class="nw">smart home interfaces</span> <span class="nw">at Hyundai&nbsp;HT.</span></span>
+          <span class="hd-line">Previously sole designer <span class="nw">of an AI writing tool,</span> <span class="nw">where my redesign raised retention by&nbsp;21%.</span></span>
         </p>
       </div>
 
@@ -1366,18 +1377,23 @@ document.querySelectorAll('.proj-card').forEach(card => {
 
   let current = 0;
   const HOLD = 4200;   // ms visible
-  const FADE = 900;    // ms fade (matches CSS transition)
+  const FLIP = 450;    // ms per half-turn (matches CSS transition)
 
   function advance() {
     const prev = cards[current];
     current = (current + 1) % cards.length;
     const next = cards[current];
 
+    // Old card turns edge-on, then the next card turns in
     prev.classList.remove('qc-active');
-    setTimeout(() => next.classList.add('qc-active'), FADE * 0.6);
+    prev.classList.add('qc-leave');
+    setTimeout(() => {
+      prev.classList.remove('qc-leave');
+      next.classList.add('qc-active');
+    }, FLIP);
   }
 
-  setInterval(advance, HOLD + FADE);
+  setInterval(advance, HOLD + FLIP * 2);
 })();
 
 </script>
@@ -1390,7 +1406,7 @@ const i18n = {
     'hero.tag': 'UI/UX Designer · 5+ Years',
     'hero.title1': 'Good Design',
     'hero.title2': 'Feels Obvious',
-    'hero.desc': 'Currently designing smart home interfaces at Hyundai HT.<br>Previously sole designer of an AI writing tool, where my redesign raised retention by 21%.',
+    'hero.desc': '<span class="hd-line">Currently designing <span class="nw">smart home interfaces</span> <span class="nw">at Hyundai&nbsp;HT.</span></span><span class="hd-line">Previously sole designer <span class="nw">of an AI writing tool,</span> <span class="nw">where my redesign raised retention by&nbsp;21%.</span></span>',
     'work.label': 'Selected Work',
     'proj1.meta': 'GUI Design <span class="proj-meta-divider">|</span> Hyundai HT',
     'proj1.chip1': 'Design System',
@@ -1438,7 +1454,7 @@ const i18n = {
     'hero.tag': 'UI/UX 디자이너 · 5년 이상의 경력',
     'hero.title1': '좋은 디자인은',
     'hero.title2': '당연하게 느껴진다',
-    'hero.desc': '현재 현대HT에서 스마트홈 인터페이스를 디자인하고 있습니다.<br>이전에는 AI 글쓰기 도구의 단독 디자이너로, 리디자인을 통해 리텐션을 21% 높였습니다.',
+    'hero.desc': '<span class="hd-line">현재 <span class="nw">현대HT에서</span> <span class="nw">스마트홈 인터페이스를</span> <span class="nw">디자인하고 있습니다.</span></span><span class="hd-line">이전에는 AI 글쓰기 도구의 단독 디자이너로, <span class="nw">리디자인을 통해 리텐션을 21% 높였습니다.</span></span>',
     'work.label': '선별된 작업',
     'proj1.meta': 'GUI 디자인 <span class="proj-meta-divider">|</span> 현대HT',
     'proj1.chip1': '비주얼 아이덴티티',
