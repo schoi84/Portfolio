@@ -820,7 +820,8 @@ nav {
   .hero { padding: 6rem 1.5rem; }
   .work, .about, .contact, .footer { padding-left: 1.5rem; padding-right: 1.5rem; }
 
-  .work-grid { grid-template-columns: 1fr; }
+  /* single column, centered, card width capped at its ≤1024 size (~360px) so it does not stretch */
+  .work-grid { grid-template-columns: minmax(0, 360px); justify-content: center; }
 
   .about { gap: 2.5rem; }
   .about-top { width: 100%; }
