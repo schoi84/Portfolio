@@ -256,6 +256,11 @@ nav {
 }
 .comp-fade-wrap img.cf-active { opacity: 1; }
 
+/* header → image spacing swapped with the images: Component Logic now uses Final Design's 120px, Final Design uses Component Logic's 80px (48px on tablet/mobile) */
+.gap-to-120 { margin-top: 40px; }
+.gap-to-80 { margin-top: -40px; }
+@media (max-width: 1024px) { .gap-to-120 { margin-top: 72px; } .gap-to-80 { margin-top: -72px; } }
+
 /* ── S05 VERSION CONTROL ── */
 .branch-dummy { width: 1024px; max-width: 100%; height: 380px; }
 .branch-caption { font-size: 16px; font-weight: 400; color: var(--black); line-height: 24px; text-align: center; }
@@ -596,7 +601,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <h2 class="sec-headline" data-i18n="s04.headline">Built to be Reconfigured,<br>Not Rebuilt.</h2>
     <p class="sec-lead" data-i18n="s04.lead">Every component is built from a master with every possible slot. Each instance shows only what its context needs and hides the rest through Figma's property system. All instances stay connected to one source, so a client configuration is composition, not reconstruction.</p>
   </div>
-  <div class="reveal d1" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
+  <div class="reveal d1 gap-to-120" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
     <div class="fd-fade-wrap">
       <img loading="lazy" src="engram.resource/06widget-01.webp" alt="Widget screen 1" class="fd-img fd-active">
       <img loading="lazy" src="engram.resource/06widget-02.webp" alt="Widget screen 2" class="fd-img">
@@ -639,7 +644,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <p class="sec-lead" data-i18n="s06.lead">The main screen is built from freely customizable widgets. Control widgets use category colors; information widgets stay neutral, so users can tell them apart at a glance.</p>
   </div>
 
-  <div class="reveal d1" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
+  <div class="reveal d1 gap-to-80" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
     <div class="comp-fade-wrap">
       <img loading="lazy" src="engram.resource/main_var00.webp" alt="Component variant 1" class="cf-active">
       <img loading="lazy" src="engram.resource/main_var01.webp" alt="Component variant 2">
