@@ -1237,18 +1237,57 @@ html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shad
     var main = null, best = 0;
     Object.keys(areaByColor).forEach(function (c) { if (areaByColor[c] > best) { best = areaByColor[c]; main = c; } });
     if (!main) return;
+    /* Colors → HSL, so shades of the body color (e.g. the tail) can be recognised and recolored too */
+    function toRgb(c) {
+      var m = c.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+      if (m) { var x = m[1]; if (x.length === 3) x = x.replace(/./g, '$&$&'); return [parseInt(x.slice(0, 2), 16), parseInt(x.slice(2, 4), 16), parseInt(x.slice(4, 6), 16)]; }
+      m = c.match(/^rgba?\(\s*([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)/i);
+      return m ? [+m[1], +m[2], +m[3]] : null;
+    }
+    function toHsl(c) {
+      var v = toRgb(c); if (!v) return null;
+      var r = v[0] / 255, g = v[1] / 255, b = v[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn, hu = 0, s = 0;
+      if (d) {
+        s = d / (1 - Math.abs(2 * l - 1));
+        hu = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+        hu *= 60; if (hu < 0) hu += 360;
+      }
+      return { h: hu, s: s, l: l };
+    }
+    var mainHsl = toHsl(main);
+    function family(c) { /* 'same' | 'dark' | 'light' | null */
+      if (c === main) return 'same';
+      var a = toHsl(c); if (!a || !mainHsl || a.s < 0.2) return null;
+      var dh = Math.abs(a.h - mainHsl.h); if (dh > 180) dh = 360 - dh;
+      if (dh > 28) return null;
+      return a.l < mainHsl.l - 0.04 ? 'dark' : (a.l > mainHsl.l + 0.04 ? 'light' : 'same');
+    }
     var defs = svg.querySelector('defs');
     if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.insertBefore(defs, svg.firstChild); }
-    var g = document.createElementNS(NS, 'linearGradient');
-    g.setAttribute('id', 'catGradient');
-    g.setAttribute('x1', '0.067'); g.setAttribute('y1', '0.25'); g.setAttribute('x2', '0.933'); g.setAttribute('y2', '0.75');
-    [['0', '#8B5CF6'], ['0.28', '#EC4899'], ['0.55', '#F97316'], ['0.78', '#EC4899'], ['1', '#8B5CF6']].forEach(function (s) {
-      var st = document.createElementNS(NS, 'stop');
-      st.setAttribute('offset', s[0]); st.setAttribute('stop-color', s[1]);
-      g.appendChild(st);
+    var STOPS = [['0', '#8B5CF6'], ['0.28', '#EC4899'], ['0.55', '#F97316'], ['0.78', '#EC4899'], ['1', '#8B5CF6']];
+    function shade(hex, k) { /* k < 0 darker, k > 0 lighter */
+      var v = toRgb(hex);
+      return 'rgb(' + v.map(function (n) { return Math.round(k < 0 ? n * (1 + k) : n + (255 - n) * k); }).join(',') + ')';
+    }
+    function makeGrad(id, k) {
+      var g = document.createElementNS(NS, 'linearGradient');
+      g.setAttribute('id', id);
+      g.setAttribute('x1', '0.067'); g.setAttribute('y1', '0.25'); g.setAttribute('x2', '0.933'); g.setAttribute('y2', '0.75');
+      STOPS.forEach(function (s) {
+        var st = document.createElementNS(NS, 'stop');
+        st.setAttribute('offset', s[0]); st.setAttribute('stop-color', k ? shade(s[1], k) : s[1]);
+        g.appendChild(st);
+      });
+      defs.appendChild(g);
+    }
+    makeGrad('catGradient', 0); makeGrad('catGradientDark', -0.22); makeGrad('catGradientLight', 0.25);
+    var ID = { same: 'catGradient', dark: 'catGradientDark', light: 'catGradientLight' };
+    items.forEach(function (it) { var f = family(it.fill); if (f) it.el.style.fill = 'url(#' + ID[f] + ')'; });
+    /* Strokes in the body color family (tail outline, whiskers) */
+    svg.querySelectorAll('path, circle, ellipse, rect').forEach(function (el) {
+      var st = (el.getAttribute('stroke') || '').toLowerCase(); if (!st || st === 'none') return;
+      var f = family(st); if (f) el.style.stroke = 'url(#' + ID[f] + ')';
     });
-    defs.appendChild(g);
-    items.forEach(function (it) { if (it.fill === main) it.el.style.fill = 'url(#catGradient)'; });
   }
   function start() {
     if (started) return; started = true;
