@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Engram | UI/UX Redesign</title>
 <meta name="description" content="How a redesign of an AI writing tool's core flows increased user retention by 21%.">
@@ -59,6 +60,7 @@
   // Send one event to both GA4 and Mixpanel with identical names/properties
   function track(name, props) {
     props = props || {};
+    if (!props.page_path) props.page_path = location.pathname;
     if (typeof gtag === 'function') gtag('event', name, props);
     if (window.mixpanel && typeof mixpanel.track === 'function') mixpanel.track(name, props);
   }
@@ -1158,6 +1160,60 @@ nav {
 .lang-switch { display: flex; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 2px; gap: 2px; }
 .ls-btn { background: none; border: none; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-radius: 5px; letter-spacing: 0.04em; transition: all 0.15s; }
 .ls-btn.active { background: var(--white); color: var(--black); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* ── Light / dark toggle (floating button) ── */
+.theme-fab {
+  position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 95;
+  width: 48px; height: 48px; display: grid; place-items: center;
+  background: var(--white); color: var(--black);
+  border: 1px solid var(--gray-200); border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+  cursor: pointer; transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.theme-fab:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.1); }
+.theme-fab:active { transform: scale(0.96); }
+.theme-fab svg { width: 20px; height: 20px; grid-area: 1 / 1; }
+.theme-fab .ti-sun { display: none; }
+html[data-theme="dark"] .theme-fab .ti-sun { display: block; }
+html[data-theme="dark"] .theme-fab .ti-moon { display: none; }
+@media (max-width: 480px) { .theme-fab { width: 44px; height: 44px; right: 16px; bottom: 16px; } }
+html.theme-anim, html.theme-anim * { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease !important; }
+
+/* ── Dark theme ── */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:        #151210;
+  --white:     #211D1A;
+  --gray-50:   #1C1815;
+  --gray-100:  #2A2521;
+  --gray-200:  #3A342F;
+  --gray-300:  #4D463F;
+  --gray-400:  #8E857D;
+  --gray-500:  #B5ACA3;
+  --gray-700:  #D8D0C8;
+  --black:     #F2EEE9;
+  --orange-dark: #FF9A62;
+  --p-low:     #2A211B;
+  --p-med:     #32261E;
+  --p-high:    #3E2D22;
+}
+
+/* dark overrides */
+html[data-theme="dark"] nav{background:rgba(21,18,16,0.6)}
+html[data-theme="dark"] .hero-eyebrow,html[data-theme="dark"] .appr-lead,html[data-theme="dark"] .kc-item,html[data-theme="dark"] .outcomes-lead,html[data-theme="dark"] .oc-stat-name,html[data-theme="dark"] .oc-stat-desc,html[data-theme="dark"] .oc-mini-desc,html[data-theme="dark"] .oc-ds-body,html[data-theme="dark"] .refl-lead,html[data-theme="dark"] .refl-card-title,html[data-theme="dark"] .refl-card-text,html[data-theme="dark"] .design-intro-lead,html[data-theme="dark"] .pf-next-lbl,html[data-theme="dark"] .pf-next-title{color:var(--gray-700)}
+html[data-theme="dark"] .f-hero-body,html[data-theme="dark"] .f-hero--side .f-hero-desc,html[data-theme="dark"] .acct-desc,html[data-theme="dark"] .cc-body,html[data-theme="dark"] .cta-body,html[data-theme="dark"] .acct-card-label,html[data-theme="dark"] .cta-lbl-row{color:var(--gray-500)}
+html[data-theme="dark"] .f-hero--side .f-hero-title,html[data-theme="dark"] .acct-title,html[data-theme="dark"] .cc-title{color:var(--black)}
+html[data-theme="dark"] .prob-img-caption{color:var(--gray-400)}
+html[data-theme="dark"] .kc-item{border-bottom-color:var(--gray-200)}
+html[data-theme="dark"] .kc-wrap,html[data-theme="dark"] .oc-card,html[data-theme="dark"] .refl-card,html[data-theme="dark"] .acct-card,html[data-theme="dark"] .cta-state::before{background:var(--white)}
+html[data-theme="dark"] .oc-ds-callout,html[data-theme="dark"] .prob-data-callout,html[data-theme="dark"] .key-insight-new,html[data-theme="dark"] .acct-card-label,html[data-theme="dark"] .cta-lbl-row{background:var(--p-low);border-color:var(--p-high)}
+html[data-theme="dark"] .refl-card-img,html[data-theme="dark"] .finding-illus{background:var(--p-low)}
+html[data-theme="dark"] .lp-lottie,html[data-theme="dark"] #lp-anim{background:var(--gray-50);border-color:var(--gray-200)}
+html[data-theme="dark"] .mock-chrome{background:var(--gray-100)}
+html[data-theme="dark"] .f-hero-side-img,html[data-theme="dark"] .acct-card-img-wrap,html[data-theme="dark"] .cta-img-main{border-color:var(--gray-300)}
+html[data-theme="dark"] .mock-corr-arrow,html[data-theme="dark"] .mock-pf.off{color:var(--gray-400)}
+html[data-theme="dark"] .s-title,html[data-theme="dark"] .sec-headline{background-image:linear-gradient(120deg,#FF9A62 0%,#FFB07F 40%,#FF9A62 100%)}
+html[data-theme="dark"] .kc-label,html[data-theme="dark"] .oc-sublabel,html[data-theme="dark"] .oc-ds-label,html[data-theme="dark"] .prob-callout-label,html[data-theme="dark"] .finding-label,html[data-theme="dark"] .ki-label{color:#FF9A62}
 </style>
 </head>
 <body>
@@ -1190,8 +1246,8 @@ nav {
           <span data-i18n="hero.eyebrow2">AI Writing Tool</span>
         </div>
         <h1 class="hero-title">Engram</h1>
-        <p class="hero-tagline" data-i18n="hero.tagline">Consolidating the payment flow reduced checkout friction.<br>Retention rose 21% in the following cohort, measured two weeks after launch.</p>
-        <p class="hero-desc" data-i18n="hero.desc">I redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> focusing on structural and interaction-level friction.<br>Retention rate rose 21%.</p>
+        <p class="hero-tagline" data-i18n="hero.tagline">Consolidating the payment flow reduced checkout friction.<br>Retention rose 21% in the following cohort, measured one month after launch.</p>
+        <p class="hero-desc" data-i18n="hero.desc">I redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> focusing on structural and interaction-level friction.</p>
         <div class="hero-meta">
           <div class="hm"><div class="hm-k" data-i18n="meta.role">Role</div><div class="hm-v" data-i18n="meta.role.v">UI/UX</div></div>
           <div class="hm"><div class="hm-k" data-i18n="meta.company">Company</div><div class="hm-v" data-i18n="meta.company.v">Data B</div></div>
@@ -1833,7 +1889,7 @@ nav {
                 <div class="oc-num">21%</div>
                 <div class="oc-stat-name" data-i18n="s5.q.stat.name">User retention</div>
               </div>
-              <p class="oc-stat-desc" data-i18n="s5.q.stat.desc">Measured in the cohort two weeks after launch, following the payment flow consolidation and navigation simplification described below.</p>
+              <p class="oc-stat-desc" data-i18n="s5.q.stat.desc">Measured in the cohort one month after launch, following the payment flow consolidation and navigation simplification described below.</p>
             </div>
             <div class="oc-right-col">
               <div class="oc-mini">
@@ -2359,8 +2415,8 @@ const i18n = {
     'nav.tag': 'Engram',
     'hero.eyebrow1': 'UI/UX Redesign',
     'hero.eyebrow2': 'AI Writing Tool',
-    'hero.tagline': 'Consolidating the payment flow reduced checkout friction.<br>Retention rose 21% in the following cohort, measured two weeks after launch.',
-    'hero.desc': 'I redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> focusing on structural and interaction-level friction.<br>Retention rose 21%.',
+    'hero.tagline': 'Consolidating the payment flow reduced checkout friction.<br>Retention rose 21% in the following cohort, measured one month after launch.',
+    'hero.desc': 'I redesigned the core experience of an AI writing tool over one month,<span class="mob-br"></span> focusing on structural and interaction-level friction.',
     'meta.role': 'Role',
     'meta.role.v': 'UI/UX',
     'meta.company': 'Company',
@@ -2439,7 +2495,7 @@ const i18n = {
     's5.lead': 'Improvements to key flows and core interactions produced measurable gains across conversion, retention, and usage.',
     's5.q.sublabel': 'Quantitative: following redesign launch',
     's5.q.stat.name': 'User retention',
-    's5.q.stat.desc': 'Measured in the cohort two weeks after launch, following the payment flow consolidation and navigation simplification described below.',
+    's5.q.stat.desc': 'Measured in the cohort one month after launch, following the payment flow consolidation and navigation simplification described below.',
     's5.q.mini1': 'Retention improved in the next cohort, which points to less early drop-off after first use',
     's5.q.mini2': 'Checkout was consolidated from a multi-step flow into a single view with full plan and payment context',
     's5.q.mini3': 'Navigation was simplified: secondary content moved to the footer, and the primary nav focused on core tasks',
@@ -2463,8 +2519,8 @@ const i18n = {
     'nav.tag': 'Engram',
     'hero.eyebrow1': 'UI<br>UX 리디자인',
     'hero.eyebrow2': 'AI 글쓰기 서비스',
-    'hero.tagline': '결제 플로우 통합으로 체크아웃 마찰을 줄였습니다.<br>리텐션 21% 향상 (출시 2주 후 코호트 기준)',
-    'hero.desc': 'AI 글쓰기 서비스의 핵심 사용자 경험을 한 달간 리디자인했습니다.<span class="mob-br"></span> 사용자 흐름과 인터랙션의 불편함을 개선해 리텐션을 21% 향상시켰습니다.',
+    'hero.tagline': '결제 플로우 통합으로 체크아웃 마찰을 줄였습니다.<br>리텐션 21% 향상 (출시 1개월 후 코호트 기준)',
+    'hero.desc': 'AI 글쓰기 서비스의 핵심 사용자 경험을 한 달간 리디자인했습니다.<span class="mob-br"></span> 사용자 흐름과 인터랙션의 불편함을 개선했습니다.',
     'meta.role': '역할',
     'meta.role.v': 'UI<br>UX',
     'meta.company': '회사',
@@ -2544,8 +2600,8 @@ const i18n = {
     's5.lead': '핵심 사용자 흐름과 인터랙션을 개선한 결과, 전환율과 리텐션 모두에서 의미 있는 개선을 확인했습니다.',
     's5.q.sublabel': '정량적 성과 (출시 후)',
     's5.q.stat.name': '리텐션',
-    's5.q.stat.desc': '결제 플로우 통합과 내비게이션 단순화 이후, 출시 2주 후 코호트를 기준으로 측정했습니다.',
-    's5.q.mini1': '리텐션 21% 향상 (출시 2주 후 코호트 기준)',
+    's5.q.stat.desc': '결제 플로우 통합과 내비게이션 단순화 이후, 출시 1개월 후 코호트를 기준으로 측정했습니다.',
+    's5.q.mini1': '리텐션 21% 향상 (출시 1개월 후 코호트 기준)',
     's5.q.mini2': '체크아웃을 단일 화면으로 통합해 플랜과 결제 정보를 한 번에 확인 가능',
     's5.q.mini3': '내비게이션 단순화로 핵심 작업 중심의 구조 완성',
     's5.ql.sublabel': '정성적 결과 (출시 후 VoC)',
@@ -2602,6 +2658,129 @@ setLang(currentLang, false);
       }
     });
   });
+})();
+</script>
+
+<button class="theme-fab" id="themeBtn" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Light / dark mode">
+  <svg class="ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button>
+<script>
+/* ── Light / dark toggle ── */
+(function () {
+  const btn = document.getElementById('themeBtn');
+  if (!btn) return;
+  const root = document.documentElement;
+  function apply(dark, save) {
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    if (save) { try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {} }
+  }
+  apply(root.getAttribute('data-theme') === 'dark', false);
+  btn.addEventListener('click', () => {
+    root.classList.add('theme-anim');
+    apply(root.getAttribute('data-theme') !== 'dark', true);
+    setTimeout(() => root.classList.remove('theme-anim'), 450);
+  });
+})();
+</script>
+<script>
+/* ── Extended tracking (GA4 + Mixpanel via track()) ── */
+(function () {
+  var root = document.documentElement;
+  var isCase = !!document.querySelector('.nav-back');
+  function theme() { return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+  function lang() { try { return localStorage.getItem('lang') || 'en'; } catch (e) { return 'en'; } }
+  function device() { var w = window.innerWidth; return w < 768 ? 'mobile' : (w < 1100 ? 'tablet' : 'desktop'); }
+  var sysDark = !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+
+  /* Attach to every later event: lets any report be split by mode / language / device */
+  function ctx() { return { theme: theme(), site_language: lang(), device_type: device(), system_prefers_dark: sysDark }; }
+  function register() {
+    var c = ctx();
+    try { if (window.mixpanel && mixpanel.register) mixpanel.register(c); } catch (e) {}
+    try { if (typeof gtag === 'function') gtag('set', 'user_properties', c); } catch (e) {}
+  }
+  register();
+
+  /* Once per session: which mode did the visitor actually land in? (saved choice vs. default) */
+  try {
+    if (!sessionStorage.getItem('theme_initial_sent')) {
+      sessionStorage.setItem('theme_initial_sent', '1');
+      var saved = null; try { saved = localStorage.getItem('theme'); } catch (e) {}
+      track('theme_initial', { theme_source: saved ? 'saved' : 'system' });
+    }
+  } catch (e) {}
+
+  /* Follow live OS changes until the visitor picks a mode */
+  try {
+    var mq = matchMedia('(prefers-color-scheme: dark)');
+    var onSys = function (e) {
+      var s = null; try { s = localStorage.getItem('theme'); } catch (x) {}
+      if (s) return;
+      if (e.matches) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+      if (fab) { fab.setAttribute('aria-pressed', e.matches ? 'true' : 'false'); fab.setAttribute('aria-label', e.matches ? 'Switch to light mode' : 'Switch to dark mode'); }
+      register();
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+  } catch (e) {}
+
+  /* Light/dark FAB */
+  var fab = document.getElementById('themeBtn');
+  if (fab) fab.addEventListener('click', function () {
+    setTimeout(function () {
+      register();
+      var to = theme();
+      track('theme_change', { from_theme: to === 'dark' ? 'light' : 'dark', to_theme: to, control: 'fab' });
+    }, 0);
+  });
+
+  /* Section reached: fires once per section when its label passes 35% of the viewport */
+  function watch(items) {
+    if (!('IntersectionObserver' in window)) return;
+    var seen = {};
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var k = e.target.__secKey; if (seen[k]) return; seen[k] = 1; io.unobserve(e.target);
+        track('section_view', { section_id: k, section_name: e.target.__secName });
+      });
+    }, { rootMargin: '0px 0px -35% 0px', threshold: 0 });
+    items.forEach(function (it) { it.el.__secKey = it.key; it.el.__secName = it.name; io.observe(it.el); });
+  }
+  if (isCase) {
+    watch([].map.call(document.querySelectorAll('.sec-label'), function (el) {
+      var n = el.querySelector('.sec-num'), nm = el.querySelector('.sec-name') || el;
+      var num = n ? n.textContent.trim() : '';
+      return { el: el, key: num, name: (nm.textContent || '').replace(num, '').trim().toLowerCase() };
+    }));
+    var back = document.querySelector('.nav-back');
+    if (back) back.addEventListener('click', function () { track('case_back_click', { from_page: location.pathname }); });
+    var next = document.querySelector('.pf-next');
+    if (next) next.addEventListener('click', function () { track('next_case_click', { target: 'angelring', status: 'coming_soon' }); });
+    /* Case studies: also treat the end of the page as "finished reading" via scroll_depth (added below) */
+  } else {
+    watch([].map.call(document.querySelectorAll('section[id]'), function (el) { return { el: el, key: el.id, name: el.id }; }));
+    document.querySelectorAll('.proj-card').forEach(function (card, i) {
+      card.addEventListener('click', function () {
+        var href = card.getAttribute('href') || '';
+        var name = href ? href.replace(/\.html$/, '').replace(/-case-study.*$/, '') : 'angelring';
+        track('project_click', { project: name, position: i + 1, status: href ? 'live' : 'coming_soon' });
+      });
+    });
+    document.querySelectorAll('.contact-btn').forEach(function (b) {
+      b.addEventListener('click', function () { track('contact_click', { location: 'contact_section' }); });
+    });
+    var cat = document.getElementById('catTip') && document.querySelector('.cat-wrap');
+    if (cat) {
+      var catSent = false;
+      var fireCat = function (how) { if (catSent) return; catSent = true; track('cat_tooltip_view', { interaction: how }); };
+      cat.addEventListener('mouseenter', function () { fireCat('hover'); });
+      cat.addEventListener('click', function () { fireCat('tap'); });
+    }
+  }
+
 })();
 </script>
 </body>
