@@ -1816,5 +1816,30 @@ setLang(stored, false);
   setInterval(check, 5 * 60 * 1000);
 })();
 </script>
+<script>
+/* Back from a case study: return to where the visitor left the landing page (usually the Work section) */
+(function () {
+  var KEY = 'landingScrollY';
+  window.addEventListener('pagehide', function () {
+    try { sessionStorage.setItem(KEY, String(Math.round(window.scrollY))); } catch (e) {}
+  });
+  var nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || null;
+  if (!nav || nav.type !== 'back_forward') return;
+  var y = NaN; try { y = parseInt(sessionStorage.getItem(KEY), 10); } catch (e) {}
+  if (isNaN(y) || y <= 0) return;
+  var touched = false;
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, function () { touched = true; }, { passive: true, once: true }); });
+  function go() {
+    if (touched) return;
+    var root = document.documentElement, prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    root.style.scrollBehavior = prev;
+  }
+  go();
+  window.addEventListener('load', function () { go(); setTimeout(go, 300); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+})();
+</script>
 </body>
 </html>
