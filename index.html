@@ -685,7 +685,8 @@ nav {
 ───────────────────────*/
 .contact {
   padding: 8rem 2.5rem;
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 3rem; flex-wrap: wrap;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  text-align: center;
   overflow: visible;
 }
 .contact-label {
@@ -697,7 +698,7 @@ nav {
   font-weight: 700; letter-spacing: -0.045em; line-height: 1.1;
   padding-bottom: 0.1em;
 }
-.contact-cat { display: flex; justify-content: flex-end; }
+.contact-cat { display: flex; justify-content: center; }
 .cat-wrap { position: relative; width: clamp(140px, 16vw, 220px); cursor: default; border-radius: 12px; }
 .cat-wrap:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; }
 .cat-stage svg { display: block; width: 100%; height: auto; }
@@ -716,9 +717,15 @@ nav {
   border: 6px solid transparent; border-top-color: var(--black);
 }
 .cat-wrap:hover .cat-tip, .cat-wrap:focus-visible .cat-tip, .cat-wrap.is-tip .cat-tip { opacity: 1; transform: translate(-50%, 0); }
+/* Desktop: show the tooltip beside the cat so it never covers the headline */
+@media (min-width: 805px) {
+  .cat-tip { left: 100%; bottom: auto; top: 50%; margin: 0 0 0 12px; transform: translate(-6px, -50%); }
+  .cat-tip::after { left: -12px; top: 50%; transform: translateY(-50%); border-top-color: transparent; border-right-color: var(--black); }
+  .cat-wrap:hover .cat-tip, .cat-wrap:focus-visible .cat-tip, .cat-wrap.is-tip .cat-tip { transform: translate(0, -50%); }
+}
 @media (prefers-reduced-motion: reduce) { .cat-tip { transition: none; } }
 .contact-right {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 1.25rem; padding-bottom: 0.4rem; flex: 1; justify-content: flex-end;
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem; padding-bottom: 0.4rem; justify-content: center;
 }
   font-size: clamp(13px, 1.3vw, 16px); font-weight: 400;
   color: var(--gray-500); transition: color 0.2s;
@@ -818,8 +825,9 @@ nav {
   .about-bottom { justify-content: flex-start; }
   .about-right { width: 100%; }
 
-  .contact { flex-direction: column; align-items: flex-start; gap: 2rem; }
-  .contact-right { justify-content: flex-end; width: 100%; }
+  .contact { gap: 2rem; }
+  .contact-cat { margin-top: 3.5rem; }
+  .contact-right { width: 100%; }
 
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .hero-desc { max-width: 100%; }
