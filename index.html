@@ -1009,7 +1009,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   main > .hero.is-covered { animation-play-state: paused; }
   main > .work, main > .contact { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 }
-/* Loading screen: an isometric staircase with a token that hops up and down on its own (shown only if the page is still loading after ~0.2s) */
+/* Loading screen: an isometric staircase with a token that hops up and down on its own (shown only if the page is still loading after ~0.8s) */
 html.is-loading { overflow: hidden; }
 .ld-screen { position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: var(--bg); opacity: 1; transition: opacity .45s ease; }
 .ld-screen.is-out { opacity: 0; pointer-events: none; }
@@ -1036,7 +1036,7 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
 <script>
 /* loading screen (see .ld-screen in the stylesheet) */
 (function () {
-  var MIN_SHOW = 1000, DELAY = 200, MAX = 12000;
+  var MIN_SHOW = 700, DELAY = 800, MAX = 12000;   // DELAY: only show if the page is still loading after this many ms; MIN_SHOW: once shown, stay at least this long
   var shown = false, done = false, t0 = 0, raf = 0, root, timer;
   var KO = /^ko/i.test(document.documentElement.lang || '');
   var N = 5, RUN = 15, RISE = 9, WIDE = 40, TOK = 7;
