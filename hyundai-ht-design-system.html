@@ -291,19 +291,16 @@ html[data-theme="dark"] .hero-veil { background: radial-gradient(ellipse 46% 40%
 /* ── S06 FINAL DESIGN ── */
 .fd-main-dummy { width: 1024px; max-width: 100%; height: 380px; }
 /* Component Logic: floating widget screens with depth parallax (vanilla port of the parallax-floating component; sizes in cqw of the container, built in JS) */
-.pf-sec { position: relative; overflow: hidden; min-height: clamp(680px, 92vh, 880px); }
+.pf-sec { position: relative; overflow: hidden; }
 .pf-sec > .sec-header { position: relative; z-index: 2; width: 760px; }
 .img-stream { position: absolute; inset: 0; overflow: hidden; container-type: inline-size; --u: .72; z-index: 1; pointer-events: none; }
-.img-stream .pf-el { position: absolute; top: var(--t); left: var(--l); will-change: transform; }
-.img-stream .pf-el img { display: block; width: calc(var(--w) * var(--u) * 1cqw); height: calc(var(--h) * var(--u) * 1cqw); object-fit: cover; border-radius: 10px; pointer-events: auto;
-  box-shadow: 0 18px 36px -14px rgba(10,10,20,0.32); opacity: 0; transition: transform .2s ease, opacity .5s ease; cursor: pointer; }
+.img-stream .pf-el { position: absolute; top: var(--t); left: var(--l); will-change: transform; }   /* --t / --l are set by the layout() in JS so the gap above and below the text is identical */
+.img-stream .pf-el img { display: block; width: calc(13 * var(--u) * 1cqw); height: calc(13 * var(--u) * 1cqw); object-fit: cover; border-radius: 10px; pointer-events: none;
+  box-shadow: 0 18px 36px -14px rgba(10,10,20,0.32); opacity: 0; transition: opacity .5s ease; }
 .img-stream.is-in .pf-el img { opacity: 1; transition-delay: calc(var(--k) * .15s), 0s; }
-.img-stream.is-in .pf-el img:hover { transform: scale(1.05); transition-delay: 0s; }
 @media (max-width: 804px) {
-  .pf-sec { min-height: max(760px, 100svh); }
   .img-stream { --u: 1.5; }
-  .img-stream .pf-el { top: var(--mt); left: var(--ml); }
-  .img-stream .pf-el.pf-skip-m { display: none; }
+  .img-stream .pf-el { left: var(--ml); }
 }
 @media (prefers-reduced-motion: reduce) { .img-stream .pf-el img { transition: none; } }
 
@@ -334,10 +331,10 @@ html[data-theme="dark"] .hero-veil { background: radial-gradient(ellipse 46% 40%
 
 /* Mobile: the first screen stays pinned while the next one slides over it (more scroll distance per card, slight dim on the buried one) */
 @media (max-width: 767px) {
-  /* every card carries the same trailing space so earlier cards stay pinned until the next one has fully covered them; the stack pulls the next section back up over the unused tail */
-  .adaptive-sticky { top: calc(84px + var(--i, 0) * 14px); padding-bottom: 38svh; }
-  .adaptive-stack { margin-bottom: calc(-38svh + 60px); }
-  .adaptive-stack::after { content: ""; flex: none; height: 36svh; }   /* 20svh = how long the last card stays pinned before everything scrolls on */
+  /* cards sit close together (20px) so the next one is always peeking in; the spacer after the last card is how long it stays pinned before the page moves on */
+  .adaptive-sticky { top: calc(84px + var(--i, 0) * 14px); padding-bottom: 20px; }
+  .adaptive-stack { margin-bottom: 40px; }
+  .adaptive-stack::after { content: ""; flex: none; height: 14svh; }
   .adaptive-dummy { width: 90vw; height: 56vw; border-radius: 14px; box-shadow: 0 18px 40px -14px rgba(10,10,20,0.35); }
   .adaptive-dummy img { transition: none; }
 }
@@ -840,7 +837,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   function render() {
     var eff = START + (1 - START) * prog;
     var fade = Math.max(0, Math.min(1, prog / 0.25)); fade = fade * fade * (3 - 2 * fade);   // images fade in as you start scrolling
-    var farZ = mobile ? -1200 : -1700, nearZ = mobile ? 350 : 500, pan = mobile ? 20 : 45;
+    var farZ = mobile ? -1200 : -1700, nearZ = mobile ? 780 : 500, pan = mobile ? 20 : 45;
     for (var i = 0; i < N; i++) {
       var d = data[i];
       var s0 = (i / N) * (1 - STAGGER);
@@ -849,7 +846,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
       var x = d.cos * (W * d.rx) - px * pan;
       var y = d.sin * (H * d.ry) - py * pan;
       d.el.style.transform = 'translate3d(calc(-50% + ' + x.toFixed(1) + 'px), calc(-50% + ' + y.toFixed(1) + 'px), ' + z.toFixed(1) + 'px) rotateZ(' + d.rot + 'deg)';
-      d.el.style.opacity = (ramp(p, 0, 0.18, 0.82, 0.98) * fade).toFixed(3);
+      d.el.style.opacity = (ramp(p, 0, 0.18, mobile ? 0.9 : 0.82, mobile ? 1.001 : 0.98) * fade).toFixed(3);
     }
   }
   var raf = 0, visible = true;
@@ -1020,24 +1017,43 @@ setLang(stored, false);
   if (!root) return;
   let srcs = []; try { srcs = JSON.parse(root.getAttribute('data-srcs') || '[]'); } catch (e) {}
   if (!srcs.length) return;
-  // [top %, left %, width, height (cqw), depth]
-  // [top %, left %, w, h (cqw), depth, mobile top %, mobile left %]  — the centre is kept clear for the section text
+  // [left %, depth, row, mobile left %] — rows: 0 = top, 1 = bottom (mobile bottom has two: 1 and 2). All cards are the same size.
   const L = [
-    [ 8,  6,  9,  9, 0.5,  3,  4], [ 6, 24, 11, 11, 1,  2, 24], [ 0, 62, 15, 20, 2,  1, 48], [ 4, 84, 12, 12, 1,  5, 78],
-    [40,  3, 13, 13, 1, 80,  3],   [64, 80, 14, 18, 2, 78, 62], [66, 10, 17, 17, 4, 84, 26], [78, 50, 12, 12, 1, 92, 48],
-    [32, 87, 10, 10, 3, 0, 0]
+    [ 6, 0.5, 0,  4], [31.5, 1, 0, 28], [57, 2, 0, 52], [82.5, 1, 0, 76],
+    [ 4, 3, 1,  5], [20.5, 1, 1, 37], [37, 2, 1, 69],
+    [53.5, 4, 1,  5], [70, 1, 1, 37], [86.5, 2, 1, 69]
   ];
-  const SENS = -1, EASE = 0.05;
+  const MROW = [0, 0, 0, 0, 1, 1, 1, 2, 2, 2];
+  const SENS = -0.35, EASE = 0.04;   // gentle parallax
   const els = L.map(function (d, i) {
     const wrap = document.createElement('div'); wrap.className = 'pf-el';
-    wrap.style.setProperty('--t', d[0] + '%'); wrap.style.setProperty('--l', d[1] + '%'); wrap.style.setProperty('--mt', d[5] + '%'); wrap.style.setProperty('--ml', d[6] + '%');
-    if (i === 8) wrap.classList.add('pf-skip-m');
+    wrap.style.setProperty('--l', d[0] + '%'); wrap.style.setProperty('--ml', d[3] + '%');
     const img = document.createElement('img');
     img.src = srcs[i % srcs.length]; img.alt = ''; img.decoding = 'async'; img.draggable = false;
-    img.style.cssText = '--w:' + d[2] + ';--h:' + d[3] + ';--k:' + i;
+    img.style.setProperty('--k', i);
     wrap.appendChild(img); root.appendChild(wrap);
-    return { el: wrap, depth: d[4], x: 0, y: 0 };
+    return { el: wrap, img: img, row: d[2], depth: d[1], x: 0, y: 0 };
   });
+  // Layout: the same gap (G) sits between the top row and the text and between the text and the bottom row, and the same margin (E) sits outside both rows.
+  const sec = root.parentNode, header = sec.querySelector('.sec-header');
+  function layout() {
+    const m = window.innerWidth <= 804, size = els[0].img.offsetWidth, G = m ? 44 : 64, E = m ? 20 : 32, RG = m ? 12 : 0;
+    const bottomRows = m ? 2 : 1, below = bottomRows * size + (bottomRows - 1) * RG;
+    sec.style.paddingTop = (E + size + G) + 'px';
+    sec.style.paddingBottom = (E + below + G) + 'px';
+    const H = sec.offsetHeight;
+    els.forEach(function (o, i) {
+      let t;
+      if (o.row === 0) t = E;
+      else if (!m) t = H - E - size;
+      else t = MROW[i] === 1 ? H - E - 2 * size - RG : H - E - size;
+      o.el.style.setProperty('--t', Math.round(t) + 'px');
+    });
+  }
+  layout();
+  window.addEventListener('resize', layout); window.addEventListener('load', layout);
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(header);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const touch = window.matchMedia && matchMedia('(hover: none)').matches;
   let mx = 0, my = 0, visible = false, raf = 0, last = 0;
