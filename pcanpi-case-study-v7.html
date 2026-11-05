@@ -329,7 +329,6 @@ nav {
   .cc-text { width: 100%; order: 1; text-align: center; align-items: center; }
   .cc-imgs { width: 100%; order: 2; }
   .cta-title { font-size: 24px; line-height: 34px; }
-  .cta-img-peek { display: none; }
 
 
   .anno-body { grid-template-columns: 1fr; }
@@ -687,27 +686,34 @@ nav {
   background: #FEF4EE; border: 1px solid var(--p-high); border-radius: 100px; padding: 6px 14px;
 }
 .cta-dots {
-  display: flex; justify-content: center; gap: 7px; margin-top: 24px;
+  display: flex; justify-content: center; align-items: center; gap: 7px; margin-top: 24px;
 }
+.cta-dots .cta-dot-sep { width: 1px; height: 1px; flex: none; }
+.cta-arrow {
+  appearance: none; width: 40px; height: 40px; padding: 0; margin: 0 8px; flex: none;
+  display: grid; place-items: center; cursor: pointer; color: #9a9189; background: transparent; border: 0; border-radius: 0;
+  transition: color .2s ease, transform .2s ease; -webkit-tap-highlight-color: transparent;
+}
+.cta-arrow svg { width: 22px; height: 22px; }
+.cta-arrow:hover { color: #3a3530; }
+#ctaPrev:hover { transform: translateX(-2px); } #ctaNext:hover { transform: translateX(2px); }
+.cta-arrow:active { transform: scale(.92); }
+.cta-arrow:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
+html[data-theme="dark"] .cta-arrow { color: var(--gray-400); }
+html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
 .cta-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: #D0C8C0; border: none; cursor: pointer; padding: 0;
   transition: background 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
 }
 .cta-dot.active { width: 24px; border-radius: 4px; background: var(--orange); }
-.cta-imgs-outer { overflow: hidden; }
-.cta-imgs-inner { position: relative; max-width: 1024px; margin: 0 auto; height: 438px; }
-.cta-img-main {
-  position: absolute; left: 10.6%; right: 10.6%; top: 0; height: 100%;
-  border: 3.25px solid #9e9e9e; border-radius: 12px; overflow: hidden;
-}
-.cta-img-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.cta-img-peek {
-  display: none;
-}
-.cta-img-peek.left  { left: -62.7%; }
-.cta-img-peek.right { left: 95%; }
-.cta-img-peek img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cta-imgs-outer { overflow: hidden; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }   /* full-bleed so the neighbouring cards run to the screen edges */
+/* Pricing carousel: focus-pull strip. The centre card is sharp and full size; its neighbours soften, shrink and fade with their distance from the middle. */
+.cta-track { --w: min(807px, calc(100vw - 48px)); display: flex; align-items: center; gap: clamp(12px, 2vw, 28px); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; padding: 8px calc(50% - var(--w) / 2); scrollbar-width: none; cursor: grab; touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; }
+.cta-track::-webkit-scrollbar { display: none; }
+.cta-track[data-drag="1"] { scroll-snap-type: none; cursor: grabbing; }
+.cta-card { flex: 0 0 var(--w); aspect-ratio: 807 / 438; scroll-snap-align: center; position: relative; border: 3.25px solid #9e9e9e; border-radius: 12px; overflow: hidden; padding: 0; margin: 0; background: transparent; cursor: inherit; will-change: transform, filter; transform-origin: center; }
+.cta-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 
 /* 2-col cards */
 .f-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
@@ -1120,9 +1126,6 @@ nav {
   .f-hero-side-img img { position: relative; inset: auto; width: 100%; height: auto; object-fit: initial; border-radius: 14px; }
 
   /* Pricing carousel */
-  .cta-imgs-inner { height: auto; padding: 0 20px; }
-  .cta-img-main { position: relative; left: auto; right: auto; width: 100%; height: auto; }
-  .cta-img-main img { width: 100%; height: auto; object-fit: initial; }
 
   /* Account carousel — card scaling */
   .acct-carousel-wrap { width: 100%; height: auto; }
@@ -1245,7 +1248,7 @@ html[data-theme="dark"] .ls-btn.active{background:#3A342F;color:#F2EEE9;box-shad
 /* dark: requested tweaks */
 html[data-theme="dark"] .finding-illus{background:#fff5f0}
 html[data-theme="dark"] .kc-wrap,html[data-theme="dark"] .oc-card,html[data-theme="dark"] .refl-card{border-color:rgba(216,210,204,0.4)}
-html[data-theme="dark"] .cta-img-main,html[data-theme="dark"] .acct-card-img-wrap{border-color:rgba(255,255,255,0.4)}
+html[data-theme="dark"] .cta-card,html[data-theme="dark"] .acct-card-img-wrap{border-color:rgba(255,255,255,0.4)}
 html[data-theme="dark"] .f-hero--side .f-hero-title{-webkit-text-fill-color:var(--black);color:var(--black)}
 /* FAB glass: same blur as nav, with a firmer tint and border so it reads on any background */
 .theme-fab{background:rgba(255,255,255,0.65);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);border:1px solid rgba(0,0,0,0.16)}
@@ -1254,6 +1257,9 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   .theme-fab:hover,.theme-fab:focus-visible{background:rgba(33,29,26,0.92);border-color:rgba(255,255,255,0.08)}
   html[data-theme="dark"] .theme-fab:hover,html[data-theme="dark"] .theme-fab:focus-visible{background:rgba(254,254,254,0.92);border-color:rgba(0,0,0,0.05)}
 }
+/* Readable line length: on wide screens long paragraphs were running 95-135 characters per line. Cap them at ~64ch (about 70 Latin / 35 Korean characters). */
+.prob-body-text, .prob-callout-body, .research-sub-q, .research-sub-b, .ki-text, .ki-bridge, .design-intro-lead, .f-hero-body > p, .oc-ds-body { max-width: 64ch; margin-left: auto; margin-right: auto; text-wrap: pretty; }
+.kc-item { padding-right: max(0px, calc(100% - 72ch)); text-wrap: pretty; }   /* the divider lines stay full width; only the text measure is capped */
 </style>
 </head>
 <body>
@@ -1808,23 +1814,20 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
       </div>
       <span class="cta-lbl-row" id="cta-lbl">Guest</span>
       <div class="cta-imgs-outer">
-        <div class="cta-imgs-inner">
-          <div class="cta-img-peek left">
-            <img id="cta-img-l" loading="lazy" src="engram.resource/pricing_state_02.webp" alt="">
-          </div>
-          <div class="cta-img-main">
-            <img id="cta-img-c" loading="lazy" src="engram.resource/pricing_state_01.webp" alt="Pricing - Guest">
-          </div>
-          <div class="cta-img-peek right">
-            <img id="cta-img-r" loading="lazy" src="engram.resource/pricing_state_04.webp" alt="">
-          </div>
+        <div class="cta-track" id="ctaTrack" role="region" aria-roledescription="carousel" aria-label="Pricing states">
+          <div class="cta-card"><img loading="lazy" src="engram.resource/pricing_state_01.webp" alt="Pricing - Guest"></div>
+          <div class="cta-card"><img loading="lazy" src="engram.resource/pricing_state_04.webp" alt="Pricing - Free, before trial"></div>
+          <div class="cta-card"><img loading="lazy" src="engram.resource/pricing_state_03.webp" alt="Pricing - Free"></div>
+          <div class="cta-card"><img loading="lazy" src="engram.resource/pricing_state_02.webp" alt="Pricing - Premium"></div>
         </div>
       </div>
       <div class="cta-dots">
+        <button type="button" class="cta-arrow" id="ctaPrev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="cta-dot active" data-cta-idx="0" aria-label="Guest"></button>
         <button class="cta-dot" data-cta-idx="1" aria-label="Free - Before Trial"></button>
         <button class="cta-dot" data-cta-idx="2" aria-label="Free"></button>
         <button class="cta-dot" data-cta-idx="3" aria-label="Premium"></button>
+        <button type="button" class="cta-arrow" id="ctaNext" aria-label="Next"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </div>
 
@@ -2323,101 +2326,81 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 
 <script>
-/* ── Pricing CTA Carousel ── */
+/* ── Pricing CTA Carousel: focus-pull strip (native scroll-snap; blur/scale/fade follow the scroll position) ── */
 (function () {
-  var slides = [
-    { label: 'Guest',               src: 'engram.resource/pricing_state_01.webp' },
-    { label: 'Free - Before Trial', src: 'engram.resource/pricing_state_04.webp' },
-    { label: 'Free',                src: 'engram.resource/pricing_state_03.webp' },
-    { label: 'Premium',             src: 'engram.resource/pricing_state_02.webp' },
-  ];
-  var N = slides.length;
-  var idx = 0;
-  var timer = null;
-  var INTERVAL = 3600;
-  var busy = false;
-
-  var lbl  = document.getElementById('cta-lbl');
-  var imgL = document.getElementById('cta-img-l');
-  var imgC = document.getElementById('cta-img-c');
-  var imgR = document.getElementById('cta-img-r');
+  var labels = ['Guest', 'Free - Before Trial', 'Free', 'Premium'];
+  var track = document.getElementById('ctaTrack');
+  var lbl = document.getElementById('cta-lbl');
   var dots = document.querySelectorAll('.cta-dot');
+  if (!track || !lbl) return;
+  var cards = Array.prototype.slice.call(track.children);
+  var N = cards.length, active = 0, lastTouch = 0, raf = 0, seen = true;
+  var INTERVAL = 3600;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!lbl || !imgC) return;
-
-  function updateDots(i) {
+  function setActive(i) {
+    if (i === active) return; active = i;
+    lbl.textContent = labels[i];
     dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
   }
-
-  function goTo(toIdx, dir) {
-    if (busy) return;
-    busy = true;
-    dir = (dir === undefined) ? 1 : dir;
-    var FO = 220, FI = 320;
-
-    /* ── fade out ── */
-    lbl.style.transition  = 'opacity ' + FO + 'ms ease, transform ' + FO + 'ms ease';
-    lbl.style.opacity     = '0';
-    lbl.style.transform   = 'translateY(' + (dir > 0 ? '-' : '') + '6px)';
-    imgC.style.transition = 'opacity ' + FO + 'ms ease, transform ' + FO + 'ms ease';
-    imgC.style.opacity    = '0';
-    imgC.style.transform  = 'translateX(' + (dir > 0 ? '-3' : '3') + '%)';
-    imgL.style.transition = 'opacity ' + (FO * 0.6 | 0) + 'ms ease';
-    imgL.style.opacity    = '0';
-    imgR.style.transition = 'opacity ' + (FO * 0.6 | 0) + 'ms ease';
-    imgR.style.opacity    = '0';
-
-    setTimeout(function () {
-      idx = ((toIdx % N) + N) % N;
-      var prev = ((idx - 1) + N) % N;
-      var next = (idx + 1) % N;
-
-      imgL.src = slides[prev].src;
-      imgC.src = slides[idx].src;
-      imgR.src = slides[next].src;
-      lbl.textContent = slides[idx].label;
-      updateDots(idx);
-
-      /* position new center on the incoming side (no transition) */
-      imgC.style.transition = 'none';
-      imgC.style.transform  = 'translateX(' + (dir > 0 ? '3' : '-3') + '%)';
-      lbl.style.transition  = 'none';
-      lbl.style.transform   = 'translateY(' + (dir > 0 ? '' : '-') + '6px)';
-      void imgC.offsetWidth; /* force reflow */
-
-      /* ── fade in ── */
-      imgC.style.transition = 'opacity ' + FI + 'ms ease, transform ' + FI + 'ms ease';
-      imgC.style.opacity    = '1';
-      imgC.style.transform  = 'translateX(0)';
-      imgL.style.transition = 'opacity ' + (FI * 0.8 | 0) + 'ms ease';
-      imgL.style.opacity    = '1';
-      imgR.style.transition = 'opacity ' + (FI * 0.8 | 0) + 'ms ease';
-      imgR.style.opacity    = '1';
-      lbl.style.transition  = 'opacity ' + FI + 'ms ease, transform ' + FI + 'ms ease';
-      lbl.style.opacity     = '1';
-      lbl.style.transform   = 'translateY(0)';
-
-      setTimeout(function () { busy = false; }, FI + 60);
-    }, FO + 30);
-  }
-
-  function advance() { goTo(idx + 1, 1); }
-
-  function startTimer() { stopTimer(); timer = setInterval(advance, INTERVAL); }
-  function stopTimer()  { clearInterval(timer); timer = null; }
-
-  dots.forEach(function (d) {
-    d.addEventListener('click', function () {
-      var i = +this.getAttribute('data-cta-idx');
-      if (i === idx) return;
-      goTo(i, i > idx ? 1 : -1);
-      startTimer();
+  function paint() {
+    raf = 0;
+    var mid = track.scrollLeft + track.clientWidth / 2, w = cards[0].offsetWidth || 1;
+    var blur = window.innerWidth <= 640 ? 4 : 7, best = 0, bestD = 1e9;
+    cards.forEach(function (c, i) {
+      var d = (c.offsetLeft + c.offsetWidth / 2 - mid) / w, a = Math.min(Math.abs(d), 1);
+      c.style.transform = 'scale(' + (1 - 0.14 * a).toFixed(4) + ')';
+      c.style.opacity = (1 - 0.5 * a).toFixed(3);
+      c.style.filter = (reduce || a < 0.02) ? 'none' : 'blur(' + (Math.min(Math.abs(d), 2) * blur).toFixed(2) + 'px) saturate(' + (1 - 0.45 * a).toFixed(3) + ')';
+      if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = i; }
     });
+    setActive(best);
+  }
+  function queue() { if (!raf) raf = requestAnimationFrame(paint); }
+  function goTo(i, smooth) {
+    var c = cards[i]; if (!c) return;
+    track.scrollTo({ left: c.offsetLeft + c.offsetWidth / 2 - track.clientWidth / 2, behavior: (smooth === false || reduce) ? 'auto' : 'smooth' });
+  }
+  track.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', function () { goTo(active, false); queue(); });
+  if ('ResizeObserver' in window) new ResizeObserver(queue).observe(track);
+
+  /* mouse drag (touch and trackpads scroll natively) */
+  var drag = null, justDragged = false;
+  track.addEventListener('pointerdown', function (e) {
+    lastTouch = performance.now();
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: track.scrollLeft, moved: false };
+  });
+  track.addEventListener('pointermove', function (e) {
+    if (!drag) return; var dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 4) { drag.moved = true; track.setAttribute('data-drag', '1'); try { track.setPointerCapture(e.pointerId); } catch (x) {} }
+    if (drag.moved) track.scrollLeft = drag.left - dx;
+  });
+  function up() {
+    var d = drag; drag = null; lastTouch = performance.now();
+    if (d && d.moved) { justDragged = true; setTimeout(function () { justDragged = false; }, 0); track.removeAttribute('data-drag'); goTo(active); }
+  }
+  track.addEventListener('pointerup', up); track.addEventListener('pointercancel', up);
+  track.addEventListener('wheel', function () { lastTouch = performance.now(); }, { passive: true });
+  cards.forEach(function (c, i) { c.addEventListener('click', function () { if (justDragged) return; lastTouch = performance.now(); goTo(i); }); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { lastTouch = performance.now(); goTo(+this.getAttribute('data-cta-idx')); });
   });
 
-  /* init */
-  updateDots(0);
-  startTimer();
+  var prevB = document.getElementById('ctaPrev'), nextB = document.getElementById('ctaNext');
+  if (prevB) prevB.addEventListener('click', function () { lastTouch = performance.now(); goTo((active - 1 + N) % N); });
+  if (nextB) nextB.addEventListener('click', function () { lastTouch = performance.now(); goTo((active + 1) % N); });
+
+  /* autoplay: only while on screen, and it waits while someone is interacting */
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { seen = en[0].isIntersecting; }).observe(track);
+  setInterval(function () {
+    if (!seen || document.hidden || performance.now() - lastTouch < INTERVAL) return;
+    goTo((active + 1) % N);
+  }, INTERVAL);
+
+  goTo(0, false); paint();
+  window.addEventListener('load', function () { goTo(active, false); paint(); });
 })();
 </script>
 
@@ -2905,6 +2888,14 @@ setLang(currentLang, false);
     d.addEventListener('click', function () {
       fire('account_management', { action: 'dot_click', slide: (+d.getAttribute('data-acct-idx')) + 1, slide_label: d.getAttribute('aria-label') });
     });
+  });
+  var ctaTrack = document.getElementById('ctaTrack');
+  if (ctaTrack) ['pointerdown', 'wheel'].forEach(function (ev) {
+    ctaTrack.addEventListener(ev, function () { fire('upgrade_modal', { action: ev === 'wheel' ? 'scroll' : 'swipe_or_drag' }); }, { passive: true });
+  });
+  ['ctaPrev', 'ctaNext'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b) b.addEventListener('click', function () { fire('upgrade_modal', { action: id === 'ctaPrev' ? 'prev_click' : 'next_click' }); });
   });
   document.querySelectorAll('.cta-dot').forEach(function (d) {
     d.addEventListener('click', function () {
