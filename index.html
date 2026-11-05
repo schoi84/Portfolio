@@ -1009,11 +1009,110 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   main > .hero.is-covered { animation-play-state: paused; }
   main > .work, main > .contact { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 }
+/* Loading screen: an isometric staircase with a token that hops up and down on its own (shown only if the page is still loading after ~0.2s) */
+html.is-loading { overflow: hidden; }
+.ld-screen { position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: var(--bg); opacity: 1; transition: opacity .45s ease; }
+.ld-screen.is-out { opacity: 0; pointer-events: none; }
+.ld-screen svg { width: min(240px, 62vw); height: auto; overflow: visible; display: block; }
+.ld-screen { --ld-line: #8c8c8c; --ld-top: #ffffff; --ld-riser: #e4e4e4; --ld-side: #cdcdcd; --ld-hi-top: #d9d9d9; --ld-hi-riser: #b5b5b5; --ld-hi-side: #9c9c9c; --ld-tk: #111111; --ld-tk-r: #3a3a3a; --ld-tk-s: #5c5c5c; }
+html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld-riser: #1b1b1b; --ld-side: #323232; --ld-hi-top: #6a6a6a; --ld-hi-riser: #4a4a4a; --ld-hi-side: #5a5a5a; --ld-tk: #f5f5f5; --ld-tk-r: #c4c4c4; --ld-tk-s: #a0a0a0; }
+.ld-screen path { stroke: var(--ld-line); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill .25s ease; }
+.ld-screen .ld-top { fill: var(--ld-top); }
+.ld-screen .ld-riser { fill: var(--ld-riser); }
+.ld-screen .ld-side { fill: var(--ld-side); }
+.ld-screen .hi .ld-top { fill: var(--ld-hi-top); }
+.ld-screen .hi .ld-riser { fill: var(--ld-hi-riser); }
+.ld-screen .hi .ld-side { fill: var(--ld-hi-side); }
+.ld-screen .tk .ld-top { fill: var(--ld-tk); stroke: var(--ld-tk); }
+.ld-screen .tk .ld-riser { fill: var(--ld-tk-r); stroke: var(--ld-tk); }
+.ld-screen .tk .ld-side { fill: var(--ld-tk-s); stroke: var(--ld-tk); }
+.ld-screen .ld-shadow { fill: none; stroke: var(--ld-line); stroke-dasharray: 2 3; opacity: .7; }
+.ld-label { font: 500 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--ld-line); }
 </style>
 <link rel="preload" as="image" href="engram.resource/triangle-ui cover.webp">
 <link rel="preload" as="image" href="engram.resource/cover-engram.webp">
 </head>
 <body>
+<script>
+/* loading screen (see .ld-screen in the stylesheet) */
+(function () {
+  var MIN_SHOW = 1000, DELAY = 200, MAX = 12000;
+  var shown = false, done = false, t0 = 0, raf = 0, root, timer;
+  var KO = /^ko/i.test(document.documentElement.lang || '');
+  var N = 5, RUN = 15, RISE = 9, WIDE = 40, TOK = 7;
+  var C = Math.SQRT1_2, S = -Math.SQRT1_2, E = 0.5;
+  function P(x, y, z) { return [x * C - y * S, (x * S + y * C) * E - z]; }
+  var xs = [], ys = [];
+  [[0, 0], [N * RUN, 0], [0, WIDE], [N * RUN, WIDE]].forEach(function (c) {
+    [0, N * RISE + TOK + 8].forEach(function (z) { var p = P(c[0], c[1], z); xs.push(p[0]); ys.push(p[1]); });
+  });
+  var minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs), minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
+  var K = Math.min(200 / (maxX - minX), 156 / (maxY - minY)), OX = 100 - K * (minX + maxX) / 2, OY = 83 - K * (minY + maxY) / 2;
+  function pt(x, y, z) { var p = P(x, y, z); return (p[0] * K + OX).toFixed(1) + ' ' + (p[1] * K + OY).toFixed(1); }
+  function poly(a) { return 'M' + a.map(function (q) { return pt(q[0], q[1], q[2]); }).join('L') + 'Z'; }
+  function box(x0, y0, x1, y1, z0, z1) {
+    return [
+      poly([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]]),            // top
+      poly([[x0, y0, z0], [x0, y1, z0], [x0, y1, z1], [x0, y0, z1]]),            // riser (faces the viewer)
+      poly([[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]])             // side
+    ];
+  }
+  function setBox(g, d) { var p = g.children; p[0].setAttribute('d', d[0]); p[1].setAttribute('d', d[1]); p[2].setAttribute('d', d[2]); }
+  function mk(parent, cls) {
+    var NS = 'http://www.w3.org/2000/svg', g = document.createElementNS(NS, 'g'); if (cls) g.setAttribute('class', cls);
+    ['ld-top', 'ld-riser', 'ld-side'].forEach(function (c) { var p = document.createElementNS(NS, 'path'); p.setAttribute('class', c); g.appendChild(p); });
+    parent.appendChild(g); return g;
+  }
+  // walk: up the stairs, then back down, hopping one step at a time
+  var seq = [0, 1, 2, 3, 4, 3, 2, 1], HOP = 420, REST = 110;
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function build() {
+    var NS = 'http://www.w3.org/2000/svg';
+    root = document.createElement('div'); root.className = 'ld-screen'; root.setAttribute('role', 'status'); root.setAttribute('aria-live', 'polite');
+    var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 200 166'); svg.setAttribute('aria-hidden', 'true');
+    var steps = [];
+    for (var i = N - 1; i >= 0; i--) { var g = mk(svg); setBox(g, box(i * RUN, 0, (i + 1) * RUN, WIDE, 0, (i + 1) * RISE)); steps[i] = g; }
+    var sh = document.createElementNS(NS, 'path'); sh.setAttribute('class', 'ld-shadow'); svg.appendChild(sh);
+    var tok = mk(svg, 'tk');
+    var lab = document.createElement('div'); lab.className = 'ld-label'; lab.textContent = KO ? '불러오는 중' : 'Loading';
+    root.appendChild(svg); root.appendChild(lab); document.body.appendChild(root);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function draw(x) {
+      var i = Math.max(0, Math.min(N - 1, Math.round(x))), fr = x - Math.floor(x), arc = Math.sin(Math.PI * fr) * RISE * .9;
+      var floor = (Math.max(0, Math.min(N - 1, x)) + 1) * RISE, cx = (x + .5) * RUN, cy = WIDE / 2;
+      setBox(tok, box(cx - TOK / 2, cy - TOK / 2, cx + TOK / 2, cy + TOK / 2, floor + arc, floor + arc + TOK));
+      sh.setAttribute('d', arc > 1 ? 'M' + pt(cx, cy, (i + 1) * RISE) + 'L' + pt(cx, cy, floor + arc) : '');
+      steps.forEach(function (g, k) { g.classList.toggle('hi', k <= i); });
+    }
+    if (reduce) { draw(2); return; }
+    var start = performance.now(), per = HOP + REST;
+    (function tick(now) {
+      var t = now - start, n = Math.floor(t / per) % seq.length, local = t % per;
+      var a = seq[n], b = seq[(n + 1) % seq.length], p = Math.min(1, local / HOP);
+      draw(a + (b - a) * ease(p));
+      raf = requestAnimationFrame(tick);
+    })(start);
+  }
+  function show() {
+    if (done || shown || !document.body) return;
+    shown = true; t0 = performance.now();
+    document.documentElement.classList.add('is-loading'); build();
+  }
+  function hide() {
+    if (!shown) return;
+    root.classList.add('is-out');
+    setTimeout(function () { cancelAnimationFrame(raf); if (root.parentNode) root.parentNode.removeChild(root); document.documentElement.classList.remove('is-loading'); }, 480);
+  }
+  function finish() {
+    if (done) return; done = true; clearTimeout(timer);
+    if (shown) setTimeout(hide, Math.max(0, MIN_SHOW - (performance.now() - t0)));
+  }
+  timer = setTimeout(show, DELAY);
+  if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish);
+  setTimeout(finish, MAX);
+})();
+</script>
+
 
 <!-- NAV -->
 <nav>
