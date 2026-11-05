@@ -211,7 +211,7 @@ nav {
 /* Hero: perspective tunnel across the whole hero. Page scroll flies the screens toward the viewer (positions and depth computed in JS). */
 .hero-collage { position: absolute; inset: 0; perspective: 1200px; z-index: 0; }
 .hero-collage::before { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at center, rgba(99,102,241,0.14) 0%, transparent 70%); }
+  background: radial-gradient(circle at center, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 45%, transparent 72%); }
 .hero-collage::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image: radial-gradient(var(--gray-300) 1px, transparent 1px); background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%); opacity: .5; }
@@ -223,6 +223,8 @@ nav {
 /* soft veil under the text so it stays readable when a screen passes behind it */
 .hero-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(ellipse 52% 46% at 50% 42%, color-mix(in srgb, var(--bg) 88%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 55%, transparent 100%); }
+html[data-theme="dark"] .hero-veil { background: radial-gradient(ellipse 46% 40% at 50% 42%, color-mix(in srgb, var(--bg) 62%, transparent) 0%, color-mix(in srgb, var(--bg) 30%, transparent) 55%, transparent 100%); }
+@media (min-width: 768px) and (min-height: 761px) { .hero-inner { padding-top: 128px; } }   /* more air under the nav on desktop */
 /* short phones: tighten the text block so it always fits inside the pinned stage */
 @media (min-width: 768px) and (max-height: 760px) { .hero-inner { padding: 36px 40px 72px; gap: 32px; } .hero-text { gap: 24px; } .hero-top { gap: 18px; } .hero-copy { gap: 8px; } }
 @media (min-width: 768px) and (max-height: 620px) { .hero-inner { padding: 16px 40px 64px; gap: 20px; } .hero-text { gap: 16px; } .hero-top { gap: 12px; } .hero-copy { font-size: .95em; } }
@@ -288,19 +290,22 @@ nav {
 
 /* ── S06 FINAL DESIGN ── */
 .fd-main-dummy { width: 1024px; max-width: 100%; height: 380px; }
-/* Component Logic: image corridor (cards ride from the vanishing point toward the viewer; built in JS, every length in cqw) */
-.img-stream {
-  position: relative; width: 100%; aspect-ratio: 1024 / 560; overflow: hidden;
-  container-type: inline-size;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+/* Component Logic: floating widget screens with depth parallax (vanilla port of the parallax-floating component; sizes in cqw of the container, built in JS) */
+.pf-sec { position: relative; overflow: hidden; min-height: clamp(680px, 92vh, 880px); }
+.pf-sec > .sec-header { position: relative; z-index: 2; width: 760px; }
+.img-stream { position: absolute; inset: 0; overflow: hidden; container-type: inline-size; --u: .72; z-index: 1; pointer-events: none; }
+.img-stream .pf-el { position: absolute; top: var(--t); left: var(--l); will-change: transform; }
+.img-stream .pf-el img { display: block; width: calc(var(--w) * var(--u) * 1cqw); height: calc(var(--h) * var(--u) * 1cqw); object-fit: cover; border-radius: 10px; pointer-events: auto;
+  box-shadow: 0 18px 36px -14px rgba(10,10,20,0.32); opacity: 0; transition: transform .2s ease, opacity .5s ease; cursor: pointer; }
+.img-stream.is-in .pf-el img { opacity: 1; transition-delay: calc(var(--k) * .15s), 0s; }
+.img-stream.is-in .pf-el img:hover { transform: scale(1.05); transition-delay: 0s; }
+@media (max-width: 804px) {
+  .pf-sec { min-height: max(760px, 100svh); }
+  .img-stream { --u: 1.5; }
+  .img-stream .pf-el { top: var(--mt); left: var(--ml); }
+  .img-stream .pf-el.pf-skip-m { display: none; }
 }
-.img-stream .is-scene { position: absolute; inset: 0; pointer-events: none; }
-.img-stream .is-space { position: absolute; inset: 0; transform-style: preserve-3d; }
-.img-stream .is-card { position: absolute; overflow: hidden; backface-visibility: hidden; }
-.img-stream .is-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-@media (prefers-reduced-motion: reduce) { .img-stream .is-card { animation-play-state: paused; } }
-@media (max-width: 804px) { .img-stream { aspect-ratio: 4 / 3; } }
+@media (prefers-reduced-motion: reduce) { .img-stream .pf-el img { transition: none; } }
 
 /* Adaptive Control */
 .adaptive-card {
@@ -327,6 +332,15 @@ nav {
   transform-origin: top center; will-change: transform;
 }
 
+/* Mobile: the first screen stays pinned while the next one slides over it (more scroll distance per card, slight dim on the buried one) */
+@media (max-width: 767px) {
+  /* every card carries the same trailing space so earlier cards stay pinned until the next one has fully covered them; the stack pulls the next section back up over the unused tail */
+  .adaptive-sticky { top: calc(84px + var(--i, 0) * 14px); padding-bottom: 38svh; }
+  .adaptive-stack { margin-bottom: calc(-38svh + 60px); }
+  .adaptive-stack::after { content: ""; flex: none; height: 36svh; }   /* 20svh = how long the last card stays pinned before everything scrolls on */
+  .adaptive-dummy { width: 90vw; height: 56vw; border-radius: 14px; box-shadow: 0 18px 40px -14px rgba(10,10,20,0.35); }
+  .adaptive-dummy img { transition: none; }
+}
 /* Immersive Calling */
 .immersive-wrap {
   width: 1024px; max-width: 100%; height: auto; min-height: clamp(400px, 70vw, 840px); border-radius: 24px; overflow: hidden;
@@ -636,7 +650,8 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
 </div>
 
 <!-- ── 04 COMPONENT LOGIC ── -->
-<div class="sec">
+<div class="sec pf-sec">
+  <div class="img-stream" id="imgStream" role="img" aria-label="Widget screens floating at different depths" data-srcs='["engram.resource/06widget-01.webp","engram.resource/06widget-02.webp","engram.resource/06widget-03.webp","engram.resource/06widget-04.webp","engram.resource/06widget-05.webp","engram.resource/06widget-06.webp","engram.resource/06widget-07.webp","engram.resource/06widget-08.webp","engram.resource/06widget-09.webp"]'></div>
   <div class="sec-header reveal">
     <div class="sec-label">
       <span class="sec-num">04</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s04.name">Component Logic</span>
@@ -644,9 +659,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <h2 class="sec-headline" data-i18n="s04.headline">Built to be Reconfigured,<br>Not Rebuilt.</h2>
     <p class="sec-lead" data-i18n="s04.lead">Every component is built from a master with every possible slot. Each instance shows only what its context needs and hides the rest through Figma's property system. All instances stay connected to one source, so a client configuration is composition, not reconstruction.</p>
   </div>
-  <div class="reveal d1 gap-to-120" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
-    <div class="img-stream" id="imgStream" role="img" aria-label="Widget screens streaming toward the viewer" data-srcs='["engram.resource/06widget-01.webp","engram.resource/06widget-02.webp","engram.resource/06widget-03.webp","engram.resource/06widget-04.webp","engram.resource/06widget-05.webp","engram.resource/06widget-06.webp","engram.resource/06widget-07.webp","engram.resource/06widget-08.webp","engram.resource/06widget-09.webp"]'></div>
-  </div>
+
 </div>
 
 <!-- ── 05 VERSION CONTROL ── -->
@@ -751,18 +764,19 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   var sticks = Array.prototype.slice.call(document.querySelectorAll('.adaptive-sticky'));
   if (sticks.length < 2) return;
   /* scroll-linked (driven by the visitor's own scrolling, not autonomous motion), so it also runs with reduced-motion on */
-  var TOP = 88, STEP = 16, MIN = 0.92, ticking = false;
+  var MIN = 0.92, ticking = false;
   function update() {
     ticking = false;
     var n = sticks.length;
     sticks.forEach(function (s, i) {
       var card = s.firstElementChild;
-      if (i === n - 1) { card.style.transform = ''; return; }
-      var w = s.offsetHeight, ti = TOP + i * STEP, tn = TOP + (i + 1) * STEP;
+      if (i === n - 1) { card.style.transform = ''; card.style.filter = ''; return; }
+      var w = s.offsetHeight, ti = parseFloat(getComputedStyle(s).top) || 0, tn = parseFloat(getComputedStyle(sticks[i + 1]).top) || 0;
       var nextTop = sticks[i + 1].getBoundingClientRect().top;
       var p = (ti + w - nextTop) / (ti + w - tn);
       p = Math.max(0, Math.min(1, p));
       card.style.transform = p > 0 ? 'scale(' + (1 - (1 - MIN) * p).toFixed(4) + ')' : '';
+      card.style.filter = p > 0 ? 'brightness(' + (1 - 0.18 * p).toFixed(3) + ')' : '';
     });
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
@@ -825,6 +839,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   function ramp(p, a, b, c, d) { return p < a ? 0 : p < b ? (p - a) / (b - a) : p < c ? 1 : p < d ? 1 - (p - c) / (d - c) : 0; }
   function render() {
     var eff = START + (1 - START) * prog;
+    var fade = Math.max(0, Math.min(1, prog / 0.25)); fade = fade * fade * (3 - 2 * fade);   // images fade in as you start scrolling
     var farZ = mobile ? -1200 : -1700, nearZ = mobile ? 350 : 500, pan = mobile ? 20 : 45;
     for (var i = 0; i < N; i++) {
       var d = data[i];
@@ -834,7 +849,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
       var x = d.cos * (W * d.rx) - px * pan;
       var y = d.sin * (H * d.ry) - py * pan;
       d.el.style.transform = 'translate3d(calc(-50% + ' + x.toFixed(1) + 'px), calc(-50% + ' + y.toFixed(1) + 'px), ' + z.toFixed(1) + 'px) rotateZ(' + d.rot + 'deg)';
-      d.el.style.opacity = ramp(p, 0, 0.18, 0.82, 0.98).toFixed(3);
+      d.el.style.opacity = (ramp(p, 0, 0.18, 0.82, 0.98) * fade).toFixed(3);
     }
   }
   var raf = 0, visible = true;
@@ -998,44 +1013,66 @@ function setLang(lang, userInitiated) {
 const stored = localStorage.getItem('lang') || 'en';
 setLang(stored, false);
 
-/* Image corridor (ported from the image-stream-hero component). Two rails of cards ride from far behind the screen toward the viewer;
-   perspective alone makes them grow and sweep outward. Cards are spaced geometrically in apparent size so the ribbon stays solid. */
+/* Component Logic: floating images with depth parallax (ported from the parallax-floating component).
+   Each element drifts opposite to the pointer, scaled by its depth; the motion is eased toward the target every frame. */
 (function() {
   const root = document.getElementById('imgStream');
   if (!root) return;
   let srcs = []; try { srcs = JSON.parse(root.getAttribute('data-srcs') || '[]'); } catch (e) {}
   if (!srcs.length) return;
-  const P = { perspective: 30, cardWidth: 25, cardHeight: 25, cardRadius: 0.8, birthHeight: 2.6, exitHeight: 46,
-              railBirth: -11, railExit: 44, fan: 3.3, turnBirth: 6, turnExit: 28, stops: 24 };
-  const CARDS = 9, SPEED = 18, AXIS = 55;
-  function frames(dir, name) {
-    let s = '';
-    for (let i = 0; i <= P.stops; i++) {
-      const u = i / P.stops;
-      const scale = (P.birthHeight / P.cardHeight) * Math.pow(P.exitHeight / P.birthHeight, u);
-      const z = P.perspective * (1 - 1 / scale);
-      const rail = P.railExit - (P.railExit - P.railBirth) * Math.pow(1 - u, P.fan);
-      const turn = P.turnBirth + (P.turnExit - P.turnBirth) * u;
-      s += (u * 100).toFixed(2) + '%{transform:translate3d(' + (dir * rail).toFixed(2) + 'cqw,0,' + z.toFixed(2) + 'cqw) rotateY(' + (-dir * turn).toFixed(2) + 'deg)}';
-    }
-    return '@keyframes ' + name + '{' + s + '}';
-  }
-  const style = document.createElement('style');
-  style.textContent = frames(1, 'is-r') + frames(-1, 'is-l');
-  root.appendChild(style);
-  const scene = document.createElement('div'); scene.className = 'is-scene';
-  scene.style.perspective = P.perspective + 'cqw';
-  scene.style.perspectiveOrigin = '50% ' + AXIS + '%';
-  const space = document.createElement('div'); space.className = 'is-space';
-  scene.appendChild(space); root.appendChild(scene);
-  ['is-r', 'is-l'].forEach(function (name) {
-    for (let i = 0; i < CARDS; i++) {
-      const c = document.createElement('div'); c.className = 'is-card';
-      c.style.cssText = 'left:50%;top:' + AXIS + '%;width:' + P.cardWidth + 'cqw;height:' + P.cardHeight + 'cqw;margin-left:' + (-P.cardWidth / 2) + 'cqw;margin-top:' + (-P.cardHeight / 2) + 'cqw;border-radius:' + P.cardRadius + 'cqw;animation:' + name + ' ' + SPEED + 's linear infinite;animation-delay:' + (-(i * SPEED) / CARDS) + 's;';
-      const img = document.createElement('img'); img.src = srcs[i % srcs.length]; img.alt = ''; img.decoding = 'async'; img.draggable = false;
-      c.appendChild(img); space.appendChild(c);
-    }
+  // [top %, left %, width, height (cqw), depth]
+  // [top %, left %, w, h (cqw), depth, mobile top %, mobile left %]  — the centre is kept clear for the section text
+  const L = [
+    [ 8,  6,  9,  9, 0.5,  3,  4], [ 6, 24, 11, 11, 1,  2, 24], [ 0, 62, 15, 20, 2,  1, 48], [ 4, 84, 12, 12, 1,  5, 78],
+    [40,  3, 13, 13, 1, 80,  3],   [64, 80, 14, 18, 2, 78, 62], [66, 10, 17, 17, 4, 84, 26], [78, 50, 12, 12, 1, 92, 48],
+    [32, 87, 10, 10, 3, 0, 0]
+  ];
+  const SENS = -1, EASE = 0.05;
+  const els = L.map(function (d, i) {
+    const wrap = document.createElement('div'); wrap.className = 'pf-el';
+    wrap.style.setProperty('--t', d[0] + '%'); wrap.style.setProperty('--l', d[1] + '%'); wrap.style.setProperty('--mt', d[5] + '%'); wrap.style.setProperty('--ml', d[6] + '%');
+    if (i === 8) wrap.classList.add('pf-skip-m');
+    const img = document.createElement('img');
+    img.src = srcs[i % srcs.length]; img.alt = ''; img.decoding = 'async'; img.draggable = false;
+    img.style.cssText = '--w:' + d[2] + ';--h:' + d[3] + ';--k:' + i;
+    wrap.appendChild(img); root.appendChild(wrap);
+    return { el: wrap, depth: d[4], x: 0, y: 0 };
   });
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = window.matchMedia && matchMedia('(hover: none)').matches;
+  let mx = 0, my = 0, visible = false, raf = 0, last = 0;
+  function setPointer(cx, cy) {
+    const r = root.getBoundingClientRect();
+    mx = Math.max(-700, Math.min(700, cx - (r.left + r.width / 2)));
+    my = Math.max(-700, Math.min(700, cy - (r.top + r.height / 2)));
+  }
+  function fromScroll() {                       // touch screens: the layers slide at different speeds as the section scrolls past
+    const r = root.getBoundingClientRect();
+    mx = mx * 0.9; my = Math.max(-500, Math.min(500, (window.innerHeight / 2 - (r.top + r.height / 2)) * 0.9));
+  }
+  function frame(t) {
+    const dt = last ? Math.min(0.05, (t - last) / 1000) : 1 / 60; last = t;
+    const k = 1 - Math.pow(1 - EASE, dt * 60);
+    let moving = false;
+    els.forEach(function (o) {
+      const s = (o.depth * SENS) / 20;
+      const tx = mx * s, ty = my * s;
+      o.x += (tx - o.x) * k; o.y += (ty - o.y) * k;
+      if (Math.abs(tx - o.x) > 0.05 || Math.abs(ty - o.y) > 0.05) moving = true;
+      o.el.style.transform = 'translate3d(' + o.x.toFixed(2) + 'px,' + o.y.toFixed(2) + 'px,0)';
+    });
+    raf = (moving && visible) ? requestAnimationFrame(frame) : 0; if (!raf) last = 0;
+  }
+  function run() { if (!raf && visible && !reduce) raf = requestAnimationFrame(frame); }
+  window.addEventListener('mousemove', function (e) { setPointer(e.clientX, e.clientY); run(); }, { passive: true });
+  window.addEventListener('touchmove', function (e) { if (e.touches[0]) setPointer(e.touches[0].clientX, e.touches[0].clientY); run(); }, { passive: true });
+  window.addEventListener('scroll', function () { if (touch) { fromScroll(); run(); } }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) {
+      visible = en[0].isIntersecting;
+      if (visible) { root.classList.add('is-in'); if (touch) fromScroll(); run(); }
+    }, { threshold: 0.15 }).observe(root);
+  } else { visible = true; root.classList.add('is-in'); }
 })();
 
 (function() {
