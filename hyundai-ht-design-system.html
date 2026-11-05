@@ -128,7 +128,7 @@ html::-webkit-scrollbar { display: none; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0%   50%; }
 }
-body { font-family: var(--font); background: var(--bg); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { font-family: var(--font); background: var(--bg); color: var(--black); -webkit-font-smoothing: antialiased; }   /* no overflow on body (html already clips horizontally): a body overflow would turn it into a scroll container and break position:sticky */
 /* remove the dark tap/click flash on nav links and buttons (mobile tap highlight) */
 a, button, [role="button"], .nav-center a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--orange, #E16018); outline-offset: 3px; }
@@ -181,10 +181,11 @@ nav {
 .dummy-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.011em; color: var(--gray-400); }
 
 /* ── HERO ── */
-.hero { border-bottom: 1px solid var(--gray-200); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.hero { position: relative; height: 230vh; }   /* tall track: scrolling through it drives the tunnel */
+.hero-stage { position: sticky; top: min(0px, calc(100vh - var(--sh, 0px))); top: min(0px, calc(100svh - var(--sh, 0px))); min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; align-items: flex-start; justify-content: center; padding-top: 64px; box-sizing: border-box; }   /* text keeps its original position under the nav */
 .hero-inner {
   display: flex; flex-direction: column; align-items: center; gap: 56px;
-  width: 1024px; max-width: 100%; padding: 88px 40px 120px;
+  width: 1024px; max-width: 100%; padding: 88px 40px 80px; position: relative; z-index: 2;
 }
 .hero-text { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; }
 .hero-top { display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
@@ -207,9 +208,27 @@ nav {
 .hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.01em; line-height: 18px; }
 .hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.01em; line-height: 21px; }
 .hero-dummy { width: 100%; height: 400px; background: var(--white); border: 1px solid var(--gray-200); box-shadow: 0 6px 24px 0 rgba(0,0,0,0.06); }
-.hero-collage { position: relative; width: 1024px; max-width: 100%; overflow: hidden; border-radius: 16px; margin-top: 64px; background: #ffffff; }
-.hero-collage-inner { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-card { position: absolute; border-radius: 16px; object-fit: cover; transform-origin: top left; }
+/* Hero: perspective tunnel across the whole hero. Page scroll flies the screens toward the viewer (positions and depth computed in JS). */
+.hero-collage { position: absolute; inset: 0; perspective: 1200px; z-index: 0; }
+.hero-collage::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at center, rgba(99,102,241,0.14) 0%, transparent 70%); }
+.hero-collage::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(var(--gray-300) 1px, transparent 1px); background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%); opacity: .5; }
+.hero-collage-inner { position: absolute; inset: 0; transform-style: preserve-3d; z-index: 1; }
+.hero-card { position: absolute; left: 50%; top: 50%; border-radius: 14px; object-fit: cover; opacity: 0; will-change: transform, opacity; pointer-events: none; user-select: none;
+  box-shadow: 0 24px 48px -12px rgba(10,10,20,0.28); }   /* no border */
+/* The next section slides up over the empty lower part of the pinned stage (the pull is measured in JS), so the gap under the hero text stays modest */
+.hero + .sec { position: relative; z-index: 3; background: var(--bg); border-top: 1px solid var(--gray-200); }
+/* soft veil under the text so it stays readable when a screen passes behind it */
+.hero-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 52% 46% at 50% 42%, color-mix(in srgb, var(--bg) 88%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 55%, transparent 100%); }
+/* short phones: tighten the text block so it always fits inside the pinned stage */
+@media (min-width: 768px) and (max-height: 760px) { .hero-inner { padding: 36px 40px 72px; gap: 32px; } .hero-text { gap: 24px; } .hero-top { gap: 18px; } .hero-copy { gap: 8px; } }
+@media (min-width: 768px) and (max-height: 620px) { .hero-inner { padding: 16px 40px 64px; gap: 20px; } .hero-text { gap: 16px; } .hero-top { gap: 12px; } .hero-copy { font-size: .95em; } }
+@media (max-width: 767px) and (max-height: 780px) { .hero-inner { padding: 36px 1.2rem 16px; } .hero-text { gap: 24px; } .hero-top { gap: 18px; } .hero-copy { gap: 8px; } .hero-meta { gap: 12px 32px; } }
+@media (max-width: 767px) and (max-height: 720px) { .hero-inner { padding: 4px 1.2rem 64px; gap: 24px; } .hero-text { gap: 14px; } .hero-top { gap: 12px; } .hero-meta { gap: 10px 28px; } }
+@media (max-width: 767px) { .hero-collage { perspective: 900px; } .hero-veil { background: radial-gradient(ellipse 90% 55% at 50% 45%, color-mix(in srgb, var(--bg) 88%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 60%, transparent 100%); } }
 @keyframes heroFloat {
   from { transform: translate(0, 0); }
   to   { transform: translate(var(--fx, 5px), var(--fy, -5px)); }
@@ -269,9 +288,19 @@ nav {
 
 /* ── S06 FINAL DESIGN ── */
 .fd-main-dummy { width: 1024px; max-width: 100%; height: 380px; }
-.fd-fade-wrap { position: relative; display: inline-block; width: 328px; height: 328px; max-width: 100%; overflow: hidden; border-radius: 16px; }
-.fd-fade-wrap .fd-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; opacity: 0; transition: opacity 0.6s ease; }
-.fd-fade-wrap .fd-img.fd-active { opacity: 1; }
+/* Component Logic: image corridor (cards ride from the vanishing point toward the viewer; built in JS, every length in cqw) */
+.img-stream {
+  position: relative; width: 100%; aspect-ratio: 1024 / 560; overflow: hidden;
+  container-type: inline-size;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+.img-stream .is-scene { position: absolute; inset: 0; pointer-events: none; }
+.img-stream .is-space { position: absolute; inset: 0; transform-style: preserve-3d; }
+.img-stream .is-card { position: absolute; overflow: hidden; backface-visibility: hidden; }
+.img-stream .is-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (prefers-reduced-motion: reduce) { .img-stream .is-card { animation-play-state: paused; } }
+@media (max-width: 804px) { .img-stream { aspect-ratio: 4 / 3; } }
 
 /* Adaptive Control */
 .adaptive-card {
@@ -285,13 +314,18 @@ nav {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .adaptive-body { font-size: clamp(14px, 1.4vw, 16px); font-weight: 400; color: var(--black); line-height: 1.6; max-width: 480px; }
-.adaptive-screens-wrap { width: 100%; overflow: hidden; border-radius: 16px; }
-.adaptive-screens {
-  display: flex; gap: 16px;
-  transform: translateX(0);
-  transition: transform 0.8s cubic-bezier(.52,0,0,1);
+/* Stacked cards: each screen sticks under the nav, the next one slides over it and the one beneath scales down slightly */
+.adaptive-stack { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.adaptive-sticky {
+  position: sticky; top: calc(88px + var(--i, 0) * 16px);
+  width: 100%; display: flex; justify-content: center;
+  padding-bottom: 10vh;
 }
-.adaptive-dummy { flex: 0 0 clamp(280px, 55vw, 576px); height: clamp(200px, 35vw, 360px); border-radius: 16px; }
+.adaptive-dummy {
+  flex: none; width: clamp(260px, 80vw, 832px); height: clamp(160px, 50vw, 520px);   /* same size as Clear Information */
+  border-radius: 16px; overflow: hidden;
+  transform-origin: top center; will-change: transform;
+}
 
 /* Immersive Calling */
 .immersive-wrap {
@@ -319,9 +353,16 @@ nav {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .clear-body { font-size: clamp(14px, 1.4vw, 16px); font-weight: 400; color: var(--black); line-height: 1.6; }
-.clear-dummies { padding: 20px 0; width: 100%; overflow: hidden; }
-.clear-track { display: flex; gap: 16px; transition: transform 0.7s cubic-bezier(0.52,0,0,1); will-change: transform; }
-.clear-dummy { flex: 0 0 clamp(260px, 80vw, 832px); height: clamp(160px, 50vw, 520px); border-radius: 16px; }
+.clear-dummies {
+  padding: 20px 0; width: 100%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+/* Continuous marquee: the track holds two copies of the set and slides by exactly one set (-50%) in a seamless loop */
+.clear-track { display: flex; width: max-content; will-change: transform; animation: clear-scroll var(--clear-dur, 40s) linear infinite; }
+@keyframes clear-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .clear-track { animation: none; } }
+.clear-dummy { flex: 0 0 clamp(260px, 80vw, 832px); height: clamp(160px, 50vw, 520px); border-radius: 16px; margin-right: 16px; }
 
 /* ── S07 REFLECTION ── */
 .refl-body-wrap { display: flex; flex-direction: column; gap: 12px; width: 640px; max-width: 100%; text-align: center; }
@@ -348,7 +389,6 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .tok-card { flex: none; }
   .tok-container { padding: 16px; width: fit-content; margin: 0 auto; }
   .adaptive-card { gap: 32px; }
-  .adaptive-screens-wrap { border-radius: 12px; }
   .immersive-inner { width: 100%; }
   .clear-dummies { padding: 20px 0; }
   footer { padding: 40px 1.2rem; flex-direction: column; gap: 8px; }
@@ -362,7 +402,6 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   .dl-desc { font-size: 15px; }
   .tok-card { padding: 16px; }
   .tok-grid { grid-template-columns: 235px; }
-  .adaptive-screens-wrap { border-radius: 12px; }
   .hero-meta { justify-content: center; gap: 16px 0; }
   .hm { width: 100%; align-items: center; }
 }
@@ -414,7 +453,6 @@ html[data-theme="dark"] {
 
 /* dark overrides */
 html[data-theme="dark"] nav{background:rgba(21,18,16,0.6)}
-html[data-theme="dark"] .hero-collage{background:var(--white)}
 /* tok-card: same colors as light mode */
 html[data-theme="dark"] .tok-card{--white:#FEFEFE;--black:#3A3530;--deep:#1F1A17;--gray-400:#9E9590;--gray-500:#6B635C;--orange-lo:#FEF4EE}
 /* Adaptive Control / Clear Information screenshots: 40% white outline (dark only) */
@@ -461,7 +499,22 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
 
 <main>
 <!-- ── HERO ── -->
-<div class="hero" style="padding-top:64px;">
+<div class="hero" id="hero">
+  <div class="hero-stage">
+    <div class="hero-collage" id="heroCollage" role="img" aria-label="Triangle UI screens flying through a 3D tunnel">
+      <div class="hero-collage-inner" id="heroCollageInner">
+        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" data-w="328" data-h="328" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" data-w="120" data-h="408" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" data-w="190" data-h="190" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" data-w="190" data-h="190" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" data-w="400" data-h="320" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" data-w="400" data-h="400" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" data-w="292" data-h="400" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" data-w="328" data-h="328" draggable="false">
+        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" data-w="120" data-h="240" draggable="false">
+      </div>
+    </div>
+    <div class="hero-veil"></div>
   <div class="hero-inner">
     <div class="hero-text reveal">
       <div class="hero-top">
@@ -483,18 +536,6 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
         <div class="hm"><span class="hm-k" data-i18n="meta.timeline">Timeline</span><span class="hm-v">2025 – 2026</span></div>
       </div>
     </div>
-    <div class="reveal d1 hero-collage" id="heroCollage">
-      <div class="hero-collage-inner" id="heroCollageInner">
-        <img class="hero-card" src="engram.resource/ht-hero02.webp" alt="" style="left:-40px;top:247px;width:328px;height:328px;--fx:-5px;--fy:3px;animation:heroFloat 4.8s ease-in-out infinite alternate;animation-delay:-2.1s;">
-        <img class="hero-card" src="engram.resource/ht-hero10.webp" alt="" style="left:308px;top:115px;width:120px;height:408px;--fx:3px;--fy:4px;animation:heroFloat 5.1s ease-in-out infinite alternate;animation-delay:-1.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero04.webp" alt="" style="left:448px;top:300px;width:190px;height:190px;--fx:-4px;--fy:-6px;animation:heroFloat 3.5s ease-in-out infinite alternate;animation-delay:-1.9s;">
-        <img class="hero-card" src="engram.resource/ht-hero03.webp" alt="" style="left:658px;top:300px;width:190px;height:190px;--fx:5px;--fy:3px;animation:heroFloat 4.6s ease-in-out infinite alternate;animation-delay:-0.3s;">
-        <img class="hero-card" src="engram.resource/ht-hero08.webp" alt="" style="left:-112px;top:-105px;width:400px;height:320px;--fx:4px;--fy:-6px;animation:heroFloat 4.3s ease-in-out infinite alternate;animation-delay:0s;">
-        <img class="hero-card" src="engram.resource/ht-hero05.webp" alt="" style="left:448px;top:-120px;width:400px;height:400px;--fx:6px;--fy:-4px;animation:heroFloat 4.0s ease-in-out infinite alternate;animation-delay:-0.5s;">
-        <img class="hero-card" src="engram.resource/ht-hero06.webp" alt="" style="left:868px;top:-180px;width:292px;height:400px;--fx:-6px;--fy:4px;animation:heroFloat 3.9s ease-in-out infinite alternate;animation-delay:-1.2s;">
-        <img class="hero-card" src="engram.resource/ht-hero01.webp" alt="" style="left:868px;top:240px;width:328px;height:328px;--fx:4px;--fy:-7px;animation:heroFloat 4.4s ease-in-out infinite alternate;animation-delay:-2.7s;">
-        <img class="hero-card" src="engram.resource/ht-hero09.webp" alt="" style="left:308px;top:-144px;width:120px;height:240px;--fx:-3px;--fy:5px;animation:heroFloat 3.7s ease-in-out infinite alternate;animation-delay:-0.8s;">
-      </div>
     </div>
   </div>
 </div>
@@ -604,17 +645,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <p class="sec-lead" data-i18n="s04.lead">Every component is built from a master with every possible slot. Each instance shows only what its context needs and hides the rest through Figma's property system. All instances stay connected to one source, so a client configuration is composition, not reconstruction.</p>
   </div>
   <div class="reveal d1 gap-to-120" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
-    <div class="fd-fade-wrap">
-      <img loading="lazy" src="engram.resource/06widget-01.webp" alt="Widget screen 1" class="fd-img fd-active">
-      <img loading="lazy" src="engram.resource/06widget-02.webp" alt="Widget screen 2" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-03.webp" alt="Widget screen 3" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-04.webp" alt="Widget screen 4" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-05.webp" alt="Widget screen 5" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-06.webp" alt="Widget screen 6" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-07.webp" alt="Widget screen 7" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-08.webp" alt="Widget screen 8" class="fd-img">
-      <img loading="lazy" src="engram.resource/06widget-09.webp" alt="Widget screen 9" class="fd-img">
-    </div>
+    <div class="img-stream" id="imgStream" role="img" aria-label="Widget screens streaming toward the viewer" data-srcs='["engram.resource/06widget-01.webp","engram.resource/06widget-02.webp","engram.resource/06widget-03.webp","engram.resource/06widget-04.webp","engram.resource/06widget-05.webp","engram.resource/06widget-06.webp","engram.resource/06widget-07.webp","engram.resource/06widget-08.webp","engram.resource/06widget-09.webp"]'></div>
   </div>
 </div>
 
@@ -660,11 +691,9 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
       <p class="adaptive-title" data-i18n="s06.adaptive.title">Adaptive <span class="hl-blue">Control</span></p>
       <p class="adaptive-body" data-i18n="s06.adaptive.body">Tapping a widget expands it into a full control panel. Dimmed icons show off states; category colors light up when a device is on.</p>
     </div>
-    <div class="adaptive-screens-wrap">
-      <div class="adaptive-screens">
-        <div class="adaptive-dummy" style="overflow:hidden;"><img loading="lazy" src="engram.resource/control-screen01.webp" alt="Adaptive Control Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
-        <div class="adaptive-dummy" style="overflow:hidden;"><img loading="lazy" src="engram.resource/control-screen02.webp" alt="Adaptive Control Screen 2" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
-      </div>
+    <div class="adaptive-stack">
+      <div class="adaptive-sticky" style="--i:0"><div class="adaptive-dummy"><img loading="lazy" src="engram.resource/control-screen01.webp" alt="Adaptive Control Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
+      <div class="adaptive-sticky" style="--i:1"><div class="adaptive-dummy"><img loading="lazy" src="engram.resource/control-screen02.webp" alt="Adaptive Control Screen 2" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
     </div>
   </div>
 
@@ -717,60 +746,30 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
 </footer>
 
 <script>
-(function(){
-  var wrap = document.querySelector('.adaptive-screens-wrap');
-  var screens = document.querySelector('.adaptive-screens');
-  if (!wrap || !screens) return;
-
-  var animating = false;
-  var autoPlayed = false;
-  var currentIndex = 0;
-
-  function getDummyW() {
-    var d = screens.querySelector('.adaptive-dummy');
-    return d ? d.offsetWidth : 576;
-  }
-
-  function setPosition(index, animate) {
-    var dummyW = getDummyW();
-    var gap = 16;
-    var center = (wrap.offsetWidth - dummyW) / 2;
-    var offset = center - index * (dummyW + gap);
-    screens.style.transition = animate ? 'transform 0.8s cubic-bezier(.52,0,0,1)' : 'none';
-    screens.style.transform = 'translateX(' + offset + 'px)';
-    currentIndex = index;
-  }
-
-  // Initialize centered on first image
-  setPosition(0, false);
-  window.addEventListener('resize', function() { setPosition(currentIndex, false); });
-
-  // Auto-play once when scrolled into view
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting && !autoPlayed) {
-        autoPlayed = true;
-        setTimeout(function() {
-          animating = true;
-          setPosition(1, true);
-          setTimeout(function() { animating = false; }, 900);
-        }, 1200);
-        io.unobserve(wrap);
-      }
+/* Adaptive Control: stacked cards. The card underneath scales down as the next one slides over it. */
+(function () {
+  var sticks = Array.prototype.slice.call(document.querySelectorAll('.adaptive-sticky'));
+  if (sticks.length < 2) return;
+  /* scroll-linked (driven by the visitor's own scrolling, not autonomous motion), so it also runs with reduced-motion on */
+  var TOP = 88, STEP = 16, MIN = 0.92, ticking = false;
+  function update() {
+    ticking = false;
+    var n = sticks.length;
+    sticks.forEach(function (s, i) {
+      var card = s.firstElementChild;
+      if (i === n - 1) { card.style.transform = ''; return; }
+      var w = s.offsetHeight, ti = TOP + i * STEP, tn = TOP + (i + 1) * STEP;
+      var nextTop = sticks[i + 1].getBoundingClientRect().top;
+      var p = (ti + w - nextTop) / (ti + w - tn);
+      p = Math.max(0, Math.min(1, p));
+      card.style.transform = p > 0 ? 'scale(' + (1 - (1 - MIN) * p).toFixed(4) + ')' : '';
     });
-  }, { threshold: 0.5 });
-  io.observe(wrap);
-
-  // Hover takes over after auto-play
-  wrap.addEventListener('mousemove', function(e) {
-    if (animating) return;
-    var rect = wrap.getBoundingClientRect();
-    setPosition(e.clientX - rect.left < rect.width / 2 ? 0 : 1, true);
-  });
-  wrap.addEventListener('mouseleave', function() {
-    if (animating) return;
-    setPosition(0, true);
-  });
+  }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', req);
+  window.addEventListener('load', req);
+  update();
 })();
 
 (function(){
@@ -782,24 +781,72 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   els.forEach(function(e){ io.observe(e); });
 })();
 
-// Hero collage: scale inner content to fit container width
+// Hero: perspective tunnel across the whole hero (port of perspective-tunnel-hero). Scrolling through the hero flies the screens toward the viewer.
 (function() {
-  var collage = document.getElementById('heroCollage');
+  var hero = document.getElementById('hero');
+  var stage = document.getElementById('heroCollage');
   var inner = document.getElementById('heroCollageInner');
-  if (!collage || !inner) return;
-  var DESIGN_W = 1132; // rightmost image edge (804 + 328)
-  var DESIGN_H = 480;
-  function scaleCollage() {
-    var w = collage.offsetWidth;
-    var scale = w / DESIGN_W;
-    inner.style.transform = 'scale(' + scale + ')';
-    inner.style.transformOrigin = 'top left';
-    inner.style.width = DESIGN_W + 'px';
-    inner.style.height = DESIGN_H + 'px';
-    collage.style.height = Math.round(DESIGN_H * scale) + 'px';
+  if (!hero || !stage || !inner) return;
+  var cards = Array.prototype.slice.call(inner.querySelectorAll('.hero-card'));
+  var N = cards.length; if (!N) return;
+  var data = cards.map(function (el, i) {
+    var a = i * 137.5 * Math.PI / 180;
+    return { el: el, cos: Math.cos(a), sin: Math.sin(a),
+             rx: 0.28 + (i % 3) * 0.08, ry: 0.26 + (i % 2) * 0.09,
+             rot: (i % 2 === 0 ? 1 : -1) * (3 + (i % 5) * 2),
+             w: +el.getAttribute('data-w'), h: +el.getAttribute('data-h') };
+  });
+  var W = 1440, H = 900, mobile = false;
+  function size() {
+    W = stage.clientWidth; H = stage.clientHeight; mobile = window.innerWidth < 768;
+    var box = mobile ? Math.max(130, Math.min(180, W * 0.38)) : Math.max(190, Math.min(290, W * 0.2));   // longest side of a card
+    data.forEach(function (d) { var k = box / Math.max(d.w, d.h); d.el.style.width = Math.round(d.w * k) + 'px'; d.el.style.height = Math.round(d.h * k) + 'px'; });
   }
-  scaleCollage();
-  window.addEventListener('resize', scaleCollage);
+  var meta = document.querySelector('.hero-meta');
+  var TAIL = 120;   // space wanted between the hero text and the next section's own top padding
+  function pull() {
+    hero.style.setProperty('--sh', stage.offsetHeight + 'px');
+    var sr = stage.getBoundingClientRect(), mr = meta.getBoundingClientRect();
+    var tail = sr.height - (mr.bottom - sr.top);
+    hero.style.marginBottom = -Math.max(0, Math.round(tail - TAIL)) + 'px';
+  }
+  size(); pull(); window.addEventListener('resize', function () { size(); pull(); });
+  if ('ResizeObserver' in window) new ResizeObserver(pull).observe(document.querySelector('.hero-inner'));
+  window.addEventListener('load', pull);
+  var STAGGER = 0.55, START = 0.2;   // START: the tunnel is already part-way in when the page loads, so the first screen is never empty
+  var target = 0, prog = 0, px = 0, py = 0, tx = 0, ty = 0;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function readScroll() {
+    var r = hero.getBoundingClientRect(), span = hero.offsetHeight - window.innerHeight;
+    target = span > 0 ? Math.max(0, Math.min(1, -r.top / span)) : 0;
+  }
+  window.addEventListener('scroll', function () { readScroll(); run(); }, { passive: true });
+  window.addEventListener('pointermove', function (e) { if (reduce) return; tx = (e.clientX / window.innerWidth - 0.5) * 2; ty = (e.clientY / window.innerHeight - 0.5) * 2; run(); }, { passive: true });
+  function ramp(p, a, b, c, d) { return p < a ? 0 : p < b ? (p - a) / (b - a) : p < c ? 1 : p < d ? 1 - (p - c) / (d - c) : 0; }
+  function render() {
+    var eff = START + (1 - START) * prog;
+    var farZ = mobile ? -1200 : -1700, nearZ = mobile ? 350 : 500, pan = mobile ? 20 : 45;
+    for (var i = 0; i < N; i++) {
+      var d = data[i];
+      var s0 = (i / N) * (1 - STAGGER);
+      var p = Math.max(0, Math.min(1, (eff - s0) / STAGGER));
+      var z = farZ + (nearZ - farZ) * p;
+      var x = d.cos * (W * d.rx) - px * pan;
+      var y = d.sin * (H * d.ry) - py * pan;
+      d.el.style.transform = 'translate3d(calc(-50% + ' + x.toFixed(1) + 'px), calc(-50% + ' + y.toFixed(1) + 'px), ' + z.toFixed(1) + 'px) rotateZ(' + d.rot + 'deg)';
+      d.el.style.opacity = ramp(p, 0, 0.18, 0.82, 0.98).toFixed(3);
+    }
+  }
+  var raf = 0, visible = true;
+  function loop() {
+    prog += (target - prog) * 0.12; px += (tx - px) * 0.08; py += (ty - py) * 0.08;
+    render();
+    var still = Math.abs(target - prog) < 0.0004 && Math.abs(tx - px) < 0.002 && Math.abs(ty - py) < 0.002;
+    raf = (!still && visible && !document.hidden) ? requestAnimationFrame(loop) : 0;
+  }
+  function run() { if (!raf) raf = requestAnimationFrame(loop); }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) run(); }).observe(hero);
+  readScroll(); prog = target; render();
 })();
 </script>
 <script>
@@ -951,15 +998,44 @@ function setLang(lang, userInitiated) {
 const stored = localStorage.getItem('lang') || 'en';
 setLang(stored, false);
 
+/* Image corridor (ported from the image-stream-hero component). Two rails of cards ride from far behind the screen toward the viewer;
+   perspective alone makes them grow and sweep outward. Cards are spaced geometrically in apparent size so the ribbon stays solid. */
 (function() {
-  const imgs = document.querySelectorAll('.fd-fade-wrap .fd-img');
-  if (!imgs.length) return;
-  let current = 0;
-  setInterval(() => {
-    imgs[current].classList.remove('fd-active');
-    current = (current + 1) % imgs.length;
-    imgs[current].classList.add('fd-active');
-  }, 1500);
+  const root = document.getElementById('imgStream');
+  if (!root) return;
+  let srcs = []; try { srcs = JSON.parse(root.getAttribute('data-srcs') || '[]'); } catch (e) {}
+  if (!srcs.length) return;
+  const P = { perspective: 30, cardWidth: 25, cardHeight: 25, cardRadius: 0.8, birthHeight: 2.6, exitHeight: 46,
+              railBirth: -11, railExit: 44, fan: 3.3, turnBirth: 6, turnExit: 28, stops: 24 };
+  const CARDS = 9, SPEED = 18, AXIS = 55;
+  function frames(dir, name) {
+    let s = '';
+    for (let i = 0; i <= P.stops; i++) {
+      const u = i / P.stops;
+      const scale = (P.birthHeight / P.cardHeight) * Math.pow(P.exitHeight / P.birthHeight, u);
+      const z = P.perspective * (1 - 1 / scale);
+      const rail = P.railExit - (P.railExit - P.railBirth) * Math.pow(1 - u, P.fan);
+      const turn = P.turnBirth + (P.turnExit - P.turnBirth) * u;
+      s += (u * 100).toFixed(2) + '%{transform:translate3d(' + (dir * rail).toFixed(2) + 'cqw,0,' + z.toFixed(2) + 'cqw) rotateY(' + (-dir * turn).toFixed(2) + 'deg)}';
+    }
+    return '@keyframes ' + name + '{' + s + '}';
+  }
+  const style = document.createElement('style');
+  style.textContent = frames(1, 'is-r') + frames(-1, 'is-l');
+  root.appendChild(style);
+  const scene = document.createElement('div'); scene.className = 'is-scene';
+  scene.style.perspective = P.perspective + 'cqw';
+  scene.style.perspectiveOrigin = '50% ' + AXIS + '%';
+  const space = document.createElement('div'); space.className = 'is-space';
+  scene.appendChild(space); root.appendChild(scene);
+  ['is-r', 'is-l'].forEach(function (name) {
+    for (let i = 0; i < CARDS; i++) {
+      const c = document.createElement('div'); c.className = 'is-card';
+      c.style.cssText = 'left:50%;top:' + AXIS + '%;width:' + P.cardWidth + 'cqw;height:' + P.cardHeight + 'cqw;margin-left:' + (-P.cardWidth / 2) + 'cqw;margin-top:' + (-P.cardHeight / 2) + 'cqw;border-radius:' + P.cardRadius + 'cqw;animation:' + name + ' ' + SPEED + 's linear infinite;animation-delay:' + (-(i * SPEED) / CARDS) + 's;';
+      const img = document.createElement('img'); img.src = srcs[i % srcs.length]; img.alt = ''; img.decoding = 'async'; img.draggable = false;
+      c.appendChild(img); space.appendChild(c);
+    }
+  });
 })();
 
 (function() {
@@ -975,46 +1051,20 @@ setLang(stored, false);
 
 (function() {
   const track = document.querySelector('.clear-track');
-  const dummies = document.querySelector('.clear-dummies');
-  if (!track || !dummies) return;
-  const origItems = Array.from(track.querySelectorAll('.clear-dummy'));
-  if (!origItems.length) return;
-  const N = origItems.length;
-
-  function makeClone(item) { const c = item.cloneNode(true); c.removeAttribute('loading'); return c; }
-
-  // Prepend clone of last item — fills left side at start position
-  track.insertBefore(makeClone(origItems[N - 1]), track.firstChild);
-  // Append clones of all items as trailing buffer
-  origItems.forEach(item => track.appendChild(makeClone(item)));
-
-  // Track: [img3_pre, img1, img2, img3, img1', img2', img3']
-  // Start centered on img1 at index 1
-  let idx = 1;
-  const HOLD = window.innerWidth <= 1024 ? 3200 : 2500;
-  const INITIAL_DELAY = 1400;
-
-  function getStep() { return origItems[0].offsetWidth + 16; }
-  function getOffset() { return Math.max(0, (dummies.offsetWidth - origItems[0].offsetWidth) / 2); }
-  function applyPosition(animated) {
-    const pos = getOffset() - idx * getStep();
-    track.style.transition = animated ? 'transform 0.7s cubic-bezier(0.52,0,0,1)' : 'none';
-    track.style.transform = `translateX(${pos}px)`;
+  if (!track) return;
+  const items = Array.from(track.querySelectorAll('.clear-dummy'));
+  if (!items.length) return;
+  // Second copy for the seamless loop (aria-hidden: it is a visual duplicate)
+  items.forEach(item => { const c = item.cloneNode(true); c.removeAttribute('loading'); c.alt = ''; c.setAttribute('aria-hidden', 'true'); track.appendChild(c); });
+  // Constant speed regardless of screen size: duration = one set's width / speed
+  const SPEED = 60; // px per second
+  function setSpeed() {
+    const setWidth = track.scrollWidth / 2;
+    if (setWidth > 0) track.style.setProperty('--clear-dur', Math.round(setWidth / SPEED) + 's');
   }
-
-  applyPosition(false);
-
-  function advance() {
-    idx++;
-    applyPosition(true);
-    // After sliding to img1' (idx = 1+N), reset to img1 original (idx = 1) — left side matches
-    if (idx >= 1 + N) {
-      setTimeout(() => { idx = 1; applyPosition(false); }, 750);
-    }
-  }
-
-  setTimeout(() => { advance(); setInterval(advance, HOLD); }, INITIAL_DELAY);
-  window.addEventListener('resize', () => applyPosition(false));
+  setSpeed();
+  window.addEventListener('resize', setSpeed);
+  window.addEventListener('load', setSpeed);
 })();
 document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
@@ -1231,17 +1281,6 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     if (sent[name]) return; sent[name] = 1;
     props = props || {}; props.carousel = name;
     try { track('carousel_interact', props); } catch (e) {}
-  }
-  var wrap = document.querySelector('.adaptive-screens-wrap');
-  if (wrap) {
-    var seenAt = null;
-    wrap.addEventListener('mousemove', function (e) {
-      /* ignore the first moment so the page's own intro auto-slide is not counted */
-      if (seenAt === null) seenAt = Date.now();
-      if (Date.now() - seenAt < 1200) return;
-      var r = wrap.getBoundingClientRect();
-      fire('adaptive_control', { action: 'hover', slide: (e.clientX - r.left < r.width / 2) ? 1 : 2 });
-    });
   }
 })();
 </script>
