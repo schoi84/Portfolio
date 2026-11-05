@@ -138,6 +138,9 @@ a, button, [role="button"], .nav-center a { -webkit-tap-highlight-color: transpa
 }
 
 /* ─────────────────────
+   SECTION STACK  —  each section slides over the previous one
+───────────────────────*/
+/* ─────────────────────
    GRADIENT VARIANTS
 ───────────────────────*/
 @keyframes grad-flow {
@@ -275,20 +278,35 @@ nav {
 @property --ox3 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
 @property --oy3 { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
 
-.hero {
-  background:
-    radial-gradient(ellipse 55% 55% at var(--ox1) var(--oy1), rgba(99,102,241,0.20) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 50% at var(--ox2) var(--oy2), rgba(6,182,212,0.16) 0%, transparent 70%),
-    radial-gradient(ellipse 45% 45% at var(--ox3) var(--oy3), rgba(59,130,246,0.14) 0%, transparent 70%),
-    var(--bg);
-  animation: grad-drift 16s ease-in-out infinite alternate;
+.hero { background: var(--bg); }
+
+/* Aurora background (ported from the aurora-background component) */
+.aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.aurora-layer {
+  --au-white: repeating-linear-gradient(260deg,#fff 0%,#fff 7%,transparent 10%,transparent 12%,#fff 16%);
+  --au-dark:  repeating-linear-gradient(260deg,#000 0%,#000 7%,transparent 10%,transparent 12%,#000 16%);
+  --au-main:  repeating-linear-gradient(260deg,#3b82f6 10%,#a5b4fc 15%,#93c5fd 20%,#ddd6fe 25%,#60a5fa 30%);
+  position: absolute; inset: -10px; opacity: .5; will-change: transform;
+  background-image: var(--au-white), var(--au-main);
+  background-size: 300%, 200%; background-position: 50% 50%, 50% 50%;
+  filter: blur(4px) invert(1);
+  -webkit-mask-image: radial-gradient(ellipse at 0% 0%, #000 10%, transparent 70%);
+          mask-image: radial-gradient(ellipse at 0% 0%, #000 10%, transparent 70%);
 }
-@keyframes grad-drift {
-  0%   { --ox1:80%; --oy1:10%; --ox2:15%; --oy2:85%; --ox3:55%; --oy3:50%; }
-  25%  { --ox1:70%; --oy1:25%; --ox2:25%; --oy2:70%; --ox3:65%; --oy3:35%; }
-  50%  { --ox1:85%; --oy1:40%; --ox2:10%; --oy2:60%; --ox3:45%; --oy3:65%; }
-  75%  { --ox1:65%; --oy1:15%; --ox2:30%; --oy2:80%; --ox3:70%; --oy3:45%; }
-  100% { --ox1:75%; --oy1:30%; --ox2:20%; --oy2:75%; --ox3:50%; --oy3:55%; }
+.aurora-layer::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--au-white), var(--au-main);
+  background-size: 200%, 100%; background-attachment: fixed;
+  mix-blend-mode: difference;
+  animation: aurora 60s linear infinite reverse;
+}
+html[data-theme="dark"] .aurora-layer { background-image: var(--au-dark), var(--au-main); filter: blur(4px) invert(0); }
+html[data-theme="dark"] .aurora-layer::after { background-image: var(--au-dark), var(--au-main); }
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+@media (prefers-reduced-motion: reduce) { .aurora-layer::after { animation: none; } }
 }
 
 .hero-tag {
@@ -471,8 +489,10 @@ nav {
 .proj-cover .cover-inner {
   width: 100%; height: 100%; display: flex;
   align-items: center; justify-content: center;
-  transition: transform 0.7s var(--ease);
+  transition: transform 0.7s var(--ease), opacity 0.5s ease;
 }
+/* all three covers fade in together once the cover images are ready (the CSS-built Angelring cover no longer shows up first) */
+.js-covers .work-grid:not(.covers-ready) .cover-inner { opacity: 0; }
 .proj-card:hover .proj-cover .cover-inner {
   transform: scale(1.03);
 }
@@ -980,7 +1000,27 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
   .nav-center a { font-size: 12px; }
   .ls-btn { padding: 4px 6px; }
 }
+
+/* ─────────────────────
+   SECTION STACK  —  each section slides over the previous one (kept after the base section rules so it wins the cascade)
+───────────────────────*/
+@media (prefers-reduced-motion: no-preference) {
+  main > .hero, main > .work, main > .about { position: sticky; top: 0; }   /* top is refined by JS so tall sections stick at their bottom edge */
+  main > .hero    { z-index: 1; border-bottom: 0; }
+  main > .work    { z-index: 2; }
+  main > .about   { z-index: 3; border-bottom: 0; }
+  main > .contact { position: relative; z-index: 4; }
+  main > .work, main > .about, main > .contact { background: var(--bg); }   /* opaque: each section fully covers the one below */
+  main > .work, main > .contact { border-top: 1px solid var(--gray-300); }  /* divider line sits on the incoming section's top edge */
+  /* give short sections a full screen so they are not cut off mid-scroll */
+  /* a section hidden under the next one is not painted at all (the blurred aurora under it made scrolling stutter) */
+  main > .is-covered { visibility: hidden; }
+  main > .hero.is-covered .aurora-layer::after { animation-play-state: paused; }
+  main > .work, main > .contact { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+}
 </style>
+<link rel="preload" as="image" href="engram.resource/triangle-ui cover.webp">
+<link rel="preload" as="image" href="engram.resource/cover-engram.webp">
 </head>
 <body>
 
@@ -1008,6 +1048,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
      HERO
 ════════════════════════════ -->
 <section class="hero">
+  <div class="aurora" aria-hidden="true"><div class="aurora-layer"></div></div>
 
   <!-- Left: content -->
   <div class="hero-left">
@@ -1054,7 +1095,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <a href="hyundai-ht-design-system.html" class="proj-card reveal" data-glow-color="rgba(255,8,78,0.12)">
       <div class="proj-cover">
         <div class="cover-inner">
-          <img src="engram.resource/triangle-ui cover.webp" loading="lazy" alt="Smart Home Wallpad triangle UI cover" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="engram.resource/triangle-ui cover.webp" loading="eager" decoding="async" fetchpriority="high" alt="Smart Home Wallpad triangle UI cover" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="proj-cover-overlay"></div>
       </div>
@@ -1073,7 +1114,7 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
     <a href="pcanpi-case-study-v7.html" class="proj-card reveal d1" data-glow-color="rgba(249,115,22,0.12)">
       <div class="proj-cover">
         <div class="cover-inner">
-          <img src="engram.resource/cover-engram.webp" loading="lazy" alt="Engram UIUX Redesign cover" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="engram.resource/cover-engram.webp" loading="eager" decoding="async" fetchpriority="high" alt="Engram UIUX Redesign cover" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="proj-cover-overlay"></div>
       </div>
@@ -1897,6 +1938,79 @@ setLang(stored, false);
   window.addEventListener('resize', req);
   window.addEventListener('load', req);
   update();
+})();
+</script>
+<script>
+/* Section stack: sticky offsets + exact anchor jumps */
+(function () {
+  var mq = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+  if (mq && mq.matches) return;
+  var main = document.querySelector('main');
+  var secs = [].slice.call(document.querySelectorAll('main > section'));
+  if (!main || !secs.length) return;
+  var stack = secs.filter(function (s) { return /\b(hero|work|about)\b/.test(s.className); });
+  function layout() {
+    var vh = window.innerHeight;
+    stack.forEach(function (s) { s.style.top = Math.min(0, Math.floor(vh - s.getBoundingClientRect().height)) + 'px'; });
+  }
+  /* sticky sections move while stuck, so compute the in-flow top from the heights above */
+  function naturalTop(el) {
+    var y = main.getBoundingClientRect().top + window.scrollY;
+    for (var i = 0; i < secs.length && secs[i] !== el; i++) y += secs[i].offsetHeight;
+    return y;
+  }
+  function jump(y) {
+    var root = document.documentElement, prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto'; window.scrollTo(0, Math.max(0, Math.round(y))); root.style.scrollBehavior = prev;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+    var id = a.getAttribute('href');
+    if (id === '#') { e.preventDefault(); jump(0); return; }
+    var t = document.querySelector(id);
+    if (!t || secs.indexOf(t) < 0) return;
+    e.preventDefault(); jump(naturalTop(t));
+    try { history.replaceState(null, '', id); } catch (err) {}
+  });
+  /* mark sections that are fully hidden under the following section */
+  var covTick = false;
+  function cover() {
+    covTick = false;
+    stack.forEach(function (s) {
+      var n = secs[secs.indexOf(s) + 1];
+      var on = !!n && n.getBoundingClientRect().top <= 0 && n.getBoundingClientRect().bottom >= window.innerHeight - 1;
+      if (on !== s.classList.contains('is-covered')) s.classList.toggle('is-covered', on);
+    });
+  }
+  function reqCover() { if (!covTick) { covTick = true; requestAnimationFrame(cover); } }
+  window.addEventListener('scroll', reqCover, { passive: true });
+  window.addEventListener('resize', reqCover);
+  window.addEventListener('load', reqCover);
+  reqCover();
+  layout();
+  window.addEventListener('resize', layout);
+  window.addEventListener('load', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  if ('ResizeObserver' in window) { var ro = new ResizeObserver(layout); stack.forEach(function (s) { ro.observe(s); }); }
+})();
+</script>
+<script>
+/* Work covers: reveal all three at the same moment */
+(function () {
+  var grid = document.querySelector('.work-grid'); if (!grid) return;
+  document.documentElement.classList.add('js-covers');
+  var imgs = [].slice.call(grid.querySelectorAll('.proj-cover img'));
+  var done = false;
+  function ready() { if (done) return; done = true; grid.classList.add('covers-ready'); }
+  var pending = imgs.filter(function (i) { return !(i.complete && i.naturalWidth); });
+  if (!pending.length) { ready(); return; }
+  var left = pending.length;
+  pending.forEach(function (i) {
+    function one() { if (--left <= 0) ready(); }
+    i.addEventListener('load', one, { once: true });
+    i.addEventListener('error', one, { once: true });
+  });
+  setTimeout(ready, 3000);   /* never leave the covers hidden */
 })();
 </script>
 </body>
