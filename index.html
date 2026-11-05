@@ -1005,7 +1005,9 @@ html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:r
    SECTION STACK  —  each section slides over the previous one (kept after the base section rules so it wins the cascade)
 ───────────────────────*/
 @media (prefers-reduced-motion: no-preference) {
-  main > .hero, main > .work, main > .about { position: sticky; top: 0; }   /* top is refined by JS so tall sections stick at their bottom edge */
+  /* tall sections stick by their bottom edge: top = viewport height - section height.
+     Written in CSS with dvh so it follows the mobile browser toolbar showing/hiding frame by frame (a JS value lagged behind and left a gap). */
+  main > .hero, main > .work, main > .about { position: sticky; top: min(0px, calc(100vh - var(--h, 0px))); top: min(0px, calc(100dvh - var(--h, 0px))); }
   main > .hero    { z-index: 1; border-bottom: 0; }
   main > .work    { z-index: 2; }
   main > .about   { z-index: 3; border-bottom: 0; }
@@ -1950,8 +1952,7 @@ setLang(stored, false);
   if (!main || !secs.length) return;
   var stack = secs.filter(function (s) { return /\b(hero|work|about)\b/.test(s.className); });
   function layout() {
-    var vh = window.innerHeight;
-    stack.forEach(function (s) { s.style.top = Math.min(0, Math.floor(vh - s.getBoundingClientRect().height)) + 'px'; });
+    stack.forEach(function (s) { s.style.setProperty('--h', Math.ceil(s.getBoundingClientRect().height) + 'px'); });
   }
   /* sticky sections move while stuck, so compute the in-flow top from the heights above */
   function naturalTop(el) {
