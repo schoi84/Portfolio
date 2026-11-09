@@ -117,7 +117,7 @@ html[data-theme="dark"]{
 html{scroll-behavior:smooth;scrollbar-width:none;overflow-x:hidden}
 html::-webkit-scrollbar{display:none}
 html[lang="ko"]{word-break:keep-all}
-body{font-family:var(--font);background:var(--bg);color:var(--black);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--font);background:var(--bg);color:var(--black);-webkit-font-smoothing:antialiased;overflow-x:clip}
 a,button{-webkit-tap-highlight-color:transparent}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -213,6 +213,67 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .steps .step.in{opacity:1;transform:none}
 .steps .step.in::before{transform:scale(1)}
 .steps .step.in::after{transform:scaleX(1)}
+
+
+/* feature cards (background section) */
+.fcards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.fcard{--fc:#08A0FF;--fc-light:#BFE6FF;--fc-bg:#EAF6FF;position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:430px;padding:20px;overflow:hidden;border-radius:20px;border:1px solid var(--gray-200);background:var(--white);box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .55s cubic-bezier(.34,1.56,.64,1),box-shadow .4s ease}
+.fc-sky{--fc:#08A0FF;--fc-light:#BFE6FF;--fc-bg:#EAF6FF}
+.fc-royal{--fc:#0047FF;--fc-light:#C4D4FF;--fc-bg:#EEF2FF}
+.fc-ice{--fc:#0A8FA8;--fc-light:#BDEBF2;--fc-bg:#EAF9FB}
+.fcard::before{content:"";position:absolute;inset:0;z-index:0;opacity:.55;background:radial-gradient(circle at 50% 30%,var(--fc-light) 0%,transparent 70%)}
+html[data-theme="dark"] .fcard::before{opacity:.22}
+html[data-theme="dark"] .fc-royal{--fc:#6E93FF}
+html[data-theme="dark"] .fc-ice{--fc:#5FD0E3}
+.fc-idx{position:absolute;top:22px;left:24px;z-index:1;font:700 16px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gray-400)}
+.fc-img{position:absolute;top:48px;left:0;right:0;height:172px;z-index:3;pointer-events:none;display:grid;place-items:center;transition:transform .55s cubic-bezier(.34,1.56,.64,1)}
+.fc-ph{width:160px;height:160px;display:grid;place-content:center;text-align:center;border:1.5px dashed var(--gray-300);border-radius:16px;background:rgba(255,255,255,.5);color:var(--gray-400);font-size:12px;line-height:1.5}
+html[data-theme="dark"] .fc-ph{background:rgba(0,0,0,.25)}
+.fc-ph b{display:block;font-size:13px;font-weight:600;color:var(--gray-500);margin-bottom:2px}
+.fc-body{position:relative;z-index:2;padding:18px 18px 16px;border:1px solid var(--gray-200);border-radius:14px;background:rgba(254,254,254,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+html[data-theme="dark"] .fc-body{background:rgba(23,27,35,.65)}
+.fc-tag{position:absolute;top:20px;left:20px;z-index:4;padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600;color:var(--fc);background:var(--fc-bg);border:1px solid var(--fc-light)}
+html[data-theme="dark"] .fc-tag{background:rgba(255,255,255,.08)}
+.fc-t{font-size:18px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
+.fc-b{font-size:14px;line-height:1.65;color:var(--gray-500)}
+@media (hover:hover){
+  .fcard:hover{transform:translateY(-10px);box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}
+}
+@media (max-width:1024px){.fcards{grid-template-columns:1fr}.fcard{height:430px}}
+
+
+/* core values: scroll-pinned tabs + matching image (progress follows scroll) */
+.vals-wrap{height:240svh;margin-top:64px}
+.vals{position:sticky;top:max(88px,calc(50svh - 240px));display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:48px;align-items:center}
+.vals-media{position:relative;aspect-ratio:5/4;width:100%}
+.vp{position:absolute;inset:0;opacity:0;transform:scale(.98);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.2,.64,1);pointer-events:none}
+.vp.is-on{opacity:1;transform:none;pointer-events:auto}
+.ph--val{--ar:5/4;height:100%;aspect-ratio:auto}
+.vals-list{display:flex;flex-direction:column;gap:12px;max-width:440px}
+.vt{position:relative;display:flex;align-items:flex-start;gap:18px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:20px 22px;border-radius:16px;border:1px solid transparent;background:transparent;overflow:hidden;transition:background .3s,border-color .3s}
+.vt:hover{background:var(--p-low)}
+.vt.is-on{background:var(--p-med);border-color:var(--p-high)}
+.vt-ic{flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border-radius:12px;color:var(--gray-400);background:var(--gray-50);transition:color .3s,background .3s}
+.vt.is-on .vt-ic{color:#fff;background:var(--blue)}
+.vt-tx{display:flex;flex-direction:column;gap:6px;min-width:0}
+.vt-t{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.vt-n{font-size:14px;line-height:1.6;color:var(--gray-500)}
+.vt-f{font-size:13px;color:var(--gray-400)}
+.vt-f em{font-style:normal;margin-right:4px}
+.vt-f b{font-weight:600;color:var(--gray-500)}
+.vt.is-on .vt-f b{color:var(--blue-text)}
+.vt-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--blue);opacity:0;transform:scaleX(0);transform-origin:left center}
+.vt.is-on .vt-bar{opacity:.9}
+@media (max-width:1024px){
+  .vals-wrap{height:260svh;margin-top:48px}
+  .vals{top:64px;grid-template-columns:1fr;gap:16px;padding:8px 0 12px;background:var(--bg)}
+  .vals-list{order:-1;max-width:none;gap:6px}
+  .vt{padding:12px 16px;gap:14px;align-items:center}
+  .vt-ic{width:40px;height:40px}
+  .vt-n,.vt-f{display:none}
+  .vt.is-on .vt-n,.vt.is-on .vt-f{display:block}
+  .vt.is-on{align-items:flex-start}
+}
 
 /* needs -> value -> feature rows */
 .flow{display:grid;gap:14px}
@@ -467,11 +528,23 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
       <h2 class="sec-headline reveal d1" data-i18n="s1.headline">한 명의 선생님,<br>네 명의 아이</h2>
   <p class="lead reveal d2" data-i18n="s1.lead">발달장애 아동을 돌보는 전문 시설에서는 선생님 한 명이 아이 네 명을 관리합니다.<br>일손은 늘 부족하고, 보호자는 아이와 떨어져 있는 시간 내내 걱정합니다.</p>
   <p class="body reveal d2" data-i18n="s1.body">Angelring은 아이가 착용하는 웨어러블 기기와 앱을 연결해, 선생님과 아이, 보호자 세 사람이 같은 정보를 보고 같은 속도로 대응하도록 돕는 서비스입니다.</p>
-  <div class="block"><div class="cards">
-    <div class="card reveal"><div class="card-k" data-i18n="s1.c1.k">선생님</div><div class="card-t" data-i18n="s1.c1.t">한 명이 네 명을 관리</div><p class="card-b" data-i18n="s1.c1.b">일손이 부족한 환경에서 모든 아이를 동시에 살펴야 합니다.</p></div>
-    <div class="card reveal"><div class="card-k" data-i18n="s1.c2.k">아이</div><div class="card-t" data-i18n="s1.c2.t">낯선 환경에 적응</div><p class="card-b" data-i18n="s1.c2.b">적응하는 동안 곁에서 도와줄 사람과 안정적인 환경이 필요합니다.</p></div>
-    <div class="card reveal"><div class="card-k" data-i18n="s1.c3.k">보호자</div><div class="card-t" data-i18n="s1.c3.t">떨어져 있는 불안</div><p class="card-b" data-i18n="s1.c3.b">아이가 지금 어디에서 어떤 상태인지 알고 싶어 합니다.</p></div>
-  </div></div>
+  <div class="block fcards">
+    <div class="reveal"><div class="fcard fc-sky">
+      <span class="fc-tag" data-i18n="s1.c1.k">선생님</span>
+      <div class="fc-img"><div class="fc-ph" role="img" aria-label="선생님 일러스트"><b>이미지 준비 중</b>160 × 160px<br>PNG · SVG, 투명 배경</div></div>
+      <div class="fc-body"><div class="fc-t" data-i18n="s1.c1.t">한 명이 네 명을 관리</div><p class="fc-b" data-i18n="s1.c1.b">일손이 부족한 환경에서 모든 아이를 동시에 살펴야 합니다.</p></div>
+    </div></div>
+    <div class="reveal"><div class="fcard fc-royal">
+      <span class="fc-tag" data-i18n="s1.c2.k">아이</span>
+      <div class="fc-img"><div class="fc-ph" role="img" aria-label="아이 일러스트"><b>이미지 준비 중</b>160 × 160px<br>PNG · SVG, 투명 배경</div></div>
+      <div class="fc-body"><div class="fc-t" data-i18n="s1.c2.t">낯선 환경에 적응</div><p class="fc-b" data-i18n="s1.c2.b">적응하는 동안 곁에서 도와줄 사람과 안정적인 환경이 필요합니다.</p></div>
+    </div></div>
+    <div class="reveal"><div class="fcard fc-ice">
+      <span class="fc-tag" data-i18n="s1.c3.k">보호자</span>
+      <div class="fc-img"><div class="fc-ph" role="img" aria-label="보호자 일러스트"><b>이미지 준비 중</b>160 × 160px<br>PNG · SVG, 투명 배경</div></div>
+      <div class="fc-body"><div class="fc-t" data-i18n="s1.c3.t">떨어져 있는 불안</div><p class="fc-b" data-i18n="s1.c3.b">아이가 지금 어디에서 어떤 상태인지 알고 싶어 합니다.</p></div>
+    </div></div>
+  </div>
   <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="서비스 개요 — 웨어러블 기기와 앱의 연결 구조"><div><b>이미지 준비 중</b>서비스 개요 — 웨어러블 기기와 앱의 연결 구조</div></div></div>
 </div></div>
 
@@ -496,13 +569,23 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
   <div class="sec-label reveal"><span class="sec-num">03</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s3.name">핵심 가치</span></div>
       <h2 class="sec-headline reveal d1" data-i18n="s3.headline">쉽고, 믿을 수 있고,<br>다정하게</h2>
   <p class="lead reveal d2" data-i18n="s3.lead">사용자 니즈에서 세 가지 핵심 가치를 정하고, 각 가치를 서비스의 핵심 기능으로 이어 붙였습니다.</p>
-  <div class="block flow">
-    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r1.nk">사용자 니즈</small><strong data-i18n="s3.r1.n">선생님과 보호자가 쉽게 쓸 수 있는 서비스</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r1.vk">핵심 가치</small><strong data-i18n="s3.r1.v">Easy</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r1.fk">핵심 기능</small><strong data-i18n="s3.r1.f">그룹 관리</strong></div></div>
-    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r2.nk">사용자 니즈</small><strong data-i18n="s3.r2.n">아이의 상태와 위치를 믿고 확인할 수 있는 정보</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r2.vk">핵심 가치</small><strong data-i18n="s3.r2.v">Trustworthy</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r2.fk">핵심 기능</small><strong data-i18n="s3.r2.f">상태 알림</strong></div></div>
-    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r3.nk">사용자 니즈</small><strong data-i18n="s3.r3.n">일손이 부족한 선생님을 위한 부담 줄이기</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r3.vk">핵심 가치</small><strong data-i18n="s3.r3.v">Friendly</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r3.fk">핵심 기능</small><strong data-i18n="s3.r3.f">일지 기록</strong></div></div>
-  </div>
+  <div class="vals-wrap" id="valsWrap"><div class="vals">
+    <div class="vals-media" aria-live="polite"><div class="vp is-on" role="tabpanel" id="vp0" aria-labelledby="vt0"><div class="ph ph--val" role="img" aria-label="Easy — 그룹 관리 화면"><div><b>이미지 준비 중</b>Easy · 그룹 관리<br>PC 560 × 448px (5:4)<br>PNG · WebP</div></div></div><div class="vp" role="tabpanel" id="vp1" aria-labelledby="vt1"><div class="ph ph--val" role="img" aria-label="Trustworthy — 상태 알림 화면"><div><b>이미지 준비 중</b>Trustworthy · 상태 알림<br>PC 560 × 448px (5:4)<br>PNG · WebP</div></div></div><div class="vp" role="tabpanel" id="vp2" aria-labelledby="vt2"><div class="ph ph--val" role="img" aria-label="Friendly — 일지 기록 화면"><div><b>이미지 준비 중</b>Friendly · 일지 기록<br>PC 560 × 448px (5:4)<br>PNG · WebP</div></div></div></div>
+    <div class="vals-list" role="tablist" aria-label="핵심 가치"><button class="vt is-on" role="tab" id="vt0" aria-selected="true" aria-controls="vp0" data-i="0" type="button">
+        <span class="vt-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span class="vt-tx"><span class="vt-t">Easy</span><span class="vt-n" data-i18n="s3.v1.n">선생님과 보호자가 쉽게 쓸 수 있는 서비스</span><span class="vt-f"><em data-i18n="s3.v1.fk">핵심 기능</em> <b data-i18n="s3.v1.f">그룹 관리</b></span></span>
+        <span class="vt-bar" aria-hidden="true"></span>
+      </button><button class="vt" role="tab" id="vt1" aria-selected="false" aria-controls="vp1" data-i="1" type="button">
+        <span class="vt-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="vt-tx"><span class="vt-t">Trustworthy</span><span class="vt-n" data-i18n="s3.v2.n">아이의 상태와 위치를 믿고 확인할 수 있는 정보</span><span class="vt-f"><em data-i18n="s3.v2.fk">핵심 기능</em> <b data-i18n="s3.v2.f">상태 알림</b></span></span>
+        <span class="vt-bar" aria-hidden="true"></span>
+      </button><button class="vt" role="tab" id="vt2" aria-selected="false" aria-controls="vp2" data-i="2" type="button">
+        <span class="vt-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+        <span class="vt-tx"><span class="vt-t">Friendly</span><span class="vt-n" data-i18n="s3.v3.n">일손이 부족한 선생님을 위한 부담 줄이기</span><span class="vt-f"><em data-i18n="s3.v3.fk">핵심 기능</em> <b data-i18n="s3.v3.f">일지 기록</b></span></span>
+        <span class="vt-bar" aria-hidden="true"></span>
+      </button></div>
+  </div></div>
   <div class="callout reveal"><div class="callout-l" data-i18n="s3.co.l">설계 원칙</div><div class="callout-b" data-i18n="s3.co.b">세 가지 가치는 브랜딩과 UI의 모든 결정을 판단하는 기준이 되었습니다.</div></div>
-  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="니즈 → 핵심 가치 → 핵심 기능 다이어그램"><div><b>이미지 준비 중</b>니즈 → 핵심 가치 → 핵심 기능 다이어그램<br>(위 표를 이미지로 대체할 경우)</div></div></div>
 </div></div>
 
 <div class="section"><div class="inner">
@@ -617,24 +700,15 @@ const i18n = {
   "s3.name": "핵심 가치",
   "s3.headline": "쉽고, 믿을 수 있고,<br>다정하게",
   "s3.lead": "사용자 니즈에서 세 가지 핵심 가치를 정하고, 각 가치를 서비스의 핵심 기능으로 이어 붙였습니다.",
-  "s3.r1.nk": "사용자 니즈",
-  "s3.r1.n": "선생님과 보호자가 쉽게 쓸 수 있는 서비스",
-  "s3.r1.vk": "핵심 가치",
-  "s3.r1.v": "Easy",
-  "s3.r1.fk": "핵심 기능",
-  "s3.r1.f": "그룹 관리",
-  "s3.r2.nk": "사용자 니즈",
-  "s3.r2.n": "아이의 상태와 위치를 믿고 확인할 수 있는 정보",
-  "s3.r2.vk": "핵심 가치",
-  "s3.r2.v": "Trustworthy",
-  "s3.r2.fk": "핵심 기능",
-  "s3.r2.f": "상태 알림",
-  "s3.r3.nk": "사용자 니즈",
-  "s3.r3.n": "일손이 부족한 선생님을 위한 부담 줄이기",
-  "s3.r3.vk": "핵심 가치",
-  "s3.r3.v": "Friendly",
-  "s3.r3.fk": "핵심 기능",
-  "s3.r3.f": "일지 기록",
+  "s3.v1.n": "선생님과 보호자가 쉽게 쓸 수 있는 서비스",
+  "s3.v1.fk": "핵심 기능",
+  "s3.v1.f": "그룹 관리",
+  "s3.v2.n": "아이의 상태와 위치를 믿고 확인할 수 있는 정보",
+  "s3.v2.fk": "핵심 기능",
+  "s3.v2.f": "상태 알림",
+  "s3.v3.n": "일손이 부족한 선생님을 위한 부담 줄이기",
+  "s3.v3.fk": "핵심 기능",
+  "s3.v3.f": "일지 기록",
   "s3.co.l": "설계 원칙",
   "s3.co.b": "세 가지 가치는 브랜딩과 UI의 모든 결정을 판단하는 기준이 되었습니다.",
   "s4.name": "브랜딩",
@@ -720,6 +794,44 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 // timeline: each step starts when it is actually on screen (desktop: all four at once, staggered by CSS; mobile: one by one while scrolling)
 const stepObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); stepObs.unobserve(e.target); } }), { threshold: 0.4, rootMargin: '0px 0px -12% 0px' });
 document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
+// core values: scroll-pinned; the scroll position picks the tab and fills its progress bar
+(function () {
+  var wrap = document.getElementById('valsWrap'); if (!wrap) return;
+  var box = wrap.querySelector('.vals');
+  var tabs = [].slice.call(wrap.querySelectorAll('.vt')), panels = [].slice.call(wrap.querySelectorAll('.vp'));
+  var n = tabs.length, cur = -1, ticking = false, sent = {};
+  function range() { return Math.max(1, wrap.offsetHeight - box.offsetHeight); }
+  function top() { return wrap.getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(box).top || 0); }
+  function setActive(i) {
+    if (i === cur) return; cur = i;
+    tabs.forEach(function (t, k) { var on = k === i; t.classList.toggle('is-on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+    panels.forEach(function (p, k) { p.classList.toggle('is-on', k === i); });
+    if (!sent[i] && window.scrollY > 0) { sent[i] = 1; try { track('value_tab_view', { value: tabs[i].querySelector('.vt-t').textContent, position: i + 1 }); } catch (e) {} }
+  }
+  function update() {
+    ticking = false;
+    var p = Math.min(1, Math.max(0, (window.scrollY - top()) / range()));
+    var x = p * n, i = Math.min(n - 1, Math.floor(x)), local = p >= 1 ? 1 : x - i;
+    setActive(i);
+    tabs.forEach(function (t, k) { t.querySelector('.vt-bar').style.transform = 'scaleX(' + (k === i ? local.toFixed(3) : 0) + ')'; });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  function goTo(i) {
+    var y = top() + range() * ((i + 0.5) / n);
+    try { track('value_tab_click', { value: tabs[i].querySelector('.vt-t').textContent, position: i + 1 }); } catch (e) {}
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  tabs.forEach(function (t, k) { t.addEventListener('click', function () { goTo(k); }); });
+  wrap.querySelector('.vals-list').addEventListener('keydown', function (e) {
+    var d = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+    if (!d) return; e.preventDefault();
+    var k = Math.min(n - 1, Math.max(0, cur + d)); goTo(k); tabs[k].focus();
+  });
+  update();
+})();
+
 </script>
 </main>
 <script>
