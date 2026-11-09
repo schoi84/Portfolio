@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Angelring | 앱 UI/UX · 브랜딩</title>
@@ -130,13 +131,15 @@ html[data-theme="dark"] nav{background:rgba(15,18,24,.6);border-bottom-color:rgb
 .nav-back svg{width:14px;height:14px;transition:transform .2s var(--ease)}
 .nav-back:hover svg{transform:translateX(-3px)}
 .nav-tag{font-size:14px;color:var(--gray-400);letter-spacing:.04em}
-.lang-switch{display:flex;gap:2px;padding:3px;border-radius:100px;background:rgba(0,0,0,.05);border:1px solid var(--gray-200)}
-.ls-btn{font:600 12px/1 var(--font);letter-spacing:.04em;padding:7px 12px;border:0;border-radius:100px;background:transparent;color:var(--gray-500);cursor:pointer;transition:background .2s,color .2s}
-.ls-btn:hover{color:var(--black)}
-.ls-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.lang-switch{display:flex;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:2px;gap:2px}
+.ls-btn{background:none;border:none;padding:4px 10px;font-family:inherit;font-size:12px;font-weight:600;color:var(--gray-400);cursor:pointer;border-radius:5px;letter-spacing:.04em;transition:all .15s}
+.ls-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .ls-btn[disabled]{opacity:.4;cursor:not-allowed}
-html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,.32)}
-html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5}
+html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,.32);border-color:var(--gray-300)}
+html[data-theme="dark"] .ls-btn{color:var(--gray-500)}
+html[data-theme="dark"] .ls-btn{color:var(--gray-500)}
+html[data-theme="dark"] .ls-btn:hover{color:var(--black)}
+html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shadow:0 1px 3px rgba(0,0,0,.5)}
 
 .wrap{padding:0 2.5rem}
 .inner{max-width:1024px;margin:0 auto}
@@ -158,6 +161,7 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5}
 .hm-k{font-size:12px;color:var(--gray-500)}
 .hm-v{font-size:14px;font-weight:600;letter-spacing:-.01em}
 .hero-visual{flex:0 0 340px}
+.mob-br{display:none}
 
 /* IMAGE PLACEHOLDER (swap for <img> later) */
 .ph{position:relative;display:grid;place-items:center;text-align:center;padding:24px;border:1.5px dashed var(--gray-300);border-radius:20px;background:var(--p-low);color:var(--gray-400);font-size:13px;line-height:1.5;aspect-ratio:var(--ar,16/10);width:100%}
@@ -199,6 +203,15 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5}
 .step-t{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
 .step-b{font-size:14px;line-height:1.7;color:var(--gray-500)}
 .period{display:inline-block;margin-bottom:28px;font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;background:var(--p-med);color:var(--blue-text)}
+
+
+/* sequential timeline entrance (staggered, spring-like) */
+.steps .step{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .8s cubic-bezier(.34,1.45,.64,1);transition-delay:calc(var(--i)*.2s)}
+.steps .step::before{transform:scale(0);transition:transform .6s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i)*.2s + .1s)}
+.steps .step::after{transform:scaleX(0);transform-origin:left center;transition:transform .5s var(--ease);transition-delay:calc(var(--i)*.2s + .3s)}
+.steps.visible .step{opacity:1;transform:none}
+.steps.visible .step::before{transform:scale(1)}
+.steps.visible .step::after{transform:scaleX(1)}
 
 /* needs -> value -> feature rows */
 .flow{display:grid;gap:14px}
@@ -252,9 +265,12 @@ html[data-theme="dark"] .tag.warn{color:#FFC266}
   nav{padding:0 1.2rem;height:56px}
   .wrap{padding:0 1.2rem}
   .hero{padding-top:72px}
-  .hero-2col{flex-direction:column;gap:40px;padding:28px 0 72px;text-align:center}
+  .hero-2col{flex-direction:column;gap:40px;padding:28px 1.5rem 72px;text-align:center}
   .hero-eyebrow,.hero-meta{justify-content:center}
-  .hero-tagline,.hero-desc{margin-left:auto;margin-right:auto}
+  .hero-tagline,.hero-desc{max-width:100%;margin-left:auto;margin-right:auto}
+  .hero-desc{margin-bottom:40px}
+  .mob-br{display:block;height:0}
+  .hero-meta{gap:24px 40px}
   .hero-visual{flex:none;width:100%;max-width:300px}
   .section{padding:88px 0}
   .cards,.swatches{grid-template-columns:1fr}
@@ -262,6 +278,8 @@ html[data-theme="dark"] .tag.warn{color:#FFC266}
   .step{padding:0 0 0 30px}
   .step::before{position:absolute;left:0;top:5px;margin:0}
   .step::after{top:18px;left:5px;right:auto;bottom:-26px;width:2px;height:auto}
+  .steps .step::after{transform:scaleY(0);transform-origin:top center}
+  .steps.visible .step::after{transform:scaleY(1)}
   .flow-row{grid-template-columns:1fr;gap:6px}
   .flow-arrow{transform:rotate(90deg);height:20px;line-height:20px}
   .type-row,.refl{grid-template-columns:1fr}
@@ -269,7 +287,7 @@ html[data-theme="dark"] .tag.warn{color:#FFC266}
   .screen.flip .screen-t{order:0}
   .page-footer{padding:40px 0 56px}
 }
-@media (max-width:480px){.type-sample{font-size:36px}}
+@media (max-width:480px){.hero-tagline br{display:none}.hero-tagline{text-wrap:balance}.type-sample{font-size:36px}.hero-title{font-size:clamp(40px,14vw,64px)}.hm{width:100%}.hero-eyebrow{flex-wrap:nowrap;gap:12px;font-size:13px;letter-spacing:.04em}}
 
 .theme-fab {
   position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 95;
@@ -428,7 +446,7 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
     <div class="hero-eyebrow"><span data-i18n="hero.eyebrow1">앱 UI/UX · 브랜딩</span><span class="hero-eyebrow-sep"></span><span data-i18n="hero.eyebrow2">발달장애 아동 케어 서비스</span></div>
     <h1 class="hero-title">Angelring</h1>
     <p class="hero-tagline" data-i18n="hero.tagline">선생님 한 명이 아이 네 명을 돌보는 현장에서,<br>선생님·아이·보호자 모두가 안심할 수 있는 앱을 만들었습니다.</p>
-    <p class="hero-desc" data-i18n="hero.desc">기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며 IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.</p>
+    <p class="hero-desc" data-i18n="hero.desc">기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며<span class='mob-br'></span> IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.</p>
     <div class="hero-meta">
       <div class="hm"><div class="hm-k" data-i18n="meta.role">역할</div><div class="hm-v" data-i18n="meta.role.v">UI/UX · 브랜딩</div></div>
       <div class="hm"><div class="hm-k" data-i18n="meta.company">회사</div><div class="hm-v">ZUSIN</div></div>
@@ -460,11 +478,11 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
   <p class="body reveal d2" data-i18n="s2.body">핵심 사용 흐름을 먼저 그린 뒤, 그 위에서 내비게이션 구조와 화면을 설계했습니다. 디자인 이후에도 개발 단계에 맞춰 QA에 참여했습니다.</p>
   <div class="block">
     <span class="period reveal">2020.11 – 2021.08</span>
-    <div class="steps">
-      <div class="step reveal"><div class="step-t" data-i18n="s2.st1.t">기획</div><p class="step-b" data-i18n="s2.st1.b">클라이언트와 상담하며 서비스 방향·타깃·기능을 공동 기획하고, IA와 유저 플로우를 설계했습니다.</p></div>
-      <div class="step reveal"><div class="step-t" data-i18n="s2.st2.t">디자인</div><p class="step-b" data-i18n="s2.st2.b">브랜딩, 디자인 시스템, 핵심 화면의 UI/UX를 만들었습니다.</p></div>
-      <div class="step reveal"><div class="step-t" data-i18n="s2.st3.t">개발</div><p class="step-b" data-i18n="s2.st3.b">개발 단계에 맞춰 화면 명세를 전달하고 구현 내용을 확인했습니다.</p></div>
-      <div class="step reveal"><div class="step-t" data-i18n="s2.st4.t">QA · 출시</div><p class="step-b" data-i18n="s2.st4.b">출시 전 QA에 참여하고, 앱 출시에 필요한 자료를 준비했습니다.</p></div>
+    <div class="steps" id="steps">
+      <div class="step" style="--i:0"><div class="step-t" data-i18n="s2.st1.t">기획</div><p class="step-b" data-i18n="s2.st1.b">클라이언트와 상담하며 서비스 방향·타깃·기능을 공동 기획하고, IA와 유저 플로우를 설계했습니다.</p></div>
+      <div class="step" style="--i:1"><div class="step-t" data-i18n="s2.st2.t">디자인</div><p class="step-b" data-i18n="s2.st2.b">브랜딩, 디자인 시스템, 핵심 화면의 UI/UX를 만들었습니다.</p></div>
+      <div class="step" style="--i:2"><div class="step-t" data-i18n="s2.st3.t">개발</div><p class="step-b" data-i18n="s2.st3.b">개발 단계에 맞춰 화면 명세를 전달하고 구현 내용을 확인했습니다.</p></div>
+      <div class="step" style="--i:3"><div class="step-t" data-i18n="s2.st4.t">QA · 출시</div><p class="step-b" data-i18n="s2.st4.b">출시 전 QA에 참여하고, 앱 출시에 필요한 자료를 준비했습니다.</p></div>
     </div>
   </div>
   <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="IA · 유저 플로우 다이어그램"><div><b>이미지 준비 중</b>IA · 유저 플로우 다이어그램</div></div></div>
@@ -551,14 +569,6 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
     <div class="card reveal"><div class="card-k" data-i18n="s7.c4.k">관심사</div><div class="card-t" data-i18n="s7.c4.t">출시 이후를 생각하게 된 계기</div><p class="card-b" data-i18n="s7.c4.b">출시가 끝이 아니라, 운영과 데이터를 바탕으로 서비스를 개선해 가는 과정에 관심을 갖게 해준 첫 프로젝트입니다.</p></div>
   </div>
 </div></div>
-
-<div class="page-footer">
-  <a class="pf-next" href="index.html#work">
-    <span class="pf-next-lbl" data-i18n="pf.lbl">다른 프로젝트 보기</span>
-    <div class="pf-next-row"><span class="pf-next-title" data-i18n="pf.title">Work로 돌아가기</span>
-    <svg width="24" height="24" viewBox="0 0 14 14" fill="none" stroke-width="1.5"><path d="M5 2.5L9.5 7 5 11.5"/></svg></div>
-  </a>
-</div>
 </div>
 <script>
 /* EN copy comes later: fill i18n.en with the same keys as i18n.ko, then remove `disabled` from the EN button. */
@@ -567,7 +577,7 @@ const i18n = {
   "hero.eyebrow1": "앱 UI/UX · 브랜딩",
   "hero.eyebrow2": "발달장애 아동 케어 서비스",
   "hero.tagline": "선생님 한 명이 아이 네 명을 돌보는 현장에서,<br>선생님·아이·보호자 모두가 안심할 수 있는 앱을 만들었습니다.",
-  "hero.desc": "기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며 IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.",
+  "hero.desc": "기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며<span class='mob-br'></span> IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.",
   "meta.role": "역할",
   "meta.role.v": "UI/UX · 브랜딩",
   "meta.company": "회사",
@@ -683,9 +693,7 @@ const i18n = {
   "s7.c3.b": "클라이언트의 요구사항에 기반해 진행된 프로젝트였습니다. 주어진 요구를 서비스의 흐름과 화면으로 풀어내는 데 집중했습니다.",
   "s7.c4.k": "관심사",
   "s7.c4.t": "출시 이후를 생각하게 된 계기",
-  "s7.c4.b": "출시가 끝이 아니라, 운영과 데이터를 바탕으로 서비스를 개선해 가는 과정에 관심을 갖게 해준 첫 프로젝트입니다.",
-  "pf.lbl": "다른 프로젝트 보기",
-  "pf.title": "Work로 돌아가기"
+  "s7.c4.b": "출시가 끝이 아니라, 운영과 데이터를 바탕으로 서비스를 개선해 가는 과정에 관심을 갖게 해준 첫 프로젝트입니다."
 },
   en: {}
 };
@@ -704,7 +712,7 @@ function setLang(lang, userInitiated) {
 }
 setLang(currentLang, false);
 const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal, .steps').forEach(el => obs.observe(el));
 </script>
 </main>
 <script>
