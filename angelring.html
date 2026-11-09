@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t!=='light'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angelring | 앱 UI/UX · 브랜딩</title>
+<meta name="description" content="선생님 한 명이 아이 네 명을 돌보는 현장을 위한 발달장애 아동 케어 앱. IA와 유저 플로우 설계부터 UI/UX, 브랜딩, QA까지.">
+<link rel="canonical" href="https://schoi84.github.io/Portfolio/angelring.html">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<!-- Exclude my own browser: open any page once with ?internal=1 (use ?internal=0 to turn tracking back on) -->
+<script>
+  (function () {
+    var flag = false;
+    try {
+      var m = location.search.match(/[?&]internal=([01])/);
+      if (m) {
+        if (m[1] === '1') localStorage.setItem('internal_traffic', '1');
+        else localStorage.removeItem('internal_traffic');
+      }
+      flag = localStorage.getItem('internal_traffic') === '1';
+    } catch (e) {}
+    window.__internal = flag;
+    if (flag) window['ga-disable-G-65W9FB36T6'] = true;
+  })();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-65W9FB36T6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-65W9FB36T6');
+</script>
+<!-- Mixpanel -->
+<script type="text/javascript">
+  (function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split( " "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for ( var d = {}, e = ["get_group"].concat( Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); } })(document, window.mixpanel || []);
+
+  mixpanel.init("f916e20719038b6cfc582722a437cc67", {
+    autocapture: {
+      pageview: "full-url",
+      click: true,
+      dead_click: true,
+      rage_click: true,
+      scroll: false,          // scroll depth is sent by the custom scroll_depth event below
+      input: false,
+      submit: false
+    },
+    cross_subdomain_cookie: false,  // required on *.github.io
+    record_heatmap_data: true,
+    record_sessions_percent: 100,   // Session Replay: record 100% of sessions
+    opt_out_tracking_by_default: window.__internal === true  // own browser: send nothing
+  });
+  try {
+    if (window.__internal) mixpanel.opt_out_tracking();
+    else if (mixpanel.has_opted_out_tracking()) mixpanel.opt_in_tracking();
+  } catch (e) {}
+
+  // Send one event to both GA4 and Mixpanel with identical names/properties
+  function track(name, props) {
+    props = props || {};
+    if (!props.page_path) props.page_path = location.pathname;
+    if (typeof gtag === 'function') gtag('event', name, props);
+    if (window.mixpanel && typeof mixpanel.track === 'function') mixpanel.track(name, props);
+  }
+
+  // Page dwell time: Mixpanel adds $duration (seconds) automatically via time_event
+  (function () {
+    if (!window.mixpanel || typeof mixpanel.time_event !== 'function') return;
+    var visibleSince = null;
+    function start() { if (visibleSince === null) { visibleSince = Date.now(); mixpanel.time_event('page_time'); } }
+    // end_reason: 'hidden' = tab switched / window minimized (or the first half of a close), 'pagehide' = page left
+    function flush(reason) {
+      if (visibleSince === null) return;
+      var secs = Math.round((Date.now() - visibleSince) / 1000);
+      visibleSince = null;
+      try {
+        mixpanel.track('page_time', { page_path: location.pathname, seconds_visible: secs, end_reason: reason }, { transport: 'sendBeacon' });
+      } catch (e) {}
+    }
+    if (document.visibilityState === 'visible') start();
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') flush('hidden'); else start();
+    });
+    // A tab close or navigation fires 'hidden' first and then 'pagehide', so page_exit marks a real exit
+    window.addEventListener('pagehide', function () {
+      flush('pagehide');
+      try {
+        mixpanel.track('page_exit', { page_path: location.pathname }, { transport: 'sendBeacon' });
+      } catch (e) {}
+    });
+  })();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FBFBFB;--white:#FEFEFE;
+  --gray-50:#F1F3F6;--gray-100:#E7EAEF;--gray-200:#D7DCE4;--gray-300:#B9C0CB;--gray-400:#8F98A6;--gray-500:#5F6773;--gray-700:#343A44;--black:#2B3038;
+  --blue:#08A0FF;--blue-dark:#0047FF;--blue-light:#E9F3FF;--blue-text:#0A5FD6;
+  --p-low:#F3F8FF;--p-med:#E9F3FF;--p-high:#D9EAFF;
+  --font:'Pretendard',-apple-system,sans-serif;
+  --ease:cubic-bezier(.52,0,0,1);
+  --grad:linear-gradient(120deg,#0047FF 0%,#08A0FF 40%,#6FC8FF 60%,#08A0FF 80%,#0047FF 100%);
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1218;--white:#171B23;
+  --gray-50:#141820;--gray-100:#1E232D;--gray-200:#2D3441;--gray-300:#434C5C;--gray-400:#8791A1;--gray-500:#AEB6C2;--gray-700:#D2D8E0;--black:#EEF1F5;
+  --blue-text:#6FC8FF;
+  --p-low:#131B2A;--p-med:#16233A;--p-high:#1B2E4D;
+}
+html{scroll-behavior:smooth;scrollbar-width:none;overflow-x:hidden}
+html::-webkit-scrollbar{display:none}
+html[lang="ko"]{word-break:keep-all}
+body{font-family:var(--font);background:var(--bg);color:var(--black);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a,button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@keyframes grad-flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(251,251,251,.6);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);border-bottom:1px solid rgba(0,0,0,.05)}
+html[data-theme="dark"] nav{background:rgba(15,18,24,.6);border-bottom-color:rgba(255,255,255,.06)}
+.nav-back{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--black);text-decoration:none;transition:opacity .2s}
+.nav-back:hover{opacity:.7}
+.nav-back svg{width:14px;height:14px;transition:transform .2s var(--ease)}
+.nav-back:hover svg{transform:translateX(-3px)}
+.nav-tag{font-size:14px;color:var(--gray-400);letter-spacing:.04em}
+.lang-switch{display:flex;gap:2px;padding:3px;border-radius:100px;background:rgba(0,0,0,.05);border:1px solid var(--gray-200)}
+.ls-btn{font:600 12px/1 var(--font);letter-spacing:.04em;padding:7px 12px;border:0;border-radius:100px;background:transparent;color:var(--gray-500);cursor:pointer;transition:background .2s,color .2s}
+.ls-btn:hover{color:var(--black)}
+.ls-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.ls-btn[disabled]{opacity:.4;cursor:not-allowed}
+html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,.32)}
+html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5}
+
+.wrap{padding:0 2.5rem}
+.inner{max-width:1024px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* HERO */
+.hero{padding-top:88px;border-bottom:1px solid var(--gray-200);background:var(--bg);overflow:hidden}
+.hero-2col{display:flex;align-items:center;gap:56px;max-width:1024px;margin:0 auto;padding:60px 0 120px}
+.hero-card-col{flex:1 1 0;min-width:0}
+.hero-eyebrow{font-size:14px;font-weight:500;color:var(--gray-700);letter-spacing:.07em;display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.hero-eyebrow-sep{width:1px;height:12px;background:var(--gray-300);flex-shrink:0}
+.hero-title{font-size:clamp(52px,8vw,96px);font-weight:700;line-height:1.1;letter-spacing:-.05em;padding-bottom:.15em;margin-bottom:16px;background:var(--grad);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad-flow 6s ease infinite}
+.hero-tagline{font-size:20px;font-weight:500;line-height:1.5;max-width:540px;margin-bottom:16px}
+.hero-desc{font-size:16px;color:var(--gray-500);line-height:1.6;max-width:476px;margin-bottom:48px}
+.hero-meta{display:flex;gap:28px 48px;flex-wrap:wrap}
+.hm{display:flex;flex-direction:column;gap:8px}
+.hm-k{font-size:12px;color:var(--gray-500)}
+.hm-v{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.hero-visual{flex:0 0 340px}
+
+/* IMAGE PLACEHOLDER (swap for <img> later) */
+.ph{position:relative;display:grid;place-items:center;text-align:center;padding:24px;border:1.5px dashed var(--gray-300);border-radius:20px;background:var(--p-low);color:var(--gray-400);font-size:13px;line-height:1.5;aspect-ratio:var(--ar,16/10);width:100%}
+.ph b{display:block;font-size:14px;font-weight:600;color:var(--gray-500);margin-bottom:4px}
+.ph--phone{--ar:9/18;max-width:300px;margin:0 auto}
+.ph--wide{--ar:16/9}
+.ph-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.ph-row .ph{--ar:9/16}
+.ph-cap{margin-top:14px;font-size:13px;color:var(--gray-400);text-align:center}
+
+/* SECTIONS */
+.section{padding:140px 0;border-bottom:1px solid var(--gray-200)}
+.sec-label{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sec-num{font-size:14px;font-weight:700;color:var(--blue-text);letter-spacing:.04em}
+.sec-rule{width:40px;height:1px;background:var(--gray-300)}
+.sec-name{font-size:14px;font-weight:600;color:var(--gray-500);letter-spacing:.06em}
+.sec-headline{font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1.25;letter-spacing:-.04em;margin-bottom:28px}
+.lead{font-size:19px;font-weight:500;line-height:1.7;max-width:62ch;margin-bottom:18px;text-wrap:pretty}
+.body{font-size:16px;line-height:1.85;color:var(--gray-500);max-width:62ch;margin-bottom:14px;text-wrap:pretty}
+.block{margin-top:64px}
+.sub{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--blue-text);margin-bottom:18px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{padding:30px 28px;border:1px solid var(--gray-200);border-radius:20px;background:var(--white)}
+.card-k{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--blue-text);margin-bottom:12px}
+.card-t{font-size:20px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px}
+.card-b{font-size:15px;line-height:1.7;color:var(--gray-500)}
+.callout{margin-top:28px;padding:26px 30px;border-radius:20px;background:var(--p-med);border:1px solid var(--p-high)}
+.callout-l{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--blue-text);margin-bottom:8px}
+.callout-b{font-size:16px;line-height:1.7;max-width:70ch}
+
+/* timeline */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.step{padding:0 20px 0 0;position:relative}
+.step::before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:var(--blue);margin-bottom:22px;position:relative;z-index:1}
+.step::after{content:"";position:absolute;top:5px;left:12px;right:0;height:2px;background:var(--p-high)}
+.step:last-child::after{display:none}
+.step-t{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.step-b{font-size:14px;line-height:1.7;color:var(--gray-500)}
+.period{display:inline-block;margin-bottom:28px;font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;background:var(--p-med);color:var(--blue-text)}
+
+/* needs -> value -> feature rows */
+.flow{display:grid;gap:14px}
+.flow-row{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:center;gap:0}
+.flow-cell{padding:22px 24px;border:1px solid var(--gray-200);border-radius:16px;background:var(--white);min-height:100%}
+.flow-cell small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--gray-400);margin-bottom:8px}
+.flow-cell strong{display:block;font-size:16px;font-weight:600;line-height:1.5;letter-spacing:-.02em}
+.flow-cell.val strong{color:var(--blue-text)}
+.flow-arrow{text-align:center;color:var(--gray-300);font-size:18px}
+
+/* brand */
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sw{border-radius:20px;overflow:hidden;border:1px solid var(--gray-200);background:var(--white)}
+.sw-c{height:120px}
+.sw-i{padding:16px 20px}
+.sw-n{font-size:14px;font-weight:600;margin-bottom:4px}
+.sw-h{font-size:13px;color:var(--gray-500);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.type-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.type-card{padding:30px 28px;border:1px solid var(--gray-200);border-radius:20px;background:var(--white)}
+.type-sample{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.type-name{font-size:13px;color:var(--gray-500)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{font-size:14px;font-weight:500;padding:9px 18px;border-radius:100px;border:1px solid var(--gray-200);background:var(--white)}
+
+/* screens */
+.screen{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--gray-200)}
+.screen:first-of-type{border-top:0;padding-top:0}
+.screen.flip .screen-t{order:2}
+.screen-k{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--blue-text);margin-bottom:10px}
+.screen-h{font-size:26px;font-weight:700;letter-spacing:-.035em;line-height:1.35;margin-bottom:14px}
+.screen-b{font-size:15px;line-height:1.8;color:var(--gray-500);max-width:46ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tag{font-size:13px;font-weight:600;padding:6px 14px;border-radius:100px;background:var(--p-med);color:var(--blue-text)}
+.tag.warn{background:rgba(255,160,0,.14);color:#B26B00}
+.tag.off{background:rgba(120,130,145,.16);color:var(--gray-500)}
+html[data-theme="dark"] .tag.warn{color:#FFC266}
+
+/* reflection */
+.refl{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+
+/* footer */
+.page-footer{padding:56px 0 72px;display:flex;justify-content:flex-end}
+.pf-next{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--black);align-items:flex-end}
+.pf-next-lbl{font-size:12px;color:var(--gray-400);letter-spacing:.06em}
+.pf-next-row{display:flex;align-items:center;gap:10px}
+.pf-next-title{font-size:28px;font-weight:700;letter-spacing:-.03em}
+.pf-next:hover .pf-next-row svg{transform:translateX(4px)}
+.pf-next-row svg{transition:transform .2s var(--ease);stroke:currentColor}
+
+@media (max-width:1024px){
+  nav{padding:0 1.2rem;height:56px}
+  .wrap{padding:0 1.2rem}
+  .hero{padding-top:72px}
+  .hero-2col{flex-direction:column;gap:40px;padding:28px 0 72px;text-align:center}
+  .hero-eyebrow,.hero-meta{justify-content:center}
+  .hero-tagline,.hero-desc{margin-left:auto;margin-right:auto}
+  .hero-visual{flex:none;width:100%;max-width:300px}
+  .section{padding:88px 0}
+  .cards,.swatches{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:26px}
+  .step{padding:0 0 0 30px}
+  .step::before{position:absolute;left:0;top:5px;margin:0}
+  .step::after{top:18px;left:5px;right:auto;bottom:-26px;width:2px;height:auto}
+  .flow-row{grid-template-columns:1fr;gap:6px}
+  .flow-arrow{transform:rotate(90deg);height:20px;line-height:20px}
+  .type-row,.refl{grid-template-columns:1fr}
+  .screen{grid-template-columns:1fr;gap:28px;padding:44px 0}
+  .screen.flip .screen-t{order:0}
+  .page-footer{padding:40px 0 56px}
+}
+@media (max-width:480px){.type-sample{font-size:36px}}
+
+.theme-fab {
+  position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 95;
+  width: 48px; height: 48px; display: grid; place-items: center;
+  background: var(--white); color: var(--black);
+  border: 1px solid var(--gray-200); border-radius: 50%;
+  cursor: pointer; transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.theme-fab:hover { transform: translateY(-2px); }
+.theme-fab:active { transform: scale(0.96); }
+.theme-fab svg { width: 20px; height: 20px; grid-area: 1 / 1; }
+/* icon = current mode; on hover/focus it previews the mode you would switch to (icon + colors) */
+.theme-fab .ti-moon { display: none; }
+html[data-theme="dark"] .theme-fab .ti-sun { display: none; }
+html[data-theme="dark"] .theme-fab .ti-moon { display: block; }
+@media (hover: hover) {
+  .theme-fab:hover .ti-sun, .theme-fab:focus-visible .ti-sun { display: none; }
+  .theme-fab:hover .ti-moon, .theme-fab:focus-visible .ti-moon { display: block; }
+  .theme-fab:hover, .theme-fab:focus-visible { background: #211D1A; color: #F2EEE9; border-color: #3A342F; }
+  html[data-theme="dark"] .theme-fab:hover .ti-sun, html[data-theme="dark"] .theme-fab:focus-visible .ti-sun { display: block; }
+  html[data-theme="dark"] .theme-fab:hover .ti-moon, html[data-theme="dark"] .theme-fab:focus-visible .ti-moon { display: none; }
+  html[data-theme="dark"] .theme-fab:hover, html[data-theme="dark"] .theme-fab:focus-visible { background: #FEFEFE; color: #3A3530; border-color: #D8D2CC; }
+}
+@media (max-width: 480px) { .theme-fab { width: 44px; height: 44px; right: 16px; bottom: 16px; } }
+.theme-fab{background:rgba(255,255,255,0.65);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);border:1px solid rgba(0,0,0,0.16)}
+html[data-theme="dark"] .theme-fab{background:rgba(52,46,41,0.78);border-color:rgba(255,255,255,0.22)}
+@media (hover: hover){
+  .theme-fab:hover,.theme-fab:focus-visible{background:rgba(33,29,26,0.92);border-color:rgba(255,255,255,0.08)}
+  html[data-theme="dark"] .theme-fab:hover,html[data-theme="dark"] .theme-fab:focus-visible{background:rgba(254,254,254,0.92);border-color:rgba(0,0,0,0.05)}
+}
+.upd-toast{position:fixed;left:50%;top:76px;z-index:120;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);padding:8px 8px 8px 18px;background:var(--black);color:var(--white);border-radius:100px;box-shadow:0 8px 28px rgba(0,0,0,.22);font:500 14px/1.4 var(--font,'Pretendard',-apple-system,sans-serif);transform:translate(-50%,-24px);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.upd-toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.upd-toast{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.upd-toast:hover .upd-go svg{transform:rotate(180deg)}
+.upd-toast:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+.upd-toast button{font:inherit;border:0;cursor:pointer;border-radius:100px}
+.upd-toast .upd-msg{white-space:nowrap}
+.upd-toast .upd-go{width:32px;height:32px;padding:0;display:grid;place-items:center;background:var(--white);color:var(--black);flex-shrink:0}
+.upd-toast .upd-go svg{transition:transform .4s}
+.upd-toast .upd-go:hover svg{transform:rotate(180deg)}
+@media (max-width:480px){.upd-toast{top:72px;gap:8px;padding:6px 6px 6px 16px;font-size:13px;min-height:44px}}
+html.is-loading { overflow: hidden; }
+.ld-screen { position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: var(--bg); opacity: 1; transition: opacity .45s ease; }
+.ld-screen.is-out { opacity: 0; pointer-events: none; }
+.ld-screen svg { width: min(240px, 62vw); height: auto; overflow: visible; display: block; }
+.ld-screen { --ld-line: #8c8c8c; --ld-top: #ffffff; --ld-riser: #e4e4e4; --ld-side: #cdcdcd; --ld-hi-top: #d9d9d9; --ld-hi-riser: #b5b5b5; --ld-hi-side: #9c9c9c; --ld-tk: #111111; --ld-tk-r: #3a3a3a; --ld-tk-s: #5c5c5c; }
+html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld-riser: #1b1b1b; --ld-side: #323232; --ld-hi-top: #6a6a6a; --ld-hi-riser: #4a4a4a; --ld-hi-side: #5a5a5a; --ld-tk: #f5f5f5; --ld-tk-r: #c4c4c4; --ld-tk-s: #a0a0a0; }
+.ld-screen path { stroke: var(--ld-line); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill .25s ease; }
+.ld-screen .ld-top { fill: var(--ld-top); }
+.ld-screen .ld-riser { fill: var(--ld-riser); }
+.ld-screen .ld-side { fill: var(--ld-side); }
+.ld-screen .hi .ld-top { fill: var(--ld-hi-top); }
+.ld-screen .hi .ld-riser { fill: var(--ld-hi-riser); }
+.ld-screen .hi .ld-side { fill: var(--ld-hi-side); }
+.ld-screen .tk .ld-top { fill: var(--ld-tk); stroke: var(--ld-tk); }
+.ld-screen .tk .ld-riser { fill: var(--ld-tk-r); stroke: var(--ld-tk); }
+.ld-screen .tk .ld-side { fill: var(--ld-tk-s); stroke: var(--ld-tk); }
+.ld-screen .ld-shadow { fill: none; stroke: var(--ld-line); stroke-dasharray: 2 3; opacity: .7; }
+.ld-label { font: 500 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--ld-line); }
+</style>
+</head>
+<body>
+<script>
+/* loading screen (see .ld-screen in the stylesheet) */
+(function () {
+  var MIN_SHOW = 700, DELAY = 800, MAX = 12000;   // DELAY: only show if the page is still loading after this many ms; MIN_SHOW: once shown, stay at least this long
+  var shown = false, done = false, t0 = 0, raf = 0, root, timer;
+  var KO = /^ko/i.test(document.documentElement.lang || '');
+  var N = 5, RUN = 15, RISE = 9, WIDE = 40, TOK = 7;
+  var C = Math.SQRT1_2, S = -Math.SQRT1_2, E = 0.5;
+  function P(x, y, z) { return [x * C - y * S, (x * S + y * C) * E - z]; }
+  var xs = [], ys = [];
+  [[0, 0], [N * RUN, 0], [0, WIDE], [N * RUN, WIDE]].forEach(function (c) {
+    [0, N * RISE + TOK + 8].forEach(function (z) { var p = P(c[0], c[1], z); xs.push(p[0]); ys.push(p[1]); });
+  });
+  var minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs), minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
+  var K = Math.min(200 / (maxX - minX), 156 / (maxY - minY)), OX = 100 - K * (minX + maxX) / 2, OY = 83 - K * (minY + maxY) / 2;
+  function pt(x, y, z) { var p = P(x, y, z); return (p[0] * K + OX).toFixed(1) + ' ' + (p[1] * K + OY).toFixed(1); }
+  function poly(a) { return 'M' + a.map(function (q) { return pt(q[0], q[1], q[2]); }).join('L') + 'Z'; }
+  function box(x0, y0, x1, y1, z0, z1) {
+    return [
+      poly([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]]),            // top
+      poly([[x0, y0, z0], [x0, y1, z0], [x0, y1, z1], [x0, y0, z1]]),            // riser (faces the viewer)
+      poly([[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]])             // side
+    ];
+  }
+  function setBox(g, d) { var p = g.children; p[0].setAttribute('d', d[0]); p[1].setAttribute('d', d[1]); p[2].setAttribute('d', d[2]); }
+  function mk(parent, cls) {
+    var NS = 'http://www.w3.org/2000/svg', g = document.createElementNS(NS, 'g'); if (cls) g.setAttribute('class', cls);
+    ['ld-top', 'ld-riser', 'ld-side'].forEach(function (c) { var p = document.createElementNS(NS, 'path'); p.setAttribute('class', c); g.appendChild(p); });
+    parent.appendChild(g); return g;
+  }
+  // walk: up the stairs, then back down, hopping one step at a time
+  var seq = [0, 1, 2, 3, 4, 3, 2, 1], HOP = 420, REST = 110;
+  function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function build() {
+    var NS = 'http://www.w3.org/2000/svg';
+    root = document.createElement('div'); root.className = 'ld-screen'; root.setAttribute('role', 'status'); root.setAttribute('aria-live', 'polite');
+    var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 200 166'); svg.setAttribute('aria-hidden', 'true');
+    var steps = [];
+    for (var i = N - 1; i >= 0; i--) { var g = mk(svg); setBox(g, box(i * RUN, 0, (i + 1) * RUN, WIDE, 0, (i + 1) * RISE)); steps[i] = g; }
+    var sh = document.createElementNS(NS, 'path'); sh.setAttribute('class', 'ld-shadow'); svg.appendChild(sh);
+    var tok = mk(svg, 'tk');
+    var lab = document.createElement('div'); lab.className = 'ld-label'; lab.textContent = KO ? '불러오는 중' : 'Loading';
+    root.appendChild(svg); root.appendChild(lab); document.body.appendChild(root);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function draw(x) {
+      var i = Math.max(0, Math.min(N - 1, Math.round(x))), fr = x - Math.floor(x), arc = Math.sin(Math.PI * fr) * RISE * .9;
+      var floor = (Math.max(0, Math.min(N - 1, x)) + 1) * RISE, cx = (x + .5) * RUN, cy = WIDE / 2;
+      setBox(tok, box(cx - TOK / 2, cy - TOK / 2, cx + TOK / 2, cy + TOK / 2, floor + arc, floor + arc + TOK));
+      sh.setAttribute('d', arc > 1 ? 'M' + pt(cx, cy, (i + 1) * RISE) + 'L' + pt(cx, cy, floor + arc) : '');
+      steps.forEach(function (g, k) { g.classList.toggle('hi', k <= i); });
+    }
+    if (reduce) { draw(2); return; }
+    var start = performance.now(), per = HOP + REST;
+    (function tick(now) {
+      var t = now - start, n = Math.floor(t / per) % seq.length, local = t % per;
+      var a = seq[n], b = seq[(n + 1) % seq.length], p = Math.min(1, local / HOP);
+      draw(a + (b - a) * ease(p));
+      raf = requestAnimationFrame(tick);
+    })(start);
+  }
+  function show() {
+    if (done || shown || !document.body) return;
+    shown = true; t0 = performance.now();
+    document.documentElement.classList.add('is-loading'); build();
+  }
+  function hide() {
+    if (!shown) return;
+    root.classList.add('is-out');
+    setTimeout(function () { cancelAnimationFrame(raf); if (root.parentNode) root.parentNode.removeChild(root); document.documentElement.classList.remove('is-loading'); }, 480);
+  }
+  function finish() {
+    if (done) return; done = true; clearTimeout(timer);
+    if (shown) setTimeout(hide, Math.max(0, MIN_SHOW - (performance.now() - t0)));
+  }
+  timer = setTimeout(show, DELAY);
+  if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish);
+  setTimeout(finish, MAX);
+})();
+</script>
+
+<nav>
+  <a class="nav-back" href="index.html#work"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2.5L4.5 7 9 11.5"/></svg>Simon Choi</a>
+  <span class="nav-tag">Angelring</span>
+  <div class="lang-switch">
+    <button class="ls-btn" data-lang="en" disabled title="영문 버전 준비 중" onclick="setLang('en', true)">EN</button>
+    <button class="ls-btn active" data-lang="ko" onclick="setLang('ko', true)">KO</button>
+  </div>
+</nav>
+<main>
+<div class="wrap">
+
+<div class="hero"><div class="hero-2col">
+  <div class="hero-card-col">
+    <div class="hero-eyebrow"><span data-i18n="hero.eyebrow1">앱 UI/UX · 브랜딩</span><span class="hero-eyebrow-sep"></span><span data-i18n="hero.eyebrow2">발달장애 아동 케어 서비스</span></div>
+    <h1 class="hero-title">Angelring</h1>
+    <p class="hero-tagline" data-i18n="hero.tagline">선생님 한 명이 아이 네 명을 돌보는 현장에서,<br>선생님·아이·보호자 모두가 안심할 수 있는 앱을 만들었습니다.</p>
+    <p class="hero-desc" data-i18n="hero.desc">기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며 IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.</p>
+    <div class="hero-meta">
+      <div class="hm"><div class="hm-k" data-i18n="meta.role">역할</div><div class="hm-v" data-i18n="meta.role.v">UI/UX · 브랜딩</div></div>
+      <div class="hm"><div class="hm-k" data-i18n="meta.company">회사</div><div class="hm-v">ZUSIN</div></div>
+      <div class="hm"><div class="hm-k" data-i18n="meta.client">클라이언트</div><div class="hm-v">FRIENDER</div></div>
+      <div class="hm"><div class="hm-k" data-i18n="meta.platform">플랫폼</div><div class="hm-v" data-i18n="meta.platform.v">모바일 앱</div></div>
+      <div class="hm"><div class="hm-k" data-i18n="meta.timeline">기간</div><div class="hm-v">2020.11 – 2021.08</div></div>
+    </div>
+  </div>
+  <div class="hero-visual"><div class="ph ph--phone" role="img" aria-label="메인 홈 화면 목업"><div><b>이미지 준비 중</b>메인 홈 화면 목업<br>히어로 이미지</div></div></div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">01</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s1.name">배경</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s1.headline">한 명의 선생님,<br>네 명의 아이</h2>
+  <p class="lead reveal d2" data-i18n="s1.lead">발달장애 아동을 돌보는 전문 시설에서는 선생님 한 명이 아이 네 명을 관리합니다.<br>일손은 늘 부족하고, 보호자는 아이와 떨어져 있는 시간 내내 걱정합니다.</p>
+  <p class="body reveal d2" data-i18n="s1.body">Angelring은 아이가 착용하는 웨어러블 기기와 앱을 연결해, 선생님과 아이, 보호자 세 사람이 같은 정보를 보고 같은 속도로 대응하도록 돕는 서비스입니다.</p>
+  <div class="block"><div class="cards">
+    <div class="card reveal"><div class="card-k" data-i18n="s1.c1.k">선생님</div><div class="card-t" data-i18n="s1.c1.t">한 명이 네 명을 관리</div><p class="card-b" data-i18n="s1.c1.b">일손이 부족한 환경에서 모든 아이를 동시에 살펴야 합니다.</p></div>
+    <div class="card reveal"><div class="card-k" data-i18n="s1.c2.k">아이</div><div class="card-t" data-i18n="s1.c2.t">낯선 환경에 적응</div><p class="card-b" data-i18n="s1.c2.b">적응하는 동안 곁에서 도와줄 사람과 안정적인 환경이 필요합니다.</p></div>
+    <div class="card reveal"><div class="card-k" data-i18n="s1.c3.k">보호자</div><div class="card-t" data-i18n="s1.c3.t">떨어져 있는 불안</div><p class="card-b" data-i18n="s1.c3.b">아이가 지금 어디에서 어떤 상태인지 알고 싶어 합니다.</p></div>
+  </div></div>
+  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="서비스 개요 — 웨어러블 기기와 앱의 연결 구조"><div><b>이미지 준비 중</b>서비스 개요 — 웨어러블 기기와 앱의 연결 구조</div></div></div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">02</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s2.name">프로세스</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s2.headline">기획서 없이 시작해,<br>출시까지</h2>
+  <p class="lead reveal d2" data-i18n="s2.lead">구체적인 기획서 없이 시작한 프로젝트였습니다. 클라이언트와 상담을 거듭하며 서비스 방향과 타깃, 기능을 함께 기획했고, 그 결과를 바탕으로 디자인을 진행했습니다.</p>
+  <p class="body reveal d2" data-i18n="s2.body">핵심 사용 흐름을 먼저 그린 뒤, 그 위에서 내비게이션 구조와 화면을 설계했습니다. 디자인 이후에도 개발 단계에 맞춰 QA에 참여했습니다.</p>
+  <div class="block">
+    <span class="period reveal">2020.11 – 2021.08</span>
+    <div class="steps">
+      <div class="step reveal"><div class="step-t" data-i18n="s2.st1.t">기획</div><p class="step-b" data-i18n="s2.st1.b">클라이언트와 상담하며 서비스 방향·타깃·기능을 공동 기획하고, IA와 유저 플로우를 설계했습니다.</p></div>
+      <div class="step reveal"><div class="step-t" data-i18n="s2.st2.t">디자인</div><p class="step-b" data-i18n="s2.st2.b">브랜딩, 디자인 시스템, 핵심 화면의 UI/UX를 만들었습니다.</p></div>
+      <div class="step reveal"><div class="step-t" data-i18n="s2.st3.t">개발</div><p class="step-b" data-i18n="s2.st3.b">개발 단계에 맞춰 화면 명세를 전달하고 구현 내용을 확인했습니다.</p></div>
+      <div class="step reveal"><div class="step-t" data-i18n="s2.st4.t">QA · 출시</div><p class="step-b" data-i18n="s2.st4.b">출시 전 QA에 참여하고, 앱 출시에 필요한 자료를 준비했습니다.</p></div>
+    </div>
+  </div>
+  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="IA · 유저 플로우 다이어그램"><div><b>이미지 준비 중</b>IA · 유저 플로우 다이어그램</div></div></div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">03</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s3.name">핵심 가치</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s3.headline">쉽고, 믿을 수 있고,<br>다정하게</h2>
+  <p class="lead reveal d2" data-i18n="s3.lead">사용자 니즈에서 세 가지 핵심 가치를 정하고, 각 가치를 서비스의 핵심 기능으로 이어 붙였습니다.</p>
+  <div class="block flow">
+    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r1.nk">사용자 니즈</small><strong data-i18n="s3.r1.n">선생님과 보호자가 쉽게 쓸 수 있는 서비스</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r1.vk">핵심 가치</small><strong data-i18n="s3.r1.v">Easy</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r1.fk">핵심 기능</small><strong data-i18n="s3.r1.f">그룹 관리</strong></div></div>
+    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r2.nk">사용자 니즈</small><strong data-i18n="s3.r2.n">아이의 상태와 위치를 믿고 확인할 수 있는 정보</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r2.vk">핵심 가치</small><strong data-i18n="s3.r2.v">Trustworthy</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r2.fk">핵심 기능</small><strong data-i18n="s3.r2.f">상태 알림</strong></div></div>
+    <div class="flow-row reveal"><div class="flow-cell"><small data-i18n="s3.r3.nk">사용자 니즈</small><strong data-i18n="s3.r3.n">일손이 부족한 선생님을 위한 부담 줄이기</strong></div><div class="flow-arrow">→</div><div class="flow-cell val"><small data-i18n="s3.r3.vk">핵심 가치</small><strong data-i18n="s3.r3.v">Friendly</strong></div><div class="flow-arrow">→</div><div class="flow-cell"><small data-i18n="s3.r3.fk">핵심 기능</small><strong data-i18n="s3.r3.f">일지 기록</strong></div></div>
+  </div>
+  <div class="callout reveal"><div class="callout-l" data-i18n="s3.co.l">설계 원칙</div><div class="callout-b" data-i18n="s3.co.b">세 가지 가치는 브랜딩과 UI의 모든 결정을 판단하는 기준이 되었습니다.</div></div>
+  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="니즈 → 핵심 가치 → 핵심 기능 다이어그램"><div><b>이미지 준비 중</b>니즈 → 핵심 가치 → 핵심 기능 다이어그램<br>(위 표를 이미지로 대체할 경우)</div></div></div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">04</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s4.name">브랜딩</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s4.headline">아이를 감싸는 링</h2>
+  <p class="lead reveal d2" data-i18n="s4.lead">아이를 보호한다는 서비스의 목표를 링(Ring) 형태로 옮겼습니다.<br>알파벳의 둥근 형태에 신뢰와 안심의 이미지를 담았습니다.</p>
+  <p class="body reveal d2" data-i18n="s4.body">컬러는 신뢰를 상징하는 파랑 계열로 정하고, 친절한 인상을 위해 UI 전반에 원형과 라운드 shape를 사용했습니다.</p>
+  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="Angelring 로고 · 로고 컨셉"><div><b>이미지 준비 중</b>Angelring 로고 · 로고 컨셉</div></div></div>
+  <div class="block"><div class="sub reveal" data-i18n="s4.sub.color">서비스 컬러</div>
+    <div class="swatches">
+      <div class="sw reveal"><div class="sw-c" style="background:#08A0FF"></div><div class="sw-i"><div class="sw-n" data-i18n="s4.sw.08A0FF">Primary</div><div class="sw-h">#08A0FF</div></div></div>
+      <div class="sw reveal"><div class="sw-c" style="background:#0047FF"></div><div class="sw-i"><div class="sw-n" data-i18n="s4.sw.0047FF">Dark</div><div class="sw-h">#0047FF</div></div></div>
+      <div class="sw reveal"><div class="sw-c" style="background:#E9F3FF;box-shadow:inset 0 -1px 0 var(--gray-200)"></div><div class="sw-i"><div class="sw-n" data-i18n="s4.sw.E9F3FF">Light</div><div class="sw-h">#E9F3FF</div></div></div>
+    </div>
+  </div>
+  <div class="block"><div class="sub reveal" data-i18n="s4.sub.type">타이포그래피</div>
+    <div class="type-row">
+      <div class="type-card reveal"><div class="type-sample" style="font-family:'Poppins',var(--font)">Aa 123</div><div class="type-name">Poppins · 영문, 숫자</div></div>
+      <div class="type-card reveal"><div class="type-sample">가나다 123</div><div class="type-name">Noto Sans KR · 한글</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">05</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s5.name">디자인 시스템</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s5.headline">브랜드를 컴포넌트로</h2>
+  <p class="lead reveal d2" data-i18n="s5.lead">브랜딩에서 정한 색, 폰트, 라운드 값, 그래픽 스타일을 컴포넌트에 그대로 적용해 화면마다 같은 인상을 주도록 했습니다.</p>
+  <div class="chips reveal">
+    <span class="chip" data-i18n="s5.ch1">알림</span><span class="chip" data-i18n="s5.ch2">버튼</span><span class="chip" data-i18n="s5.ch3">바</span><span class="chip" data-i18n="s5.ch4">카드</span><span class="chip" data-i18n="s5.ch5">리스트</span><span class="chip" data-i18n="s5.ch6">아이콘</span>
+  </div>
+  <div class="block reveal"><div class="ph ph--wide" role="img" aria-label="컴포넌트 시트"><div><b>이미지 준비 중</b>컴포넌트 시트</div></div></div>
+</div></div>
+
+<div class="section"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">06</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s6.name">핵심 화면</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s6.headline">확인하고, 대응하고,<br>함께 기록합니다</h2>
+  <p class="lead reveal d2" data-i18n="s6.lead">선생님과 보호자가 가장 자주 하는 일은 아이의 상태를 확인하고 필요하면 바로 움직이는 것입니다. 화면도 그 순서로 구성했습니다.</p>
+  <div class="block">
+    <div class="screen ">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.1.k">메인 홈</div><h3 class="screen-h" data-i18n="s6.1.h">아이의 상태를 한눈에 확인하고 바로 대응합니다</h3><p class="screen-b" data-i18n="s6.1.b">홈에서는 담당하는 모든 아이의 상태를 카드로 모아 보여주고, 주의가 필요한 아이를 곧바로 알아볼 수 있게 했습니다.</p></div>
+      <div class="reveal d1"><div class="ph ph--phone" role="img" aria-label="메인 홈 화면"><div><b>이미지 준비 중</b>메인 홈 화면</div></div></div></div>
+    <div class="screen flip">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.2.k">아이 상태 카드</div><h3 class="screen-h" data-i18n="s6.2.h">네 가지 상태를 직관적으로 구분합니다</h3><p class="screen-b" data-i18n="s6.2.b">기기 연결 상태에 따라 카드의 모습을 달리해, 글을 읽지 않아도 지금 어떤 상태인지 알 수 있게 했습니다.</p><div class="tags"><span class="tag " data-i18n="s6.tag.연결">연결</span><span class="tag warn" data-i18n="s6.tag.주의">주의</span><span class="tag off" data-i18n="s6.tag.끊김">끊김</span><span class="tag " data-i18n="s6.tag.하원 중">하원 중</span></div></div>
+      <div class="reveal d1"><div class="ph ph--wide" role="img" aria-label="아이 상태 카드 4종"><div><b>이미지 준비 중</b>아이 상태 카드 4종</div></div></div></div>
+    <div class="screen ">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.3.k">알림</div><h3 class="screen-h" data-i18n="s6.3.h">끊긴 이유까지 알려줍니다</h3><p class="screen-b" data-i18n="s6.3.b">연결이 끊겼을 때 보호자가 같은 알림에 불안해하지 않도록 상황을 네 가지로 나누어 전달합니다.</p><div class="tags"><span class="tag " data-i18n="s6.tag.하원 중">하원 중</span><span class="tag " data-i18n="s6.tag.잠시 자리 비움">잠시 자리 비움</span><span class="tag warn" data-i18n="s6.tag.기기 오류">기기 오류</span><span class="tag off" data-i18n="s6.tag.연결 끊김">연결 끊김</span></div></div>
+      <div class="reveal d1"><div class="ph ph--wide" role="img" aria-label="알림 4종"><div><b>이미지 준비 중</b>알림 4종</div></div></div></div>
+    <div class="screen flip">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.4.k">아이 · 그룹</div><h3 class="screen-h" data-i18n="s6.4.h">돌봄에 참여하는 사람과 시간을 한곳에서 봅니다</h3><p class="screen-b" data-i18n="s6.4.b">보호자와 담당 선생님을 확인하고, 아이를 관리하는 요일과 시간을 체크할 수 있습니다.</p></div>
+      <div class="reveal d1"><div class="ph ph--phone" role="img" aria-label="아이 페이지 · 그룹 페이지"><div><b>이미지 준비 중</b>아이 페이지 · 그룹 페이지</div></div></div></div>
+    <div class="screen ">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.5.k">지도</div><h3 class="screen-h" data-i18n="s6.5.h">언제 어디서든 아이의 위치를 확인합니다</h3><p class="screen-b" data-i18n="s6.5.b">보호자가 가장 알고 싶어 하는 정보인 위치를 지도에서 바로 확인할 수 있게 했습니다.</p></div>
+      <div class="reveal d1"><div class="ph ph--phone" role="img" aria-label="지도 화면"><div><b>이미지 준비 중</b>지도 화면</div></div></div></div>
+    <div class="screen flip">
+      <div class="screen-t reveal"><div class="screen-k" data-i18n="s6.6.k">일지</div><h3 class="screen-h" data-i18n="s6.6.h">선생님과 부모가 아이의 하루를 함께 기록합니다</h3><p class="screen-b" data-i18n="s6.6.b">하루의 모습을 선생님과 부모가 함께 남기고 공유해, 돌봄이 끊기지 않고 이어지도록 했습니다.</p></div>
+      <div class="reveal d1"><div class="ph ph--phone" role="img" aria-label="일지 화면"><div><b>이미지 준비 중</b>일지 화면</div></div></div></div>
+  </div>
+</div></div>
+
+<div class="section" style="border-bottom:0"><div class="inner">
+  <div class="sec-label reveal"><span class="sec-num">07</span><span class="sec-rule"></span><span class="sec-name" data-i18n="s7.name">회고</span></div>
+      <h2 class="sec-headline reveal d1" data-i18n="s7.headline">처음 출시해 본 앱</h2>
+  <p class="lead reveal d2" data-i18n="s7.lead">앱을 출시하는 과정은 이번이 처음이라 모든 단계가 새로웠고, 그만큼 많이 배운 프로젝트였습니다.</p>
+  <div class="block refl">
+    <div class="card reveal"><div class="card-k" data-i18n="s7.c1.k">배움</div><div class="card-t" data-i18n="s7.c1.t">처음 겪은 출시 과정</div><p class="card-b" data-i18n="s7.c1.b">기획부터 디자인, 개발, QA, 출시까지 이어지는 흐름을 처음부터 끝까지 경험하며 각 단계가 서로 어떻게 맞물리는지 배웠습니다.</p></div>
+    <div class="card reveal"><div class="card-k" data-i18n="s7.c2.k">준비물</div><div class="card-t" data-i18n="s7.c2.t">생각보다 많았던 준비</div><p class="card-b" data-i18n="s7.c2.b">앱 아이콘만 해도 한 장이 아니라 여러 사이즈로 준비해야 했습니다. 화면 밖에서 디자이너가 챙겨야 할 것이 많다는 것을 알게 되었습니다.</p></div>
+    <div class="card reveal"><div class="card-k" data-i18n="s7.c3.k">방식</div><div class="card-t" data-i18n="s7.c3.t">요구사항에서 출발한 프로젝트</div><p class="card-b" data-i18n="s7.c3.b">클라이언트의 요구사항에 기반해 진행된 프로젝트였습니다. 주어진 요구를 서비스의 흐름과 화면으로 풀어내는 데 집중했습니다.</p></div>
+    <div class="card reveal"><div class="card-k" data-i18n="s7.c4.k">관심사</div><div class="card-t" data-i18n="s7.c4.t">출시 이후를 생각하게 된 계기</div><p class="card-b" data-i18n="s7.c4.b">출시가 끝이 아니라, 운영과 데이터를 바탕으로 서비스를 개선해 가는 과정에 관심을 갖게 해준 첫 프로젝트입니다.</p></div>
+  </div>
+</div></div>
+
+<div class="page-footer">
+  <a class="pf-next" href="index.html#work">
+    <span class="pf-next-lbl" data-i18n="pf.lbl">다른 프로젝트 보기</span>
+    <div class="pf-next-row"><span class="pf-next-title" data-i18n="pf.title">Work로 돌아가기</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none" stroke-width="1.5"><path d="M5 2.5L9.5 7 5 11.5"/></svg></div>
+  </a>
+</div>
+</div>
+<script>
+/* EN copy comes later: fill i18n.en with the same keys as i18n.ko, then remove `disabled` from the EN button. */
+const i18n = {
+  ko: {
+  "hero.eyebrow1": "앱 UI/UX · 브랜딩",
+  "hero.eyebrow2": "발달장애 아동 케어 서비스",
+  "hero.tagline": "선생님 한 명이 아이 네 명을 돌보는 현장에서,<br>선생님·아이·보호자 모두가 안심할 수 있는 앱을 만들었습니다.",
+  "hero.desc": "기획서 없이 시작한 프로젝트에서 클라이언트와 공동 기획하며 IA와 유저 플로우를 설계하고, UI/UX와 브랜딩, QA까지 참여했습니다.",
+  "meta.role": "역할",
+  "meta.role.v": "UI/UX · 브랜딩",
+  "meta.company": "회사",
+  "meta.client": "클라이언트",
+  "meta.platform": "플랫폼",
+  "meta.platform.v": "모바일 앱",
+  "meta.timeline": "기간",
+  "s1.name": "배경",
+  "s1.headline": "한 명의 선생님,<br>네 명의 아이",
+  "s1.lead": "발달장애 아동을 돌보는 전문 시설에서는 선생님 한 명이 아이 네 명을 관리합니다.<br>일손은 늘 부족하고, 보호자는 아이와 떨어져 있는 시간 내내 걱정합니다.",
+  "s1.body": "Angelring은 아이가 착용하는 웨어러블 기기와 앱을 연결해, 선생님과 아이, 보호자 세 사람이 같은 정보를 보고 같은 속도로 대응하도록 돕는 서비스입니다.",
+  "s1.c1.k": "선생님",
+  "s1.c1.t": "한 명이 네 명을 관리",
+  "s1.c1.b": "일손이 부족한 환경에서 모든 아이를 동시에 살펴야 합니다.",
+  "s1.c2.k": "아이",
+  "s1.c2.t": "낯선 환경에 적응",
+  "s1.c2.b": "적응하는 동안 곁에서 도와줄 사람과 안정적인 환경이 필요합니다.",
+  "s1.c3.k": "보호자",
+  "s1.c3.t": "떨어져 있는 불안",
+  "s1.c3.b": "아이가 지금 어디에서 어떤 상태인지 알고 싶어 합니다.",
+  "s2.name": "프로세스",
+  "s2.headline": "기획서 없이 시작해,<br>출시까지",
+  "s2.lead": "구체적인 기획서 없이 시작한 프로젝트였습니다. 클라이언트와 상담을 거듭하며 서비스 방향과 타깃, 기능을 함께 기획했고, 그 결과를 바탕으로 디자인을 진행했습니다.",
+  "s2.body": "핵심 사용 흐름을 먼저 그린 뒤, 그 위에서 내비게이션 구조와 화면을 설계했습니다. 디자인 이후에도 개발 단계에 맞춰 QA에 참여했습니다.",
+  "s2.st1.t": "기획",
+  "s2.st1.b": "클라이언트와 상담하며 서비스 방향·타깃·기능을 공동 기획하고, IA와 유저 플로우를 설계했습니다.",
+  "s2.st2.t": "디자인",
+  "s2.st2.b": "브랜딩, 디자인 시스템, 핵심 화면의 UI/UX를 만들었습니다.",
+  "s2.st3.t": "개발",
+  "s2.st3.b": "개발 단계에 맞춰 화면 명세를 전달하고 구현 내용을 확인했습니다.",
+  "s2.st4.t": "QA · 출시",
+  "s2.st4.b": "출시 전 QA에 참여하고, 앱 출시에 필요한 자료를 준비했습니다.",
+  "s3.name": "핵심 가치",
+  "s3.headline": "쉽고, 믿을 수 있고,<br>다정하게",
+  "s3.lead": "사용자 니즈에서 세 가지 핵심 가치를 정하고, 각 가치를 서비스의 핵심 기능으로 이어 붙였습니다.",
+  "s3.r1.nk": "사용자 니즈",
+  "s3.r1.n": "선생님과 보호자가 쉽게 쓸 수 있는 서비스",
+  "s3.r1.vk": "핵심 가치",
+  "s3.r1.v": "Easy",
+  "s3.r1.fk": "핵심 기능",
+  "s3.r1.f": "그룹 관리",
+  "s3.r2.nk": "사용자 니즈",
+  "s3.r2.n": "아이의 상태와 위치를 믿고 확인할 수 있는 정보",
+  "s3.r2.vk": "핵심 가치",
+  "s3.r2.v": "Trustworthy",
+  "s3.r2.fk": "핵심 기능",
+  "s3.r2.f": "상태 알림",
+  "s3.r3.nk": "사용자 니즈",
+  "s3.r3.n": "일손이 부족한 선생님을 위한 부담 줄이기",
+  "s3.r3.vk": "핵심 가치",
+  "s3.r3.v": "Friendly",
+  "s3.r3.fk": "핵심 기능",
+  "s3.r3.f": "일지 기록",
+  "s3.co.l": "설계 원칙",
+  "s3.co.b": "세 가지 가치는 브랜딩과 UI의 모든 결정을 판단하는 기준이 되었습니다.",
+  "s4.name": "브랜딩",
+  "s4.headline": "아이를 감싸는 링",
+  "s4.lead": "아이를 보호한다는 서비스의 목표를 링(Ring) 형태로 옮겼습니다.<br>알파벳의 둥근 형태에 신뢰와 안심의 이미지를 담았습니다.",
+  "s4.body": "컬러는 신뢰를 상징하는 파랑 계열로 정하고, 친절한 인상을 위해 UI 전반에 원형과 라운드 shape를 사용했습니다.",
+  "s4.sub.color": "서비스 컬러",
+  "s4.sw.08A0FF": "Primary",
+  "s4.sw.0047FF": "Dark",
+  "s4.sw.E9F3FF": "Light",
+  "s4.sub.type": "타이포그래피",
+  "s5.name": "디자인 시스템",
+  "s5.headline": "브랜드를 컴포넌트로",
+  "s5.lead": "브랜딩에서 정한 색, 폰트, 라운드 값, 그래픽 스타일을 컴포넌트에 그대로 적용해 화면마다 같은 인상을 주도록 했습니다.",
+  "s5.ch1": "알림",
+  "s5.ch2": "버튼",
+  "s5.ch3": "바",
+  "s5.ch4": "카드",
+  "s5.ch5": "리스트",
+  "s5.ch6": "아이콘",
+  "s6.name": "핵심 화면",
+  "s6.headline": "확인하고, 대응하고,<br>함께 기록합니다",
+  "s6.lead": "선생님과 보호자가 가장 자주 하는 일은 아이의 상태를 확인하고 필요하면 바로 움직이는 것입니다. 화면도 그 순서로 구성했습니다.",
+  "s6.1.k": "메인 홈",
+  "s6.1.h": "아이의 상태를 한눈에 확인하고 바로 대응합니다",
+  "s6.1.b": "홈에서는 담당하는 모든 아이의 상태를 카드로 모아 보여주고, 주의가 필요한 아이를 곧바로 알아볼 수 있게 했습니다.",
+  "s6.tag.연결": "연결",
+  "s6.tag.주의": "주의",
+  "s6.tag.끊김": "끊김",
+  "s6.tag.하원 중": "하원 중",
+  "s6.2.k": "아이 상태 카드",
+  "s6.2.h": "네 가지 상태를 직관적으로 구분합니다",
+  "s6.2.b": "기기 연결 상태에 따라 카드의 모습을 달리해, 글을 읽지 않아도 지금 어떤 상태인지 알 수 있게 했습니다.",
+  "s6.tag.잠시 자리 비움": "잠시 자리 비움",
+  "s6.tag.기기 오류": "기기 오류",
+  "s6.tag.연결 끊김": "연결 끊김",
+  "s6.3.k": "알림",
+  "s6.3.h": "끊긴 이유까지 알려줍니다",
+  "s6.3.b": "연결이 끊겼을 때 보호자가 같은 알림에 불안해하지 않도록 상황을 네 가지로 나누어 전달합니다.",
+  "s6.4.k": "아이 · 그룹",
+  "s6.4.h": "돌봄에 참여하는 사람과 시간을 한곳에서 봅니다",
+  "s6.4.b": "보호자와 담당 선생님을 확인하고, 아이를 관리하는 요일과 시간을 체크할 수 있습니다.",
+  "s6.5.k": "지도",
+  "s6.5.h": "언제 어디서든 아이의 위치를 확인합니다",
+  "s6.5.b": "보호자가 가장 알고 싶어 하는 정보인 위치를 지도에서 바로 확인할 수 있게 했습니다.",
+  "s6.6.k": "일지",
+  "s6.6.h": "선생님과 부모가 아이의 하루를 함께 기록합니다",
+  "s6.6.b": "하루의 모습을 선생님과 부모가 함께 남기고 공유해, 돌봄이 끊기지 않고 이어지도록 했습니다.",
+  "s7.name": "회고",
+  "s7.headline": "처음 출시해 본 앱",
+  "s7.lead": "앱을 출시하는 과정은 이번이 처음이라 모든 단계가 새로웠고, 그만큼 많이 배운 프로젝트였습니다.",
+  "s7.c1.k": "배움",
+  "s7.c1.t": "처음 겪은 출시 과정",
+  "s7.c1.b": "기획부터 디자인, 개발, QA, 출시까지 이어지는 흐름을 처음부터 끝까지 경험하며 각 단계가 서로 어떻게 맞물리는지 배웠습니다.",
+  "s7.c2.k": "준비물",
+  "s7.c2.t": "생각보다 많았던 준비",
+  "s7.c2.b": "앱 아이콘만 해도 한 장이 아니라 여러 사이즈로 준비해야 했습니다. 화면 밖에서 디자이너가 챙겨야 할 것이 많다는 것을 알게 되었습니다.",
+  "s7.c3.k": "방식",
+  "s7.c3.t": "요구사항에서 출발한 프로젝트",
+  "s7.c3.b": "클라이언트의 요구사항에 기반해 진행된 프로젝트였습니다. 주어진 요구를 서비스의 흐름과 화면으로 풀어내는 데 집중했습니다.",
+  "s7.c4.k": "관심사",
+  "s7.c4.t": "출시 이후를 생각하게 된 계기",
+  "s7.c4.b": "출시가 끝이 아니라, 운영과 데이터를 바탕으로 서비스를 개선해 가는 과정에 관심을 갖게 해준 첫 프로젝트입니다.",
+  "pf.lbl": "다른 프로젝트 보기",
+  "pf.title": "Work로 돌아가기"
+},
+  en: {}
+};
+let currentLang = 'ko';
+function setLang(lang, userInitiated) {
+  if (!i18n[lang] || !Object.keys(i18n[lang]).length) lang = 'ko';
+  currentLang = lang;
+  try { localStorage.setItem('lang', lang); } catch (e) {}
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+  });
+  document.querySelectorAll('.ls-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.documentElement.lang = lang;
+  if (userInitiated) track('language_view', { 'site_language': lang });
+}
+setLang(currentLang, false);
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</main>
+<script>
+(function() {
+  var milestones = [25, 50, 75, 100];
+  var fired = new Set();
+  window.addEventListener('scroll', function() {
+    var scrollPercent = Math.round(
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+    );
+    milestones.forEach(function(milestone) {
+      if (scrollPercent >= milestone && !fired.has(milestone)) {
+        fired.add(milestone);
+        track('scroll_depth', { 'percent_scrolled': milestone });
+      }
+    });
+  });
+})();
+</script>
+
+<button class="theme-fab" id="themeBtn" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Light / dark mode">
+  <svg class="ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button>
+<script>
+/* ── Light / dark toggle ── */
+(function () {
+  const btn = document.getElementById('themeBtn');
+  if (!btn) return;
+  const root = document.documentElement;
+  function apply(dark, save) {
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    if (save) { try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {} }
+  }
+  apply(root.getAttribute('data-theme') === 'dark', false);
+  btn.addEventListener('click', () => {
+    root.classList.add('theme-anim');
+    apply(root.getAttribute('data-theme') !== 'dark', true);
+    setTimeout(() => root.classList.remove('theme-anim'), 450);
+  });
+})();
+</script>
+<script>
+/* ── Extended tracking (GA4 + Mixpanel via track()) ── */
+(function () {
+  var root = document.documentElement;
+  var isCase = !!document.querySelector('.nav-back');
+  function theme() { return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+  function lang() { try { return localStorage.getItem('lang') || 'ko'; } catch (e) { return 'en'; } }
+  function device() { var w = window.innerWidth; return w < 768 ? 'mobile' : (w < 1100 ? 'tablet' : 'desktop'); }
+  var sysDark = !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+
+  /* Attach to every later event: lets any report be split by mode / language / device */
+  function ctx() { return { theme: theme(), site_language: lang(), browser_language: String(navigator.language || '').toLowerCase(), device_type: device(), system_prefers_dark: sysDark }; }
+  function register() {
+    var c = ctx();
+    try { if (window.mixpanel && mixpanel.register) mixpanel.register(c); } catch (e) {}
+    try { if (typeof gtag === 'function') gtag('set', 'user_properties', c); } catch (e) {}
+  }
+  register();
+
+  /* Once per session: which mode did the visitor actually land in? (saved choice vs. default) */
+  try {
+    if (!sessionStorage.getItem('theme_initial_sent')) {
+      sessionStorage.setItem('theme_initial_sent', '1');
+      var saved = null; try { saved = localStorage.getItem('theme'); } catch (e) {}
+      track('theme_initial', { theme_source: saved ? 'saved' : 'system' });
+    }
+  } catch (e) {}
+
+  /* Follow live OS changes until the visitor picks a mode */
+  try {
+    var mq = matchMedia('(prefers-color-scheme: dark)');
+    var onSys = function (e) {
+      var s = null; try { s = localStorage.getItem('theme'); } catch (x) {}
+      if (s) return;
+      if (e.matches) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+      if (fab) { fab.setAttribute('aria-pressed', e.matches ? 'true' : 'false'); fab.setAttribute('aria-label', e.matches ? 'Switch to light mode' : 'Switch to dark mode'); }
+      register();
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+  } catch (e) {}
+
+  /* Light/dark FAB */
+  var fab = document.getElementById('themeBtn');
+  if (fab) fab.addEventListener('click', function () {
+    setTimeout(function () {
+      register();
+      var to = theme();
+      track('theme_change', { from_theme: to === 'dark' ? 'light' : 'dark', to_theme: to, control: 'fab' });
+    }, 0);
+  });
+
+  /* Section reached: fires once per section when its label passes 35% of the viewport */
+  function watch(items) {
+    if (!('IntersectionObserver' in window)) return;
+    var seen = {};
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var k = e.target.__secKey; if (seen[k]) return; seen[k] = 1; io.unobserve(e.target);
+        track('section_view', { section_id: k, section_name: e.target.__secName });
+      });
+    }, { rootMargin: '0px 0px -35% 0px', threshold: 0 });
+    items.forEach(function (it) { it.el.__secKey = it.key; it.el.__secName = it.name; io.observe(it.el); });
+  }
+  if (isCase) {
+    watch([].map.call(document.querySelectorAll('.sec-label'), function (el) {
+      var n = el.querySelector('.sec-num'), nm = el.querySelector('.sec-name') || el;
+      var num = n ? n.textContent.trim() : '';
+      return { el: el, key: num, name: (nm.textContent || '').replace(num, '').trim().toLowerCase() };
+    }));
+    var next = document.querySelector('.pf-next');
+    if (next) next.addEventListener('click', function () { track('next_case_click', { target: 'work', status: 'live' }); });
+    /* Case studies: also treat the end of the page as "finished reading" via scroll_depth (added below) */
+  } else {
+    watch([].map.call(document.querySelectorAll('section[id]'), function (el) { return { el: el, key: el.id, name: el.id }; }));
+    document.querySelectorAll('.proj-card').forEach(function (card, i) {
+      card.addEventListener('click', function () {
+        var href = card.getAttribute('href') || '';
+        var name = href ? href.replace(/\.html$/, '').replace(/-case-study.*$/, '') : 'angelring';
+        track('project_click', { project: name, position: i + 1, status: href ? 'live' : 'coming_soon' });
+      });
+    });
+    document.querySelectorAll('.contact-btn').forEach(function (b) {
+      b.addEventListener('click', function () { track('contact_click', { location: 'contact_section' }); });
+    });
+    var cat = document.getElementById('catTip') && document.querySelector('.cat-wrap');
+    if (cat) {
+      var catSent = false;
+      var fireCat = function (how) { if (catSent) return; catSent = true; track('cat_tooltip_view', { interaction: how }); };
+      cat.addEventListener('mouseenter', function () { fireCat('hover'); });
+      cat.addEventListener('click', function () { fireCat('tap'); });
+    }
+  }
+
+})();
+</script>
+<div class="upd-toast" id="updToast" role="status" aria-live="polite">
+  <span class="upd-msg"></span>
+  <button type="button" class="upd-go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+</div>
+<script>
+/* ── Notify visitors who are looking at an outdated copy of this page ── */
+(function () {
+  if (location.protocol !== 'https:' && location.protocol !== 'http:') return;
+  var T = {
+    en: { msg: 'This page has been updated.', go: 'Refresh' },
+    ko: { msg: '이 페이지는 업데이트되었습니다', go: '새로고침' }
+  };
+  var el = document.getElementById('updToast'); if (!el) return;
+  var url = location.href.split('#')[0];
+  var base = null, shown = false, dismissed = false, last = 0;
+  function lang() { try { return localStorage.getItem('lang') === 'ko' ? 'ko' : 'en'; } catch (e) { return 'en'; } }
+  function sig() {
+    return fetch(url, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      var s = r.headers.get('etag') || r.headers.get('last-modified');
+      if (s) return s;
+      return fetch(url, { cache: 'no-store' }).then(function (g) { return g.text(); }).then(function (t) {
+        var h = 0; for (var i = 0; i < t.length; i += 7) h = (h * 31 + t.charCodeAt(i)) | 0; return t.length + ':' + h;
+      });
+    });
+  }
+  function show() {
+    if (shown || dismissed) return; shown = true;
+    var L = T[lang()];
+    el.querySelector('.upd-msg').textContent = L.msg;
+    var go = el.querySelector('.upd-go'); go.setAttribute('tabindex', '-1'); go.setAttribute('aria-hidden', 'true');
+    el.setAttribute('role', 'button'); el.setAttribute('tabindex', '0'); el.setAttribute('aria-label', L.msg + ' ' + L.go);
+    el.classList.add('show');
+    try { track('update_notice_shown', {}); } catch (e) {}
+  }
+  function check() {
+    if (dismissed || shown || Date.now() - last < 30000) return; last = Date.now();
+    sig().then(function (s) {
+      if (base === null) base = s; else if (s && s !== base) show();
+    }).catch(function () {});
+  }
+  /* the whole toast is the refresh button, not just the icon */
+  function refresh() {
+    try { track('update_notice_click', { action: 'refresh' }); } catch (e) {}
+    location.reload();
+  }
+  el.addEventListener('click', refresh);
+  el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); refresh(); } });
+  check();
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') check(); });
+  setInterval(check, 5 * 60 * 1000);
+})();
+</script>
+<script>
+/* Back arrow: if the visitor came from the landing page, act like the browser's Back button (restores the exact scroll position);
+   otherwise fall back to the link (landing, Work section). */
+(function () {
+  var a = document.querySelector('.nav-back'); if (!a) return;
+  a.addEventListener('click', function (e) {
+    try {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      var r = document.referrer ? new URL(document.referrer) : null;
+      if (r && r.origin === location.origin && /(^|\/)(index\.html)?$/.test(r.pathname) && history.length > 1) {
+        track('case_back_click', { from_page: location.pathname, method: 'history_back' });
+        e.preventDefault(); history.back();
+        return;
+      }
+    } catch (x) {}
+    try { track('case_back_click', { from_page: location.pathname, method: 'link' }); } catch (x) {}
+  });
+})();
+</script>
+</body>
+</html>
