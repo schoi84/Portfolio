@@ -251,7 +251,7 @@ html[data-theme="dark"] .fc-tag{color:#0F1218;box-shadow:none}
 .vp.is-on{opacity:1;transform:none;pointer-events:auto}
 .ph--val{--ar:5/4;height:100%;aspect-ratio:auto}
 .vals-list{display:flex;flex-direction:column;gap:12px;max-width:440px}
-.vt{position:relative;display:flex;align-items:flex-start;gap:18px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:20px 22px;border-radius:16px;border:1px solid transparent;background:transparent;overflow:hidden;transition:background .3s,border-color .3s}
+.vt{position:relative;display:flex;align-items:flex-start;gap:18px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:20px 38px 20px 22px;border-radius:16px;border:1px solid transparent;background:transparent;overflow:hidden;transition:background .3s,border-color .3s}
 .vt:hover{background:var(--p-low)}
 .vt.is-on{background:var(--p-med);border-color:var(--p-high)}
 .vt-ic{flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border-radius:12px;color:var(--gray-400);background:var(--gray-50);transition:color .3s,background .3s}
@@ -263,13 +263,15 @@ html[data-theme="dark"] .fc-tag{color:#0F1218;box-shadow:none}
 .vt-f em{font-style:normal;margin-right:4px}
 .vt-f b{font-weight:600;color:var(--gray-500)}
 .vt.is-on .vt-f b{color:var(--blue-text)}
-.vt-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--blue);opacity:0;transform:scaleX(0);transform-origin:left center}
-.vt.is-on .vt-bar{opacity:.9}
+.vt::after{content:"";position:absolute;right:14px;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--p-high);opacity:0;transition:opacity .3s}
+.vt.is-on::after{opacity:1}
+.vt-bar{position:absolute;right:14px;top:14px;bottom:14px;width:3px;border-radius:3px;background:var(--blue);opacity:0;transform:scaleY(0);transform-origin:top center;z-index:1}
+.vt.is-on .vt-bar{opacity:1}
 @media (max-width:1024px){
   .vals-wrap{height:260svh;margin-top:48px}
   .vals{top:64px;grid-template-columns:1fr;gap:16px;padding:8px 0 12px;background:var(--bg)}
   .vals-list{order:-1;max-width:none;gap:6px}
-  .vt{padding:12px 16px;gap:14px;align-items:center}
+  .vt{padding:12px 30px 12px 16px;gap:14px;align-items:center}
   .vt-ic{width:40px;height:40px}
   .vt-n,.vt-f{display:none}
   .vt.is-on .vt-n,.vt.is-on .vt-f{display:block}
@@ -837,7 +839,7 @@ document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
     var p = Math.min(1, Math.max(0, (window.scrollY - top()) / range()));
     var x = p * n, i = Math.min(n - 1, Math.floor(x)), local = p >= 1 ? 1 : x - i;
     setActive(i);
-    tabs.forEach(function (t, k) { t.querySelector('.vt-bar').style.transform = 'scaleX(' + (k === i ? local.toFixed(3) : 0) + ')'; });
+    tabs.forEach(function (t, k) { t.querySelector('.vt-bar').style.transform = 'scaleY(' + (k === i ? local.toFixed(3) : 0) + ')'; });
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, { passive: true });
