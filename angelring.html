@@ -156,11 +156,12 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .hero-title{font-size:clamp(52px,8vw,96px);font-weight:700;line-height:1.1;letter-spacing:-.05em;padding-bottom:.15em;margin-bottom:16px;background:var(--grad);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad-flow 6s ease infinite}
 .hero-tagline{font-size:20px;font-weight:500;line-height:1.5;max-width:540px;margin-bottom:16px}
 .hero-desc{font-size:16px;color:var(--gray-500);line-height:1.6;max-width:476px;margin-bottom:48px}
-.hero-meta{display:flex;gap:28px 48px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:24px 36px;flex-wrap:wrap}
 .hm{display:flex;flex-direction:column;gap:8px}
 .hm-k{font-size:12px;color:var(--gray-500)}
 .hm-v{font-size:14px;font-weight:600;letter-spacing:-.01em}
-.hero-visual{flex:0 0 340px}
+.hero-visual{flex:0 0 440px;width:440px}
+.ph--logo{--ar:1/1}
 .mob-br{display:none}
 
 /* IMAGE PLACEHOLDER (swap for <img> later) */
@@ -271,7 +272,7 @@ html[data-theme="dark"] .tag.warn{color:#FFC266}
   .hero-desc{margin-bottom:40px}
   .mob-br{display:block;height:0}
   .hero-meta{gap:24px 40px}
-  .hero-visual{flex:none;width:100%;max-width:300px}
+  .hero-visual{flex:none;width:100%;max-width:360px}
   .section{padding:88px 0}
   .cards,.swatches{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;gap:26px}
@@ -455,7 +456,8 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
       <div class="hm"><div class="hm-k" data-i18n="meta.timeline">기간</div><div class="hm-v">2020.11 – 2021.08</div></div>
     </div>
   </div>
-  <div class="hero-visual"><div class="ph ph--phone" role="img" aria-label="메인 홈 화면 목업"><div><b>이미지 준비 중</b>메인 홈 화면 목업<br>히어로 이미지</div></div></div>
+  <!-- HERO LOGO REVEAL: replace .ph inside #heroLogo with the glass-reveal canvas / logo. Keep the 1:1 box: PC 440x440, mobile max 360x360 -->
+  <div class="hero-visual" id="heroLogo"><div class="ph ph--logo" role="img" aria-label="Angelring 로고"><div><b>로고 리빌 영역</b>1:1 정사각<br>PC 440 × 440px · 모바일 최대 360 × 360px<br>로고 SVG 권장 (단색 형태 · 투명 배경)</div></div></div>
 </div></div>
 
 <div class="section"><div class="inner">
