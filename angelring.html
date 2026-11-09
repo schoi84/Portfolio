@@ -210,9 +210,9 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .steps .step{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .8s cubic-bezier(.34,1.45,.64,1);transition-delay:calc(var(--i)*.2s)}
 .steps .step::before{transform:scale(0);transition:transform .6s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i)*.2s + .1s)}
 .steps .step::after{transform:scaleX(0);transform-origin:left center;transition:transform .5s var(--ease);transition-delay:calc(var(--i)*.2s + .3s)}
-.steps.visible .step{opacity:1;transform:none}
-.steps.visible .step::before{transform:scale(1)}
-.steps.visible .step::after{transform:scaleX(1)}
+.steps .step.in{opacity:1;transform:none}
+.steps .step.in::before{transform:scale(1)}
+.steps .step.in::after{transform:scaleX(1)}
 
 /* needs -> value -> feature rows */
 .flow{display:grid;gap:14px}
@@ -280,7 +280,9 @@ html[data-theme="dark"] .tag.warn{color:#FFC266}
   .step::before{position:absolute;left:0;top:5px;margin:0}
   .step::after{top:18px;left:5px;right:auto;bottom:-26px;width:2px;height:auto}
   .steps .step::after{transform:scaleY(0);transform-origin:top center}
-  .steps.visible .step::after{transform:scaleY(1)}
+  .steps .step,.steps .step::before{transition-delay:0s}
+  .steps .step::after{transition-delay:.3s}
+  .steps .step.in::after{transform:scaleY(1)}
   .flow-row{grid-template-columns:1fr;gap:6px}
   .flow-arrow{transform:rotate(90deg);height:20px;line-height:20px}
   .type-row,.refl{grid-template-columns:1fr}
@@ -714,7 +716,10 @@ function setLang(lang, userInitiated) {
 }
 setLang(currentLang, false);
 const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
-document.querySelectorAll('.reveal, .steps').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// timeline: each step starts when it is actually on screen (desktop: all four at once, staggered by CSS; mobile: one by one while scrolling)
+const stepObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); stepObs.unobserve(e.target); } }), { threshold: 0.4, rootMargin: '0px 0px -12% 0px' });
+document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
 </script>
 </main>
 <script>
