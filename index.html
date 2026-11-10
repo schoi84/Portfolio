@@ -430,40 +430,7 @@ nav {
   transform: translateY(-4px);
   border-color: var(--gray-300);
 }
-.proj-card--disabled {
-  cursor: default;
-}
 /* Dim the content (not the whole card) so the in-progress badge stays fully visible on hover */
-.proj-card--disabled .cover-inner,
-.proj-card--disabled .proj-info { opacity: 0.4; }
-.proj-card--disabled:hover {
-  box-shadow: none;
-  transform: none;
-  border-color: var(--gray-200);
-}
-.proj-disabled-badge {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) translateY(6px);
-  background: rgba(26,23,20,0.82);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 7px 16px;
-  border-radius: 50px;
-  opacity: 0;
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-  white-space: nowrap;
-  pointer-events: none;
-}
-.proj-card--disabled:hover .proj-disabled-badge {
-  opacity: 1;
-  transform: translate(-50%, -50%) translateY(0);
-}
-.proj-card--disabled:hover .proj-cover-overlay {
-  background: rgba(26,23,20,0.2);
-}
 
 /* Cover image area */
 .proj-cover {
@@ -572,15 +539,6 @@ nav {
 }
 
 /* Angelring — teal/slate */
-.cover-angel {
-  background: linear-gradient(145deg, #EEF6F5 0%, #D8EDEA 60%, #C2E0DC 100%);
-  position: relative;
-}
-.cover-angel::before {
-  content: ''; position: absolute; bottom: -15%; left: -10%;
-  width: 50%; padding-bottom: 50%; border-radius: 50%;
-  background: radial-gradient(circle, rgba(27,95,170,0.12) 0%, transparent 65%);
-}
 
 /* KT — slate/indigo */
 .cover-kt {
@@ -595,56 +553,17 @@ nav {
 }
 
 /* ── Mini browser ── */
-.mini-browser {
-  background: var(--white);
-  border: 1px solid rgba(0,0,0,0.09);
-  border-radius: 9px; overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
-  position: relative; z-index: 1;
-  width: min(220px, 76%);
-}
 
-.mini-chrome {
-  background: #F9F8F7; border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding: 6px 9px; display: flex; align-items: center; gap: 6px;
-}
-.mini-dots { display: flex; gap: 4px; }
-.mini-dot { width: 6px; height: 6px; border-radius: 50%; }
-.mini-dot.r{background:#FF5F57} .mini-dot.y{background:#FEBC2E} .mini-dot.g{background:#28C840}
-.mini-url {
-  flex: 1; background: rgba(0,0,0,0.06); border-radius: 4px;
-  padding: 3px 8px; font-size: 8px; color: var(--gray-400);
-}
 
 /* Pcanpi editor */
-.mini-editor { display: flex; height: 110px; }
-.mini-ed-in  { flex: 4; padding: 8px; border-right: 1px solid var(--p-high); display: flex; flex-direction: column; gap: 4px; }
-.mini-ed-out { flex: 6; background: var(--p-low); padding: 8px; display: flex; flex-direction: column; gap: 4px; }
 
 .ml{height:4px;border-radius:2px;background:rgba(0,0,0,.1)}
 .ml.hl{background:rgba(225,96,24,.32)}
 .ml.w100{width:100%}.ml.w82{width:82%}.ml.w65{width:65%}.ml.w50{width:50%}
-.mini-lbl{font-size:6px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.mini-lbl.org{color:var(--orange)}.mini-lbl.gray{color:var(--gray-400)}
-.mini-corr{background:var(--white);border:1px solid var(--p-high);border-radius:4px;padding:4px 5px}
-.mini-badge{display:inline-block;padding:1px 4px;border-radius:2px;font-size:5px;font-weight:700;text-transform:uppercase;margin-bottom:2px}
-.mini-badge.g{background:var(--orange);color:#fff}.mini-badge.s{background:#F0A500;color:#fff}
-.mini-change{display:flex;gap:3px;align-items:center;font-size:5.5px}
-.mini-b4{color:var(--gray-400);text-decoration:line-through;text-decoration-color:var(--orange);background:rgba(0,0,0,.06);padding:1px 3px;border-radius:2px}
-.mini-arr{color:var(--gray-300)}
-.mini-aftr{color:var(--black);font-weight:700;background:rgba(225,96,24,.12);padding:1px 3px;border-radius:2px}
-.mini-btn{background:var(--orange);color:#fff;border-radius:3px;text-align:center;font-size:5.5px;font-weight:700;padding:3px;margin-top:auto}
 
 /* Angelring form */
-.mini-form{padding:9px 10px;display:flex;flex-direction:column;gap:5px;height:110px}
-.mini-form-ttl{font-size:7px;font-weight:700;color:var(--black)}
-.mini-field{height:12px;border:1px solid rgba(0,0,0,.12);border-radius:3px;background:#fff}
-.mini-field.focus{border-color:#3B82F6;background:#EFF6FF}
-.mini-r2{display:flex;gap:4px}.mini-r2 .mini-field{flex:1}
-.mini-submit{background:#1B5FAA;color:#fff;border-radius:3px;text-align:center;font-size:5.5px;font-weight:700;padding:3px;margin-top:auto}
 
 /* KT brand preview */
-.mini-kt{padding:9px;display:flex;flex-direction:column;gap:7px;height:110px}
 .kt-logo-row{display:flex;align-items:center;gap:5px}
 .kt-logo-mark{width:20px;height:20px;border-radius:4px;background:linear-gradient(135deg,#6366F1,#3B82F6)}
 .kt-logo-text{display:flex;flex-direction:column;gap:2px}
@@ -948,7 +867,6 @@ html[data-theme="dark"] .quote-card {
 html[data-theme="dark"] .proj-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3); }
 html[data-theme="dark"] .chip { border-color: var(--gray-300); }
 html[data-theme="dark"] .cover-pcanpi { background: linear-gradient(145deg, #2A1F18 0%, #33241B 60%, #3D2A1E 100%); }
-html[data-theme="dark"] .cover-angel  { background: linear-gradient(145deg, #17262A 0%, #1B2E32 60%, #203A3F 100%); }
 html[data-theme="dark"] .cover-kt     { background: linear-gradient(145deg, #1B1D2E 0%, #202440 60%, #272C4E 100%); }
 /* language switch: stronger contrast in dark */
 html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,0.32);border-color:var(--gray-300)}
@@ -1219,25 +1137,12 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
     </a>
 
     <!-- ── 03 ANGELRING ── -->
-    <div class="proj-card proj-card--disabled reveal d2" data-glow-color="rgba(8,160,255,0.12)">
+    <a href="angelring.html" class="proj-card reveal d2" data-glow-color="rgba(8,160,255,0.12)">
       <div class="proj-cover">
-        <div class="cover-inner cover-angel">
-          <div class="mini-browser">
-            <div class="mini-chrome" style="background:#F5FAFA;border-bottom-color:#C4DEDB;">
-              <div class="mini-dots"><div class="mini-dot r"></div><div class="mini-dot y"></div><div class="mini-dot g"></div></div>
-              <div class="mini-url" style="background:#DDF0EE;color:#5A9A95;">angelring.co/register</div>
-            </div>
-            <div class="mini-form">
-              <div class="mini-form-ttl">Create your account</div>
-              <div class="mini-field"></div>
-              <div class="mini-field focus"></div>
-              <div class="mini-r2"><div class="mini-field"></div><div class="mini-field"></div></div>
-              <div class="mini-submit">Get started →</div>
-            </div>
-          </div>
+        <div class="cover-inner">
+          <img src="engram.resource/cover-angelring.webp" loading="eager" decoding="async" alt="Angelring App Design cover" width="1560" height="1176" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="proj-cover-overlay"></div>
-        <div class="proj-disabled-badge" data-i18n="proj.wip">Coming soon</div>
       </div>
       <div class="proj-info">
         <div class="proj-num">2020 – 2021</div>
@@ -1248,7 +1153,7 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
           <span class="chip" data-i18n="proj3.chip2">0→1 Product</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div><!-- /work-grid -->
 </section>
@@ -1905,7 +1810,7 @@ setLang(stored, false);
     var back = document.querySelector('.nav-back');
     if (back) back.addEventListener('click', function () { track('case_back_click', { from_page: location.pathname }); });
     var next = document.querySelector('.pf-next');
-    if (next) next.addEventListener('click', function () { track('next_case_click', { target: 'angelring', status: 'coming_soon' }); });
+    if (next) next.addEventListener('click', function () { track('next_case_click', { target: 'angelring', status: 'live' }); });
     /* Case studies: also treat the end of the page as "finished reading" via scroll_depth (added below) */
   } else {
     watch([].map.call(document.querySelectorAll('section[id]'), function (el) { return { el: el, key: el.id, name: el.id }; }));
