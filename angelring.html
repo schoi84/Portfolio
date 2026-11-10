@@ -258,8 +258,11 @@ html[data-theme="dark"] .card,html[data-theme="dark"] .fcard,html[data-theme="da
 html[data-theme="dark"] .fcard{box-shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.28)}
 html[data-theme="dark"] .dsb{background:var(--s1);border:1px solid var(--sb)}
 html[data-theme="dark"] .dsb-fade{background:linear-gradient(to bottom,transparent,var(--s1) 78%)}
+/* status timeline rail (dots, labels, line, arrow) sits on the page, so it follows the dark theme; only the cards stay light */
+html[data-theme="dark"] .stl-r::after{background:var(--gray-300)}
+html[data-theme="dark"] .stl-r:last-child::before{border-top-color:var(--gray-300)}
 /* the app has no dark theme: app screens and the components shown inside boards keep the light tokens */
-html[data-theme="dark"] :is(.dsb>*,.hs,.stl,.mp,.jr){color-scheme:light;color:#2B3038;--bg:#FBFBFB;--white:#FEFEFE;--gray-50:#F1F3F6;--gray-100:#E7EAEF;--gray-200:#D7DCE4;--gray-300:#B9C0CB;--gray-400:#8F98A6;--gray-500:#5F6773;--gray-700:#343A44;--black:#2B3038;--blue-text:#0A5FD6;--p-low:#F3F8FF;--p-med:#E9F3FF;--p-high:#D9EAFF}
+html[data-theme="dark"] :is(.dsb>*,.hs,.stl-c,.mp,.jr){color-scheme:light;color:#2B3038;--bg:#FBFBFB;--white:#FEFEFE;--gray-50:#F1F3F6;--gray-100:#E7EAEF;--gray-200:#D7DCE4;--gray-300:#B9C0CB;--gray-400:#8F98A6;--gray-500:#5F6773;--gray-700:#343A44;--black:#2B3038;--blue-text:#0A5FD6;--p-low:#F3F8FF;--p-med:#E9F3FF;--p-high:#D9EAFF}
 html[data-theme="dark"] .callout{background:#1B2740;border-color:#2C3F63}
 html[data-theme="dark"] .fc-body{background:rgba(40,48,63,.72)}
 html[data-theme="dark"] .logospec{background:var(--s1);border:1px solid var(--sb)}
@@ -560,10 +563,10 @@ html[data-theme="dark"] .hs{background:#3A404C}
 .chip{font-size:14px;font-weight:500;padding:9px 18px;border-radius:100px;border:1px solid var(--gray-200);background:var(--white)}
 
 /* screens */
-.screen{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--gray-200)}
+.screen{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;padding:56px 0;border-top:1px solid var(--gray-200)}
 .screen:first-of-type{border-top:0;padding-top:0}
 .screen.flip .screen-t{order:2}
-.screen.wide{grid-template-columns:1fr;gap:36px}.screen.wide .screen-t{order:0}.screen.wide .screen-b{max-width:60ch}
+.screen.wide{grid-template-columns:1fr;gap:52px}.screen.wide .screen-t{order:0}.screen.wide .screen-b{max-width:60ch}
 .screen-k{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--blue-text);margin-bottom:10px}
 .screen-h{font-size:26px;font-weight:700;letter-spacing:-.035em;line-height:1.35;margin-bottom:14px}
 .screen-b{font-size:15px;line-height:1.8;color:var(--gray-500);max-width:46ch}
@@ -612,7 +615,7 @@ html[data-theme="dark"] .tag{border-color:var(--gray-300)}
   .flow-row{grid-template-columns:1fr;gap:6px}
   .flow-arrow{transform:rotate(90deg);height:20px;line-height:20px}
   .type-row,.refl{grid-template-columns:1fr}
-  .screen{grid-template-columns:1fr;gap:28px;padding:44px 0}
+  .screen{grid-template-columns:1fr;gap:44px;padding:44px 0}
   .screen.flip .screen-t{order:0}
   .page-footer{padding:40px 0 56px}
 }
