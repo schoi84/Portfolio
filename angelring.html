@@ -178,6 +178,10 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .sec-label{display:flex;align-items:center;gap:0;margin-bottom:22px}
 .sec-num{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--white);border:1.5px solid var(--p-high);position:relative;z-index:1;font-size:14px;font-weight:700;color:var(--blue-text);letter-spacing:0;font-variant-numeric:tabular-nums}
 .sec-rule{display:none}
+.sec-label .sec-num{background:var(--p-high);transition:background-color .75s var(--ease) .2s}
+.sec-label.visible .sec-num{background:var(--white)}
+.sec-label .sec-name{transform:translateX(-28px);clip-path:inset(0 100% 0 0 round 999px);transition:transform .75s var(--ease) .2s,clip-path .75s var(--ease) .2s}
+.sec-label.visible .sec-name{transform:none;clip-path:inset(0 0 0 0 round 999px)}
 .sec-name{display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--p-high);font-size:14px;font-weight:600;color:var(--blue-text);letter-spacing:.04em;white-space:nowrap}
 @media (max-width:480px){.sec-num{width:38px;height:38px;font-size:13px}.sec-name{height:38px;padding:0 18px;font-size:13px}}
 .sec-headline{font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1.25;letter-spacing:-.04em;margin-bottom:28px}
@@ -802,6 +806,23 @@ function setLang(lang, userInitiated) {
 setLang(currentLang, false);
 const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// hero logo reveal: replays every time the hero comes back into view (hook for the glass-reveal canvas: listen to 'logoreveal:play' / 'logoreveal:reset', or style #heroLogo.is-playing)
+(function () {
+  var box = document.getElementById('heroLogo');
+  if (!box || !('IntersectionObserver' in window)) return;
+  var playing = false;
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting && e.intersectionRatio >= 0.35 && !playing) {
+        playing = true; box.classList.add('is-playing');
+        box.dispatchEvent(new CustomEvent('logoreveal:play', { bubbles: true }));
+      } else if (!e.isIntersecting && playing) {
+        playing = false; box.classList.remove('is-playing');
+        box.dispatchEvent(new CustomEvent('logoreveal:reset', { bubbles: true }));
+      }
+    });
+  }, { threshold: [0, 0.35] }).observe(box);
+})();
 // timeline: each step starts when it is actually on screen (desktop: all four at once, staggered by CSS; mobile: one by one while scrolling)
 const stepObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); stepObs.unobserve(e.target); } }), { threshold: 0.4, rootMargin: '0px 0px -12% 0px' });
 document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
