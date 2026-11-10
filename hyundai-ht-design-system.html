@@ -145,15 +145,15 @@ a, button, [role="button"], .nav-center a { -webkit-tap-highlight-color: transpa
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 64px;
   display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
-  background: rgba(254,254,254,0.6); backdrop-filter: blur(8px) saturate(140%);
+  background: rgba(251,251,251,0.6); backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-.nav-back { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--black); text-decoration: none; transition: opacity 0.2s; }
-.nav-back:hover { opacity: 0.5; }
+.nav-back { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--black); text-decoration: none; transition: opacity 0.2s; }
+.nav-back:hover { opacity: 0.7; }
 .nav-back svg { width: 14px; height: 14px; transition: transform 0.2s var(--ease); }
 .nav-back:hover svg { transform: translateX(-3px); }
-.nav-tag { font-size: 12px; color: var(--gray-400); letter-spacing: 0.04em; }
+.nav-tag { font-size: 14px; color: var(--gray-400); letter-spacing: 0.04em; }
 .lang-switch { display: flex; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 2px; gap: 2px; }
 .ls-btn { background: none; border: none; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-radius: 5px; letter-spacing: 0.04em; transition: all 0.15s; }
 .ls-btn.active { background: var(--white); color: var(--black); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
