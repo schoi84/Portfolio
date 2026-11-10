@@ -2022,7 +2022,7 @@ if (hero && box && !window.matchMedia('(prefers-reduced-motion: reduce)').matche
     const pad = -(parseFloat(getComputedStyle(hero, '::before').left) || 0);   // the gradient layer is full-bleed: it reaches past the hero by the page padding
     return { hero: [cr.left - (hr.left - pad), cr.top - hr.top, hr.width + 2 * pad, hr.height], dpr: dpr, ch: cr.height, grad: hexToRgb(cssVar('--p-high') || '#D9EAFF') };
   }
-  const live = { current: { settings: settings(), loop: false, speed: 1, time: undefined, getExtras: getExtras } };
+  const live = { current: { settings: settings(), loop: false, speed: 1.25, time: undefined, getExtras: getExtras } };
   let engine = null;
   try { engine = startEngine(wrap, live); } catch (e) { engine = null; }
   if (!engine) { wrap.remove(); }
