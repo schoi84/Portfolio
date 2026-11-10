@@ -148,7 +148,8 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
 /* HERO */
-.hero{padding-top:88px;border-bottom:1px solid var(--gray-200);background:var(--bg);overflow:hidden}
+.hero{position:relative;isolation:isolate;padding-top:88px;border-bottom:1px solid var(--gray-200)}
+.hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-2.5rem;right:-2.5rem;background:radial-gradient(125% 125% at 50% -50%,var(--p-high) 40%,transparent 100%);pointer-events:none}
 .hero-2col{display:flex;align-items:center;gap:56px;max-width:1024px;margin:0 auto;padding:60px 0 120px}
 .hero-card-col{flex:1 1 0;min-width:0}
 .hero-eyebrow{font-size:14px;font-weight:500;color:var(--gray-700);letter-spacing:.07em;display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
@@ -161,7 +162,8 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .hm-k{font-size:12px;color:var(--gray-500)}
 .hm-v{font-size:14px;font-weight:600;letter-spacing:-.01em}
 .hero-visual{flex:0 0 440px;width:440px}
-.ph--logo{--ar:1/1}
+.hero-logo-box{aspect-ratio:1/1;display:grid;place-items:center}
+.hero-logo-box img{width:124px;max-width:100%;height:auto;display:block;-webkit-user-drag:none;user-select:none}
 .mob-br{display:none}
 
 /* IMAGE PLACEHOLDER (swap for <img> later) */
@@ -175,16 +177,15 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 
 /* SECTIONS */
 .section{padding:140px 0;border-bottom:1px solid var(--gray-200)}
-.sec-label{display:flex;align-items:center;gap:0;margin-bottom:22px}
+.sec-label{display:flex;align-items:center;gap:0;margin-bottom:22px;--d:44px}
 .sec-num{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--white);border:1.5px solid var(--p-high);position:relative;z-index:1;font-size:14px;font-weight:700;color:var(--blue-text);letter-spacing:0;font-variant-numeric:tabular-nums}
 .sec-rule{display:none}
 .sec-label .sec-num{background:var(--p-high);transition:background-color .9s var(--ease) .25s}
 .sec-label.visible .sec-num{background:var(--white)}
-.sec-label{--d:44px}
+.sec-label .sec-name{display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--p-high);font-size:14px;font-weight:600;color:var(--blue-text);letter-spacing:.04em;white-space:nowrap}
 .sec-label .sec-name{transform:translateX(calc(var(--d) * -1));clip-path:inset(0 calc(100% - var(--d)) 0 0 round 999px);color:transparent;transition:transform .9s var(--ease) .25s,clip-path .9s var(--ease) .25s,color .5s ease .55s}
 .sec-label.visible .sec-name{transform:none;clip-path:inset(0 0 0 0 round 999px);color:var(--blue-text)}
-.sec-name{display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--p-high);font-size:14px;font-weight:600;color:var(--blue-text);letter-spacing:.04em;white-space:nowrap}
-@media (max-width:480px){.sec-label{--d:38px}.sec-num{width:38px;height:38px;font-size:13px}.sec-name{height:38px;padding:0 18px;font-size:13px}}
+@media (max-width:480px){.sec-label{--d:38px}.sec-num{width:38px;height:38px;font-size:13px}.sec-label .sec-name{height:38px;padding:0 18px;font-size:13px}}
 .sec-headline{font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1.25;letter-spacing:-.04em;margin-bottom:28px}
 .lead{font-size:19px;font-weight:500;line-height:1.7;max-width:62ch;margin-bottom:18px;text-wrap:pretty}
 .body{font-size:16px;line-height:1.85;color:var(--gray-500);max-width:62ch;margin-bottom:14px;text-wrap:pretty}
@@ -348,6 +349,7 @@ html[data-theme="dark"] .tag{border-color:var(--gray-300)}
   nav{padding:0 1.2rem;height:56px}
   .wrap{padding:0 1.2rem}
   .hero{padding-top:72px}
+  .hero::before{left:-1.2rem;right:-1.2rem}
   .hero-2col{flex-direction:column;gap:40px;padding:28px 1.5rem 72px;text-align:center}
   .hero-eyebrow,.hero-meta{justify-content:center}
   .hero-tagline,.hero-desc{max-width:100%;margin-left:auto;margin-right:auto}
@@ -432,6 +434,42 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
 .ld-screen .tk .ld-side { fill: var(--ld-tk-s); stroke: var(--ld-tk); }
 .ld-screen .ld-shadow { fill: none; stroke: var(--ld-line); stroke-dasharray: 2 3; opacity: .7; }
 .ld-label { font: 500 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--ld-line); }
+</style>
+<style>
+/* ── Other projects: pill buttons (same form as the landing "Contact Me" button), accent per case study ── */
+.od{margin:0 2.5rem;padding:96px 0 0;border-top:1px solid var(--gray-200);text-align:center}
+.wrap .od{margin:0}
+.od-label{margin:0 0 var(--od-lg,32px);opacity:0;transform:translateY(-6px);transition:opacity .6s ease .1s,transform .6s ease .1s}
+.od.in .od-label{opacity:1;transform:none}
+.od-dock{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 12px;padding-bottom:8px}
+.od-item{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:140px;padding:11px 24px 11px 40px;
+  border:1px solid var(--gray-300);border-radius:999px;overflow:hidden;background:var(--bg);color:var(--black);text-decoration:none;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.4;white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.3,.64,1);transition-delay:calc(var(--i)*90ms + 150ms)}
+.od.in .od-item{opacity:1;transform:none}
+.od-lbl{display:inline-block;transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.od-hov{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;opacity:0;transform:translateX(48px);transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.od-hov svg{width:16px;height:16px;flex-shrink:0}
+.od-dot{position:absolute;z-index:1;left:20px;top:calc(50% - 3px);width:6px;height:6px;border-radius:6px;background:var(--ac);transition:left .3s var(--ease),top .3s var(--ease),width .3s var(--ease),height .3s var(--ease),transform .3s var(--ease)}
+@media (hover:hover){
+  .od.in a.od-item:hover .od-lbl{transform:translateX(48px);opacity:0}
+  .od.in a.od-item:hover .od-hov{transform:none;opacity:1}
+  .od.in a.od-item:hover .od-dot{left:0;top:0;width:100%;height:100%;transform:scale(1.8)}
+}
+a.od-item:focus-visible{outline:2px solid var(--ac);outline-offset:4px}
+a.od-item:focus-visible .od-lbl{transform:translateX(48px);opacity:0}
+a.od-item:focus-visible .od-hov{transform:none;opacity:1}
+a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:scale(1.8)}
+.od-item.is-cur{cursor:default;border-color:var(--ac)}
+.od.in .od-item.is-off{opacity:.45;cursor:default}
+@media (min-width:641px){.od-label{margin-bottom:calc(var(--od-lg,32px) + 24px)}}
+@media (max-width:640px){.od{margin:0 1.2rem;padding:72px 0 0}.wrap .od{margin:0}.od-item{min-width:0;width:min(100%,200px)}}
+@media (prefers-reduced-motion:reduce){.od-label,.od-item,.od-lbl,.od-hov,.od-dot{transition:none!important}}
+</style>
+<style>
+.pg-foot{display:flex;align-items:center;justify-content:space-between;padding:56px 40px}
+.pg-foot span{font-size:12px;color:var(--gray-400)}
+@media (max-width:640px){.pg-foot{padding:40px 1.2rem;flex-direction:column;gap:8px}}
 </style>
 </head>
 <body>
@@ -540,8 +578,8 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
       <div class="hm"><div class="hm-k" data-i18n="meta.timeline">기간</div><div class="hm-v">2020.11 – 2021.08</div></div>
     </div>
   </div>
-  <!-- HERO LOGO REVEAL: replace .ph inside #heroLogo with the glass-reveal canvas / logo. Keep the 1:1 box: PC 440x440, mobile max 360x360 -->
-  <div class="hero-visual" id="heroLogo"><div class="ph ph--logo" role="img" aria-label="Angelring 로고"><div><b>로고 리빌 영역</b>1:1 정사각<br>PC 440 × 440px · 모바일 최대 360 × 360px<br>로고 SVG 권장 (단색 형태 · 투명 배경)</div></div></div>
+  <!-- HERO LOGO: 1:1 reveal area (PC 440x440, mobile max 360x360); logo is centered at ~52%. Glass-reveal effect can replace the <img> later. -->
+  <div class="hero-visual" id="heroLogo"><div class="hero-logo-box"><img src="engram.resource/angelring_logo.svg" alt="Angelring 로고" width="120" height="114" draggable="false"></div></div>
 </div></div>
 
 <div class="section"><div class="inner">
@@ -807,23 +845,6 @@ function setLang(lang, userInitiated) {
 setLang(currentLang, false);
 const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-// hero logo reveal: replays every time the hero comes back into view (hook for the glass-reveal canvas: listen to 'logoreveal:play' / 'logoreveal:reset', or style #heroLogo.is-playing)
-(function () {
-  var box = document.getElementById('heroLogo');
-  if (!box || !('IntersectionObserver' in window)) return;
-  var playing = false;
-  new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (e.isIntersecting && e.intersectionRatio >= 0.35 && !playing) {
-        playing = true; box.classList.add('is-playing');
-        box.dispatchEvent(new CustomEvent('logoreveal:play', { bubbles: true }));
-      } else if (!e.isIntersecting && playing) {
-        playing = false; box.classList.remove('is-playing');
-        box.dispatchEvent(new CustomEvent('logoreveal:reset', { bubbles: true }));
-      }
-    });
-  }, { threshold: [0, 0.35] }).observe(box);
-})();
 // timeline: each step starts when it is actually on screen (desktop: all four at once, staggered by CSS; mobile: one by one while scrolling)
 const stepObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); stepObs.unobserve(e.target); } }), { threshold: 0.4, rootMargin: '0px 0px -12% 0px' });
 document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
@@ -884,7 +905,14 @@ document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
 })();
 
 </script>
+<!-- OTHER PROJECTS DOCK -->
+<section class="od" data-current="angelring" style="--od-lg:22px" aria-label="Other projects">
+  <p class="od-label sec-name">Other projects</p>
+  <div class="od-dock" role="navigation" aria-label="Other projects"><a class="od-item" data-proj="triangle" style="--ac:#FF084E;--i:0" aria-label="Triangle UI" href="hyundai-ht-design-system.html"><span class="od-lbl">Triangle UI</span><span class="od-hov" aria-hidden="true"><span>Triangle UI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a><a class="od-item" data-proj="engram" style="--ac:#F97316;--i:1" aria-label="Engram" href="pcanpi-case-study-v7.html"><span class="od-lbl">Engram</span><span class="od-hov" aria-hidden="true"><span>Engram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a><span class="od-item is-cur" data-proj="angelring" style="--ac:#08A0FF;--i:2" aria-label="Angelring (current)" aria-current="page"><span class="od-lbl">Angelring</span><span class="od-hov" aria-hidden="true"><span>Angelring</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></span></div>
+</section>
 </main>
+<footer class="pg-foot"><span>Angelring | UIUX design</span><span>Simon Choi © <span id="pgYr"></span></span></footer>
+<script>document.getElementById("pgYr").textContent=new Date().getFullYear();</script>
 <script>
 (function() {
   var milestones = [25, 50, 75, 100];
@@ -1092,6 +1120,920 @@ document.querySelectorAll('.steps .step').forEach(el => stepObs.observe(el));
     } catch (x) {}
     try { track('case_back_click', { from_page: location.pathname, method: 'link' }); } catch (x) {}
   });
+})();
+</script>
+<script>
+/* Other projects: reveal when the page end is reached; track clicks */
+(function () {
+  var root = document.querySelector('.od'); if (!root) return;
+  new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { root.classList.add('in'); o.disconnect(); } }, { threshold: 0.45 }).observe(root);
+  [].forEach.call(root.querySelectorAll('.od-item'), function (it) {
+    it.addEventListener('click', function (e) {
+      var live = it.tagName === 'A';
+      if (!live) { e.preventDefault(); if (it.classList.contains('is-cur')) return; }
+      try { if (typeof track === 'function') track('other_project_click', { from: root.getAttribute('data-current'), to: it.getAttribute('data-proj'), status: live ? 'live' : 'coming_soon' }); } catch (x) {}
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+const LIGHT = {
+  tileSize: 256,
+  logoScale: 0.7,
+  finalScale: 0.69,
+  logoOffset: [0, 0],
+  iconPlate: false,
+  keepPlate: false,
+  originalColors: false,
+  opticalDepth: 1.1,
+  dispersion: 1.7,
+  colorBleed: 1.25,
+  doubleBevel: 1,
+  bevelWidth: 0.14,
+  corner: 4.8,
+  cornerPull: 2.1,
+  cornerWidth: 2.2,
+  cornerFocus: 0.58,
+  edgeSmear: 2.85,
+  stretch: 0,
+  tilt: 0.35,
+  bulge: 1,
+  specular: 1,
+  halo: 0,
+  shadow: 1,
+  ripple: 1,
+  bounce: 0,
+  response: 0.42,
+  startSize: 0.2,
+  startZoom: 2.6,
+  glide: 2.3,
+  present: 2.4,
+  drift: 0.12,
+  swell: 0.5,
+  focus: 1,
+  sheen: 1,
+  lightTurn: 0.9,
+  hold: 1,
+  background: "#e9e9eb",
+  plateColor: "#ffffff",
+  logoColor: "#0e1428"
+};
+const LOOKS = {
+  light: LIGHT,
+  dark: {
+    ...LIGHT,
+    logoScale: 0.72,
+    finalScale: 1,
+    iconPlate: true,
+    halo: 1,
+    shadow: 0,
+    ripple: 0.5,
+    startZoom: 1.6,
+    drift: 0.05,
+    opticalDepth: 0.75,
+    bevelWidth: 0.22,
+    dispersion: 0.9,
+    colorBleed: 0.45,
+    corner: 5,
+    cornerPull: 1.4,
+    edgeSmear: 1.2,
+    tilt: 0,
+    cornerWidth: 1.2,
+    cornerFocus: 0.4,
+    background: "#000000",
+    plateColor: "#05070b",
+    logoColor: "#ffffff"
+  }
+};
+const TEX = 1024;
+const BOX = 0.75;
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    if (!src.startsWith("data:")) img.crossOrigin = "anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("GlassIconReveal: the logo could not be loaded"));
+    img.src = src;
+  });
+}
+function isMarkup(logo) {
+  return logo.trimStart().startsWith("<");
+}
+function svgToUrl(text) {
+  const svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+  if (!svg || svg.nodeName.toLowerCase() !== "svg") throw new Error("GlassIconReveal: the SVG could not be read");
+  let w = parseFloat(svg.getAttribute("width") || "");
+  let h = parseFloat(svg.getAttribute("height") || "");
+  const vb = (svg.getAttribute("viewBox") || "").split(/[\s,]+/).map(Number);
+  if (vb.length === 4 && vb[2] > 0 && vb[3] > 0) [w, h] = [vb[2], vb[3]];
+  if (!(w > 0 && h > 0)) w = h = 100;
+  const s = TEX / Math.max(w, h);
+  svg.setAttribute("width", String(Math.round(w * s)));
+  svg.setAttribute("height", String(Math.round(h * s)));
+  const out = new XMLSerializer().serializeToString(svg).replace(/currentColor/g, "#ffffff");
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(out);
+}
+const logoUrl = (logo) => isMarkup(logo) ? svgToUrl(logo) : logo;
+function fitToTexture(source, sw, sh) {
+  const tmp = document.createElement("canvas");
+  tmp.width = tmp.height = TEX;
+  const tc = tmp.getContext("2d", { willReadFrequently: true });
+  const s0 = Math.min(TEX / sw, TEX / sh);
+  const dx0 = (TEX - sw * s0) / 2;
+  const dy0 = (TEX - sh * s0) / 2;
+  tc.drawImage(source, dx0, dy0, sw * s0, sh * s0);
+  const d = tc.getImageData(0, 0, TEX, TEX).data;
+  let opaque = true;
+  for (let i = 3; i < d.length; i += 4 * 97) if (d[i] < 250) {
+    opaque = false;
+    break;
+  }
+  const key = [d[0], d[1], d[2]];
+  const keyAlpha = (r, g, b) => Math.min(1, Math.max(0, (Math.hypot(r - key[0], g - key[1], b - key[2]) / 441 - 0.08) / 0.2));
+  let x0 = TEX, y0 = TEX, x1 = -1, y1 = -1;
+  for (let y = 0; y < TEX; y++) {
+    for (let x = 0; x < TEX; x++) {
+      const i = (y * TEX + x) * 4;
+      const a = opaque ? keyAlpha(d[i], d[i + 1], d[i + 2]) * 255 : d[i + 3];
+      if (a > 8) {
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+    }
+  }
+  if (x1 < 0) throw new Error("GlassIconReveal: the logo is empty");
+  const bw = x1 - x0 + 1;
+  const bh = y1 - y0 + 1;
+  const s = TEX * BOX / Math.max(bw, bh);
+  const out = document.createElement("canvas");
+  out.width = out.height = TEX;
+  const oc = out.getContext("2d", { willReadFrequently: true });
+  oc.imageSmoothingQuality = "high";
+  oc.drawImage(source, TEX / 2 - (x0 + bw / 2 - dx0) * s, TEX / 2 - (y0 + bh / 2 - dy0) * s, sw * s0 * s, sh * s0 * s);
+  if (opaque) {
+    const im = oc.getImageData(0, 0, TEX, TEX);
+    const e = im.data;
+    for (let i = 0; i < e.length; i += 4) e[i + 3] = Math.round(e[i + 3] * keyAlpha(e[i], e[i + 1], e[i + 2]));
+    oc.putImageData(im, 0, 0);
+  }
+  return out;
+}
+function buildSdf(canvas) {
+  const n = TEX * TEX;
+  const alpha = canvas.getContext("2d", { willReadFrequently: true }).getImageData(0, 0, TEX, TEX).data;
+  const INF = 1e20;
+  const outer = new Float64Array(n);
+  const inner = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const a = alpha[i * 4 + 3] / 255;
+    if (a >= 1) {
+      outer[i] = 0;
+      inner[i] = INF;
+    } else if (a <= 0) {
+      outer[i] = INF;
+      inner[i] = 0;
+    } else {
+      const dd = 0.5 - a;
+      outer[i] = dd > 0 ? dd * dd : 0;
+      inner[i] = dd < 0 ? dd * dd : 0;
+    }
+  }
+  const f = new Float64Array(TEX);
+  const z = new Float64Array(TEX + 1);
+  const v = new Uint16Array(TEX);
+  edt(outer, f, v, z, INF);
+  edt(inner, f, v, z, INF);
+  const sdf = new Float32Array(n);
+  for (let i = 0; i < n; i++) sdf[i] = (Math.sqrt(outer[i]) - Math.sqrt(inner[i])) / TEX;
+  return sdf;
+}
+function edt(grid, f, v, z, INF) {
+  for (let x = 0; x < TEX; x++) edt1d(grid, x, TEX, f, v, z, INF);
+  for (let y = 0; y < TEX; y++) edt1d(grid, y * TEX, 1, f, v, z, INF);
+}
+function edt1d(grid, offset, stride, f, v, z, INF) {
+  v[0] = 0;
+  z[0] = -INF;
+  z[1] = INF;
+  f[0] = grid[offset];
+  for (let q = 1, k = 0, s = 0; q < TEX; q++) {
+    f[q] = grid[offset + q * stride];
+    const q2 = q * q;
+    do {
+      const r = v[k];
+      s = (f[q] - f[r] + q2 - r * r) / (q - r) / 2;
+    } while (s <= z[k] && --k > -1);
+    k++;
+    v[k] = q;
+    z[k] = s;
+    z[k + 1] = INF;
+  }
+  for (let q = 0, k = 0; q < TEX; q++) {
+    while (z[k + 1] < q) k++;
+    const r = v[k];
+    const qr = q - r;
+    grid[offset + q * stride] = f[r] + qr * qr;
+  }
+}
+const logoCache = /* @__PURE__ */ new Map();
+function loadLogo(logo) {
+  let job = logoCache.get(logo);
+  if (!job) {
+    job = loadImage(logoUrl(logo)).then((img) => {
+      const canvas = fitToTexture(img, img.naturalWidth || TEX, img.naturalHeight || TEX);
+      return { canvas, sdf: buildSdf(canvas) };
+    });
+    logoCache.set(logo, job);
+    job.catch(() => logoCache.delete(logo));
+  }
+  return job;
+}
+const VERT = `#version 300 es
+in vec2 aPos;
+void main() { gl_Position = vec4(aPos, 0.0, 1.0); }`;
+const FRAG = `#version 300 es
+precision highp float;
+out vec4 outColor;
+
+uniform vec2 uCenter;      // device px, GL coords
+uniform float uTile;       // tile size, device px
+uniform sampler2D uSdf;    // signed distance, texture units, + outside
+uniform sampler2D uCol;    // premultiplied colour, mipmapped
+uniform float uTexSize;
+uniform float uBoxFrac;
+
+uniform float uPlateScale; // plate size relative to the tile
+uniform float uShapeN;     // superellipse exponent: 2 = circle
+uniform float uCornerN;    // final exponent, used by the ghost
+uniform float uOptics;     // 1 = full refraction, 0 = flat
+uniform float uPlateAlpha; // 1 = glass shown, 0 = bare logo
+uniform float uLogoHalf;   // logo half size in plate units (zoom included)
+uniform vec2 uLogoOff;     // logo centre, plate units
+uniform float uBold;       // stroke swell, in logo half-size units
+uniform float uBlur;       // edge softness, plate units
+uniform float uFrost;      // milky lift inside a young bubble
+uniform float uDome;       // lens bulge height
+uniform float uDrop;       // 1 while the glass is a round droplet, 0 once it has spread into the tile
+uniform float uPinch;      // the face's stretch toward its corners, at the rim
+uniform float uTilt;       // extra stretch of the rising diagonal's corners (0\u20131)
+uniform float uRim;
+uniform float uHalo;
+uniform float uShadow;
+uniform float uGhost;
+uniform float uRipR;       // ripple radius, plate sizes
+uniform float uRipA;
+uniform float uBare;       // 1 once the logo may show without glass (the ending)
+uniform float uReach;      // the rim band's full width, plate units
+uniform float uCornerPull; // how much harder the corners pull than the sides
+uniform float uStreak;     // how far a corner smears content along the rim, in band widths
+uniform float uWiden;      // how much wider the folding band grows toward the corners
+uniform float uSlab;       // how far the slab stands above the logo, plate units
+uniform float uEtaSpread;  // index spread across the spectrum (red highest)
+uniform float uFocus;      // how far in along the diagonal a corner focuses, plate units
+uniform float uFocusK;     // how quickly the view slides back from the focus across the band
+uniform float uFocusSplit; // how much further in red meets than violet, plate units
+uniform float uRimLine;    // how far across the band the sight line takes to turn in to the focus
+uniform float uCornerOn;   // 0 while the glass is round, 1 once it has spread into the tile
+uniform float uDissolve;   // 0 \u2192 1 as the glass lets go of the logo
+uniform float uGlow;       // colour bleed in the rim, plate units on screen
+uniform float uFaceDisp;   // lateral colour across the face
+uniform float uVivid;      // chroma lift of the dispersed light
+
+uniform float uDisp;
+uniform float uDouble;
+uniform float uBevelW;
+uniform float uSpec;
+uniform float uIconPlate;
+uniform float uUseColor;
+uniform float uLightScene; // 1 = light backdrop, 0 = dark
+uniform float uLightGlass; // the same for what the glass sits on (the plate, when there is one)
+uniform float uKeep;       // 1 = the glass settles into a flat plate instead of letting go of it
+uniform float uSheen;      // strength of the light band crossing the face
+uniform float uSweep;      // where that band is, plate sizes along its diagonal
+uniform float uLightAng;   // how far the rim light has turned, radians
+
+uniform vec3 uBg0;
+uniform vec3 uGradCol;
+uniform float uGradOn;
+uniform vec4 uHero;       // canvas offset inside the hero (css px, from top-left) + hero size
+uniform float uDpr;
+uniform float uCanvasH;    // canvas height, css px
+vec3 uBg;
+uniform vec3 uPlateCol;
+uniform vec3 uLogoCol;
+
+float px; // one device pixel in plate units
+
+vec2 rot(vec2 v, float a) { float c = cos(a), s = sin(a); return vec2(c * v.x - s * v.y, s * v.x + c * v.y); }
+
+// aa: footprint of one screen pixel at q, plate units.
+vec4 logoAt(vec2 q, float blur, float aa) {
+  float L = uLogoHalf;
+  float k = 0.5 * uBoxFrac / L;
+  vec2 uv = vec2(0.5 + (q.x - uLogoOff.x) * k, 0.5 - (q.y - uLogoOff.y) * k);
+  float d = texture(uSdf, uv).r / k;
+  float w = 0.75 * aa + blur;
+  float a = 1.0 - smoothstep(-w, w, d - uBold * L);
+  vec3 c = uLogoCol;
+  if (uUseColor > 0.5) {
+    float lod = log2(max(1.0, w * k * uTexSize));
+    vec4 c0 = textureLod(uCol, uv, lod);
+    vec4 c1 = textureLod(uCol, uv, lod + 3.0);
+    vec4 c2 = textureLod(uCol, uv, 7.0);
+    c = c2.rgb / max(c2.a, 1e-4);
+    c = mix(c, c1.rgb / max(c1.a, 1e-4), smoothstep(0.0, 0.06, c1.a));
+    c = mix(c, c0.rgb / max(c0.a, 1e-4), smoothstep(0.02, 0.3, c0.a));
+  }
+  return vec4(c, a);
+}
+
+// Superellipse field. Returns signed distance (plate units, \u2212 inside); g = 1 on the rim.
+float shape(vec2 p, float scale, float n, out vec2 nOut, out float g, out vec2 dg) {
+  vec2 pp = p / scale;
+  vec2 a = max(abs(pp), vec2(1e-6));
+  g = pow(pow(a.x, n) + pow(a.y, n), 1.0 / n);
+  dg = sign(pp) * pow(a, vec2(n - 1.0)) * pow(max(g, 1e-6), 1.0 - n);
+  float dgl = max(length(dg), 1e-6);
+  nOut = dg / dgl;
+  return (g - 1.0) / dgl * scale;
+}
+
+// Curvature radius (plate units) of the shape's contour through p.
+float contourRadius(vec2 p, float scale, float n) {
+  vec2 a = max(abs(p / scale), vec2(1e-4));
+  vec2 a1 = pow(a, vec2(n - 1.0));
+  vec2 a2 = pow(a, vec2(n - 2.0));
+  float k = (n - 1.0) * (a2.x * a1.y * a1.y + a2.y * a1.x * a1.x) / pow(max(dot(a1, a1), 1e-30), 1.5);
+  return scale / max(k, 1e-3);
+}
+
+// Where the glass at x = s / bwF across its rounded edge looks: a slab uSlab above the logo with a
+// quarter-round edge of radius bwF. A straight-down sight line bends inward by Snell's law, so the
+// outer rim looks deepest and the view eases back to the face across the edge.
+vec2 refractSample(float x, float bwF, float eta, float R, vec2 dirOut, vec2 p, float dome, float offMul) {
+  float u = clamp(1.0 - x, 0.0, 0.995);
+  float th = asin(u), thr = asin(u / eta);
+  float z = uSlab + bwF * sqrt(1.0 - u * u);
+  float off = offMul * z * tan(th - thr);
+  off = off / (1.0 + off / (6.0 * R));
+  return p - (dirOut * off + p * dome) * uOptics;
+}
+
+float gauss(float x, float c, float w) { float d = (x - c) / w; return exp(-0.5 * d * d); }
+float band(float x, float a, float b, float w) { return smoothstep(a - w, a, x) * (1.0 - smoothstep(b, b + w, x)); }
+
+// Visible spectrum, red (0) to violet (1).
+float bump(float x, float c, float w) { float d = (x - c) / w; return exp(-0.5 * d * d); }
+vec3 spectrum(float x) {
+  return vec3(bump(x, 0.34, 0.2) + 0.08 * bump(x, 0.93, 0.05), bump(x, 0.58, 0.1), bump(x, 0.8, 0.11));
+}
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+
+void main() {
+  px = 2.0 / uTile;
+  {
+    vec2 css = gl_FragCoord.xy / uDpr;
+    vec2 hv = vec2((uHero.x + css.x) / uHero.z, (uHero.y + (uCanvasH - css.y)) / uHero.w);
+    float gt = length(vec2(hv.x - 0.5, hv.y + 0.5) / 1.25);
+    uBg = mix(uBg0, uGradCol, uGradOn * (1.0 - clamp((gt - 0.4) / 0.6, 0.0, 1.0)));
+  }
+  vec2 p = (gl_FragCoord.xy - uCenter) * px;
+
+  vec4 lg = logoAt(p, uBlur, px);
+  vec3 plain = mix(uBg, lg.rgb, lg.a * uBare);
+
+  vec2 nOut, dg; float g;
+  float sd = shape(p, uPlateScale, uShapeN, nOut, g, dg);
+  float s = -sd;
+  float bw = max(uBevelW, 0.004) * uPlateScale;
+  float x = clamp(s / bw, 0.0, 1.0);
+  float R = contourRadius(p, uPlateScale, uShapeN);
+  vec2 pq = p * p;
+  float diag = 4.0 * pq.x * pq.y / max((pq.x + pq.y) * (pq.x + pq.y), 1e-6);
+  float tilt = mix(1.0 - uTilt, 1.0, smoothstep(-0.02, 0.02, p.x * p.y));
+  float pinchPart = uPinch * min(g * g, 1.0) * diag * diag * tilt;
+  float dome = uDome * (1.0 - min(g * g, 1.0)) + pinchPart;
+  vec2 dirOut = normalize(mix(nOut, p / max(length(p), 1e-4), 0.2));
+  // Rounded corners curve both ways, so they draw content in from deeper than the sides.
+  float cornerness = max(smoothstep(0.1, 0.9, 4.0 * nOut.x * nOut.x * nOut.y * nOut.y), smoothstep(0.15, 0.75, diag));
+  float offMul = 1.0 + 0.4 * max(uCornerPull - 1.0, 0.0) * tilt * cornerness * uCornerOn;
+  // Around a corner every sight line meets at one focus a little way in along the diagonal.
+  vec2 focus = sign(p) * (pow(0.5, 1.0 / uShapeN) - uFocus * 0.70710678) * uPlateScale;
+  float focusW = tilt * cornerness * uOptics * uCornerOn;
+  float bwF = max(uReach, 0.004) * (1.0 + uWiden * tilt * cornerness * uCornerOn);
+  float xf = clamp(s / bwF, 0.0, 1.0);
+  // Footprint of one pixel after refraction, measured in uniform control flow.
+  vec2 qc = refractSample(xf, bwF, 1.5, R, dirOut, p, dome, offMul);
+  float foot = max(max(length(dFdx(qc)), length(dFdy(qc))), 0.25 * px);
+
+  // Backdrop: anticipation ghost, ripple, soft lift shadow and glow.
+  vec3 bg = uBg;
+  vec3 lift = mix(uBg + vec3(0.06), mix(uBg, vec3(1.0), 0.55), uLightScene);
+  if (uGhost > 0.001) {
+    vec2 gn, gdg; float gg;
+    float gsd = shape(p, 1.0, uCornerN, gn, gg, gdg);
+    bg = mix(bg, lift, uGhost * 0.12 * (1.0 - smoothstep(-0.16, 0.14, gsd)));
+    bg *= 1.0 - uGhost * 0.03 * uLightScene * exp(-max(gsd, 0.0) / 0.12) * step(0.0, gsd);
+  }
+  float outside = max(sd, 0.0);
+  if (uRipA > 0.001) {
+    float d0 = (uRipR - 1.0) * uPlateScale;
+    float rx = (sd - d0) / 0.022;
+    float ring = exp(-rx * rx);
+    bg += uRipA * ring * (0.04 * (0.55 + 0.45 * dot(nOut, normalize(vec2(-0.5, 0.8))))) * mix(0.5, 1.0, uLightScene);
+    bg -= uRipA * 0.016 * uLightScene * exp(-(rx - 1.6) * (rx - 1.6));
+  }
+  float shadowFall = max(sd, 0.0) / (0.9 * uPlateScale);
+  bg *= 1.0 - uShadow * 0.03 * exp(-shadowFall * shadowFall) * step(0.0, sd);
+  vec3 haloCol = mix(vec3(0.62, 0.69, 0.80), vec3(1.0), uLightScene);
+  bg = mix(bg, haloCol, clamp(uHalo * (0.30 * exp(-outside / (0.025 * uPlateScale)) + 0.07 * exp(-outside / (0.12 * uPlateScale))), 0.0, 1.0) * step(0.0, sd));
+
+  vec3 col = bg;
+  float soft = px + uBlur * 0.8 + 0.06 * uDissolve * (1.0 - uKeep) * uPlateScale;
+  if (sd < soft) {
+    // Lighting surface: a superellipse quarter, flat toward the face and steep at the rim.
+    float y1 = 1.0 - x;
+    const float K = 2.6;
+    float base1 = max(1.0 - pow(y1, K), 1e-4);
+    float db = min(pow(y1, K - 1.0) * pow(base1, 1.0 / K - 1.0), 25.0);
+    // A second, lower step just inside the first draws the faint inner line.
+    float s1 = bw * 0.62;
+    float w2 = bw * 0.22;
+    float t2 = clamp((s - s1) / w2, -1.0, 1.0);
+    float dh2 = uDouble * bw * 0.16;
+    float dd = dh2 * 0.5 * cos(t2 * 1.5707963) * 1.5707963 / w2 * step(abs(t2), 0.999);
+    vec2 gDome = -uDome * 2.0 * g * dg * step(g, 1.0);
+    vec2 grad = -(db + dd) * nOut + gDome;
+
+    vec3 back = mix(uBg, uPlateCol, uIconPlate);
+    vec3 liftG = mix(back + vec3(0.06), mix(back, vec3(1.0), 0.55), uLightGlass);
+    float rblur = uBlur + 0.05 * length(qc - p) + min(uGlow * uOptics * (1.0 - xf) * foot / px, 0.04);
+
+    // Each wavelength refracts by its own index, so everything the edge draws in fans into colour
+    // while the face stays crisp. Around a corner the samples also smear along the rim.
+    float cornerW = smoothstep(0.1, 0.9, 4.0 * nOut.x * nOut.x * nOut.y * nOut.y);
+    float streak = 0.35 * uStreak * bw * mix(0.15, 1.0, cornerW) * pow(1.0 - xf, 1.5) * uOptics;
+    vec2 tangent = vec2(-nOut.y, nOut.x);
+    vec3 acc = vec3(0.0), wsum = vec3(0.0);
+    for (int i = 0; i < 20; i++) {
+      float lam = (float(i) + 0.5) / 20.0;
+      float c = uDisp * (1.0 - 2.0 * lam);
+      vec2 along = tangent * (streak * 2.0 * (fract(float(i) * 0.618034 + 0.31) - 0.5));
+      float cf = uDisp * (1.0 - 2.0 * lam) * (lam > 0.5 ? 1.0 : 0.5);
+      vec2 sp = refractSample(xf, bwF, 1.5 + uEtaSpread * c, R, dirOut, p + along,
+                              dome + pinchPart * 0.3 * c, offMul);
+      vec2 focusL = focus - sign(p) * (0.70710678 * uFocusSplit * c * uPlateScale);
+      float wFocus = pow(1.0 - xf, uFocusK) * smoothstep(0.0, uRimLine * (1.0 + 0.6 * c), xf);
+      sp = mix(sp, mix(p + along, focusL, wFocus), focusW);
+      float faceOnly = smoothstep(0.7, 1.0, xf) * uOptics;
+      sp *= 1.0 + uFaceDisp * cf * faceOnly;
+      vec4 l = logoAt(sp, rblur + 0.12 * streak + uFaceDisp * 0.5 * max(c, 0.0) * faceOnly, foot);
+      vec3 w = spectrum(lam);
+      acc += mix(back, l.rgb, l.a) * w;
+      wsum += w;
+    }
+    vec3 trans = acc / wsum;
+    float tl = dot(trans, vec3(0.2126, 0.7152, 0.0722));
+    trans = clamp(tl + (trans - tl) * (1.0 + uVivid * uOptics), 0.0, 1.0);
+    // A young droplet is milky; the haze only ever lightens.
+    float hazeLum = dot(trans, vec3(0.2126, 0.7152, 0.0722));
+    float hazeGate = mix(1.0 - smoothstep(0.25, 0.75, hazeLum), smoothstep(0.25, 0.75, hazeLum), uLightGlass);
+    trans = mix(trans, liftG, uFrost * 0.45 * hazeGate);
+
+    float glassAmt = pow(1.0 - uDissolve, 1.5);
+    float lit = uSpec * glassAmt;
+    vec3 rimCol = mix(vec3(0.80, 0.87, 0.97), vec3(1.0), uLightGlass);
+
+    // Light backdrop: the thick edge glows softly white over a clear face, with a hairline that is
+    // bright along the top and right and a thin dark silhouette down the left and bottom.
+    float sc = uPlateScale;
+    float tLum = dot(trans, vec3(0.2126, 0.7152, 0.0722));
+    float lightOnly = smoothstep(0.35, 0.85, tLum);
+    float hw = smoothstep(-0.85, 0.5, dot(nOut, rot(vec2(0.5, 0.866), uLightAng)));
+    float tileBand = band(s, 0.016 * sc, 0.075 * sc, 0.022 * sc);
+    float dropBand = (1.0 - smoothstep(0.06 * sc, 0.13 * sc, s)) * smoothstep(0.0, 0.004 * sc, s);
+    float glow = mix(0.32 * tileBand, 0.75 * dropBand, uDrop) * lightOnly;
+    float edgeLine = gauss(s, 0.005 * sc, 0.0045 * sc);
+    float lip = gauss(s, 0.15 * sc, 0.007 * sc) * uDouble * (1.0 - uDrop);
+    vec3 lightGlass = mix(trans, vec3(1.0), glow * glassAmt);
+    lightGlass += (0.075 * hw * edgeLine + 0.06 * (0.4 + 0.6 * hw) * lip) * lit;
+    lightGlass *= 1.0 - 0.05 * (1.0 - hw) * edgeLine * glassAmt * (1.0 - uDrop);
+    lightGlass = mix(lightGlass, vec3(1.0), 0.55 * uDrop * glassAmt * edgeLine);
+
+    // Dark backdrop: a cool rim light that grows toward the steep edge, and a small key highlight.
+    vec3 Nl = normalize(vec3(-grad, 1.0));
+    float edge = 1.0 - Nl.z;
+    vec2 ldir = rot(normalize(vec2(-0.62, 0.78)), uLightAng);
+    float side = dot(nOut, ldir);
+    float fres = pow(edge, 1.5);
+    vec3 rim = rimCol * fres * (0.35 + 0.65 * max(side, -side * 0.8)) * uRim * 0.65;
+    vec3 Hv = normalize(normalize(vec3(-0.45, 0.6, 0.66)) + vec3(0.0, 0.0, 1.0));
+    float spc = pow(max(dot(Nl, Hv), 0.0), 140.0) * 0.8 * smoothstep(0.0, 0.25, y1);
+    vec3 darkGlass = trans * (1.0 - 0.25 * fres) + (rim + vec3(spc)) * lit;
+    darkGlass = mix(darkGlass, rimCol, uDrop * 0.4 * uSpec * (1.0 - smoothstep(0.0, 0.1 * uPlateScale, s)));
+    vec3 glass = mix(darkGlass, lightGlass, uLightGlass);
+
+    // While the glass holds the logo a soft band of light crosses the face, brightest near the rim.
+    float sweepD = dot(p / uPlateScale, normalize(vec2(0.8, 0.6))) - uSweep;
+    float sheen = uSheen * glassAmt * exp(-sweepD * sweepD / 0.03) * (0.55 + 0.45 * (1.0 - x));
+    glass = mix(glass, vec3(1.0), sheen * mix(0.22, 0.42, uLightGlass));
+
+    float cov = clamp(0.5 - sd / soft, 0.0, 1.0);
+    col = mix(bg, glass, cov);
+  }
+
+  vec3 outc = mix(plain, col, uPlateAlpha);
+  outc += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
+  outColor = vec4(outc, 1.0);
+}`;
+function createRenderer(canvas) {
+  const gl = canvas.getContext("webgl2", { antialias: false, premultipliedAlpha: false });
+  if (!gl) return null;
+  const compile = (type, src) => {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh) || "shader");
+    return sh;
+  };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog) || "program");
+  gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "aPos");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = {};
+  const count = gl.getProgramParameter(prog, gl.ACTIVE_UNIFORMS);
+  for (let i = 0; i < count; i++) {
+    const info = gl.getActiveUniform(prog, i);
+    U[info.name] = gl.getUniformLocation(prog, info.name);
+  }
+  const sdfTex = gl.createTexture();
+  const colTex = gl.createTexture();
+  gl.uniform1i(U.uSdf, 0);
+  gl.uniform1i(U.uCol, 1);
+  let hasLogo = false;
+  const params = (filter) => {
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  };
+  function setLogo(logo) {
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, sdfTex);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, TEX, TEX, 0, gl.RED, gl.FLOAT, logo.sdf);
+    params(gl.LINEAR);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, colTex);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, logo.canvas);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    params(gl.LINEAR_MIPMAP_LINEAR);
+    hasLogo = true;
+  }
+  function render(fr, w, h, tilePx, ex) {
+    if (!hasLogo) return;
+    gl.viewport(0, 0, w, h);
+    gl.uniform2f(U.uCenter, w / 2, h / 2);
+    gl.uniform1f(U.uTile, tilePx);
+    gl.uniform1f(U.uTexSize, TEX);
+    gl.uniform1f(U.uBoxFrac, BOX);
+    for (const k in fr) {
+      const v = fr[k];
+      if (typeof v === "number" && U[k]) gl.uniform1f(U[k], v);
+    }
+    gl.uniform3fv(U.uBg0, fr.uBg0);
+    if (ex) {
+      gl.uniform3fv(U.uGradCol, ex.grad);
+      gl.uniform1f(U.uGradOn, 1);
+      gl.uniform4fv(U.uHero, ex.hero);
+      gl.uniform1f(U.uDpr, ex.dpr);
+      gl.uniform1f(U.uCanvasH, ex.ch);
+    } else {
+      gl.uniform1f(U.uGradOn, 0);
+      gl.uniform1f(U.uDpr, 1);
+      gl.uniform4fv(U.uHero, [0, 0, 1, 1]);
+      gl.uniform1f(U.uCanvasH, 1);
+    }
+    gl.uniform3fv(U.uPlateCol, fr.uPlateCol);
+    gl.uniform3fv(U.uLogoCol, fr.uLogoCol);
+    gl.uniform2fv(U.uLogoOff, fr.uLogoOff);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  function dispose() {
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+  }
+  return { setLogo, render, dispose };
+}
+const TAIL = 1.1;
+const OUTRO = 0.5;
+const endOf = (P) => P.present + TAIL;
+const clamp01 = (x) => x < 0 ? 0 : x > 1 ? 1 : x;
+const mix = (a, b, t) => a + (b - a) * t;
+const smooth = (a, b, x) => {
+  const t = clamp01((x - a) / (b - a));
+  return t * t * (3 - 2 * t);
+};
+const smoother = (a, b, x) => {
+  const t = clamp01((x - a) / (b - a));
+  return t * t * t * (t * (t * 6 - 15) + 10);
+};
+function hexToRgb(hex) {
+  let h = hex.replace("#", "");
+  if (h.length === 3) h = h.replace(/./g, "$&$&");
+  const v = parseInt(h.slice(0, 6), 16) || 0;
+  return [(v >> 16 & 255) / 255, (v >> 8 & 255) / 255, (v & 255) / 255];
+}
+const luminance = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
+function spring(t, response, damping) {
+  if (t <= 0) return 0;
+  const w = 2 * Math.PI / response;
+  if (damping >= 1) return 1 - Math.exp(-w * t) * (1 + w * t);
+  const wd = w * Math.sqrt(1 - damping * damping);
+  return 1 - Math.exp(-damping * w * t) * (Math.cos(wd * t) + damping * w / wd * Math.sin(wd * t));
+}
+const reachCache = /* @__PURE__ */ new Map();
+function timeToReach(level, response, damping) {
+  const key = `${level}/${response}/${damping}`;
+  let t = reachCache.get(key);
+  if (t === void 0) {
+    let lo = 0;
+    let hi = 3;
+    for (let i = 0; i < 40; i++) {
+      const mid = (lo + hi) / 2;
+      if (spring(mid, response, damping) < level) lo = mid;
+      else hi = mid;
+    }
+    reachCache.set(key, t = hi);
+  }
+  return t;
+}
+function frameAt(T, P, outro = 0) {
+  const tx = P.present;
+  const keep = P.keepPlate ? 1 : 0;
+  const damping = 1 - P.bounce;
+  const grow = spring(T + 0.01, P.response, damping);
+  const tl = timeToReach(0.85, P.response, damping) - 0.01;
+  const tm = timeToReach(0.92, P.response, damping) - 0.01;
+  const morph = spring(T - tm, 0.4, 1);
+  const drop = 1 - smooth(0.05, 1, morph);
+  const appear = smooth(0, 0.08, T);
+  const drift = P.drift * spring(T - 0.3, 2.2, 1);
+  const zoomIn = 0.25 * spring(T, 0.7, 1) + 0.75 * smoother(0, P.glide, T);
+  const settle = spring(T - 0.5, 2.4, 1);
+  const exit = spring(T - tx, 0.95, 1);
+  const release = spring(T - tx - 0.05, 0.65, 1);
+  const dome = 0.15 * P.bulge * (1 - smooth(0.4, 0.95, grow));
+  const view = (1 + (P.startZoom - 1) * (1 - zoomIn)) * (1 - 0.045 * settle) * mix(1, P.finalScale, exit) * (1 - 0.06 * outro);
+  const bandW = mix(P.bevelWidth, Math.max(P.bevelWidth, 0.4), drop);
+  const plateScale = mix(P.startSize, 1, grow) * (1 + drift) * (1 + 0.14 * release * (1 - keep)) * (1 - keep * (0.03 * release + 0.06 * outro));
+  const bg = hexToRgb(P.background);
+  return {
+    uPlateScale: plateScale,
+    uShapeN: mix(2, P.corner, morph),
+    uCornerN: P.corner,
+    uOptics: 1 - smooth(0.55, 1, release),
+    uPlateAlpha: keep ? appear * (1 - outro) : appear * (1 - smooth(0.45, 1, release)),
+    uLogoHalf: P.logoScale * view,
+    uLogoOff: [P.logoOffset[0] * view, P.logoOffset[1] * view],
+    uKeep: keep,
+    uSheen: P.sheen,
+    uSweep: mix(-1.6, 1.6, smoother(0.9, tx - 0.1, T)),
+    uLightAng: P.lightTurn * smoother(0.4, tx + 0.4, T),
+    uBold: P.swell * 0.03 * (1 - zoomIn),
+    uBlur: P.focus * 0.05 * (1 - smooth(0.3, 0.95, grow)) + 0.03 * outro,
+    uFrost: P.focus * (1 - smooth(0.5, 0.95, grow)),
+    uPinch: 0.38 * P.stretch * smooth(0.1, 0.9, morph) * smooth(0.75, 0.97, zoomIn),
+    uTilt: P.tilt,
+    uDome: dome,
+    uDrop: drop,
+    uRim: 1 + 0.8 * drop,
+    uHalo: P.halo * (0.5 + 0.5 * drop) * (1 - keep * release),
+    uShadow: Math.max(P.shadow * smooth(0.45, 0.8, grow) * (1 - smooth(0, 0.6, morph)), 0.8 * P.shadow * keep * release),
+    uGhost: smooth(0, 0.03, T) * (1 - smooth(0.04, 0.08, T)),
+    uRipR: 1 + 0.9 * Math.max(0, T - tl),
+    uRipA: P.ripple * smooth(tl, tl + 0.06, T) * Math.exp(-Math.max(0, T - tl) / 0.6),
+    uBare: (1 - keep) * smooth(tx - 0.25, tx, T) * (1 - outro),
+    uReach: bandW * plateScale,
+    uCornerPull: P.cornerPull,
+    uStreak: P.edgeSmear,
+    uWiden: P.cornerWidth,
+    uSlab: 0.3 * P.opticalDepth,
+    uEtaSpread: 0.06,
+    uFocus: P.cornerFocus,
+    uFocusK: 1,
+    uFocusSplit: 0.056 * P.colorBleed,
+    uRimLine: 0.09,
+    uCornerOn: smooth(0.35, 1, morph),
+    uGlow: 0.012 * P.colorBleed,
+    uFaceDisp: 0.012 * P.dispersion,
+    uVivid: 0.85,
+    uDissolve: release,
+    uDisp: P.dispersion,
+    uDouble: P.doubleBevel,
+    uBevelW: bandW * (1 - release),
+    uSpec: P.specular,
+    uIconPlate: P.iconPlate ? 1 : 0,
+    uUseColor: P.originalColors ? 1 : 0,
+    uLightScene: luminance(bg) > 0.5 ? 1 : 0,
+    uLightGlass: luminance(P.iconPlate ? hexToRgb(P.plateColor) : bg) > 0.5 ? 1 : 0,
+    uBg0: bg,
+    uPlateCol: hexToRgb(P.plateColor),
+    uLogoCol: hexToRgb(P.logoColor)
+  };
+}
+function startEngine(wrap, live) {
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("aria-hidden", "true");
+  canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block";
+  wrap.appendChild(canvas);
+  let renderer = null;
+  try {
+    renderer = createRenderer(canvas);
+  } catch (err) {
+    console.error(err);
+  }
+  if (!renderer) {
+    canvas.remove();
+    return null;
+  }
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let logo = null;
+  let time = reduceMotion ? 1.4 : 0;
+  let playing = !reduceMotion;
+  let pauseLeft = 0;
+  let outro = 0;
+  let dirty = true;
+  let visible = false;
+  let lost = false;
+  let raf = 0;
+  let last = 0;
+  function tick(now) {
+    raf = 0;
+    const dt = Math.min(0.1, (now - last) / 1e3);
+    last = now;
+    const { settings: P, loop, speed, time: fixed } = live.current;
+    const end = endOf(P);
+    if (fixed !== void 0) {
+      playing = false;
+      time = fixed;
+      outro = clamp01((fixed - end - Math.max(0.05, P.hold)) / OUTRO);
+    } else if (playing && logo) {
+      if (pauseLeft > 0) {
+        pauseLeft -= dt;
+        const was = outro;
+        outro = clamp01(1 - pauseLeft / OUTRO);
+        if (pauseLeft <= 0) {
+          pauseLeft = 0;
+          outro = 0;
+          time = 0;
+        }
+        if (outro !== was || time === 0) dirty = true;
+      } else {
+        time += dt * speed;
+        if (time >= end) {
+          time = end;
+          if (loop) pauseLeft = Math.max(0.05, P.hold) + OUTRO;
+          else playing = false;
+        }
+        dirty = true;
+      }
+    }
+    if (dirty && logo && renderer && !lost) {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      const w = Math.max(1, Math.round(cw * dpr));
+      const h = Math.max(1, Math.round(ch * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+      const tile = Math.min(P.tileSize, Math.min(cw, ch) / 1.75);
+      renderer.render(frameAt(Math.min(time, end), P, outro), w, h, tile * dpr, live.current.getExtras ? live.current.getExtras(canvas, w / cw) : null);
+      dirty = false;
+    }
+    if (visible && playing && logo && !lost) raf = requestAnimationFrame(tick);
+  }
+  function kick() {
+    if (raf || !visible || lost) return;
+    last = performance.now();
+    raf = requestAnimationFrame(tick);
+  }
+  const io = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (visible) kick();
+    else if (raf) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+  });
+  io.observe(wrap);
+  const ro = new ResizeObserver(() => {
+    dirty = true;
+    kick();
+  });
+  ro.observe(wrap);
+  const onLost = (e) => {
+    e.preventDefault();
+    lost = true;
+  };
+  const onRestored = () => {
+    lost = false;
+    try {
+      renderer = createRenderer(canvas);
+      if (renderer && logo) renderer.setLogo(logo);
+    } catch (err) {
+      console.error(err);
+    }
+    dirty = true;
+    kick();
+  };
+  canvas.addEventListener("webglcontextlost", onLost);
+  canvas.addEventListener("webglcontextrestored", onRestored);
+  return {
+    setLogo(data) {
+      logo = data;
+      renderer?.setLogo(data);
+      if (!reduceMotion) {
+        time = 0;
+        playing = true;
+        pauseLeft = 0;
+        outro = 0;
+      }
+      dirty = true;
+      kick();
+    },
+    replay() {
+      time = 0;
+      playing = true;
+      pauseLeft = 0;
+      outro = 0;
+      dirty = true;
+      kick();
+    },
+    invalidate() {
+      dirty = true;
+      kick();
+    },
+    dispose() {
+      if (raf) cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
+      canvas.removeEventListener("webglcontextlost", onLost);
+      canvas.removeEventListener("webglcontextrestored", onRestored);
+      renderer?.dispose();
+      canvas.remove();
+    }
+  };
+}
+
+/* ── Angelring hero logo: glass reveal (WebGL2). Falls back to the static <img> when WebGL2 or motion is unavailable ── */
+const LOGO_SVG = "<svg width=\"120\" height=\"114\" viewBox=\"0 0 120 114\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M119.702 51.0372C119.539 48.9838 119.291 46.9893 118.958 45.0537V45.0405C118.632 43.1417 118.225 41.3018 117.738 39.5208L117.699 39.3652C117.222 37.6169 116.664 35.9246 116.045 34.2877C116.011 34.2098 115.985 34.1203 115.955 34.0386C115.336 32.4358 114.644 30.8899 113.892 29.3946L113.736 29.0724C112.988 27.6116 112.179 26.2056 111.308 24.8543C111.23 24.725 111.152 24.5966 111.063 24.4651C110.206 23.1503 109.288 21.8878 108.321 20.6766C108.201 20.5264 108.08 20.3715 107.956 20.2212C107.001 19.0526 105.998 17.9369 104.947 16.8741C104.775 16.6982 104.599 16.5223 104.423 16.3503C103.391 15.3321 102.318 14.3599 101.204 13.4336C100.97 13.2359 100.727 13.0444 100.486 12.8576C99.3986 11.9858 98.2754 11.1555 97.1165 10.3667C96.7985 10.1519 96.4673 9.95026 96.1455 9.73931C95.0234 9.01774 93.8803 8.32574 92.6982 7.6859C92.2766 7.4586 91.8472 7.24767 91.4218 7.03283C90.2872 6.45292 89.1441 5.89481 87.962 5.3873C87.4251 5.15378 86.8664 4.95372 86.3201 4.73889C85.2027 4.29676 84.0853 3.86241 82.9289 3.48021C82.2455 3.25681 81.5403 3.07623 80.8444 2.86995C79.7784 2.55859 78.7124 2.23867 77.6121 1.98102C76.7479 1.77475 75.8542 1.62452 74.9728 1.4486C73.9972 1.25945 73.0349 1.04461 72.0413 0.894381C70.8896 0.718463 69.7075 0.606375 68.5348 0.481831C67.761 0.403991 67.0044 0.284115 66.2181 0.22807C64.2326 0.0775798 62.2183 0.0015568 60.1751 0C26.9905 0 0 24.2961 0 56.6035C0 87.8173 15.9744 113.207 49.1598 113.207C58.9159 113.207 71.5395 109.289 79.3615 93.073C80.3363 91.0629 81.1888 88.9959 81.9143 86.8832C89.5041 64.7261 119.929 77.5425 119.955 56.6246C119.951 54.7105 119.844 52.8633 119.702 51.0372ZM79.2244 57.2099C79.1879 58.611 79.063 60.0084 78.8503 61.3938L78.8371 61.4716C78.4924 63.7088 77.8236 65.8839 76.8516 67.9285C75.3753 71.0425 73.0595 73.6841 70.1642 75.5568C67.9581 76.9509 65.4815 77.8626 62.8973 78.2317C60.3131 78.6009 57.6799 78.4191 55.1711 77.6985C52.6623 76.9779 50.3347 75.7347 48.3415 74.0507C46.3483 72.3668 44.7347 70.2802 43.6069 67.9285C42.6597 65.9442 41.9998 63.8354 41.6472 61.6655C41.6082 61.4678 41.5872 61.2615 41.5529 61.0599C41.3876 59.9455 41.2872 58.8224 41.2521 57.6964C41.2474 57.5205 41.2046 57.3524 41.2046 57.1764C41.2046 57.1204 41.2217 57.0737 41.2217 57.0208C41.2178 56.9266 41.2046 56.8402 41.2046 56.746C41.1276 53.0528 41.9521 49.3964 43.6069 46.0928C45.1563 43.081 47.5038 40.5519 50.3933 38.7814C53.3102 36.9898 56.6715 36.0511 60.0956 36.0717L60.1735 36.0632L60.1907 36.0679L60.225 36.0632C63.7311 35.9936 67.1824 36.9399 70.1618 38.7876C72.9973 40.5931 75.3044 43.1156 76.8492 46.0991C78.1804 48.7472 78.9583 51.6381 79.1355 54.5961C79.2144 55.465 79.2439 56.3377 79.2236 57.2099H79.2244Z\" fill=\"url(#paint0_linear_22_6278)\"/>\n<path d=\"M79.1493 54.6133C78.9705 51.6553 78.1919 48.7645 76.8607 46.1163C75.3128 43.1329 73.0037 40.6108 70.167 38.8048C67.1832 36.9606 63.7297 36.0164 60.2216 36.0858H60.1702V0.0195312C62.218 0.0195312 64.2308 0.097365 66.2225 0.246817C67.0017 0.306754 67.7623 0.422742 68.5368 0.504474C69.7112 0.624347 70.894 0.737983 72.0434 0.912344C73.037 1.06258 74.0009 1.27742 74.9773 1.47046C75.8594 1.64249 76.7539 1.79272 77.6189 1.999C78.7199 2.26132 79.7867 2.5789 80.8535 2.89259C81.5501 3.0942 82.26 3.28179 82.9395 3.50285C84.0967 3.88116 85.2149 4.31473 86.3339 4.75686C86.8793 4.9717 87.4396 5.1733 87.9773 5.40526C89.1602 5.912 90.3049 6.47478 91.4402 7.05079C91.8665 7.26952 92.2974 7.4758 92.7182 7.70387C93.9011 8.34838 95.0458 9.03961 96.1679 9.76118C96.4905 9.96746 96.8216 10.1691 97.1404 10.3839C98.3022 11.1701 99.4243 12.003 100.513 12.8748C100.754 13.0678 100.994 13.257 101.231 13.4508C102.35 14.3786 103.424 15.3509 104.454 16.3674C104.63 16.5434 104.806 16.7154 104.978 16.8913C106.032 17.9608 107.036 19.0765 107.989 20.2384C108.114 20.3886 108.234 20.5435 108.354 20.6938C109.322 21.9096 110.243 23.1683 111.099 24.483C111.185 24.6115 111.262 24.7407 111.344 24.8722C112.213 26.2297 113.024 27.6373 113.775 29.095C113.826 29.1978 113.878 29.3052 113.931 29.4126C114.683 30.9079 115.376 32.4538 115.996 34.0604C116.026 34.1383 116.052 34.2239 116.086 34.3056C116.705 35.9465 117.265 37.6348 117.742 39.3831L117.785 39.5388C118.266 41.326 118.672 43.1659 119.002 45.0584V45.0709C119.337 47.008 119.586 49.0026 119.746 51.0544C119.888 52.8798 119.995 54.7269 120 56.6433V93.2942C119.979 98.5534 117.918 103.6 114.249 107.372C110.58 111.144 105.59 113.348 100.328 113.52C95.0655 113.692 89.9416 111.819 86.0336 108.295C82.1255 104.77 79.738 99.8695 79.3729 94.6229C79.3426 94.1761 79.2397 93.7511 79.2397 93.2957V57.2294C79.2397 57.2294 79.2054 55.2274 79.1493 54.6133Z\" fill=\"url(#paint1_linear_22_6278)\"/>\n<defs>\n<linearGradient id=\"paint0_linear_22_6278\" x1=\"0\" y1=\"56.6035\" x2=\"98.3632\" y2=\"56.6035\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#08A0FF\"/>\n<stop offset=\"0.418\" stop-color=\"#08A0FF\"/>\n<stop offset=\"0.669\" stop-color=\"#08A0FF\"/>\n<stop offset=\"0.801\" stop-color=\"#37B0FF\"/>\n<stop offset=\"1\" stop-color=\"#88CCFF\"/>\n</linearGradient>\n<linearGradient id=\"paint1_linear_22_6278\" x1=\"90.0851\" y1=\"59.1588\" x2=\"90.0851\" y2=\"171.535\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#08A0FF\"/>\n<stop offset=\"1\" stop-color=\"#0080FF\"/>\n</linearGradient>\n</defs>\n</svg>";
+const hero = document.querySelector('.hero');
+const box = document.querySelector('#heroLogo .hero-logo-box');
+if (hero && box && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const img = box.querySelector('img');
+  const wrap = document.createElement('div');
+  wrap.className = 'hero-reveal'; wrap.setAttribute('role', 'img'); wrap.setAttribute('aria-label', 'Angelring 로고');
+  wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;isolation:isolate';
+  box.style.position = 'relative'; box.appendChild(wrap);
+  const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function settings() {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const base = dark ? Object.assign({}, LOOKS.dark, { iconPlate: false }) : Object.assign({}, LOOKS.light);
+    return Object.assign(base, { background: cssVar('--bg') || (dark ? '#0F1218' : '#FBFBFB'), originalColors: true, tileSize: 142, logoScale: 0.7, finalScale: 1.3 });
+  }
+  // The hero paints radial-gradient(125% 125% at 50% -50%, var(--p-high) 40%, transparent 100%); the shader repeats it so the canvas blends in.
+  function getExtras(canvas, dpr) {
+    const hr = hero.getBoundingClientRect(), cr = canvas.getBoundingClientRect();
+    const pad = -(parseFloat(getComputedStyle(hero, '::before').left) || 0);   // the gradient layer is full-bleed: it reaches past the hero by the page padding
+    return { hero: [cr.left - (hr.left - pad), cr.top - hr.top, hr.width + 2 * pad, hr.height], dpr: dpr, ch: cr.height, grad: hexToRgb(cssVar('--p-high') || '#D9EAFF') };
+  }
+  const live = { current: { settings: settings(), loop: false, speed: 1, time: undefined, getExtras: getExtras } };
+  let engine = null;
+  try { engine = startEngine(wrap, live); } catch (e) { engine = null; }
+  if (!engine) { wrap.remove(); }
+  else {
+    new MutationObserver(function () { live.current.settings = settings(); engine.invalidate(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    if (window.ResizeObserver) new ResizeObserver(function () { engine.invalidate(); }).observe(hero);
+    loadLogo(LOGO_SVG).then(function (data) { engine.setLogo(data); if (img) img.style.visibility = 'hidden'; },
+      function () { wrap.remove(); });
+  }
+}
 })();
 </script>
 </body>
