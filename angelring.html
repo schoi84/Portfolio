@@ -148,7 +148,8 @@ html[data-theme="dark"] .ls-btn.active{background:#2D3441;color:#EEF1F5;box-shad
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
 /* HERO */
-.hero{padding-top:88px;border-bottom:1px solid var(--gray-200);background:var(--bg);overflow:hidden}
+.hero{position:relative;isolation:isolate;padding-top:88px;border-bottom:1px solid var(--gray-200)}
+.hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-2.5rem;right:-2.5rem;background:radial-gradient(125% 125% at 50% -50%,var(--p-high) 40%,transparent 100%);pointer-events:none}
 .hero-2col{display:flex;align-items:center;gap:56px;max-width:1024px;margin:0 auto;padding:60px 0 120px}
 .hero-card-col{flex:1 1 0;min-width:0}
 .hero-eyebrow{font-size:14px;font-weight:500;color:var(--gray-700);letter-spacing:.07em;display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
@@ -343,6 +344,7 @@ html[data-theme="dark"] .tag{border-color:var(--gray-300)}
   nav{padding:0 1.2rem;height:56px}
   .wrap{padding:0 1.2rem}
   .hero{padding-top:72px}
+  .hero::before{left:-1.2rem;right:-1.2rem}
   .hero-2col{flex-direction:column;gap:40px;padding:28px 1.5rem 72px;text-align:center}
   .hero-eyebrow,.hero-meta{justify-content:center}
   .hero-tagline,.hero-desc{max-width:100%;margin-left:auto;margin-right:auto}
@@ -1407,7 +1409,13 @@ uniform float uSheen;      // strength of the light band crossing the face
 uniform float uSweep;      // where that band is, plate sizes along its diagonal
 uniform float uLightAng;   // how far the rim light has turned, radians
 
-uniform vec3 uBg;
+uniform vec3 uBg0;
+uniform vec3 uGradCol;
+uniform float uGradOn;
+uniform vec4 uHero;       // canvas offset inside the hero (css px, from top-left) + hero size
+uniform float uDpr;
+uniform float uCanvasH;    // canvas height, css px
+vec3 uBg;
 uniform vec3 uPlateCol;
 uniform vec3 uLogoCol;
 
@@ -1481,6 +1489,12 @@ float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.545
 
 void main() {
   px = 2.0 / uTile;
+  {
+    vec2 css = gl_FragCoord.xy / uDpr;
+    vec2 hv = vec2((uHero.x + css.x) / uHero.z, (uHero.y + (uCanvasH - css.y)) / uHero.w);
+    float gt = length(vec2(hv.x - 0.5, hv.y + 0.5) / 1.25);
+    uBg = mix(uBg0, uGradCol, uGradOn * (1.0 - clamp((gt - 0.4) / 0.6, 0.0, 1.0)));
+  }
   vec2 p = (gl_FragCoord.xy - uCenter) * px;
 
   vec4 lg = logoAt(p, uBlur, px);
@@ -1683,7 +1697,7 @@ function createRenderer(canvas) {
     params(gl.LINEAR_MIPMAP_LINEAR);
     hasLogo = true;
   }
-  function render(fr, w, h, tilePx) {
+  function render(fr, w, h, tilePx, ex) {
     if (!hasLogo) return;
     gl.viewport(0, 0, w, h);
     gl.uniform2f(U.uCenter, w / 2, h / 2);
@@ -1694,7 +1708,19 @@ function createRenderer(canvas) {
       const v = fr[k];
       if (typeof v === "number" && U[k]) gl.uniform1f(U[k], v);
     }
-    gl.uniform3fv(U.uBg, fr.uBg);
+    gl.uniform3fv(U.uBg0, fr.uBg0);
+    if (ex) {
+      gl.uniform3fv(U.uGradCol, ex.grad);
+      gl.uniform1f(U.uGradOn, 1);
+      gl.uniform4fv(U.uHero, ex.hero);
+      gl.uniform1f(U.uDpr, ex.dpr);
+      gl.uniform1f(U.uCanvasH, ex.ch);
+    } else {
+      gl.uniform1f(U.uGradOn, 0);
+      gl.uniform1f(U.uDpr, 1);
+      gl.uniform4fv(U.uHero, [0, 0, 1, 1]);
+      gl.uniform1f(U.uCanvasH, 1);
+    }
     gl.uniform3fv(U.uPlateCol, fr.uPlateCol);
     gl.uniform3fv(U.uLogoCol, fr.uLogoCol);
     gl.uniform2fv(U.uLogoOff, fr.uLogoOff);
@@ -1817,7 +1843,7 @@ function frameAt(T, P, outro = 0) {
     uUseColor: P.originalColors ? 1 : 0,
     uLightScene: luminance(bg) > 0.5 ? 1 : 0,
     uLightGlass: luminance(P.iconPlate ? hexToRgb(P.plateColor) : bg) > 0.5 ? 1 : 0,
-    uBg: bg,
+    uBg0: bg,
     uPlateCol: hexToRgb(P.plateColor),
     uLogoCol: hexToRgb(P.logoColor)
   };
@@ -1890,7 +1916,7 @@ function startEngine(wrap, live) {
         canvas.height = h;
       }
       const tile = Math.min(P.tileSize, Math.min(cw, ch) / 1.75);
-      renderer.render(frameAt(Math.min(time, end), P, outro), w, h, tile * dpr);
+      renderer.render(frameAt(Math.min(time, end), P, outro), w, h, tile * dpr, live.current.getExtras ? live.current.getExtras(canvas, w / cw) : null);
       dirty = false;
     }
     if (visible && playing && logo && !lost) raf = requestAnimationFrame(tick);
@@ -1970,25 +1996,34 @@ function startEngine(wrap, live) {
 
 /* ── Angelring hero logo: glass reveal (WebGL2). Falls back to the static <img> when WebGL2 or motion is unavailable ── */
 const LOGO_SVG = "<svg width=\"120\" height=\"114\" viewBox=\"0 0 120 114\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M119.702 51.0372C119.539 48.9838 119.291 46.9893 118.958 45.0537V45.0405C118.632 43.1417 118.225 41.3018 117.738 39.5208L117.699 39.3652C117.222 37.6169 116.664 35.9246 116.045 34.2877C116.011 34.2098 115.985 34.1203 115.955 34.0386C115.336 32.4358 114.644 30.8899 113.892 29.3946L113.736 29.0724C112.988 27.6116 112.179 26.2056 111.308 24.8543C111.23 24.725 111.152 24.5966 111.063 24.4651C110.206 23.1503 109.288 21.8878 108.321 20.6766C108.201 20.5264 108.08 20.3715 107.956 20.2212C107.001 19.0526 105.998 17.9369 104.947 16.8741C104.775 16.6982 104.599 16.5223 104.423 16.3503C103.391 15.3321 102.318 14.3599 101.204 13.4336C100.97 13.2359 100.727 13.0444 100.486 12.8576C99.3986 11.9858 98.2754 11.1555 97.1165 10.3667C96.7985 10.1519 96.4673 9.95026 96.1455 9.73931C95.0234 9.01774 93.8803 8.32574 92.6982 7.6859C92.2766 7.4586 91.8472 7.24767 91.4218 7.03283C90.2872 6.45292 89.1441 5.89481 87.962 5.3873C87.4251 5.15378 86.8664 4.95372 86.3201 4.73889C85.2027 4.29676 84.0853 3.86241 82.9289 3.48021C82.2455 3.25681 81.5403 3.07623 80.8444 2.86995C79.7784 2.55859 78.7124 2.23867 77.6121 1.98102C76.7479 1.77475 75.8542 1.62452 74.9728 1.4486C73.9972 1.25945 73.0349 1.04461 72.0413 0.894381C70.8896 0.718463 69.7075 0.606375 68.5348 0.481831C67.761 0.403991 67.0044 0.284115 66.2181 0.22807C64.2326 0.0775798 62.2183 0.0015568 60.1751 0C26.9905 0 0 24.2961 0 56.6035C0 87.8173 15.9744 113.207 49.1598 113.207C58.9159 113.207 71.5395 109.289 79.3615 93.073C80.3363 91.0629 81.1888 88.9959 81.9143 86.8832C89.5041 64.7261 119.929 77.5425 119.955 56.6246C119.951 54.7105 119.844 52.8633 119.702 51.0372ZM79.2244 57.2099C79.1879 58.611 79.063 60.0084 78.8503 61.3938L78.8371 61.4716C78.4924 63.7088 77.8236 65.8839 76.8516 67.9285C75.3753 71.0425 73.0595 73.6841 70.1642 75.5568C67.9581 76.9509 65.4815 77.8626 62.8973 78.2317C60.3131 78.6009 57.6799 78.4191 55.1711 77.6985C52.6623 76.9779 50.3347 75.7347 48.3415 74.0507C46.3483 72.3668 44.7347 70.2802 43.6069 67.9285C42.6597 65.9442 41.9998 63.8354 41.6472 61.6655C41.6082 61.4678 41.5872 61.2615 41.5529 61.0599C41.3876 59.9455 41.2872 58.8224 41.2521 57.6964C41.2474 57.5205 41.2046 57.3524 41.2046 57.1764C41.2046 57.1204 41.2217 57.0737 41.2217 57.0208C41.2178 56.9266 41.2046 56.8402 41.2046 56.746C41.1276 53.0528 41.9521 49.3964 43.6069 46.0928C45.1563 43.081 47.5038 40.5519 50.3933 38.7814C53.3102 36.9898 56.6715 36.0511 60.0956 36.0717L60.1735 36.0632L60.1907 36.0679L60.225 36.0632C63.7311 35.9936 67.1824 36.9399 70.1618 38.7876C72.9973 40.5931 75.3044 43.1156 76.8492 46.0991C78.1804 48.7472 78.9583 51.6381 79.1355 54.5961C79.2144 55.465 79.2439 56.3377 79.2236 57.2099H79.2244Z\" fill=\"url(#paint0_linear_22_6278)\"/>\n<path d=\"M79.1493 54.6133C78.9705 51.6553 78.1919 48.7645 76.8607 46.1163C75.3128 43.1329 73.0037 40.6108 70.167 38.8048C67.1832 36.9606 63.7297 36.0164 60.2216 36.0858H60.1702V0.0195312C62.218 0.0195312 64.2308 0.097365 66.2225 0.246817C67.0017 0.306754 67.7623 0.422742 68.5368 0.504474C69.7112 0.624347 70.894 0.737983 72.0434 0.912344C73.037 1.06258 74.0009 1.27742 74.9773 1.47046C75.8594 1.64249 76.7539 1.79272 77.6189 1.999C78.7199 2.26132 79.7867 2.5789 80.8535 2.89259C81.5501 3.0942 82.26 3.28179 82.9395 3.50285C84.0967 3.88116 85.2149 4.31473 86.3339 4.75686C86.8793 4.9717 87.4396 5.1733 87.9773 5.40526C89.1602 5.912 90.3049 6.47478 91.4402 7.05079C91.8665 7.26952 92.2974 7.4758 92.7182 7.70387C93.9011 8.34838 95.0458 9.03961 96.1679 9.76118C96.4905 9.96746 96.8216 10.1691 97.1404 10.3839C98.3022 11.1701 99.4243 12.003 100.513 12.8748C100.754 13.0678 100.994 13.257 101.231 13.4508C102.35 14.3786 103.424 15.3509 104.454 16.3674C104.63 16.5434 104.806 16.7154 104.978 16.8913C106.032 17.9608 107.036 19.0765 107.989 20.2384C108.114 20.3886 108.234 20.5435 108.354 20.6938C109.322 21.9096 110.243 23.1683 111.099 24.483C111.185 24.6115 111.262 24.7407 111.344 24.8722C112.213 26.2297 113.024 27.6373 113.775 29.095C113.826 29.1978 113.878 29.3052 113.931 29.4126C114.683 30.9079 115.376 32.4538 115.996 34.0604C116.026 34.1383 116.052 34.2239 116.086 34.3056C116.705 35.9465 117.265 37.6348 117.742 39.3831L117.785 39.5388C118.266 41.326 118.672 43.1659 119.002 45.0584V45.0709C119.337 47.008 119.586 49.0026 119.746 51.0544C119.888 52.8798 119.995 54.7269 120 56.6433V93.2942C119.979 98.5534 117.918 103.6 114.249 107.372C110.58 111.144 105.59 113.348 100.328 113.52C95.0655 113.692 89.9416 111.819 86.0336 108.295C82.1255 104.77 79.738 99.8695 79.3729 94.6229C79.3426 94.1761 79.2397 93.7511 79.2397 93.2957V57.2294C79.2397 57.2294 79.2054 55.2274 79.1493 54.6133Z\" fill=\"url(#paint1_linear_22_6278)\"/>\n<defs>\n<linearGradient id=\"paint0_linear_22_6278\" x1=\"0\" y1=\"56.6035\" x2=\"98.3632\" y2=\"56.6035\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#08A0FF\"/>\n<stop offset=\"0.418\" stop-color=\"#08A0FF\"/>\n<stop offset=\"0.669\" stop-color=\"#08A0FF\"/>\n<stop offset=\"0.801\" stop-color=\"#37B0FF\"/>\n<stop offset=\"1\" stop-color=\"#88CCFF\"/>\n</linearGradient>\n<linearGradient id=\"paint1_linear_22_6278\" x1=\"90.0851\" y1=\"59.1588\" x2=\"90.0851\" y2=\"171.535\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#08A0FF\"/>\n<stop offset=\"1\" stop-color=\"#0080FF\"/>\n</linearGradient>\n</defs>\n</svg>";
+const hero = document.querySelector('.hero');
 const box = document.querySelector('#heroLogo .hero-logo-box');
-if (box && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if (hero && box && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const img = box.querySelector('img');
   const wrap = document.createElement('div');
   wrap.className = 'hero-reveal'; wrap.setAttribute('role', 'img'); wrap.setAttribute('aria-label', 'Angelring 로고');
   wrap.style.cssText = 'position:absolute;inset:0;overflow:hidden;isolation:isolate';
   box.style.position = 'relative'; box.appendChild(wrap);
+  const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   function settings() {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const base = dark ? Object.assign({}, LOOKS.dark, { iconPlate: false, background: '#0F1218' }) : Object.assign({}, LOOKS.light, { background: '#FBFBFB' });
-    return Object.assign(base, { originalColors: true, tileSize: 142, logoScale: 0.7, finalScale: 1.3 });
+    const base = dark ? Object.assign({}, LOOKS.dark, { iconPlate: false }) : Object.assign({}, LOOKS.light);
+    return Object.assign(base, { background: cssVar('--bg') || (dark ? '#0F1218' : '#FBFBFB'), originalColors: true, tileSize: 142, logoScale: 0.7, finalScale: 1.3 });
   }
-  const live = { current: { settings: settings(), loop: false, speed: 1, time: undefined } };
+  // The hero paints radial-gradient(125% 125% at 50% -50%, var(--p-high) 40%, transparent 100%); the shader repeats it so the canvas blends in.
+  function getExtras(canvas, dpr) {
+    const hr = hero.getBoundingClientRect(), cr = canvas.getBoundingClientRect();
+    const pad = -(parseFloat(getComputedStyle(hero, '::before').left) || 0);   // the gradient layer is full-bleed: it reaches past the hero by the page padding
+    return { hero: [cr.left - (hr.left - pad), cr.top - hr.top, hr.width + 2 * pad, hr.height], dpr: dpr, ch: cr.height, grad: hexToRgb(cssVar('--p-high') || '#D9EAFF') };
+  }
+  const live = { current: { settings: settings(), loop: false, speed: 1, time: undefined, getExtras: getExtras } };
   let engine = null;
   try { engine = startEngine(wrap, live); } catch (e) { engine = null; }
   if (!engine) { wrap.remove(); }
   else {
     new MutationObserver(function () { live.current.settings = settings(); engine.invalidate(); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    if (window.ResizeObserver) new ResizeObserver(function () { engine.invalidate(); }).observe(hero);
     loadLogo(LOGO_SVG).then(function (data) { engine.setLogo(data); if (img) img.style.visibility = 'hidden'; },
       function () { wrap.remove(); });
   }
