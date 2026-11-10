@@ -1280,6 +1280,34 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
 .ld-screen .ld-shadow { fill: none; stroke: var(--ld-line); stroke-dasharray: 2 3; opacity: .7; }
 .ld-label { font: 500 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--ld-line); }
 </style>
+<style>
+/* ── Other projects dock ── */
+.od{--od-base:60px;padding:96px 1.5rem 72px;text-align:center}
+.od-dock{--od-gap:12px;display:inline-flex;align-items:center;justify-content:center;gap:var(--od-gap);height:92px;padding:0 16px;border-radius:26px;position:relative;
+  background:rgba(255,255,255,.55);border:1px solid rgba(20,24,40,.10);box-shadow:0 8px 30px rgba(20,24,40,.06);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);
+  opacity:0;transform:translateY(28px) scale(.96);transition:opacity .6s ease,transform .8s cubic-bezier(.34,1.35,.64,1)}
+html[data-theme="dark"] .od-dock{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.12);box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.od.in .od-dock{opacity:1;transform:none}
+.od-item{position:relative;display:block;width:var(--od-base);height:var(--od-base);flex:0 0 auto;border-radius:18px;text-decoration:none;color:inherit;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.od-ic{position:absolute;inset:0;display:grid;place-items:center;border-radius:inherit;background:var(--g);box-shadow:0 10px 22px -6px var(--glow);
+  opacity:0;transform:translateY(14px) scale(.6);transition:opacity .5s ease,transform .7s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i)*90ms + 150ms)}
+.od.in .od-ic{opacity:1;transform:none}
+.od-ic svg{width:46%;height:46%;fill:none;stroke:#14171f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.88}
+.od-item:focus-visible .od-ic{outline:2px solid #fff;outline-offset:3px;box-shadow:0 0 0 5px rgba(8,160,255,.55),0 10px 22px -6px var(--glow)}
+.od-item.is-off .od-ic{filter:saturate(.35);opacity:.55}
+.od.in .od-item.is-off .od-ic{opacity:.55}
+.od-item.is-off{cursor:default}
+.od-tip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,4px);padding:5px 10px;border-radius:8px;white-space:nowrap;font-size:12px;font-weight:500;line-height:1.3;letter-spacing:.01em;
+  color:#fff;background:rgba(24,28,38,.92);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+html[data-theme="dark"] .od-tip{color:#14171f;background:rgba(236,240,248,.95)}
+.od-item:hover .od-tip,.od-item:focus-visible .od-tip{opacity:1;transform:translate(-50%,0)}
+.od-label{margin-top:14px;font-size:14px;font-weight:400;letter-spacing:.02em;color:#8a94a6;opacity:0;transform:translateY(6px);transition:opacity .6s ease .35s,transform .6s ease .35s}
+html[data-theme="dark"] .od-label{color:#93a7c4}
+.od.in .od-label{opacity:1;transform:none}
+@media (max-width:640px){.od{--od-base:56px;padding:72px 1.2rem 56px}.od-dock{height:84px;padding:0 14px}}
+@media (prefers-reduced-motion:reduce){.od-dock,.od-ic,.od-label{transition:none!important}}
+</style>
 </head>
 <body>
 <script>
@@ -2122,18 +2150,11 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
   </div>
 
 
-  <!-- FOOTER -->
-  <div class="page-footer">
-    <a class="pf-next" href="#">
-      <span class="pf-next-lbl">Next Case Study</span>
-      <span class="pf-sep"></span>
-      <div class="pf-next-row">
-        <span class="pf-next-title">Angelring</span>
-        <svg width="24" height="24" viewBox="0 0 14 14" fill="none" stroke="#3a3530" stroke-width="1.5"><path d="M5 2.5L9.5 7 5 11.5"/></svg>
-      </div>
-    </a>
-  </div>
-
+<!-- OTHER PROJECTS DOCK -->
+<section class="od" data-current="engram" aria-label="Other projects">
+  <nav class="od-dock" aria-label="Other projects"><a class="od-item" data-proj="triangle" style="--g:linear-gradient(145deg,#FF7A9B 0%,#FF084E 100%);--glow:rgba(255,8,78,.38);--i:0" aria-label="Triangle UI" href="hyundai-ht-design-system.html"><span class="od-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5 21 19.5H3z"/></svg></span><span class="od-tip" aria-hidden="true">Triangle UI</span></a><span class="od-item is-off" data-proj="angelring" style="--g:linear-gradient(145deg,#7FD0FF 0%,#08A0FF 100%);--glow:rgba(8,160,255,.38);--i:1" aria-label="Angelring · Coming soon" role="link" aria-disabled="true" tabindex="0"><span class="od-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5" stroke-width="2.6"/></svg></span><span class="od-tip" aria-hidden="true">Angelring · Coming soon</span></span></nav>
+  <p class="od-label">Other projects</p>
+</section>
 </div>
 
 <script>
@@ -3000,6 +3021,46 @@ setLang(currentLang, false);
     d.addEventListener('click', function () {
       fire('upgrade_modal', { action: 'dot_click', slide: (+d.getAttribute('data-cta-idx')) + 1, slide_label: d.getAttribute('aria-label') });
     });
+  });
+})();
+</script>
+<script>
+/* Other projects dock: appears when the page end is reached; icons magnify toward the pointer (or the focused icon) */
+(function () {
+  var root = document.querySelector('.od'); if (!root) return;
+  var dock = root.querySelector('.od-dock'), items = [].slice.call(dock.querySelectorAll('.od-item'));
+  var BASE = parseFloat(getComputedStyle(root).getPropertyValue('--od-base')) || 60, MAX = Math.round(BASE * 1.5), DIST = 140;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { root.classList.add('in'); o.disconnect(); } }, { threshold: 0.45 }).observe(root);
+  items.forEach(function (it) {
+    it.addEventListener('click', function (e) {
+      var to = it.getAttribute('data-proj'), live = it.tagName === 'A';
+      try { if (typeof track === 'function') track('other_project_click', { from: root.getAttribute('data-current'), to: to, status: live ? 'live' : 'coming_soon' }); } catch (x) {}
+      if (!live) e.preventDefault();
+    });
+    it.addEventListener('keydown', function (e) { if (it.tagName !== 'A' && (e.key === 'Enter' || e.key === ' ')) e.preventDefault(); });
+  });
+  if (!fine || reduce) return;
+  var px = null, sizes = items.map(function () { return BASE; }), raf = 0;
+  function gap() { return parseFloat(getComputedStyle(dock).getPropertyValue('--od-gap')) || 12; }
+  function frame() {
+    raf = 0;
+    var r = dock.getBoundingClientRect(), g = gap(), total = items.length * BASE + (items.length - 1) * g, start = r.left + r.width / 2 - total / 2, moving = false;
+    items.forEach(function (it, i) {
+      var c = start + i * (BASE + g) + BASE / 2, t = BASE;
+      if (px !== null) t = BASE + (MAX - BASE) * Math.max(0, 1 - Math.abs(px - c) / DIST);
+      var n = sizes[i] + (t - sizes[i]) * 0.22;
+      if (Math.abs(n - t) < 0.25) n = t; else moving = true;
+      sizes[i] = n; it.style.width = it.style.height = n.toFixed(1) + 'px';
+    });
+    if (moving) raf = requestAnimationFrame(frame);
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+  dock.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') { px = e.clientX; kick(); } });
+  dock.addEventListener('pointerleave', function () { px = null; kick(); });
+  items.forEach(function (it) {
+    it.addEventListener('focus', function () { var b = it.getBoundingClientRect(); px = b.left + b.width / 2; kick(); });
+    it.addEventListener('blur', function () { px = null; kick(); });
   });
 })();
 </script>
