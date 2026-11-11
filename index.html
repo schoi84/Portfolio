@@ -512,12 +512,12 @@ html[lang="ko"] .hero-title > span { white-space: nowrap; }
 .work-grid > :nth-child(3):hover .proj-card-footer { color: #08A0FF; }
 .proj-sep { display: inline-block; width: 1px; height: 11px; margin: 0 10px; background: var(--gray-400); vertical-align: -1px; }
 .proj-meta { font-size: 15px; font-weight: 300; line-height: 1.55; color: var(--black); margin-top: 6px; text-wrap: pretty; }
-.proj-spec { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--gray-200); display: grid; gap: 8px; }
+.proj-spec { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--gray-200); display: grid; gap: 8px; }
 .proj-spec > div { display: grid; grid-template-columns: 44px 1fr; align-items: baseline; gap: 10px; }
 .proj-spec dt { font-size: 13px; color: var(--gray-400); font-weight: 400; }
 .proj-spec dd { margin: 0; font-size: 14px; line-height: 1.5; color: var(--black); font-weight: 400; }
 .proj-spec dd.res { font-weight: 600; }
-html[lang="en"] .proj-spec > div { grid-template-columns: 52px 1fr; }
+html[lang="en"] .proj-spec > div { grid-template-columns: 68px 1fr; }
 .proj-meta-divider { color: var(--black); margin: 0 4px; font-weight: 300; }
 .proj-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 20px; }
 .chip {
@@ -1119,10 +1119,10 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
         <div class="proj-cover-overlay"></div>
       </div>
       <div class="proj-info">
-        <div class="proj-num" data-i18n="proj1.over">Hyundai HT<span class="proj-sep"></span>2025 – 2026</div>
         <div class="proj-name">Triangle UI</div>
         <div class="proj-meta" data-i18n="proj1.desc">GUI and design system for smart home wallpads</div>
         <dl class="proj-spec">
+          <div><dt data-i18n="proj.company">Company</dt><dd><span data-i18n="proj1.co">Hyundai HT</span><span class="proj-sep"></span>2025 – 2026</dd></div>
           <div><dt data-i18n="proj.role">Role</dt><dd data-i18n="proj1.role">Design System Owner</dd></div>
           <div><dt data-i18n="proj.result">Result</dt><dd class="res" data-i18n="proj1.res">Built a token-based system</dd></div>
         </dl>
@@ -1138,10 +1138,10 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
         <div class="proj-cover-overlay"></div>
       </div>
       <div class="proj-info">
-        <div class="proj-num" data-i18n="proj2.over">Data B<span class="proj-sep"></span>2021 – 2024</div>
         <div class="proj-name">Engram</div>
         <div class="proj-meta" data-i18n="proj2.desc">UIUX redesign of an AI English writing platform</div>
         <dl class="proj-spec">
+          <div><dt data-i18n="proj.company">Company</dt><dd><span data-i18n="proj2.co">Data B</span><span class="proj-sep"></span>2021 – 2024</dd></div>
           <div><dt data-i18n="proj.role">Role</dt><dd data-i18n="proj2.role">Sole Designer</dd></div>
           <div><dt data-i18n="proj.result">Result</dt><dd class="res" data-i18n="proj2.res">Retention +21%</dd></div>
         </dl>
@@ -1157,10 +1157,10 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
         <div class="proj-cover-overlay"></div>
       </div>
       <div class="proj-info">
-        <div class="proj-num" data-i18n="proj3.over">ZUSIN<span class="proj-sep"></span>2020 – 2021</div>
         <div class="proj-name">Angelring</div>
         <div class="proj-meta" data-i18n="proj3.desc">Child-care app for kids with developmental disabilities</div>
         <dl class="proj-spec">
+          <div><dt data-i18n="proj.company">Company</dt><dd><span data-i18n="proj3.co">ZUSIN</span><span class="proj-sep"></span>2020 – 2021</dd></div>
           <div><dt data-i18n="proj.role">Role</dt><dd data-i18n="proj3.role">Brand, UIUX and QA</dd></div>
           <div><dt data-i18n="proj.result">Result</dt><dd class="res" data-i18n="proj3.res">0→1 app launch</dd></div>
         </dl>
@@ -1625,17 +1625,18 @@ const i18n = {
     'hero.title2': 'Feels Obvious',
     'hero.desc': '<span class="hd-line">Currently designing <span class="nw">smart home</span> <span class="nw">interfaces at Hyundai&nbsp;HT.</span></span><span class="hd-line">Previously sole designer <span class="nw">of an AI writing tool,</span> <span class="nw">where my redesign raised retention by&nbsp;21%.</span></span>',
     'work.label': 'Selected Work',
-    'proj1.over': 'Hyundai HT<span class="proj-sep"></span>2025 – 2026',
+    'proj1.co': 'Hyundai HT',
     'proj1.desc': 'GUI and design system for smart home wallpads',
     'proj1.role': 'Design System Owner',
     'proj1.res': 'Built a token-based system',
+    'proj.company': 'Company',
     'proj.role': 'Role',
     'proj.result': 'Result',
-    'proj2.over': 'Data B<span class="proj-sep"></span>2021 – 2024',
+    'proj2.co': 'Data B',
     'proj2.desc': 'UIUX redesign of an AI English writing platform',
     'proj2.role': 'Sole Designer',
     'proj2.res': 'Retention +21%',
-    'proj3.over': 'ZUSIN<span class="proj-sep"></span>2020 – 2021',
+    'proj3.co': 'ZUSIN',
     'proj3.desc': 'Child-care app for kids with developmental disabilities',
     'proj3.role': 'Brand, UIUX and QA',
     'proj3.res': '0→1 app launch',
@@ -1678,17 +1679,18 @@ const i18n = {
     'hero.title2': '당연하게 느껴진다',
     'hero.desc': '<span class="hd-line">현재 <span class="nw">현대HT에서</span> <span class="nw">스마트홈 인터페이스를</span> <span class="nw">디자인하고 있습니다.</span></span><span class="hd-line">이전에는 AI 글쓰기 도구의 단독 디자이너로, <span class="nw">리디자인을 통해 리텐션을 21% 높였습니다.</span></span>',
     'work.label': '선별된 작업',
-    'proj1.over': '현대HT<span class="proj-sep"></span>2025 – 2026',
+    'proj1.co': '현대HT',
     'proj1.desc': '스마트홈 월패드 GUI와 디자인 시스템',
     'proj1.role': '디자인 시스템 총괄',
     'proj1.res': '토큰 기반 시스템 구축',
+    'proj.company': '회사',
     'proj.role': '역할',
     'proj.result': '결과',
-    'proj2.over': 'Data B<span class="proj-sep"></span>2021 – 2024',
+    'proj2.co': 'Data B',
     'proj2.desc': 'AI 영문 작문 플랫폼 UIUX 리디자인',
     'proj2.role': '단독 디자이너',
     'proj2.res': '리텐션 +21%',
-    'proj3.over': 'ZUSIN<span class="proj-sep"></span>2020 – 2021',
+    'proj3.co': 'ZUSIN',
     'proj3.desc': '발달장애 아동 케어 앱 UIUX·브랜딩',
     'proj3.role': '브랜드부터 UIUX, QA까지',
     'proj3.res': '0→1 앱 출시',
