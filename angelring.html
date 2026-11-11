@@ -475,13 +475,13 @@ html[data-theme="dark"] .hs{background:#3A404C}
 @media (max-width:480px){.hs{zoom:.7}}
 @media (max-width:420px){.hs{aspect-ratio:auto;height:auto}.hs-in{height:auto;aspect-ratio:360/744}}
 
-.mp{position:relative;width:100%;max-width:860px;margin:0 auto;aspect-ratio:860/760;overflow:hidden;--k:1}
-.mp-st{position:absolute;left:0;top:0;width:860px;height:760px;transform-origin:0 0;transform:scale(var(--k))}
-.mp-ring{position:absolute;left:110px;top:60px;width:640px;height:640px;border-radius:50%;border:6px solid #0AA0FF;box-sizing:border-box}
-.mp-phone{position:absolute;left:242px;top:0;width:376px;max-width:none}
+.mp{position:relative;width:100%;max-width:1000px;margin:0 auto;aspect-ratio:1000/760;overflow:hidden;--k:1}
+.mp-st{position:absolute;left:0;top:0;width:1000px;height:760px;transform-origin:0 0;transform:scale(var(--k))}
+.mp-ring{position:absolute;left:180px;top:60px;width:640px;height:640px;border-radius:50%;border:6px solid #0AA0FF;box-sizing:border-box}
+.mp-phone{position:absolute;left:312px;top:0;width:376px;max-width:none}
 .mp-ph{translate:calc(var(--mx,0)*var(--z)*26px) calc((var(--my,0)*14px + var(--sy,0)*60px)*var(--z));scale:.35;opacity:0;transition:scale .9s cubic-bezier(.22,1,.36,1),opacity .6s ease;transition-delay:calc(var(--k)*.12s);animation:mpFloat 6s ease-in-out infinite alternate;animation-delay:calc(var(--k)*-1.3s);will-change:translate,transform;position:absolute;border-radius:50%;overflow:hidden;background:#fff}
 .mp-pi{display:block;width:100%;height:100%;object-fit:cover;opacity:.6}
-.mp-p01{left:738px;top:121px}.mp-p02{left:768px;top:299px}.mp-p03{left:698px;top:480px}.mp-p04{left:48px;top:208px}.mp-p05{left:20px;top:453px}
+.mp-p01{left:803px;top:133px}.mp-p02{left:919px;top:296px}.mp-p03{left:764px;top:470px}.mp-p04{left:118px;top:202px}.mp-p05{left:21px;top:446px}
 .hs-map{display:block}
 .mp-map{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.mp-route{position:absolute;inset:0;width:100%;height:100%}
 .hs-map .hs-sb{position:absolute;left:0;right:0;top:0;z-index:2;background:linear-gradient(#FAFAFB 20%,rgba(250,250,251,0))}
@@ -1057,7 +1057,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   new IntersectionObserver(function (es) { if (es[0].isIntersecting) start(); else stop(); }, { threshold: 0.4 }).observe(g); })();
 (function () { var j = document.querySelector('.jr'); if (!j) return; j.classList.add('js'); if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return; var tm = [], on = false; function at(ms, fn) { tm.push(setTimeout(fn, ms)); } function stop() { tm.forEach(clearTimeout); tm = []; } function reset() { stop(); j.classList.add('reset'); j.classList.remove('sel', 'push', 'back'); void j.offsetWidth; j.classList.remove('reset'); } function play() { reset(); at(900, function () { j.classList.add('sel'); }); at(1700, function () { j.classList.add('push'); }); } var o = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { if (!on) { on = true; play(); } } else if (on) { on = false; reset(); } }, { threshold: 0.5 }); o.observe(j); })();
 // map screen: scale the 860px stage to the available width
-(function () { var m = document.querySelector('.mp'); if (!m) return; var st = m.querySelector('.mp-st'); function fit() { var narrow = window.matchMedia('(max-width:700px)').matches; m.style.setProperty('--k', narrow ? 1 : Math.min(1, m.clientWidth / 860)); } fit(); window.addEventListener('resize', fit); if (window.ResizeObserver) new ResizeObserver(fit).observe(m); })();
+(function () { var m = document.querySelector('.mp'); if (!m) return; var st = m.querySelector('.mp-st'); function fit() { var narrow = window.matchMedia('(max-width:700px)').matches; m.style.setProperty('--k', narrow ? 1 : Math.min(1, m.clientWidth / 1000)); } fit(); window.addEventListener('resize', fit); if (window.ResizeObserver) new ResizeObserver(fit).observe(m); })();
 // status timeline: arrow draws from the first state down to the end when it scrolls into view
 document.querySelectorAll('.stl').forEach(el => { el.classList.add('js'); var o = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { el.classList.add('in'); o.disconnect(); } }), { threshold: 0.35 }); o.observe(el); });
 // design system: show the fade-out + guide only when a board is actually cropped
