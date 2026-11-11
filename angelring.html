@@ -486,8 +486,8 @@ html[data-theme="dark"] .hs{background:#3A404C}
 .mp-pin{position:absolute;left:calc(114/360*100% - 12px);top:calc(100/744*100% - 12px);width:24px;height:24px;border-radius:50%;background:#FF3B30;border:4px solid #fff;box-sizing:border-box;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 .mp-halo{transform-box:fill-box;transform-origin:center;opacity:0;animation:mpPulse 2.2s ease-out infinite}
 @keyframes mpFloat{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-.mp.in .mp-ph{scale:1;opacity:1}
-@media (prefers-reduced-motion:reduce){.mp-ph{scale:1;opacity:1;animation:none;transition:none}}
+.mp.in .mp-ph{scale:1;opacity:.6}
+@media (prefers-reduced-motion:reduce){.mp-ph{scale:1;opacity:.6;animation:none;transition:none}}
 @keyframes mpPulse{0%{transform:scale(.7);opacity:.35}100%{transform:scale(1.5);opacity:0}}
 .mp-pin::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #FF3B30;opacity:0}
 .mp.arrived .mp-pin::after{animation:mpPin 1.8s ease-out infinite}
