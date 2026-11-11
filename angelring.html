@@ -771,6 +771,7 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
 html[data-theme="dark"] .pg-foot span{color:#8E857D}
 @media (max-width:640px){.pg-foot{padding:40px 1.2rem;flex-direction:column;gap:8px}}
 </style>
+<style>/*glass-toast*/.upd-toast{background:color-mix(in srgb,var(--white) 62%,transparent);color:var(--black);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid color-mix(in srgb,var(--black) 14%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.16),inset 0 1px 0 color-mix(in srgb,var(--white) 40%,transparent)}.upd-toast .upd-go{background:var(--black);color:var(--white);border-radius:50%;width:32px;height:32px;flex-shrink:0}.top-toast{z-index:119}body:has(#updToast.show) .top-toast{top:132px}.top-toast:hover .upd-go svg{transform:translateY(-2px)}@media (max-width:480px){body:has(#updToast.show) .top-toast{top:128px}}</style>
 </head>
 <body>
 <script>
@@ -1356,6 +1357,15 @@ document.querySelectorAll('.stl').forEach(el => { el.classList.add('js'); var o 
   });
 })();
 </script>
+<div class="upd-toast top-toast" id="topToast" aria-label="Back to top" tabindex="-1"><span class="upd-msg"></span><span class="upd-go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+<script>(function(){var el=document.getElementById("topToast");if(!el)return;var d=document.documentElement,tk=0,on=false;
+function msg(){var ko=false;try{ko=localStorage.getItem("lang")==="ko"}catch(e){}return ko?"맨 위로 이동":"Back to top"}
+function paint(){var m=msg();el.querySelector(".upd-msg").textContent=m;el.setAttribute("aria-label",m)}
+function chk(){tk=0;var end=window.innerHeight+window.pageYOffset>=d.scrollHeight-160&&window.pageYOffset>200;if(end===on)return;on=end;if(end)paint();el.classList.toggle("show",end);el.setAttribute("role",end?"button":"");el.setAttribute("tabindex",end?"0":"-1")}
+function q(){if(!tk){tk=1;requestAnimationFrame(chk)}}
+function go(){var r=window.matchMedia("(prefers-reduced-motion:reduce)").matches;window.scrollTo({top:0,behavior:r?"auto":"smooth"})}
+window.addEventListener("scroll",q,{passive:true});window.addEventListener("resize",q);
+el.addEventListener("click",go);el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});chk()})();</script>
 <script>
 (function(){
 const LIGHT = {
