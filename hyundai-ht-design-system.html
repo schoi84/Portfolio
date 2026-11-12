@@ -1510,5 +1510,16 @@ function q(){if(!tk){tk=1;requestAnimationFrame(chk)}}
 function go(){var r=window.matchMedia("(prefers-reduced-motion:reduce)").matches;window.scrollTo({top:0,behavior:r?"auto":"smooth"})}
 window.addEventListener("scroll",q,{passive:true});window.addEventListener("resize",q);
 el.addEventListener("click",go);el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}});chk()})();</script>
+<script>
+/* lang-sync: keep the saved language across pages — re-apply it when a page is shown again (back/forward cache), regains focus, or another tab changes it */
+(function () {
+  function saved() { try { var v = localStorage.getItem('lang'); return v === 'ko' ? 'ko' : (v === 'en' ? 'en' : null); } catch (e) { return null; } }
+  function sync() { var s = saved(); if (s && s !== document.documentElement.lang && typeof setLang === 'function') setLang(s, false); }
+  window.addEventListener('pageshow', function (e) { if (e.persisted) sync(); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) sync(); });
+  window.addEventListener('focus', sync);
+  window.addEventListener('storage', function (e) { if (e.key === 'lang') sync(); });
+})();
+</script>
 </body>
 </html>
