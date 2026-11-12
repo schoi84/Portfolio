@@ -57,6 +57,27 @@
     else if (mixpanel.has_opted_out_tracking()) mixpanel.opt_in_tracking();
   } catch (e) {}
 
+  /* entry-src: where this visit came from (utm_* > external referrer > earlier page of the same visit > direct).
+     Kept for 30 min across pages, so every later event (scroll depth, clicks, page time) carries the first touch. */
+  (function () {
+    try {
+      var KEY = 'entry_src_v1', TTL = 30 * 60 * 1000, now = Date.now(), q = new URLSearchParams(location.search);
+      var cur = null; try { cur = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+      var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '').toLowerCase() : ''; } catch (e) {}
+      var utm = q.get('utm_source'), en;
+      if (utm) en = { source: utm.toLowerCase(), medium: (q.get('utm_medium') || '').toLowerCase(), campaign: (q.get('utm_campaign') || '').toLowerCase(), content: (q.get('utm_content') || '').toLowerCase() };
+      else if (ref && ref !== location.hostname.toLowerCase()) en = { source: /(^|\.)(linkedin\.com|lnkd\.in)$/.test(ref) ? 'linkedin' : (/(^|\.)google\./.test(ref) ? 'google' : 'other'), medium: 'referral', campaign: '', content: '' };
+      else if (cur && cur.source && now - cur.ts < TTL) en = { source: cur.source, medium: cur.medium, campaign: cur.campaign, content: cur.content };
+      else en = { source: 'direct', medium: 'none', campaign: '', content: '' };
+      en.ts = now;
+      try { localStorage.setItem(KEY, JSON.stringify(en)); } catch (e) {}
+      var p = { entry_source: en.source, entry_medium: en.medium, entry_campaign: en.campaign, entry_content: en.content };
+      window.__entry = p;
+      try { if (window.mixpanel && mixpanel.register) mixpanel.register(p); } catch (e) {}
+      try { if (typeof gtag === 'function') gtag('set', 'user_properties', p); } catch (e) {}
+    } catch (e) {}
+  })();
+
   // Send one event to both GA4 and Mixpanel with identical names/properties
   function track(name, props) {
     props = props || {};
