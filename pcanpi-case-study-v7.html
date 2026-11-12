@@ -352,8 +352,8 @@ nav {
   .cta-title { font-size: 24px; line-height: 34px; }
 
 
-  .anno-body { grid-template-columns: 1fr; }
-  .anno-notes { border-left: none; border-top: 1px solid var(--gray-200); }
+  
+  
 
   .ba-labels { grid-template-columns: 1fr; }
   .ba-lbl.b { border-right: none; border-bottom: 1px solid var(--gray-200); }
@@ -525,17 +525,17 @@ nav {
 .dt.chosen { color: var(--orange); }
 .dn { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
 .dd { font-size: 12px; font-weight: 300; color: var(--gray-500); line-height: 1.55; }
-.anno-wrap { border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; margin-bottom: 16px; background: var(--white); }
-.anno-head { padding: 10px 20px; border-bottom: 1px solid var(--gray-200); background: var(--gray-50); }
-.anno-head-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-500); }
-.anno-body { display: grid; grid-template-columns: 1fr 220px; }
-.anno-vis { background: var(--gray-100); min-height: 220px; position: relative; display: flex; align-items: center; justify-content: center; }
-.anno-dot { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--orange-med); color: white; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(250,127,59,0.4); }
-.anno-notes { border-left: 1px solid var(--gray-200); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
-.anno-note { display: flex; gap: 9px; }
-.ano-n { width: 18px; height: 18px; border-radius: 50%; background: var(--orange-med); color: white; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-.ano-t { font-size: 12px; font-weight: 300; color: var(--gray-500); line-height: 1.6; }
-.ano-t strong { color: var(--black); font-weight: 600; display: block; font-size: 12px; margin-bottom: 1px; }
+
+
+
+
+
+
+
+
+
+
+
 .rationale { background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px; padding: 20px 24px; display: flex; gap: 12px; align-items: flex-start; }
 .rationale-icon svg { width: 16px; height: 16px; stroke: var(--gray-400); flex-shrink: 0; margin-top: 2px; }
 .rationale-text { font-size: 13px; font-weight: 300; color: var(--gray-700); line-height: 1.75; }
@@ -945,8 +945,8 @@ html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
 .mock-plan-price span { font-size: 7px; font-weight: 400; color: var(--gray-400); }
 .mock-plan-feats { margin: 7px 0; display: flex; flex-direction: column; gap: 3px; }
 .mock-pf { font-size: 7px; color: var(--gray-500); display: flex; align-items: center; gap: 3px; }
-.mock-pf::before { content: '�3'; color: var(--orange); font-weight: 700; }
-.mock-pf.off::before { content: '�7'; color: var(--gray-300); }
+.mock-pf::before { content: '\2713'; color: var(--orange); font-weight: 700; }
+.mock-pf.off::before { content: '\2717'; color: var(--gray-300); }
 .mock-pf.off { color: var(--gray-300); }
 .mock-plan-cta {
   width: 100%; padding: 5px; border-radius: 4px;
@@ -1694,7 +1694,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
         <div class="dir-body">
           <div class="dt">Direction A</div>
           <div class="dn">Feature Reduction</div>
-          <div class="dd">Remove low-priority features ??clean, but misses the structural IA problem.</div>
+          <div class="dd">Remove low-priority features — clean, but misses the structural IA problem.</div>
         </div>
       </div>
       <!-- Direction B -->
@@ -1711,7 +1711,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
         <div class="dir-body">
           <div class="dt">Direction B</div>
           <div class="dn">Progressive Disclosure</div>
-          <div class="dd">Hide complexity on demand ??good pattern, but not sufficient alone.</div>
+          <div class="dd">Hide complexity on demand — good pattern, but not sufficient alone.</div>
         </div>
       </div>
       <!-- Direction C ??chosen -->
@@ -1725,76 +1725,19 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
           </div>
         </div>
         <div class="dir-body">
-          <div class="dt chosen">??Chosen</div>
+          <div class="dt chosen">✓ Chosen</div>
           <div class="dn">IA Restructure + Flow Consolidation</div>
           <div class="dd">Restructure nav around goals. Collapse payment into one step.</div>
         </div>
       </div>
     </div>
 
-    <div class="anno-wrap reveal d2" style="display:none;">
-      <div class="anno-head"><span class="anno-head-title">Key Decision ??Payment Flow Consolidation</span></div>
-      <div class="anno-body">
-        <div class="anno-vis">
-          <!-- Annotated flow diagram -->
-          <div style="display:flex;flex-direction:column;gap:8px;padding:18px;width:100%;">
-            <div style="display:flex;gap:8px;">
-              <div style="flex:1;border:1px solid var(--gray-200);border-radius:5px;padding:7px 8px;background:var(--white);">
-                <div style="font-size:7px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Navigation</div>
-                <div style="display:flex;flex-direction:column;gap:3px;">
-                  <div style="height:5px;background:var(--gray-100);border-radius:2px;width:80%;"></div>
-                  <div style="height:5px;background:rgba(250,127,59,0.3);border-radius:2px;width:55%;"></div>
-                  <div style="height:5px;background:var(--gray-100);border-radius:2px;width:65%;"></div>
-                  <div style="height:5px;background:var(--gray-100);border-radius:2px;width:45%;"></div>
-                </div>
-              </div>
-              <div style="flex:2;border:1px solid var(--gray-200);border-radius:5px;padding:7px 8px;background:var(--white);">
-                <div style="font-size:7px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Plan Selection · /pricing</div>
-                <div style="display:flex;gap:4px;">
-                  <div style="flex:1;height:30px;background:var(--gray-100);border-radius:3px;"></div>
-                  <div style="flex:1;height:30px;background:var(--p-low);border-radius:3px;border:1px solid var(--p-high);"></div>
-                  <div style="flex:1;height:30px;background:var(--gray-100);border-radius:3px;"></div>
-                </div>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gray-300);">??user must navigate to a new page</div>
-            <div style="border:1.5px dashed var(--gray-300);border-radius:5px;padding:7px 8px;background:rgba(200,75,49,0.04);">
-              <div style="font-size:7px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Payment · /checkout (separate page)</div>
-              <div style="display:flex;gap:6px;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-                  <div style="height:12px;background:var(--gray-100);border-radius:3px;"></div>
-                  <div style="height:12px;background:var(--gray-100);border-radius:3px;"></div>
-                </div>
-                <div style="flex:1;height:28px;background:var(--gray-100);border-radius:3px;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="anno-dot" style="top:20%;left:14%">1</div>
-          <div class="anno-dot" style="top:50%;left:74%">2</div>
-          <div class="anno-dot" style="top:79%;left:26%">3</div>
-        </div>
-        <div class="anno-notes">
-          <div class="anno-note">
-            <div class="ano-n">1</div>
-            <div class="ano-t"><strong>Plan + payment on one screen</strong>Removes the back-and-forth that caused abandonment.</div>
-          </div>
-          <div class="anno-note">
-            <div class="ano-n">2</div>
-            <div class="ano-t"><strong>Company info ??footer</strong>Clears primary nav of content competing with core tasks.</div>
-          </div>
-          <div class="anno-note">
-            <div class="ano-n">3</div>
-            <div class="ano-t"><strong>Account consolidated</strong>Subscription, usage, billing ??one location, not three depths.</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="rationale reveal" style="display:none;">
       <div class="rationale-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       </div>
-      <div class="rationale-text">Direction C addressed the root cause ??structural, not cosmetic. Payment consolidation was the highest-leverage change: biggest conversion risk, zero new development required.</div>
+      <div class="rationale-text">Direction C addressed the root cause — structural, not cosmetic. Payment consolidation was the highest-leverage change: biggest conversion risk, zero new development required.</div>
     </div>
   </div>
 
