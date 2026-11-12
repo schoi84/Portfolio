@@ -304,12 +304,12 @@ nav {
   padding-left: 48px;
 }
 
-/* ?�?� Mobile (??04px) ?�?� */
+/* Mobile */
 @media (max-width: 1024px) {
   nav { padding: 0 1.2rem; height: 56px; }
   .wrap { padding: 0 1.2rem; }
   .wrap-wide { padding: 0 1.2rem; }
-  /* Hero 2-col ??single column */
+  /* Hero 2-col → single column */
   .hero { padding-top: 72px; }
   .hero-2col { flex-direction: column; padding: 28px 1.5rem 0; gap: 0; align-items: center; }
   .hero-card-col { width: 100%; flex: none; padding-bottom: 80px; text-align: center; }
@@ -344,7 +344,7 @@ nav {
   .problem-card { padding: 28px 30px; }
 
   .method-grid { grid-template-columns: 1fr !important; }
-  .dir-row { grid-template-columns: 1fr; }
+  
   .f-grid { grid-template-columns: 1fr; }
   .cc-row { flex-direction: column; }
   .cc-text { width: 100%; order: 1; text-align: center; align-items: center; }
@@ -381,7 +381,7 @@ nav {
   .page-footer { height: auto; padding: 48px 0 64px; }
 }
 
-/* ?�?� Extra small (??80px) ?�?� */
+/* Extra small */
 @media (max-width: 592px) {
   .hero-title { font-size: clamp(40px, 14vw, 64px); }
   .hm { width: 100%; }
@@ -515,16 +515,13 @@ nav {
 /* ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═
    03 EXPLORATION
 ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═ */
-.dir-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 36px; }
-.dir-card { border: 1.5px solid var(--gray-200); border-radius: 16px; overflow: hidden; background: var(--white); }
-.dir-card.chosen { border-color: var(--orange-med); }
-.dir-img { height: 100px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.dir-img.chosen { background: var(--p-med); }
-.dir-body { padding: 14px 16px; }
+
+
+
+
+
+
 .dt { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); margin-bottom: 4px; }
-.dt.chosen { color: var(--orange); }
-.dn { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
-.dd { font-size: 12px; font-weight: 300; color: var(--gray-500); line-height: 1.55; }
 
 
 
@@ -536,9 +533,12 @@ nav {
 
 
 
-.rationale { background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px; padding: 20px 24px; display: flex; gap: 12px; align-items: flex-start; }
-.rationale-icon svg { width: 16px; height: 16px; stroke: var(--gray-400); flex-shrink: 0; margin-top: 2px; }
-.rationale-text { font-size: 13px; font-weight: 300; color: var(--gray-700); line-height: 1.75; }
+
+
+
+
+
+
 
 /* ?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═?�═
    04 FINAL DESIGN
@@ -944,10 +944,6 @@ html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
 .mock-plan-price { font-size: 15px; font-weight: 700; color: var(--black); letter-spacing: -0.03em; line-height: 1; margin-bottom: 2px; }
 .mock-plan-price span { font-size: 7px; font-weight: 400; color: var(--gray-400); }
 .mock-plan-feats { margin: 7px 0; display: flex; flex-direction: column; gap: 3px; }
-.mock-pf { font-size: 7px; color: var(--gray-500); display: flex; align-items: center; gap: 3px; }
-.mock-pf::before { content: '\2713'; color: var(--orange); font-weight: 700; }
-.mock-pf.off::before { content: '\2717'; color: var(--gray-300); }
-.mock-pf.off { color: var(--gray-300); }
 .mock-plan-cta {
   width: 100%; padding: 5px; border-radius: 4px;
   font-size: 7px; font-weight: 700; text-align: center;
@@ -986,16 +982,16 @@ html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
 .mock-radio { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--gray-300); flex-shrink: 0; }
 
 /* ?�═ WIREFRAME STYLES ?�═ */
-.wf { display: flex; flex-direction: column; gap: 5px; padding: 14px 16px; width: 100%; }
-.wl { height: 6px; border-radius: 3px; background: var(--gray-200); }
-.wl.s { width: 42%; }
-.wl.m { width: 68%; }
-.wl.f { width: 100%; }
-.wb { height: 24px; border-radius: 4px; background: var(--gray-200); width: 100%; margin-top: 2px; }
-.wb-sm { height: 15px; border-radius: 4px; background: var(--gray-200); }
-.wrow { display: flex; gap: 5px; }
-.wrow .wb-sm { flex: 1; }
-.whl { background: rgba(250,127,59,0.22) !important; }
+
+
+
+
+
+
+
+
+
+
 
 /* ?�═ SECTION LABEL (shared) ?�═ */
 .sec-label {
@@ -1261,7 +1257,7 @@ html[data-theme="dark"] .refl-card-img{background:var(--p-low)}
 html[data-theme="dark"] .lp-lottie,html[data-theme="dark"] #lp-anim{background:var(--gray-50);border-color:var(--gray-200)}
 html[data-theme="dark"] .mock-chrome{background:var(--gray-100)}
 html[data-theme="dark"] .f-hero-side-img{border-color:var(--gray-300)}
-html[data-theme="dark"] .mock-corr-arrow,html[data-theme="dark"] .mock-pf.off{color:var(--gray-400)}
+html[data-theme="dark"] .mock-corr-arrow{color:var(--gray-400)}
 html[data-theme="dark"] .s-title,html[data-theme="dark"] .sec-headline{background-image:linear-gradient(120deg,#FF9A62 0%,#FFB07F 40%,#FF9A62 100%)}
 html[data-theme="dark"] .kc-label,html[data-theme="dark"] .oc-sublabel,html[data-theme="dark"] .oc-ds-label,html[data-theme="dark"] .prob-callout-label,html[data-theme="dark"] .finding-label,html[data-theme="dark"] .ki-label{color:#FF9A62}
 /* language switch: stronger contrast in dark */
@@ -1508,7 +1504,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
       <div class="prob-text-block reveal d2">
       <p class="prob-lead" data-i18n="s1.lead">Users were dropping off before reaching the core value of the product. <br>The issue wasn't the correction engine, it was everything around it.</p>
       <p class="prob-body-text" data-i18n="s1.body1">Navigation was unclear, account management was fragmented, and the payment flow required multiple steps at exactly the point where trust mattered most. Even the correction experience added extra effort because of an inefficient layout.</p>
-      <p class="prob-body-text" data-i18n="s1.body2">The PM's funnel analysis surfaced checkout as a priority. As the sole designer, I worked closely with the PM to diagnose the underlying problems and design the fix.</p>
+      <p class="prob-body-text" data-i18n="s1.body2">The PM told us that checkout had a high drop-off rate, so I made it the top priority. As the sole designer, I worked closely with the PM to diagnose the underlying problems and design the fix.</p>
     </div><!-- end prob-text-block -->
     </div><!-- end prob-text-group -->
     <!-- Image block -->
@@ -1520,8 +1516,8 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
     </div>
     <!-- The Data callout -->
     <div class="prob-data-callout reveal d2">
-      <div class="prob-callout-label" data-i18n="s1.callout.label">Funnel Analysis</div>
-      <div class="prob-callout-body" data-i18n="s1.callout.body">The PM's funnel analysis flagged checkout as a major point of friction, <br>where users often dropped off before completing payment.</div>
+      <div class="prob-callout-label" data-i18n="s1.callout.label">Drop-off Point</div>
+      <div class="prob-callout-body" data-i18n="s1.callout.body">The PM reported checkout as a major point of friction, <br>where users often dropped off before completing payment.</div>
     </div>
   </div>
     </div>
@@ -1679,66 +1675,8 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
       </div>
     </div>
 
-    <div style="display:none;" class="dir-row reveal d1">
-      <!-- Direction A -->
-      <div class="dir-card">
-        <div class="dir-img">
-          <div class="wf">
-            <div class="wl s"></div>
-            <div class="wl m"></div>
-            <div class="wb"></div>
-            <div class="wl s"></div>
-            <div class="wb-sm" style="width:100%;"></div>
-          </div>
-        </div>
-        <div class="dir-body">
-          <div class="dt">Direction A</div>
-          <div class="dn">Feature Reduction</div>
-          <div class="dd">Remove low-priority features — clean, but misses the structural IA problem.</div>
-        </div>
-      </div>
-      <!-- Direction B -->
-      <div class="dir-card">
-        <div class="dir-img">
-          <div class="wf">
-            <div class="wl s"></div>
-            <div class="wl f"></div>
-            <div class="wrow"><div class="wb-sm"></div><div class="wb-sm"></div></div>
-            <div class="wl m"></div>
-            <div class="wb-sm" style="width:100%;"></div>
-          </div>
-        </div>
-        <div class="dir-body">
-          <div class="dt">Direction B</div>
-          <div class="dn">Progressive Disclosure</div>
-          <div class="dd">Hide complexity on demand — good pattern, but not sufficient alone.</div>
-        </div>
-      </div>
-      <!-- Direction C ??chosen -->
-      <div class="dir-card chosen">
-        <div class="dir-img chosen">
-          <div class="wf">
-            <div class="wl s whl"></div>
-            <div class="wl f whl"></div>
-            <div class="wb whl"></div>
-            <div class="wrow"><div class="wb-sm whl"></div><div class="wb-sm whl"></div></div>
-          </div>
-        </div>
-        <div class="dir-body">
-          <div class="dt chosen">✓ Chosen</div>
-          <div class="dn">IA Restructure + Flow Consolidation</div>
-          <div class="dd">Restructure nav around goals. Collapse payment into one step.</div>
-        </div>
-      </div>
-    </div>
 
 
-    <div class="rationale reveal" style="display:none;">
-      <div class="rationale-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <div class="rationale-text">Direction C addressed the root cause — structural, not cosmetic. Payment consolidation was the highest-leverage change: biggest conversion risk, zero new development required.</div>
-    </div>
   </div>
 
 </div><!-- /wrap -->
@@ -2076,9 +2014,9 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
         <div class="oc-qual-section">
           <div class="oc-sublabel" data-i18n="s5.ql.sublabel">Qualitative: user interviews and VoC post-launch</div>
           <div class="kc-list">
-            <div class="kc-item" data-i18n="s5.ql.item1"><span class="kc-dash"></span>Users scrolled less in the editor and moved through corrections faster</div>
-            <div class="kc-item" data-i18n="s5.ql.item2"><span class="kc-dash"></span>Users moved through checkout faster, with fewer drop-offs at the payment step</div>
-            <div class="kc-item" data-i18n="s5.ql.item3"><span class="kc-dash"></span>Correction cards reduced back-and-forth in the writing flow, leading to fewer repeated edits</div>
+            <div class="kc-item" data-i18n="s5.ql.item1"><span class="kc-dash"></span>Aimed to reduce scrolling in the editor and speed up corrections</div>
+            <div class="kc-item" data-i18n="s5.ql.item2"><span class="kc-dash"></span>Aimed to speed up checkout and reduce drop-offs at the payment step</div>
+            <div class="kc-item" data-i18n="s5.ql.item3"><span class="kc-dash"></span>Aimed to reduce back-and-forth in the writing flow and cut repeated edits with improved correction cards</div>
           </div>
         </div>
       </div>
@@ -2113,8 +2051,8 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
           </svg>
         </div>
         <div class="refl-card-body">
-          <div class="refl-card-title" data-i18n="s6.c1.title">Instrument earlier</div>
-          <p class="refl-card-text" data-i18n="s6.c1.text">With funnel tracking set up in advance, we could have tied specific design decisions to specific drop-off points, instead of crediting the gains to the redesign as a whole. The upgrade modal test is a good example. It ran on a small sample of about 100 users, and better tracking would have supported a longer test with more reliable numbers.</p>
+          <div class="refl-card-title" data-i18n="s6.c1.title">Get the data before designing</div>
+          <p class="refl-card-text" data-i18n="s6.c1.text">I started from a verbal report that drop-off was high, without baseline numbers, so I couldn't compare before and after. With the data in hand before designing, we could have tied specific design decisions to specific drop-off points, instead of crediting the gains to the redesign as a whole. The upgrade modal test is a good example. It ran on a small sample of about 100 users, and better tracking would have supported a longer test with more reliable numbers.</p>
         </div>
       </div>
       <div class="refl-card">
@@ -2570,10 +2508,10 @@ const i18n = {
     's1.headline': 'The AI worked. <br>The experience didn\'t.',
     's1.lead': 'Users were dropping off before reaching the core value of the product. <br>The issue wasn\'t the correction engine. It was everything around it.',
     's1.body1': 'Navigation was unclear, account management was fragmented, and the payment flow required multiple steps at exactly the point where trust mattered most. Even the correction experience added extra effort because of an inefficient layout.',
-    's1.body2': 'The PM\'s funnel analysis surfaced checkout as a priority. As the sole designer, I worked closely with the PM to diagnose the underlying problems and design the fix.',
+    's1.body2': 'The PM told us that checkout had a high drop-off rate, so I made it the top priority. As the sole designer, I worked closely with the PM to diagnose the underlying problems and design the fix.',
     's1.img.caption': 'UI before redesign',
-    's1.callout.label': 'Funnel Analysis',
-    's1.callout.body': 'The PM\'s funnel analysis flagged checkout as a major point of friction, <br>where users often dropped off before completing payment.',
+    's1.callout.label': 'Drop-off Point',
+    's1.callout.body': 'The PM reported checkout as a major point of friction, <br>where users often dropped off before completing payment.',
     's2.name': 'Research',
     's2.headline': 'Where were users losing <br>trust and effort?',
     's2.sub.q': 'Was drop-off caused by navigation confusion, structural friction, or inefficiencies in the core writing experience?',
@@ -2634,7 +2572,7 @@ const i18n = {
     's4.ac.desc': 'Account settings used to be scattered across multiple tabs with no clear hierarchy. They were consolidated into a single structure: Subscription → Usage → Billing → Profile → Security.',
     's5.name': 'Outcomes',
     's5.headline': 'Reducing friction led to <br>measurable results.',
-    's5.lead': 'Improvements to key flows and core interactions produced measurable gains across conversion, retention, and usage.',
+    's5.lead': 'Improvements to key flows and core interactions produced a measurable gain in retention.',
     's5.q.sublabel': 'Quantitative: following redesign launch',
     's5.q.stat.name': 'User retention',
     's5.q.stat.desc': 'Measured in the cohort one month after launch, following the payment flow consolidation and navigation simplification described below.',
@@ -2642,16 +2580,16 @@ const i18n = {
     's5.q.mini2': 'Checkout was consolidated from a multi-step flow into a single view with full plan and payment context',
     's5.q.mini3': 'Navigation was simplified: secondary content moved to the footer, and the primary nav focused on core tasks',
     's5.ql.sublabel': 'Qualitative: user interviews and VoC post-launch',
-    's5.ql.item1': '<span class="kc-dash"></span>Users scrolled less in the editor and moved through corrections faster',
-    's5.ql.item2': '<span class="kc-dash"></span>Users moved through checkout faster, with fewer drop-offs at the payment step',
-    's5.ql.item3': '<span class="kc-dash"></span>Correction cards reduced back-and-forth in the writing flow, leading to fewer repeated edits',
+    's5.ql.item1': '<span class="kc-dash"></span>Aimed to reduce scrolling in the editor and speed up corrections',
+    's5.ql.item2': '<span class="kc-dash"></span>Aimed to speed up checkout and reduce drop-offs at the payment step',
+    's5.ql.item3': '<span class="kc-dash"></span>Aimed to reduce back-and-forth in the writing flow and cut repeated edits with improved correction cards',
     's5.ds.label': 'Design System',
     's5.ds.body': 'Reusable components were introduced alongside the redesign to keep flows consistent and reduce one-off UI decisions. This made developer handoff smoother and shortened iteration cycles.',
     's6.name': 'Reflection',
     's6.headline': 'Reducing friction can have <br>more impact than adding features.',
     's6.lead': 'Improving the experience meant addressing how users reach the product and how efficiently they use it once inside.',
-    's6.c1.title': 'Instrument earlier',
-    's6.c1.text': 'With funnel tracking set up in advance, we could have tied specific design decisions to specific drop-off points, instead of crediting the gains to the redesign as a whole. The upgrade modal test is a good example. It ran on a small sample of about 100 users, and better tracking would have supported a longer test with more reliable numbers.',
+    's6.c1.title': 'Get the data before designing',
+    's6.c1.text': 'I started from a verbal report that drop-off was high, without baseline numbers, so I couldn\'t compare before and after. With the data in hand before designing, we could have tied specific design decisions to specific drop-off points, instead of crediting the gains to the redesign as a whole. The upgrade modal test is a good example. It ran on a small sample of about 100 users, and better tracking would have supported a longer test with more reliable numbers.',
     's6.c2.title': 'Use session recording tools',
     's6.c2.text': 'Hotjar and session recordings would have surfaced key friction points sooner, with less reliance on VoC and more room to iterate before launch.',
     's6.c3.title': 'Design mobile-first',
@@ -2674,13 +2612,13 @@ const i18n = {
     's1.headline': 'AI는 잘 작동했습니다. <br>하지만 경험은 그렇지 않았습니다.',
     's1.lead': '사용자는 제품의 핵심 가치를 경험하기도 전에 이탈하고 있었습니다. <br>문제는 AI가 아니라, 그 경험을 둘러싼 흐름이었습니다.',
     's1.body1': '내비게이션은 직관적이지 않았고, 계정 관리는 분산되어 있었으며, 결제 과정은 가장 중요한 순간에 불필요한 단계를 요구했습니다. 교정 경험 역시 비효율적인 레이아웃으로 인해 불필요한 반복 작업이 발생했습니다.',
-    's1.body2': 'PM의 퍼널 분석을 통해 결제 과정이 가장 우선순위 높은 개선 과제로 확인되었습니다. 저는 PM과 긴밀히 협업하며 문제의 원인을 분석하고, 이를 해결하기 위한 디자인을 제공했습니다.',
+    's1.body2': 'PM으로부터 결제 과정에서 이탈률이 높다는 이야기를 전달받아, 이를 가장 우선순위 높은 개선 과제로 정했습니다. 저는 PM과 긴밀히 협업하며 문제의 원인을 분석하고, 이를 해결하기 위한 디자인을 제공했습니다.',
     's1.img.caption': '리디자인 전 화면',
-    's1.callout.label': '퍼널 분석',
-    's1.callout.body': 'PM의 퍼널 분석 결과, 결제 과정이 주요 이탈 지점으로 확인되었습니다. <br>사용자는 결제를 완료하기 전에 자주 이탈했습니다.',
+    's1.callout.label': '이탈 지점',
+    's1.callout.body': 'PM으로부터 결제 과정에서 이탈이 많이 발생한다고 전달받았습니다. <br>사용자는 결제를 완료하기 전에 자주 이탈했습니다.',
     's2.name': '리서치',
     's2.headline': '사용자는 어디에서 <br>신뢰를 잃고 있었을까?',
-    's2.sub.q': '이탈의 원인은 내비게이션 혼란이었을까, 사용자 흐름의 문제이었을까, 아니면 핵심 글쓰기 경험 자체의 비효율이었을까?',
+    's2.sub.q': '이탈의 원인은 내비게이션 혼란이었을까, 사용자 흐름의 문제였을까, 아니면 핵심 글쓰기 경험 자체의 비효율이었을까?',
     's2.sub.b': '유저 인터뷰, 고객 문의 분석, 경쟁 서비스 벤치마킹을 통해 사용자가 신뢰를 잃고 불필요한 노력을 들이는 지점을 확인했습니다.',
     's2.m1.t': '유저 인터뷰',
     's2.m1.d': '활성 및 비활성 사용자 15명을 인터뷰해 신뢰를 잃거나 흐름에서 이탈하는 지점을 파악했습니다.',
@@ -2690,10 +2628,10 @@ const i18n = {
     's2.m3.d': '주요 AI 글쓰기 서비스를 비교 분석해 Engram이 사용자 기대와 다른 경험을 제공하는 지점을 확인했습니다.',
     's2.f1.label': '발견 01',
     's2.f1.title': '분리된 결제 흐름이 만든 혼란',
-    's2.f1.body': '사용자는 \'계정 > 플랜\'과\' <br>pricing\' 두 경로에서 업그레이드할 수 있었습니다. 그러나 두 흐름이 서로 다르게 동작해 실제 결제가 어디에서 이루어지는지 명확하지 않았고, 사용자는 두 화면을 오가며 결제 완료 여부를 확신하지 못했습니다.',
+    's2.f1.body': '사용자는 \'계정 > 플랜\'과 \'pricing\' 두 경로에서 업그레이드할 수 있었습니다. 그러나 두 흐름이 서로 다르게 동작해 실제 결제가 어디에서 이루어지는지 명확하지 않았고, 사용자는 두 화면을 오가며 결제 완료 여부를 확신하지 못했습니다.',
     's2.f2.label': '발견 02',
     's2.f2.title': '계정 관리의 복잡한 계정 구조',
-    's2.f2.body': '프로필, 구독, 결제 정보가 여러 탭에 분산되어 있어 하나의 작업을 완료하기 위해 여러 화면을 이동해야 했습니다. 이러한 복잡한 계정 구조은 고객 문의에서도 반복적으로 확인되었습니다.',
+    's2.f2.body': '프로필, 구독, 결제 정보가 여러 탭에 분산되어 있어 하나의 작업을 완료하기 위해 여러 화면을 이동해야 했습니다. 이러한 복잡한 계정 구조는 고객 문의에서도 반복적으로 확인되었습니다.',
     's2.f3.label': '발견 03',
     's2.f3.title': '일반적인 사용 패턴과 다른 구매 경험',
     's2.f3.body': '경쟁 서비스는 대부분 플랜 선택과 결제를 하나의 화면에서 완료했습니다. 반면 Engram은 여러 단계를 거치는 구조로, 사용자의 일반적인 구매 경험과 달랐습니다.',
@@ -2722,7 +2660,7 @@ const i18n = {
     's4.we.p2': '스크롤 없이 내용을 비교할 수 있어 편집 과정의 부담을 줄였습니다.',
     's4.cc.tag': '교정 카드',
     's4.cc.title': '중요한 정보는 바로, 상세 내용은 필요할 때.',
-    's4.cc.body': '핵심 교정 내용을 핵심 정보를 먼저 노출하고, 대안과 상세 내용은 필요할 때만 펼쳐볼 수 있도록 구성했습니다.',
+    's4.cc.body': '교정 내용 중 핵심 정보를 먼저 노출하고, 대안과 상세 내용은 필요할 때만 펼쳐볼 수 있도록 구성했습니다.',
     's4.ab.tag': '업그레이드 모달',
     's4.ab.title': '가정 대신 테스트.',
     's4.ab.body': '무료 사용자가 사용 한도에 도달하면 모달이 나타나 가격 페이지로 안내합니다. 이 모달을 두 가지 버전으로 테스트했어요. 첫 번째는 아이콘과 짧은 메시지만 있는 단순한 버전, 두 번째는 프리미엄 혜택을 구체적으로 나열한 버전이었습니다. 약 100명을 대상으로 일주일 정도 진행했어요.',
@@ -2739,7 +2677,7 @@ const i18n = {
     's4.ac.desc': '분산되어 있던 계정 기능을 구독 → 사용량 → 결제 → 프로필 → 보안 순으로 재구성해 탐색 부담을 줄였습니다.',
     's5.name': '결과',
     's5.headline': '사용 흐름을 단순하게 만들자 <br>성과가 따라왔습니다.',
-    's5.lead': '핵심 사용자 흐름과 인터랙션을 개선한 결과, 전환율과 리텐션 모두에서 의미 있는 개선을 확인했습니다.',
+    's5.lead': '핵심 사용자 흐름과 인터랙션을 개선한 결과, 리텐션에서 의미 있는 개선을 확인했습니다.',
     's5.q.sublabel': '정량적 성과 (출시 후)',
     's5.q.stat.name': '리텐션',
     's5.q.stat.desc': '결제 플로우 통합과 내비게이션 단순화 이후, 출시 1개월 후 코호트를 기준으로 측정했습니다.',
@@ -2747,16 +2685,16 @@ const i18n = {
     's5.q.mini2': '체크아웃을 단일 화면으로 통합해 플랜과 결제 정보를 한 번에 확인 가능',
     's5.q.mini3': '내비게이션 단순화로 핵심 작업 중심의 구조 완성',
     's5.ql.sublabel': '정성적 결과 (출시 후 VoC)',
-    's5.ql.item1': '<span class="kc-dash"></span>에디터 스크롤 감소로 교정 작업 속도 향상',
-    's5.ql.item2': '<span class="kc-dash"></span>체크아웃 진행 시간이 단축되고 결제 단계 이탈 감소',
-    's5.ql.item3': '<span class="kc-dash"></span>교정 카드 개선으로 반복 편집 감소',
+    's5.ql.item1': '<span class="kc-dash"></span>에디터 스크롤을 줄여 교정 작업 속도를 높이고자 개선',
+    's5.ql.item2': '<span class="kc-dash"></span>체크아웃 진행 시간을 단축하고 결제 단계 이탈을 줄이고자 개선',
+    's5.ql.item3': '<span class="kc-dash"></span>교정 카드를 개선해 반복 편집을 줄이고자 함',
     's5.ds.label': '디자인 시스템',
     's5.ds.body': '리디자인과 함께 재사용 가능한 컴포넌트를 구축해 화면 전반의 일관성을 높이고, 개발 핸드오프와 구현 과정의 반복 작업을 줄였습니다.',
     's6.name': '회고',
     's6.headline': '새로운 기능보다 <br>사용 흐름을 개선하는 일이 더 큰 변화를 만들었습니다.',
     's6.lead': '좋은 경험은 기능을 추가하는 것이 아니라, 사용자가 제품에 도달하고 사용하는 전 과정을 매끄럽게 만드는 것에서 시작된다는 점을 배웠습니다.',
-    's6.c1.title': '더 이른 계측 설계',
-    's6.c1.text': '퍼널을 사전에 정의했다면 리디자인 전체가 아닌, 개별 디자인 결정이 성과에 미친 영향을 더 명확하게 측정할 수 있었을 것입니다.',
+    's6.c1.title': '디자인 전에 데이터 확보',
+    's6.c1.text': '이탈률이 높다는 이야기만 전달받은 채 작업을 시작해, 개선 전후를 수치로 비교하지 못했습니다. 디자인 전에 데이터를 받아 기준선을 잡았다면 리디자인 전체가 아닌, 개별 디자인 결정이 성과에 미친 영향을 더 명확하게 측정할 수 있었을 것입니다.',
     's6.c2.title': '더 빠른 사용성 테스트',
     's6.c2.text': '정식 사용성 테스트를 진행했다면 주요 마찰 요소를 더 빠르게 발견하고 출시 전 반복 개선이 가능했을 것입니다.',
     's6.c3.title': '모바일 우선 설계',

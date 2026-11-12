@@ -905,6 +905,7 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <div class="refl-body-wrap reveal d1">
       <p class="sec-lead" data-i18n="s07.lead1">We built the design system on the design center's design philosophy: consistency, intuitiveness, and scalability. Every structural decision, from token naming and component slots to branching rules, needed a rationale that fit those principles and that the whole team could stand behind. Nothing shipped until we agreed on why.</p>
       <p class="sec-lead" data-i18n="s07.lead2">The sharpest tension was iconography: deciding to split the set into solid icons for actions and line icons for information. It was a small call with a large surface area. Once that rule was set, every icon that followed had to fit it.</p>
+      <p class="sec-lead" data-i18n="s07.lead3">Triangle UI is currently applied to two client projects, and the client-response workflow has only been run on a sample basis, so I haven't yet measured its effect. Measuring adoption and response time is the next step.</p>
     </div>
   </div>
 </div>
@@ -1089,6 +1090,7 @@ const i18n = {
     's07.name': 'Reflection',
     's07.headline': 'Translating a<br>Design Language.',
     's07.lead1': 'We built the design system on the design center\'s design philosophy: consistency, intuitiveness, and scalability. Every structural decision, from token naming and component slots to branching rules, needed a rationale that fit those principles and that the whole team could stand behind. Nothing shipped until we agreed on why.',
+    's07.lead3': 'Triangle UI is currently applied to two client projects, and the client-response workflow has only been run on a sample basis, so I haven\'t yet measured its effect. Measuring adoption and response time is the next step.',
     's07.lead2': 'The sharpest tension was iconography: deciding to split the set into solid icons for actions and line icons for information. It was a small call with a large surface area. Once that rule was set, every icon that followed had to fit it.',
     'footer.left': 'Hyundai HT | Triangle UI Design System',
 
@@ -1130,11 +1132,11 @@ const i18n = {
     's03.tok3.name': '간격',
     's03.tok3.desc': '그리드는 4px 기준에 8개의 단계로 구성됩니다. 디바이스 크기(10인치, 13인치)에 따라 간격 값이 전환돼요. 같은 토큰이 디바이스마다 다른 값으로 해석되는 방식입니다.',
     's03.tok4.name': '반경 & 블러',
-    's03.tok4.desc': '코너 반경은 샤프부터 필 형태까지 토큰으로 정의했습니다. 블러 토큰은 오버레이와 패널 패널에 사용해요. 둘 다 고객사 CI에 맞게 토큰 레벨에서 설정할 수 있습니다.',
+    's03.tok4.desc': '코너 반경은 샤프부터 필 형태까지 토큰으로 정의했습니다. 블러 토큰은 오버레이와 패널에 사용해요. 둘 다 고객사 CI에 맞게 토큰 레벨에서 설정할 수 있습니다.',
     's03.caption': '고객사의 새 구성 요청 대부분은 토큰 수정입니다.<br>토큰은 컬러, 타이포그래피, 간격, 반경, 블러를 다뤄요.',
     's04.name': '컴포넌트 로직',
     's04.headline': '재구성을 위해,<br>재구축이 아닌.',
-    's04.lead': '모든 컴포넌트는 가능한 구성 요소을 전부 담은 마스터에서 만듭니다. 각 인스턴스는 상황에 필요한 것만 보여주고, 나머지는 Figma 프로퍼티로 숨겨요. 모든 인스턴스가 하나의 소스에 연결돼 있어서, 고객사별 설정은 처음부터 다시 만드는 게 아니라 설정만 변경하면 됩니다.',
+    's04.lead': '모든 컴포넌트는 가능한 구성 요소를 전부 담은 마스터에서 만듭니다. 각 인스턴스는 상황에 필요한 것만 보여주고, 나머지는 Figma 프로퍼티로 숨겨요. 모든 인스턴스가 하나의 소스에 연결돼 있어서, 고객사별 설정은 처음부터 다시 만드는 게 아니라 설정만 변경하면 됩니다.',
     's05.name': '버전 관리',
     's05.headline': '모든 변경 사항<br>기록.',
     's05.lead': '주요 업데이트는 이름을 붙인 브랜치로 남겨요. 고객사 프로젝트는 따로 관리하지만, 모든 파일에 버전 참조를 남겨서 어떤 Triangle-UI 버전을 바탕으로 했는지 언제든 확인할 수 있습니다.',
@@ -1153,6 +1155,7 @@ const i18n = {
     's07.name': '회고',
     's07.headline': '디자인 언어를<br>번역하다.',
     's07.lead1': '디자인센터의 디자인 철학인 일관성, 직관성, 확장성을 기반으로 디자인 시스템을 구축했습니다. 토큰 네이밍, 컴포넌트 구성 요소, 버전 관리 규칙까지 모든 구조적 결정에는 이 원칙에 맞고 팀 전체가 동의할 수 있는 근거가 필요했어요. 이유에 모두 동의하기 전까지는 아무것도 확정하지 않았습니다.',
+    's07.lead3': '현재 Triangle UI는 2개 고객사에 적용된 상태이며, 고객사 대응 프로세스는 샘플 단위로만 진행해 아직 효과를 측정하지 못했습니다. 적용 범위를 넓히고 대응 시간을 측정하는 것이 다음 단계입니다.',
     's07.lead2': '가장 첨예했던 지점은 아이콘이었어요. 액션에는 솔리드 아이콘, 정보에는 라인 아이콘으로 세트를 나누기로 한 것입니다. 작은 결정이었지만 영향 범위는 넓었습니다. 규칙이 정해진 뒤에는 모든 아이콘이 그 기준에 맞아야 했어요.',
     'footer.left': 'Hyundai HT | Triangle UI 디자인 시스템',
 
