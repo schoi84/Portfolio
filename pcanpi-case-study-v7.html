@@ -1046,7 +1046,18 @@ html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
 
 /* Methods: phone left + stacked list right */
 .method-2col { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1024px; margin: 0 auto; }
-.method-phone { width: 512px; height: 708px; flex-shrink: 0; overflow: hidden; border-radius: 16px; }
+.method-phone { width: 512px; height: 708px; flex-shrink: 0; overflow: hidden; position: relative; isolation: isolate; background: #FFEDDF; border-radius: 16px; }
+/*mp-bg-anim*/
+.mp-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.mp-bg i { position: absolute; display: block; border-radius: 50%; will-change: transform; animation: mpDrift 18s ease-in-out infinite alternate; }
+.mp-bg .b1 { left: 8%; top: -6%; width: 92%; height: 52%; background: radial-gradient(closest-side, #FF9A48 0%, rgba(255,154,72,.85) 45%, rgba(255,154,72,0) 100%); animation-duration: 19s; }
+.mp-bg .b2 { left: -26%; top: 10%; width: 62%; height: 52%; background: radial-gradient(closest-side, #FF9552 0%, rgba(255,149,82,.8) 45%, rgba(255,149,82,0) 100%); animation-duration: 23s; animation-delay: -6s; }
+.mp-bg .b3 { left: 66%; top: 2%; width: 50%; height: 44%; background: radial-gradient(closest-side, #FFA048 0%, rgba(255,160,72,.8) 45%, rgba(255,160,72,0) 100%); animation-duration: 21s; animation-delay: -11s; }
+.mp-bg .b4 { left: 70%; top: 34%; width: 52%; height: 36%; background: radial-gradient(closest-side, #FFD08A 0%, rgba(255,208,138,.8) 50%, rgba(255,208,138,0) 100%); animation-duration: 25s; animation-delay: -4s; }
+.mp-bg .b5 { left: -22%; top: 42%; width: 54%; height: 30%; background: radial-gradient(closest-side, #FFC09A 0%, rgba(255,192,154,.75) 50%, rgba(255,192,154,0) 100%); animation-duration: 27s; animation-delay: -14s; }
+@keyframes mpDrift { 0% { transform: translate3d(-4%, -3%, 0) scale(.96); } 50% { transform: translate3d(3%, 4%, 0) scale(1.06); } 100% { transform: translate3d(5%, -2%, 0) scale(1.0); } }
+@media (prefers-reduced-motion: reduce) { .mp-bg i { animation: none; } }
+.method-phone .mp-fg { position: relative; z-index: 1; }
 .method-phone img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .method-list { display: flex; flex-direction: column; gap: 40px; align-items: flex-end; }
 .method-item { display: flex; flex-direction: column; gap: 20px; text-align: left; }
@@ -1512,7 +1523,8 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
     <!-- Methods: phone left + stacked list right -->
     <div class="method-2col reveal d2">
       <div class="method-phone">
-        <img loading="lazy" src="engram.resource/ui-mockup-mobile-webp.webp" alt="App mockup">
+        <div class="mp-bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
+        <img class="mp-fg" loading="lazy" src="engram.resource/ui-mockup-mobile-fg.webp" alt="App mockup">
       </div>
       <div class="method-list">
         <div class="method-item">
