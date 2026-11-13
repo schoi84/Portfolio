@@ -491,6 +491,11 @@ html[data-theme="dark"] .tok-card{--white:#FEFEFE;--black:#3A3530;--deep:#1F1A17
 html[data-theme="dark"] .adaptive-dummy,html[data-theme="dark"] .clear-dummy{border:1px solid rgba(255,255,255,0.2)}
 /* Immersive Calling: white base instead of letting the dark page show through, with light-mode text colors */
 html[data-theme="dark"] .immersive-wrap{background-color:#FEFEFE;--deep:#1F1A17;--black:#3A3530}
+/* component variant images (cf-active): same outline as the control screens, dark only; overlay keeps it fixed during cross-fade */
+html[data-theme="dark"] .comp-fade-wrap::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,0.2);border-radius:inherit;pointer-events:none;z-index:2}
+/* version-history image: the side outline fades out with the bottom gradient instead of cutting off */
+html[data-theme="dark"] .branch-doc{border-color:transparent!important}
+html[data-theme="dark"] .branch-doc::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,0.2);border-bottom:none;border-radius:inherit;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent 100%);mask-image:linear-gradient(to bottom,#000 40%,transparent 100%)}
 /* language switch: stronger contrast in dark */
 html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,0.32);border-color:var(--gray-300)}
 html[data-theme="dark"] .ls-btn{color:var(--gray-500)}
@@ -541,7 +546,7 @@ html[data-theme="dark"] .dl-principle{color:#FF5C85}
 .tok-split-card{background:var(--white);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px}
 .tok-split-title{font-size:14px;font-weight:600;color:var(--black)}
 .tok-split-body{font-size:14px;font-weight:400;color:var(--gray-500);line-height:21px}
-html[data-theme="dark"] .tok-split-card{--white:#FEFEFE;--black:#3A3530;--gray-500:#6B635C}
+html[data-theme="dark"] .tok-split-card{border:1px solid var(--gray-200)}
 @media(max-width:640px){.tok-split{grid-template-columns:1fr;margin-top:-24px}.tok-split-card{padding:16px}}
 /*wrap*/p[data-i18n],[class*="desc"][data-i18n],[class*="body"][data-i18n],[class*="lead"][data-i18n],[class*="text"][data-i18n],[class*="caption"][data-i18n]{text-wrap:balance}
 </style>
@@ -850,7 +855,7 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <p class="sec-lead" data-i18n="s05.lead">We track major updates in named branches. Each client project is maintained separately, with a reference to the Triangle UI version it uses.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:24px;align-items:center;width:1024px;max-width:100%;" class="reveal d1">
-    <div style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;max-height:clamp(220px,38vw,380px);">
+    <div class="branch-doc" style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;max-height:clamp(220px,38vw,380px);">
       <img loading="lazy" src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,transparent,var(--bg));"></div>
     </div>
