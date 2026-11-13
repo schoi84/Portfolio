@@ -432,18 +432,14 @@ nav {
 .oc-card { background: #fefefe; border: 1px solid #d8d2cc; border-radius: 16px; padding: 28px 32px; width: 100%; display: flex; flex-direction: column; box-sizing: border-box; text-align: left; }
 .oc-sublabel { font-size: 12px; font-weight: 500; color: #e16018; text-transform: uppercase; letter-spacing: 0.092em; padding-bottom: 17px; border-bottom: 1px solid #bdb5ae; }
 .oc-quant-section { display: flex; flex-direction: column; gap: 24px; }
-.oc-quant-row { display: flex; align-items: center; justify-content: space-between; }
-.oc-left-col { display: flex; flex-direction: column; gap: 12px; width: 340px; }
-.oc-big-stat { display: flex; flex-direction: column; gap: 12px; }
+.oc-quant-row { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.oc-left-col { display: flex; flex-direction: column; gap: 16px; width: 420px; }
+.oc-big-stat { display: flex; flex-direction: row; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .oc-num { font-size: 96px; font-weight: 700; line-height: 1; letter-spacing: -0.05em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .oc-stat-name { font-size: 16px; font-weight: 600; color: #3a3530; line-height: 24px; }
 .oc-stat-desc { font-size: 14px; font-weight: 400; color: #3a3530; line-height: 21px; }
-.oc-right-col { display: flex; flex-direction: column; gap: 24px; width: 452px; }
-.oc-mini { display: flex; flex-direction: column; gap: 12px; }
-.oc-mini + .oc-mini { border-top: 1px solid #d8d2cc; padding-top: 16px; }
-.oc-mini-num { font-size: 24px; font-weight: 700; letter-spacing: -0.022em; color: #a83800; }
-.oc-mini-desc { font-size: 14px; font-weight: 400; color: #3a3530; line-height: 21px; }
-.oc-qual-section { display: flex; flex-direction: column; gap: 12px; }
+.oc-right-col { display: flex; flex-direction: column; gap: 16px; width: 412px; padding-left: 48px; border-left: 1px solid #d8d2cc; box-sizing: content-box; }
+.oc-dc-label { font-size: 12px; font-weight: 500; color: #e16018; text-transform: uppercase; letter-spacing: 0.092em; }
 .oc-ds-callout { background: #fef4ee; border: 1px solid #fde0cf; border-radius: 16px; padding: 48px 88px; width: 100%; max-width: 1024px; display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; box-sizing: border-box; }
 .oc-ds-label { font-size: 12px; font-weight: 500; color: #e16018; text-transform: uppercase; letter-spacing: 0.092em; }
 .oc-ds-body { font-size: 14px; font-weight: 400; color: #3a3530; line-height: 21px; }
@@ -455,7 +451,7 @@ nav {
 .refl-header { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; }
 .refl-lead { font-size: 20px; font-weight: 500; color: #3a3530; line-height: 1.5; margin: 0; max-width: 640px; }
 .refl-cards { display: flex; gap: 20px; align-items: flex-start; }
-.refl-card { background: #fefefe; border: 1px solid #d8d2cc; border-radius: 16px; padding: 24px; width: 328px; flex-shrink: 0; display: flex; flex-direction: column; gap: 24px; text-align: left; }
+.refl-card { background: #fefefe; border: 1px solid #d8d2cc; border-radius: 16px; padding: 24px; width: 400px; flex-shrink: 0; display: flex; flex-direction: column; gap: 24px; text-align: left; }
 .refl-card-body { display: flex; flex-direction: column; gap: 16px; }
 .refl-card-title { font-size: 16px; font-weight: 600; color: #3a3530; line-height: 24px; }
 .refl-card-text { font-size: 14px; font-weight: 400; color: #3a3530; line-height: 21px; height: 106px; overflow: hidden; }
@@ -1138,7 +1134,7 @@ html[data-theme="dark"] .cta-arrow:hover { color: var(--black); }
   /* Outcomes — collapse fixed-width cols */
   .oc-quant-row { flex-direction: column; align-items: stretch; gap: 32px; }
   .oc-left-col { width: 100%; }
-  .oc-right-col { width: 100%; }
+  .oc-right-col { width: 100%; padding-left: 0; border-left: none; border-top: 1px solid #d8d2cc; padding-top: 24px; box-sizing: border-box; }
   .oc-ds-callout { padding: 32px 24px; }
   .oc-num { font-size: 64px; }
 
@@ -1246,7 +1242,7 @@ html[data-theme="dark"] {
 
 /* dark overrides */
 html[data-theme="dark"] nav{background:rgba(21,18,16,0.6)}
-html[data-theme="dark"] .hero-eyebrow,html[data-theme="dark"] .appr-lead,html[data-theme="dark"] .kc-item,html[data-theme="dark"] .outcomes-lead,html[data-theme="dark"] .oc-stat-name,html[data-theme="dark"] .oc-stat-desc,html[data-theme="dark"] .oc-mini-desc,html[data-theme="dark"] .oc-ds-body,html[data-theme="dark"] .refl-lead,html[data-theme="dark"] .refl-card-title,html[data-theme="dark"] .refl-card-text,html[data-theme="dark"] .design-intro-lead,html[data-theme="dark"] .pf-next-lbl,html[data-theme="dark"] .pf-next-title{color:var(--gray-700)}
+html[data-theme="dark"] .hero-eyebrow,html[data-theme="dark"] .appr-lead,html[data-theme="dark"] .kc-item,html[data-theme="dark"] .outcomes-lead,html[data-theme="dark"] .oc-stat-name,html[data-theme="dark"] .oc-stat-desc,html[data-theme="dark"] .oc-ds-body,html[data-theme="dark"] .refl-lead,html[data-theme="dark"] .refl-card-title,html[data-theme="dark"] .refl-card-text,html[data-theme="dark"] .design-intro-lead,html[data-theme="dark"] .pf-next-lbl,html[data-theme="dark"] .pf-next-title{color:var(--gray-700)}
 html[data-theme="dark"] .f-hero-body,html[data-theme="dark"] .f-hero--side .f-hero-desc,html[data-theme="dark"] .acct-desc,html[data-theme="dark"] .cc-body,html[data-theme="dark"] .cta-body,html[data-theme="dark"] .acct-card-label,html[data-theme="dark"] .cta-lbl-row{color:var(--gray-500)}
 html[data-theme="dark"] .acct-title,html[data-theme="dark"] .cc-title{color:var(--black)}
 html[data-theme="dark"] .prob-img-caption{color:var(--gray-400)}
@@ -1259,7 +1255,7 @@ html[data-theme="dark"] .mock-chrome{background:var(--gray-100)}
 html[data-theme="dark"] .f-hero-side-img{border-color:var(--gray-300)}
 html[data-theme="dark"] .mock-corr-arrow{color:var(--gray-400)}
 html[data-theme="dark"] .s-title,html[data-theme="dark"] .sec-headline{background-image:linear-gradient(120deg,#FF9A62 0%,#FFB07F 40%,#FF9A62 100%)}
-html[data-theme="dark"] .kc-label,html[data-theme="dark"] .oc-sublabel,html[data-theme="dark"] .oc-ds-label,html[data-theme="dark"] .prob-callout-label,html[data-theme="dark"] .finding-label,html[data-theme="dark"] .ki-label{color:#FF9A62}
+html[data-theme="dark"] .kc-label,html[data-theme="dark"] .oc-sublabel,html[data-theme="dark"] .oc-dc-label,html[data-theme="dark"] .oc-ds-label,html[data-theme="dark"] .prob-callout-label,html[data-theme="dark"] .finding-label,html[data-theme="dark"] .ki-label{color:#FF9A62}
 /* language switch: stronger contrast in dark */
 html[data-theme="dark"] .lang-switch{background:rgba(0,0,0,0.32);border-color:var(--gray-300)}
 html[data-theme="dark"] .ls-btn{color:var(--gray-500)}
@@ -1357,7 +1353,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
 <style>/*en-mobile-wrap*/h1,h2,h3,.sec-headline,.finding-title,.f-hero-title{text-wrap:balance}p,li,.kc-item,.finding-body,.appr-lead,.outcomes-lead{text-wrap:pretty}@media (max-width:480px){.prob-callout-body br{display:none}.prob-data-callout{padding:28px 22px!important}.ab-test-block{padding-left:0!important;padding-right:0!important}.prob-callout-body{text-wrap:balance}}</style>
 <style>/*min-360*/body{min-width:360px}</style>
 <style>/*eyebrow-unify*/html .hero-eyebrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:14px;font-weight:500;line-height:20px;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-400);text-wrap:balance}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:block;width:1px;height:12px;flex-shrink:0;background:var(--gray-300)}@media (max-width:480px){html .hero-eyebrow{flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:13px;letter-spacing:.06em}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:none}}</style>
-<style>/*lbfix*/.acct-desc,.cta-body,.refl-card-text,.oc-mini-desc,.appr-lead,.prob-callout-body,.method-d,.kc-item,.cc-body,.hero-tagline,.sec-lead,.sec-body-sm{text-wrap:balance}</style>
+<style>/*lbfix*/.acct-desc,.cta-body,.refl-card-text,.appr-lead,.prob-callout-body,.method-d,.kc-item,.cc-body,.hero-tagline,.sec-lead,.sec-body-sm{text-wrap:balance}</style>
 </head>
 <body>
 <script>
@@ -1971,43 +1967,30 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
         </div>
         <h2 class="sec-headline" data-i18n="s5.headline">What changed after<br>the redesign?</h2>
       </div>
-      <p class="outcomes-lead" data-i18n="s5.lead">The team reported a 21% retention improvement in a cohort measured one month after launch. Because multiple UX changes shipped together, that result cannot be attributed to a single design decision.</p>
+      <p class="outcomes-lead" data-i18n="s5.lead">The PM shared that retention improved 21% in the cohort measured one month after launch. Because multiple design changes shipped together, the result cannot be attributed to any single screen.</p>
     </div>
 
     <div class="oc-cards-group reveal d1">
-      <!-- Quantitative card -->
       <div class="oc-card">
         <div class="oc-quant-section">
-          <div class="oc-sublabel" data-i18n="s5.q.sublabel">Reported post-launch metric</div>
+          <div class="oc-sublabel" data-i18n="s5.q.sublabel">Post-launch metric</div>
           <div class="oc-quant-row">
             <div class="oc-left-col">
               <div class="oc-big-stat">
                 <div class="oc-num">21%</div>
                 <div class="oc-stat-name" data-i18n="s5.q.stat.name">Retention improvement</div>
               </div>
-              <p class="oc-stat-desc" data-i18n="s5.q.stat.desc">The team shared a 21% retention improvement for a cohort measured one month after launch. The contribution of individual design changes was not established.</p>
+              <p class="oc-stat-desc" data-i18n="s5.q.stat.desc">The PM shared that retention improved 21% in the cohort measured one month after launch.</p>
             </div>
             <div class="oc-right-col">
-              <div class="oc-mini">
-                <div class="oc-mini-num">1 screen</div>
-                <p class="oc-mini-desc" data-i18n="s5.q.mini2">Design change: consolidated a multi-step checkout into one view with both plan and payment information</p>
-              </div>
-              <div class="oc-mini">
-                <div class="oc-mini-num">↓ Nav</div>
-                <p class="oc-mini-desc" data-i18n="s5.q.mini3">Design change: focused primary navigation on core tasks and moved secondary content to the footer</p>
+              <div class="oc-dc-label" data-i18n="s5.dc.label">Key design changes</div>
+              <div class="kc-list">
+                <div class="kc-item" data-i18n="s5.dc.item1"><span class="kc-dash"></span>Improved the comparison structure of the correction page</div>
+                <div class="kc-item" data-i18n="s5.dc.item2"><span class="kc-dash"></span>Simplified the checkout flow</div>
+                <div class="kc-item" data-i18n="s5.dc.item3"><span class="kc-dash"></span>Consolidated account management features</div>
+                <div class="kc-item" data-i18n="s5.dc.item4"><span class="kc-dash"></span>Restructured navigation and moved secondary information to the footer</div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- Qualitative card -->
-      <div class="oc-card">
-        <div class="oc-qual-section">
-          <div class="oc-sublabel" data-i18n="s5.ql.sublabel">Design intentions, not separately measured outcomes</div>
-          <div class="kc-list">
-            <div class="kc-item" data-i18n="s5.ql.item1"><span class="kc-dash"></span>Reduce repeated scrolling by keeping input and corrections in view</div>
-            <div class="kc-item" data-i18n="s5.ql.item2"><span class="kc-dash"></span>Reduce unnecessary navigation between plan selection and payment</div>
-            <div class="kc-item" data-i18n="s5.ql.item3"><span class="kc-dash"></span>Make correction decisions faster by showing essential information first</div>
           </div>
         </div>
       </div>
@@ -2058,18 +2041,6 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
         <div class="refl-card-body">
           <div class="refl-card-title" data-i18n="s6.c2.title">Observe behavior earlier</div>
           <p class="refl-card-text" data-i18n="s6.c2.text">Session recordings or usability tests could have helped validate the most uncertain interactions before release, rather than relying only on shared findings.</p>
-        </div>
-      </div>
-      <div class="refl-card">
-        <div class="method-icon-fig">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-            <line x1="12" y1="18" x2="12.01" y2="18"/>
-          </svg>
-        </div>
-        <div class="refl-card-body">
-          <div class="refl-card-title" data-i18n="s6.c3.title">Improve mobile earlier</div>
-          <p class="refl-card-text" data-i18n="s6.c3.text">The editor and checkout were designed primarily for desktop. Mobile experience remained an area to refine after launch.</p>
         </div>
       </div>
     </div>
@@ -2561,17 +2532,15 @@ const i18n = {
     's4.ac.desc': 'I grouped previously scattered account tasks in one clear hierarchy: Subscription → Usage → Billing → Profile → Security.',
     's5.name': 'Outcomes',
     's5.headline': 'What changed after<br>the redesign?',
-    's5.lead': 'The team reported a 21% retention improvement in a cohort measured one month after launch. Because multiple UX changes shipped together, that result cannot be attributed to a single design decision.',
-    's5.q.sublabel': 'Reported post-launch metric',
+    's5.lead': 'The PM shared that retention improved 21% in the cohort measured one month after launch. Because multiple design changes shipped together, the result cannot be attributed to any single screen.',
+    's5.q.sublabel': 'Post-launch metric',
     's5.q.stat.name': 'Retention improvement',
-    's5.q.stat.desc': 'The team shared a 21% retention improvement for a cohort measured one month after launch. The contribution of individual design changes was not established.',
-    's5.q.mini1': 'Retention improved 21% in the cohort one month after launch',
-    's5.q.mini2': 'Design change: consolidated a multi-step checkout into one view with both plan and payment information',
-    's5.q.mini3': 'Design change: focused primary navigation on core tasks and moved secondary content to the footer',
-    's5.ql.sublabel': 'Design intentions, not separately measured outcomes',
-    's5.ql.item1': '<span class="kc-dash"></span>Reduce repeated scrolling by keeping input and corrections in view',
-    's5.ql.item2': '<span class="kc-dash"></span>Reduce unnecessary navigation between plan selection and payment',
-    's5.ql.item3': '<span class="kc-dash"></span>Make correction decisions faster by showing essential information first',
+    's5.q.stat.desc': 'The PM shared that retention improved 21% in the cohort measured one month after launch.',
+    's5.dc.label': 'Key design changes',
+    's5.dc.item1': '<span class="kc-dash"></span>Improved the comparison structure of the correction page',
+    's5.dc.item2': '<span class="kc-dash"></span>Simplified the checkout flow',
+    's5.dc.item3': '<span class="kc-dash"></span>Consolidated account management features',
+    's5.dc.item4': '<span class="kc-dash"></span>Restructured navigation and moved secondary information to the footer',
     's5.ds.label': 'Design System',
     's5.ds.body': 'I introduced reusable components to support consistent implementation and handoff. Their effect on development time was not measured separately.',
     's6.name': 'Reflection',
@@ -2581,8 +2550,6 @@ const i18n = {
     's6.c1.text': 'The team reported improved retention, but I could not isolate the effect of individual UI changes. Next time, I would agree on baseline metrics and measurement criteria with the PM before design begins.',
     's6.c2.title': 'Observe behavior earlier',
     's6.c2.text': 'Session recordings or usability tests could have helped validate the most uncertain interactions before release, rather than relying only on shared findings.',
-    's6.c3.title': 'Improve mobile earlier',
-    's6.c3.text': 'The editor and checkout were designed primarily for desktop. Mobile experience remained an area to refine after launch.',
   },
   ko: {
     'nav.tag': 'Engram',
@@ -2668,13 +2635,11 @@ const i18n = {
     's5.q.sublabel': '출시 후 지표',
     's5.q.stat.name': '리텐션 개선',
     's5.q.stat.desc': 'PM에게 공유받은 출시 1개월 후 코호트 지표에서 리텐션이 21% 개선된 것으로 나타났습니다.',
-    's5.q.mini1': '리텐션 21% 향상 (출시 1개월 후 코호트 기준)',
-    's5.q.mini2': '디자인 변경: 여러 단계로 나뉜 결제를 플랜 정보와 결제를 함께 보여주는 한 화면으로 통합',
-    's5.q.mini3': '디자인 변경: 주요 작업 중심으로 내비게이션을 단순화하고 부가 정보는 푸터로 이동',
-    's5.ql.sublabel': '별도 측정하지 않은 디자인 목표',
-    's5.ql.item1': '<span class="kc-dash"></span>원문과 교정을 동시에 보여줘 반복 스크롤 줄이기',
-    's5.ql.item2': '<span class="kc-dash"></span>플랜 선택과 결제 사이의 불필요한 화면 이동 줄이기',
-    's5.ql.item3': '<span class="kc-dash"></span>주요 교정 정보를 먼저 보여줘 선택 과정 간결하게 만들기',
+    's5.dc.label': '주요 디자인 변경',
+    's5.dc.item1': '<span class="kc-dash"></span>교정 페이지의 비교 구조 개선',
+    's5.dc.item2': '<span class="kc-dash"></span>결제 플로우 단순화',
+    's5.dc.item3': '<span class="kc-dash"></span>계정 관리 기능 통합',
+    's5.dc.item4': '<span class="kc-dash"></span>내비게이션 재구성 및 부가 정보의 푸터 이동',
     's5.ds.label': '일관성과 효율성을 고려한 디자인 시스템',
     's5.ds.body': '재사용 가능한 컴포넌트로 디자인 시스템을 구축해 화면 간 일관성을 유지하고 개발 효율성을 높이고자 했습니다.',
     's6.name': '회고',
@@ -2684,8 +2649,6 @@ const i18n = {
     's6.c1.text': '리텐션 개선은 보고됐지만 각 페이지가 얼마나 개선됐는지는 파악하기 어려웠습니다. 이후에는 퍼널별 데이터를 측정하고, 각 개선 사항의 효과를 더 구체적으로 확인하고자 했습니다.',
     's6.c2.title': '세션 리플레이를 통한 사용자 행동 검증',
     's6.c2.text': '이후에는 Mixpanel의 세션 리플레이를 활용해 GA의 집계 지표만으로 파악하기 어려운 사용자 행동과 인터랙션을 분석하고, 개선안을 적용하기 전에 사용성을 검증하고자 했습니다.',
-    's6.c3.title': '모바일 경험의 조기 보완',
-    's6.c3.text': '에디터와 결제는 데스크톱 중심으로 설계했습니다. 출시 이후에는 모바일 경험을 더 다듬어야 할 과제로 확인했습니다.',
   }
 };
 
