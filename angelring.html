@@ -195,7 +195,7 @@ html[data-theme="dark"] .hero::after{mix-blend-mode:screen;background:radial-gra
 .hero-eyebrow-sep{width:1px;height:12px;background:var(--gray-300);flex-shrink:0}
 .hero-title{font-size:clamp(52px,8vw,96px);font-weight:700;line-height:1.1;letter-spacing:-.05em;padding-bottom:.15em;margin-bottom:16px;background:var(--grad);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:grad-flow 6s ease infinite}
 .hero-tagline{text-wrap:pretty;font-size:20px;font-weight:500;line-height:1.5;max-width:620px;margin-bottom:16px}
-.hero-desc{font-size:16px;color:var(--gray-500);line-height:1.6;max-width:476px;margin-bottom:52px}
+.hero-desc{font-size:16px;color:var(--gray-500);line-height:1.5;max-width:476px;margin-bottom:52px}
 .hero-meta{display:flex;gap:24px 36px;flex-wrap:wrap}
 .hm{display:flex;flex-direction:column;gap:8px}
 .hm-k{font-size:12px;color:var(--gray-500)}
@@ -1050,6 +1050,22 @@ const PAGE_META = {
 };
 let currentLang = 'en';
 try { currentLang = localStorage.getItem('lang') === 'ko' ? 'ko' : 'en'; } catch (e) {}
+/* widow control: keep the last two words of each text line-group together so a lone word never wraps onto its own line */
+function widowFix() {
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach(function (n, i) {
+      var nx = n.nextSibling;
+      if (!(i === nodes.length - 1 || (nx && nx.nodeName === 'BR'))) return;
+      var m = n.nodeValue.match(/^([\s\S]*\S)\s+(\S{1,12})(\s*)$/);
+      if (!m || m[0].length < 30) return;
+      var pw = m[1].match(/\S+$/)[0];
+      if (pw.length + m[2].length > 22) return;
+      n.nodeValue = m[1] + '\u00a0' + m[2] + m[3];
+    });
+  });
+}
 function setLang(lang, userInitiated) {
   if (!i18n[lang] || !Object.keys(i18n[lang]).length) lang = 'ko';
   currentLang = lang;
@@ -1059,6 +1075,7 @@ function setLang(lang, userInitiated) {
     if (i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
   });
   document.querySelectorAll('.ls-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  widowFix();
   document.documentElement.lang = lang;
   document.title = PAGE_META[lang].title;
   var md = document.querySelector('meta[name="description"]'); if (md) md.setAttribute('content', PAGE_META[lang].desc);

@@ -271,8 +271,9 @@ nav {
   background-clip: text;
   animation: grad-flow 6s ease infinite;
 }
-.hero-tagline { font-size: 20px; font-weight: 500; color: var(--black); line-height: 1.5; max-width: 592px; margin-bottom: 16px; }
-.hero-desc { font-size: 16px; font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 476px; margin-bottom: 52px; }
+.hero-tagline { font-size: 20px; font-weight: 500; color: var(--black); line-height: 1.5; max-width: 592px; margin-bottom: 16px; text-wrap: balance; }
+@media (min-width: 1025px) { .hero-tagline { width: 520px; max-width: 520px; } }   /* lets each tagline sentence sit on its own line without an orphan */
+.hero-desc { font-size: 16px; font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 476px; margin-bottom: 52px; text-wrap: balance; }
 .mob-br { display: none; }
 .hero-meta { display: flex; align-items: center; gap: 56px; margin-bottom: 0; flex-wrap: wrap; }
 .hm { display: flex; flex-direction: column; gap: 8px; }
@@ -319,7 +320,6 @@ nav {
   .hero-title { padding-bottom: 0.1em; }
   .hero-card { padding: 36px 32px 32px; border-radius: 16px; }
   .hero-card .hero-title { font-size: clamp(42px, 11vw, 72px); }
-  .hero-title { letter-spacing: -0.04em; }
   .hero-eyebrow { margin-bottom: 20px; }
   .hero-desc { font-size: 16px; margin-bottom: 40px; }
   .mob-br { display: block; height: 0; }
@@ -1357,6 +1357,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
 <style>/*en-mobile-wrap*/h1,h2,h3,.sec-headline,.finding-title,.f-hero-title{text-wrap:balance}p,li,.kc-item,.finding-body,.appr-lead,.outcomes-lead{text-wrap:pretty}@media (max-width:480px){.prob-callout-body br{display:none}.prob-data-callout{padding:28px 22px!important}.ab-test-block{padding-left:0!important;padding-right:0!important}.prob-callout-body{text-wrap:balance}}</style>
 <style>/*min-360*/body{min-width:360px}</style>
 <style>/*eyebrow-unify*/html .hero-eyebrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:14px;font-weight:500;line-height:20px;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-400);text-wrap:balance}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:block;width:1px;height:12px;flex-shrink:0;background:var(--gray-300)}@media (max-width:480px){html .hero-eyebrow{flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:13px;letter-spacing:.06em}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:none}}</style>
+<style>/*lbfix*/.acct-desc,.cta-body,.refl-card-text,.oc-mini-desc,.appr-lead,.prob-callout-body,.method-d,.kc-item,.cc-body,.hero-tagline,.sec-lead,.sec-body-sm{text-wrap:balance}</style>
 </head>
 <body>
 <script>
@@ -2704,6 +2705,22 @@ const i18n = {
 
 let currentLang = localStorage.getItem('lang') || 'en';
 
+/* widow control: keep the last two words of each text line-group together so a lone word never wraps onto its own line */
+function widowFix() {
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach(function (n, i) {
+      var nx = n.nextSibling;
+      if (!(i === nodes.length - 1 || (nx && nx.nodeName === 'BR'))) return;
+      var m = n.nodeValue.match(/^([\s\S]*\S)\s+(\S{1,12})(\s*)$/);
+      if (!m || m[0].length < 30) return;
+      var pw = m[1].match(/\S+$/)[0];
+      if (pw.length + m[2].length > 22) return;
+      n.nodeValue = m[1] + '\u00a0' + m[2] + m[3];
+    });
+  });
+}
 function setLang(lang, userInitiated) {
   currentLang = lang;
   localStorage.setItem('lang', lang);
@@ -2714,6 +2731,7 @@ function setLang(lang, userInitiated) {
   document.querySelectorAll('.ls-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
+  widowFix();
   document.documentElement.lang = lang;
   if (userInitiated) {
     track('language_view', { 'site_language': lang });

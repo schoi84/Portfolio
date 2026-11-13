@@ -214,7 +214,7 @@ nav {
 .eyebrow-text { font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-400); line-height: 21px; }
 .eyebrow-bar { display: block; width: 1px; height: 14px; background: var(--gray-300); flex-shrink: 0; }
 .hero-title {
-  font-size: clamp(48px, 10vw, 96px); font-weight: 700; letter-spacing: -4.32px; line-height: 1.0; text-align: center;
+  font-size: clamp(52px, 8vw, 96px); font-weight: 700; letter-spacing: -0.05em; line-height: 1.1; text-align: center;
   padding-bottom: 0.15em;
   background: linear-gradient(to right, #ff0046 0%, #ff3831 44%, #ff006a 100%);
   background-size: 300% 300%;
@@ -222,8 +222,8 @@ nav {
   animation: grad-flow 6s ease infinite;
 }
 .hero-copy { display: flex; flex-direction: column; align-items: center; gap: 12px; font-size: clamp(16px, 1.8vw, 20px); text-align: center; width: 100%; }
-.hero-tagline { font-weight: 500; color: var(--deep); line-height: 1.5; max-width: 640px; }
-.hero-desc { font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 640px; }
+.hero-tagline { font-size: 20px; font-weight: 500; color: var(--deep); line-height: 1.5; max-width: 640px; }
+.hero-desc { font-size: 16px; font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 640px; }
 .hero-meta { display: flex; align-items: flex-start; justify-content: center; gap: 56px; width: 100%; flex-wrap: wrap; }
 @media (min-width: 768px) and (min-height: 761px) { .hero-meta { margin-top: 12px; } }
 .hm { display: flex; flex-direction: column; gap: 8px; }
@@ -408,7 +408,6 @@ footer { display: flex; align-items: center; justify-content: space-between; pad
   nav { padding: 0 1.2rem; height: 56px; }
   .sec { padding: 80px 1.2rem; gap: 48px; }
   .hero-inner { padding: 56px 1.2rem 80px; }
-  .hero-title { font-size: clamp(48px, 14vw, 96px); letter-spacing: -2px; line-height: 1.1; }
   .sec-headline { font-size: clamp(28px, 7vw, 44px); line-height: 1.2; }
   .sec-lead { font-size: 17px; }
   .hero-meta { gap: 24px 40px; }
@@ -588,6 +587,7 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
 <style>/*top-toast*/.upd-toast{background:color-mix(in srgb,var(--white) 62%,transparent);color:var(--black);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid color-mix(in srgb,var(--black) 14%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.16),inset 0 1px 0 color-mix(in srgb,var(--white) 40%,transparent)}.upd-toast .upd-go{background:var(--black);color:var(--white);border-radius:50%;width:32px;height:32px;flex-shrink:0}.top-toast{z-index:119}body:has(#updToast.show) .top-toast{top:132px}.top-toast:hover .upd-go svg{transform:translateY(-2px)}@media (max-width:480px){body:has(#updToast.show) .top-toast{top:128px}}</style>
 <style>/*min-360*/body{min-width:360px}</style>
 <style>/*eyebrow-unify*/html .hero-eyebrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:14px;font-weight:500;line-height:20px;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-400);text-wrap:balance}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:block;width:1px;height:12px;flex-shrink:0;background:var(--gray-300)}@media (max-width:480px){html .hero-eyebrow{flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:13px;letter-spacing:.06em}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:none}}</style>
+<style>/*lbfix*/.sec-body-sm,.sec-lead{text-wrap:balance}</style>
 </head>
 <body>
 <script>
@@ -1201,6 +1201,22 @@ const i18n = {
   }
 };
 
+/* widow control: keep the last two words of each text line-group together so a lone word never wraps onto its own line */
+function widowFix() {
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [], n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach(function (n, i) {
+      var nx = n.nextSibling;
+      if (!(i === nodes.length - 1 || (nx && nx.nodeName === 'BR'))) return;
+      var m = n.nodeValue.match(/^([\s\S]*\S)\s+(\S{1,12})(\s*)$/);
+      if (!m || m[0].length < 30) return;
+      var pw = m[1].match(/\S+$/)[0];
+      if (pw.length + m[2].length > 22) return;
+      n.nodeValue = m[1] + '\u00a0' + m[2] + m[3];
+    });
+  });
+}
 function setLang(lang, userInitiated) {
   localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1210,6 +1226,7 @@ function setLang(lang, userInitiated) {
   document.querySelectorAll('.ls-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
+  widowFix();
   document.documentElement.lang = lang;
   if (userInitiated) {
     track('language_view', { 'site_language': lang });
