@@ -350,7 +350,7 @@ html[lang="ko"] .hero-title > span { white-space: nowrap; }
 .hero-quotes {
   position: relative;
   width: auto;
-  max-width: 302px;
+  max-width: 296px;
   pointer-events: none;
   perspective: 1200px;
 }
@@ -1577,7 +1577,7 @@ document.querySelectorAll('.proj-card').forEach(card => {
           c.style.position = ''; c.style.opacity = ''; c.style.width = '';
         }
       });
-      container.style.width = Math.min(maxAuthorW + HPAD, 302) + 'px';
+      container.style.width = '296px';   // fixed card width: wrapping stays the same whichever quote is showing
     }
     // Measure tallest card and lock container height so page never shifts
     let maxH = 0;
