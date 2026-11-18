@@ -225,7 +225,7 @@ nav {
 .hero-tagline { font-size: 20px; font-weight: 500; color: var(--deep); line-height: 1.5; max-width: 640px; }
 .hero-desc { font-size: 16px; font-weight: 400; color: var(--gray-500); line-height: 1.5; max-width: 640px; }
 .hero-meta { display: flex; align-items: flex-start; justify-content: center; gap: 56px; width: 100%; flex-wrap: wrap; }
-@media (min-width: 768px) and (min-height: 761px) { .hero-meta { margin-top: 12px; } }
+@media (min-width: 1025px) and (min-height: 761px) { .hero-meta { margin-top: 12px; } }
 .hm { display: flex; flex-direction: column; gap: 8px; }
 .hm-k { font-size: 12px; font-weight: 400; color: var(--gray-500); letter-spacing: 0.01em; line-height: 18px; }
 .hm-v { font-size: 14px; font-weight: 600; color: var(--deep); letter-spacing: -0.01em; line-height: 21px; }
@@ -250,8 +250,12 @@ html[data-theme="dark"] .hero-veil { background: radial-gradient(ellipse 46% 40%
 /* short phones: tighten the text block so it always fits inside the pinned stage */
 @media (min-width: 768px) and (max-height: 760px) { .hero-inner { padding: 84px 40px 72px; gap: 32px; } .hero-text { gap: 24px; } .hero-top { gap: 18px; } .hero-copy { gap: 8px; } }
 @media (min-width: 768px) and (max-height: 620px) { .hero-inner { padding: 84px 40px 64px; gap: 20px; } .hero-text { gap: 16px; } .hero-top { gap: 12px; } .hero-copy { font-size: .95em; } }
+@media (min-width: 1025px) and (max-height: 760px) { .hero-meta { margin-top: 28px; } }
+@media (min-width: 1025px) and (max-height: 620px) { .hero-meta { margin-top: 12px; } }
 @media (max-width: 767px) and (max-height: 780px) { .hero-inner { padding: 36px 1.2rem 16px; } .hero-text { gap: 24px; } .hero-top { gap: 18px; } .hero-copy { gap: 8px; } .hero-meta { gap: 12px 32px; } }
 @media (max-width: 767px) and (max-height: 720px) { .hero-inner { padding: 36px 1.2rem 64px; gap: 24px; } .hero-text { gap: 14px; } .hero-top { gap: 12px; } .hero-meta { gap: 10px 28px; } }
+@media (max-width: 767px) and (max-height: 780px) { .hero-meta { margin-top: 16px; } }
+@media (max-width: 767px) and (max-height: 720px) { .hero-meta { margin-top: 26px; } }
 @media (max-width: 767px) { .hero { height: 320vh; } .hero-collage { perspective: 900px; } .hero-veil { background: radial-gradient(ellipse 80% 48% at 50% 45%, color-mix(in srgb, var(--bg) 70%, transparent) 0%, color-mix(in srgb, var(--bg) 38%, transparent) 60%, transparent 100%); } }
 @keyframes heroFloat {
   from { transform: translate(0, 0); }
@@ -708,13 +712,13 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
         <div class="hero-eyebrow">
           <span class="eyebrow-text" data-i18n="hero.eyebrow1">Design System</span>
           <span class="eyebrow-bar"></span>
-          <span class="eyebrow-text" data-i18n="hero.eyebrow2">Smart Home Wallpad</span>
+          <span class="eyebrow-text" data-i18n="hero.eyebrow2">Smart Home Control Panel</span>
         </div>
         <h1 class="hero-title">Triangle UI</h1>
       </div>
       <div class="hero-copy">
-        <p class="hero-tagline" data-i18n="hero.tagline">We established a visual language for a new smart home wallpad<br>and built it into a configurable design system.</p>
-        <p class="hero-desc" data-i18n="hero.desc">Our three-person design team defined the visual language together, guided by the design center's principles. I owned the work of translating it into tokens, components, and versioning rules.</p>
+        <p class="hero-tagline" data-i18n="hero.tagline">Our team defined a visual language for a new smart home wallpad.<br>I led its translation into a configurable design system.</p>
+        <p class="hero-desc" data-i18n="hero.desc">Working with two other designers and guided by the design center's principles, I developed the token, component, and versioning rules that made client-specific configurations possible.</p>
       </div>
       <div class="hero-meta">
         <div class="hm"><span class="hm-k" data-i18n="meta.role">Role</span><span class="hm-v" data-i18n="meta.role.v">Design System Owner</span></div>
@@ -734,12 +738,12 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
       <span class="sec-num">01</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s01.name">Context</span>
     </div>
     <h2 class="sec-headline" data-i18n="s01.headline">One Visual Language.<br>Different Client Needs.</h2>
-    <p class="sec-lead" data-i18n="s01.lead">Hyundai HT supplies its 10-inch wallpad to Hyundai Construction as a fixed product and offers customizable versions to other residential developers. The new wallpad also needed a coherent visual language grounded in the design center's principles.</p>
+    <p class="sec-lead" data-i18n="s01.lead">Hyundai HT, a leading smart home solutions provider in South Korea, supplies wallpads to Hyundai Construction and other construction companies. The goal was to design a base UI guided by the design center's principles, serving as the foundation for client-specific variants.</p>
   </div>
   <img loading="lazy" src="engram.resource/ht-context-image.webp" alt="Hyundai HT wallpad context" class="reveal d1" style="width:1024px;max-width:100%;height:auto;display:block;border-radius:16px;">
   <div class="s01-callout reveal d2">
-    <span class="callout-label" data-i18n="s01.callout.label">Design Constraint</span>
-    <p class="callout-text" data-i18n="s01.callout.text">We needed to preserve a consistent visual language while accommodating each client's brand colors, feature set, and identity guidelines. The system also had to support future clients without redesigning every screen.</p>
+    <span class="callout-label" data-i18n="s01.callout.label">Design Challenge</span>
+    <p class="callout-text" data-i18n="s01.callout.text">The challenge was to translate the design center's principles into a cohesive visual language while building a scalable design system that could adapt to different construction companies.</p>
   </div>
 </div>
 
@@ -750,28 +754,28 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
       <span class="sec-num">02</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s02.name">Design Language</span>
     </div>
     <h2 class="sec-headline" data-i18n="s02.headline">From Principles<br>to Visual Rules.</h2>
-    <p class="sec-lead" data-i18n="s02.lead">We translated the design center's principles of consistency, intuitiveness, and scalability into visual rules for the new wallpad. Our three-person team defined the layered surfaces, category colors, and icon styles together, taking the display's physical characteristics into account.</p>
+    <p class="sec-lead" data-i18n="s02.lead">Our three-person team translated the design center's principles—consistency, intuitivity, and scalability—into visual rules. We defined surface layers, category colors, and icon styles around the display's physical constraints.</p>
   </div>
   <div class="dl-cards">
     <div class="dl-card reveal d1">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/3-Layer System.webp" alt="3-Layer System" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
-        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl1.title">3-Layer System</p><p class="dl-principle" data-i18n="s02.dl1.principle">Intuitiveness</p></div>
-        <p class="dl-desc" data-i18n="s02.dl1.desc">Because shadows are difficult to distinguish on the smoked-glass display, we chose three surface layers that become progressively lighter. A glass-like finish on the top panel reinforces the visual hierarchy without relying on shadows.</p>
+        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl1.title">3-Layer System</p><p class="dl-principle" data-i18n="s02.dl1.principle">Intuitivity</p></div>
+        <p class="dl-desc" data-i18n="s02.dl1.desc">Because shadows were hard to distinguish on the smoked-glass display, we chose three surface layers that become lighter toward the foreground. A glass-like effect on the top layer reinforces the hierarchy without relying on shadows.</p>
       </div>
     </div>
     <div class="dl-card reveal d1">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Categorized Colors.webp" alt="Categorized Colors" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
-        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl2.title">Categorized Colors</p><p class="dl-principle" data-i18n="s02.dl2.principle">Consistency</p></div>
-        <p class="dl-desc" data-i18n="s02.dl2.desc">To maintain continuity with existing wallpads, we retained the established category hues: green for communication, blue for control, and orange for information. We adjusted their values to achieve a 3.5:1 contrast ratio against the corresponding backgrounds, above the WCAG 3:1 threshold for UI components.</p>
+        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl2.title">Category Colors</p><p class="dl-principle" data-i18n="s02.dl2.principle">Consistency</p></div>
+        <p class="dl-desc" data-i18n="s02.dl2.desc">To preserve continuity with existing wallpads, we kept green for communication, blue for control, and orange for information. We adjusted each color's lightness to achieve a 3.5:1 contrast ratio against its background, exceeding the WCAG 3:1 threshold for non-text UI components.</p>
       </div>
     </div>
     <div class="dl-card reveal d2">
       <div class="dl-dummy" style="overflow:hidden;padding:0;"><img loading="lazy" src="engram.resource/Iconography.webp" alt="Iconography" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;"></div>
       <div class="dl-text">
-        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl3.title">Iconography</p><p class="dl-principle" data-i18n="s02.dl3.principle">Intuitiveness, Consistency, Scalability</p></div>
-        <p class="dl-desc" data-i18n="s02.dl3.desc">We assigned solid icons to actions and outlined icons to information so the visual style signals each icon's role. A shared roofline motif and simple geometric shapes keep the full icon set consistent.</p>
+        <div class="dl-head"><p class="dl-title" data-i18n="s02.dl3.title">Iconography</p><p class="dl-principle" data-i18n="s02.dl3.principle">Intuitivity, Consistency, Scalability</p></div>
+        <p class="dl-desc" data-i18n="s02.dl3.desc">We used solid icons for actions and outlined icons for information to help distinguish their roles at a glance. A shared roofline motif and simple geometric shapes kept the icon set consistent.</p>
       </div>
     </div>
   </div>
@@ -783,37 +787,37 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <div class="sec-label">
       <span class="sec-num">03</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s03.name">Token Architecture</span>
     </div>
-    <h2 class="sec-headline" data-i18n="s03.headline">One System.<br>Configured with Tokens.</h2>
-    <p class="sec-lead" data-i18n="s03.lead">To maintain one visual language across different brands, we separated shared semantic roles from configurable values. Components reference the same semantic tokens while client-specific settings can change beneath them.</p>
+    <h2 class="sec-headline" data-i18n="s03.headline">One System.<br>Flexible Across Clients.</h2>
+    <p class="sec-lead" data-i18n="s03.lead">I structured the design system into primitive and semantic token layers. By adjusting primitive token values to match each construction company's brand, the UI could be customized while keeping semantic roles and component structures unchanged.</p>
   </div>
   <div class="tok-container reveal d1">
     <div class="tok-grid">
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token01.webp" alt="Color token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <p class="tok-name" data-i18n="s03.tok1.name">Color</p>
-          <p class="tok-desc" data-i18n="s03.tok1.desc">A 60-step primitive palette covers neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, and overlay.</p>
+          <p class="tok-name" data-i18n="s03.tok1.name">Colors</p>
+          <p class="tok-desc" data-i18n="s03.tok1.desc">A 60-step primitive palette defines neutral and brand colors, while semantic tokens assign UI roles.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token02.webp" alt="Typography token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok2.name">Typography</p>
-          <p class="tok-desc" data-i18n="s03.tok2.desc">The scale runs from 12px to 80px with named semantic roles. Font family and weight can be configured per client through the token system.</p>
+          <p class="tok-desc" data-i18n="s03.tok2.desc">A 12–80px type scale uses semantic tokens for headings, body text, captions, and labels.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token03.webp" alt="Spacing token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <p class="tok-name" data-i18n="s03.tok3.name">Spacing</p>
-          <p class="tok-desc" data-i18n="s03.tok3.desc">An eight-step spacing scale uses a 4px base. The same token maps to different values in the 10-inch and 13-inch device modes.</p>
+          <p class="tok-desc" data-i18n="s03.tok3.desc">A 4px-based spacing scale maps to different values for 10-inch and 13-inch displays.</p>
         </div>
       </div>
       <div class="tok-card">
         <img loading="lazy" src="engram.resource/token04.webp" alt="Radius token illustration" style="width:100%;height:72px;object-fit:contain;border-radius:8px;display:block;flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <p class="tok-name" data-i18n="s03.tok4.name">Radius</p>
-          <p class="tok-desc" data-i18n="s03.tok4.desc">Corner radius tokens range from sharp to pill, while blur tokens cover overlays and panels. Both can be configured to suit each client's identity guidelines.</p>
+          <p class="tok-name" data-i18n="s03.tok4.name">Radius &amp; Blur</p>
+          <p class="tok-desc" data-i18n="s03.tok4.desc">Radius tokens define corner shapes, while blur is managed through effect styles.</p>
         </div>
       </div>
     </div>
@@ -825,10 +829,10 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     </div>
     <div class="tok-split-card">
       <p class="tok-split-title" data-i18n="s03.flexible.title">Client-Specific Settings</p>
-      <p class="tok-split-body" data-i18n="s03.flexible.body">Brand colors, font family and weight, corner radius, and blur can be configured to match each client's identity guidelines.</p>
+      <p class="tok-split-body" data-i18n="s03.flexible.body">Brand colors, font family, corner radius, and blur effects can be configured to match each client's brand guidelines.</p>
     </div>
   </div>
-  <p class="sec-body-sm reveal d2" data-i18n="s03.caption">Tokens define color, typography, spacing, radius, and blur.<br>They provide a consistent structure for client-specific configurations.</p>
+  <p class="sec-lead reveal d2" data-i18n="s03.caption">A shared token structure keeps components consistent while supporting client-specific colors, typography, spacing, radius, and blur.</p>
   <img loading="lazy" src="engram.resource/token.webp" alt="Token Sheet" class="reveal d2" style="width:min(610px,100%);height:auto;max-height:560px;object-fit:contain;display:block;border-radius:16px;">
 </div>
 
@@ -840,7 +844,7 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
       <span class="sec-num">04</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s04.name">Component Logic</span>
     </div>
     <h2 class="sec-headline" data-i18n="s04.headline">Reconfigure Components,<br>Don't Rebuild Them.</h2>
-    <p class="sec-lead" data-i18n="s04.lead">To avoid rebuilding components for each client, we defined reusable slots and properties in shared master components. Designers can show or hide the elements needed in each instance using Figma properties, while keeping every instance linked to its master.</p>
+    <p class="sec-lead" data-i18n="s04.lead">I used Figma component properties to create configurable components for different client needs. Elements can be added or hidden based on the features each component supports.</p>
   </div>
 
 </div>
@@ -851,15 +855,15 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <div class="sec-label">
       <span class="sec-num">05</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s05.name">Version Control</span>
     </div>
-    <h2 class="sec-headline" data-i18n="s05.headline">Tracking Changes<br>Across Releases.</h2>
-    <p class="sec-lead" data-i18n="s05.lead">We track major updates in named branches. Each client project is maintained separately, with a reference to the Triangle UI version it uses.</p>
+    <h2 class="sec-headline" data-i18n="s05.headline">Version Control.<br>Shared History.</h2>
+    <p class="sec-lead" data-i18n="s05.lead">I managed major updates using Figma's branching feature and documented each update or client-specific variant on a shared history page, making it easy for teammates to track changes.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:24px;align-items:center;width:1024px;max-width:100%;" class="reveal d1">
     <div class="branch-doc" style="position:relative;width:100%;border-radius:16px 16px 0 0;overflow:hidden;border:1px solid #d8d2cc;border-bottom:none;max-height:clamp(220px,38vw,380px);">
       <img loading="lazy" src="engram.resource/doc_ht.webp" alt="Version history document" style="width:100%;height:auto;display:block;">
       <div style="position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to bottom,transparent,var(--bg));"></div>
     </div>
-    <p class="branch-caption" data-i18n="s05.caption">Major updates and release history are recorded on the version history page.</p>
+    <p class="branch-caption" data-i18n="s05.caption">The version history page documents major updates and releases.</p>
   </div>
 </div>
 
@@ -869,8 +873,8 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <div class="sec-label">
       <span class="sec-num">06</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s06.name">Final Design</span>
     </div>
-    <h2 class="sec-headline" data-i18n="s06.headline">Widget-Based<br>Home Screen.</h2>
-    <p class="sec-lead" data-i18n="s06.lead">The home screen uses customizable widgets. Control widgets use category colors, while information widgets combine neutral surfaces with orange accents, making their different roles easier to distinguish.</p>
+    <h2 class="sec-headline" data-i18n="s06.headline">Prioritizing Frequently<br>Used Features.</h2>
+    <p class="sec-lead" data-i18n="s06.lead">Based on user research conducted by the planning team, we prioritized frequently used features on the home screen. We designed control widgets for quick access and visual prominence, using colors associated with each function. Information widgets use neutral gray tones to distinguish them from controls.</p>
   </div>
 
   <div class="reveal d1 gap-to-80" style="width:1024px;max-width:100%;display:flex;justify-content:center;">
@@ -884,8 +888,8 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
   <!-- Adaptive Control -->
   <div class="adaptive-card reveal d1">
     <div class="adaptive-header">
-      <p class="adaptive-title" data-i18n="s06.adaptive.title">Adaptive <span class="hl-blue">Control</span></p>
-      <p class="adaptive-body" data-i18n="s06.adaptive.body">Tapping a widget expands it into a detailed control panel. Off states use dimmed icons, while active devices are marked with category colors.</p>
+      <p class="adaptive-title" data-i18n="s06.adaptive.title">Controls with <span class="hl-blue">Clarity.</span></p>
+      <p class="adaptive-body" data-i18n="s06.adaptive.body">Tapping a widget opens a detailed control panel. We increased icon size and detail to make each device easier to identify, and separated power controls on the left from detailed controls on the right to help prevent accidental operations.</p>
     </div>
     <div class="adaptive-stack">
       <div class="adaptive-sticky" style="--i:0"><div class="adaptive-dummy"><img loading="lazy" src="engram.resource/control-screen01.webp" alt="Adaptive Control Screen 1" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
@@ -897,8 +901,8 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
   <div class="immersive-wrap reveal d2">
     <div class="immersive-inner">
       <div class="immersive-title-wrap">
-        <p class="immersive-title" data-i18n="s06.immersive.title">Immersive <span class="hl-green">Calling</span></p>
-        <p class="immersive-body" data-i18n="s06.immersive.body">The call interface uses the full 10-inch display. Floating controls keep the view open, while the three-layer system makes key actions stand out without adding visual clutter.</p>
+        <p class="immersive-title" data-i18n="s06.immersive.title">Keeping the Caller in <span class="hl-green">Focus.</span></p>
+        <p class="immersive-body" data-i18n="s06.immersive.body">We designed the call interface to fill the display, keeping the caller in focus. Floating controls minimize visual obstruction, while the three-layer hierarchy helps users distinguish key actions at a glance.</p>
       </div>
       <img loading="lazy" src="engram.resource/immersive-calling.webp" alt="Immersive Calling Screen" style="width:100%;max-width:768px;display:block;border-radius:16px;">
     </div>
@@ -907,8 +911,8 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
   <!-- Clear Information -->
   <div class="clear-wrap reveal d1">
     <div class="clear-header">
-      <p class="clear-title" data-i18n="s06.clear.title">Clear <span class="hl-orange">Information</span></p>
-      <p class="clear-body" data-i18n="s06.clear.body">Orange accents distinguish information-focused elements from controls.<br>Reusable list components keep information screens visually consistent.</p>
+      <p class="clear-title" data-i18n="s06.clear.title">Information at a <span class="hl-orange">Glance.</span></p>
+      <p class="clear-body" data-i18n="s06.clear.body">We used reusable list components to make information easy to scan and keep layouts consistent. Charts and graphics use orange, the information category color, to reinforce visual distinction.</p>
     </div>
     <div class="clear-dummies">
       <div class="clear-track">
@@ -926,11 +930,10 @@ a.od-item:focus-visible .od-dot{left:0;top:0;width:100%;height:100%;transform:sc
     <div class="sec-label">
       <span class="sec-num">07</span><span class="sec-bar"></span><span class="sec-name" data-i18n="s07.name">Reflection</span>
     </div>
-    <h2 class="sec-headline" data-i18n="s07.headline">Turning Principles<br>into a System.</h2>
+    <h2 class="sec-headline" data-i18n="s07.headline">From Visual Language<br>to Product.</h2>
     <div class="refl-body-wrap reveal d1">
-      <p class="sec-lead" data-i18n="s07.lead1">We worked from the design center's principles of consistency, intuitiveness, and scalability. For decisions about token naming, component slots, and versioning rules, we considered how to keep the visual language consistent while accommodating client-specific needs. Agreeing on those rules as a team was central to the process.</p>
-      <p class="sec-lead" data-i18n="s07.lead2">One of the most debated decisions was iconography: using solid icons for actions and outlined icons for information. The rule clarifies their different roles while keeping the icon set part of one coherent visual language.</p>
-      <p class="sec-lead" data-i18n="s07.lead3">Triangle UI has been applied to sample designs for two clients. Because there is no data from ongoing production use yet, we have not measured its effect on customization effort or response time. Evaluating those measures as client applications expand is the next step.</p>
+      <p class="sec-lead" data-i18n="s07.lead1">The biggest challenge was translating the design center's principles into a cohesive visual language. Working with the team, we defined layers, colors, and iconography based on those principles. I then translated these visual rules into a configurable design system.</p>
+      <p class="sec-lead" data-i18n="s07.lead3">Triangle UI is being integrated into Hyundai HT's new flagship product. Its impact on customization effort and turnaround time has yet to be evaluated.</p>
     </div>
   </div>
 </div>
@@ -1058,9 +1061,9 @@ const i18n = {
   en: {
     'nav.tag': 'Triangle UI',
     'hero.eyebrow1': 'Design System',
-    'hero.eyebrow2': 'Smart Home Wallpad',
-    'hero.tagline': 'We established a visual language for a new smart home wallpad<br>and built it into a configurable design system.',
-    'hero.desc': 'Our three-person design team defined the visual language together, guided by the design center\'s principles. I owned the work of translating it into tokens, components, and versioning rules.',
+    'hero.eyebrow2': 'Smart Home Control Panel',
+    'hero.tagline': 'Our team defined a visual language for a new smart home wallpad.<br>I led its translation into a configurable design system.',
+    'hero.desc': 'Working with two other designers and guided by the design center\'s principles, I developed the token, component, and versioning rules that made client-specific configurations possible.',
     'meta.role': 'Role',
     'meta.role.v': 'Design System Owner',
     'meta.company': 'Company',
@@ -1069,61 +1072,60 @@ const i18n = {
     'meta.timeline': 'Timeline',
     's01.name': 'Context',
     's01.headline': 'One Visual Language.<br>Different Client Needs.',
-    's01.lead': 'Hyundai HT supplies its 10-inch wallpad to Hyundai Construction as a fixed product and offers customizable versions to other residential developers. The new wallpad also needed a coherent visual language grounded in the design center\'s principles.',
+    's01.lead': 'Hyundai HT, a leading smart home solutions provider in South Korea, supplies wallpads to Hyundai Construction and other construction companies. The goal was to design a base UI guided by the design center\'s principles, serving as the foundation for client-specific variants.',
     's01.dummy': 'Default - Hyundai HT',
-    's01.callout.label': 'Design Constraint',
-    's01.callout.text': 'We needed to preserve a consistent visual language while accommodating each client\'s brand colors, feature set, and identity guidelines. The system also had to support future clients without redesigning every screen.',
+    's01.callout.label': 'Design Challenge',
+    's01.callout.text': 'The challenge was to translate the design center\'s principles into a cohesive visual language while building a scalable design system that could adapt to different construction companies.',
     's02.name': 'Design Language',
     's02.headline': 'From Principles<br>to Visual Rules.',
-    's02.lead': 'We translated the design center\'s principles of consistency, intuitiveness, and scalability into visual rules for the new wallpad. Our three-person team defined the layered surfaces, category colors, and icon styles together, taking the display\'s physical characteristics into account.',
+    's02.lead': 'Our three-person team translated the design center\'s principles—consistency, intuitivity, and scalability—into visual rules. We defined surface layers, category colors, and icon styles around the display\'s physical constraints.',
     's02.dl1.title': '3-Layer System',
-    's02.dl1.desc': 'Because shadows are difficult to distinguish on the smoked-glass display, we chose three surface layers that become progressively lighter. A glass-like finish on the top panel reinforces the visual hierarchy without relying on shadows.',
-    's02.dl2.title': 'Categorized Colors',
-    's02.dl2.desc': 'To maintain continuity with existing wallpads, we retained the established category hues: green for communication, blue for control, and orange for information. We adjusted their values to achieve a 3.5:1 contrast ratio against the corresponding backgrounds, above the WCAG 3:1 threshold for UI components.',
+    's02.dl1.desc': 'Because shadows were hard to distinguish on the smoked-glass display, we chose three surface layers that become lighter toward the foreground. A glass-like effect on the top layer reinforces the hierarchy without relying on shadows.',
+    's02.dl2.title': 'Category Colors',
+    's02.dl2.desc': 'To preserve continuity with existing wallpads, we kept green for communication, blue for control, and orange for information. We adjusted each color\'s lightness to achieve a 3.5:1 contrast ratio against its background, exceeding the WCAG 3:1 threshold for non-text UI components.',
     's02.dl3.title': 'Iconography',
-    's02.dl3.desc': 'We assigned solid icons to actions and outlined icons to information so the visual style signals each icon\'s role. A shared roofline motif and simple geometric shapes keep the full icon set consistent.',
+    's02.dl3.desc': 'We used solid icons for actions and outlined icons for information to help distinguish their roles at a glance. A shared roofline motif and simple geometric shapes kept the icon set consistent.',
     's03.name': 'Token Architecture',
-    's03.headline': 'One System.<br>Configured with Tokens.',
-    's03.lead': 'To maintain one visual language across different brands, we separated shared semantic roles from configurable values. Components reference the same semantic tokens while client-specific settings can change beneath them.',
-    's03.tok1.name': 'Color',
-    's03.tok1.desc': 'A 60-step primitive palette covers neutrals and brand hues. Semantic tokens map intent: surface, brand, text, state, and overlay.',
+    's03.headline': 'One System.<br>Flexible Across Clients.',
+    's03.lead': 'I structured the design system into primitive and semantic token layers. By adjusting primitive token values to match each construction company\'s brand, the UI could be customized while keeping semantic roles and component structures unchanged.',
+    's03.tok1.name': 'Colors',
+    's03.tok1.desc': 'A 60-step primitive palette defines neutral and brand colors, while semantic tokens assign UI roles.',
     's03.tok2.name': 'Typography',
-    's03.tok2.desc': 'The scale runs from 12px to 80px with named semantic roles. Font family and weight can be configured per client through the token system.',
+    's03.tok2.desc': 'A 12–80px type scale uses semantic tokens for headings, body text, captions, and labels.',
     's03.tok3.name': 'Spacing',
-    's03.tok3.desc': 'An eight-step spacing scale uses a 4px base. The same token maps to different values in the 10-inch and 13-inch device modes.',
+    's03.tok3.desc': 'A 4px-based spacing scale maps to different values for 10-inch and 13-inch displays.',
     's03.tok4.name': 'Radius & Blur',
-    's03.tok4.desc': 'Corner radius tokens range from sharp to pill, while blur tokens cover overlays and panels. Both can be configured to suit each client\'s identity guidelines.',
-    's03.caption': 'Tokens define color, typography, spacing, radius, and blur.<br>They provide a consistent structure for client-specific configurations.',
+    's03.tok4.desc': 'Radius tokens define corner shapes, while blur is managed through effect styles.',
+    's03.caption': 'A shared token structure keeps components consistent while supporting client-specific colors, typography, spacing, radius, and blur.',
     's04.name': 'Component Logic',
     's04.headline': 'Reconfigure Components,<br>Don\'t Rebuild Them.',
-    's04.lead': 'To avoid rebuilding components for each client, we defined reusable slots and properties in shared master components. Designers can show or hide the elements needed in each instance using Figma properties, while keeping every instance linked to its master.',
+    's04.lead': 'I used Figma component properties to create configurable components for different client needs. Elements can be added or hidden based on the features each component supports.',
     's05.name': 'Version Control',
-    's05.headline': 'Tracking Changes<br>Across Releases.',
-    's05.lead': 'We track major updates in named branches. Each client project is maintained separately, with a reference to the Triangle UI version it uses.',
+    's05.headline': 'Version Control.<br>Shared History.',
+    's05.lead': 'I managed major updates using Figma\'s branching feature and documented each update or client-specific variant on a shared history page, making it easy for teammates to track changes.',
     's05.dummy': 'History page',
-    's05.caption': 'Major updates and release history are recorded on the version history page.',
+    's05.caption': 'The version history page documents major updates and releases.',
     's06.name': 'Final Design',
-    's06.headline': 'Widget-Based<br>Home Screen.',
-    's06.lead': 'The home screen uses customizable widgets. Control widgets use category colors, while information widgets combine neutral surfaces with orange accents, making their different roles easier to distinguish.',
+    's06.headline': 'Prioritizing Frequently<br>Used Features.',
+    's06.lead': 'Based on user research conducted by the planning team, we prioritized frequently used features on the home screen. We designed control widgets for quick access and visual prominence, using colors associated with each function. Information widgets use neutral gray tones to distinguish them from controls.',
     's06.dummy': 'Main + widget',
-    's06.adaptive.title': 'Adaptive <span class="hl-blue">Control</span>',
-    's06.adaptive.body': 'Tapping a widget expands it into a detailed control panel. Off states use dimmed icons, while active devices are marked with category colors.',
-    's06.immersive.title': 'Immersive <span class="hl-green">Calling</span>',
-    's06.immersive.body': 'The call interface uses the full 10-inch display. Floating controls keep the view open, while the three-layer system makes key actions stand out without adding visual clutter.',
-    's06.clear.title': 'Clear <span class="hl-orange">Information</span>',
-    's06.clear.body': 'Orange accents distinguish information-focused elements from controls.<br>Reusable list components keep information screens visually consistent.',
+    's06.adaptive.title': 'Controls with <span class="hl-blue">Clarity.</span>',
+    's06.adaptive.body': 'Tapping a widget opens a detailed control panel. We increased icon size and detail to make each device easier to identify, and separated power controls on the left from detailed controls on the right to help prevent accidental operations.',
+    's06.immersive.title': 'Keeping the Caller in <span class="hl-green">Focus.</span>',
+    's06.immersive.body': 'We designed the call interface to fill the display, keeping the caller in focus. Floating controls minimize visual obstruction, while the three-layer hierarchy helps users distinguish key actions at a glance.',
+    's06.clear.title': 'Information at a <span class="hl-orange">Glance.</span>',
+    's06.clear.body': 'We used reusable list components to make information easy to scan and keep layouts consistent. Charts and graphics use orange, the information category color, to reinforce visual distinction.',
     's07.name': 'Reflection',
-    's07.headline': 'Turning Principles<br>into a System.',
-    's07.lead1': 'We worked from the design center\'s principles of consistency, intuitiveness, and scalability. For decisions about token naming, component slots, and versioning rules, we considered how to keep the visual language consistent while accommodating client-specific needs. Agreeing on those rules as a team was central to the process.',
-    's07.lead3': 'Triangle UI has been applied to sample designs for two clients. Because there is no data from ongoing production use yet, we have not measured its effect on customization effort or response time. Evaluating those measures as client applications expand is the next step.',
-    's07.lead2': 'One of the most debated decisions was iconography: using solid icons for actions and outlined icons for information. The rule clarifies their different roles while keeping the icon set part of one coherent visual language.',
-    's02.dl1.principle': 'Intuitiveness',
+    's07.headline': 'From Visual Language<br>to Product.',
+    's07.lead1': 'The biggest challenge was translating the design center\'s principles into a cohesive visual language. Working with the team, we defined layers, colors, and iconography based on those principles. I then translated these visual rules into a configurable design system.',
+    's07.lead3': 'Triangle UI is being integrated into Hyundai HT\'s new flagship product. Its impact on customization effort and turnaround time has yet to be evaluated.',
+    's02.dl1.principle': 'Intuitivity',
     's02.dl2.principle': 'Consistency',
-    's02.dl3.principle': 'Intuitiveness, Consistency, Scalability',
+    's02.dl3.principle': 'Intuitivity, Consistency, Scalability',
     's03.shared.title': 'Shared Structure',
     's03.shared.body': 'Semantic roles and the way components reference them stay consistent across client configurations.',
     's03.flexible.title': 'Client-Specific Settings',
-    's03.flexible.body': 'Brand colors, font family and weight, corner radius, and blur can be configured to match each client\'s identity guidelines.',
+    's03.flexible.body': 'Brand colors, font family, corner radius, and blur effects can be configured to match each client\'s brand guidelines.',
     'footer.left': 'Hyundai HT | Triangle UI Design System',
 
   },
@@ -1187,8 +1189,7 @@ const i18n = {
     's07.name': '회고',
     's07.headline': '원칙을 시스템으로<br>옮기는 과정.',
     's07.lead1': '디자인센터의 일관성, 직관성, 확장성 원칙을 바탕으로 토큰 이름, 컴포넌트 슬롯, 버전 관리 규칙을 정했습니다. 공통된 시각적 언어를 유지하면서도 고객사별 요구를 수용할 수 있는지 팀과 함께 판단하고 기준을 합의했습니다.',
-    's07.lead3': 'Triangle UI는 현재 두 고객사를 위한 샘플 디자인에 적용됐습니다. 아직 실제 운영 데이터가 없어 고객사별 수정 작업이나 대응 시간이 얼마나 달라졌는지는 측정하지 못했습니다. 향후 적용 범위가 넓어지면 수정 범위와 대응 시간을 확인할 계획입니다.',
-    's07.lead2': '의견 조율이 특히 필요했던 결정은 아이콘 스타일이었습니다. 동작에는 솔리드 아이콘을, 정보에는 라인 아이콘을 사용해 용도를 구분하되, 하나의 시각적 언어로 보이도록 규칙을 정했습니다.',
+    's07.lead3': 'Triangle UI는 현재 신규 제품 GUI 제작에 적용되고 있습니다. 아직 실제 운영 데이터가 없어 고객사별 수정 작업이나 대응 시간이 얼마나 달라졌는지는 측정하지 못했습니다. 향후 적용 범위가 넓어지면 수정 범위와 대응 시간을 확인할 계획입니다.',
     's02.dl1.principle': '직관성',
     's02.dl2.principle': '일관성',
     's02.dl3.principle': '직관성, 일관성, 확장성',
