@@ -1354,6 +1354,25 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
 <style>/*min-360*/body{min-width:360px}</style>
 <style>/*eyebrow-unify*/html .hero-eyebrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:14px;font-weight:500;line-height:20px;letter-spacing:.07em;text-transform:uppercase;color:var(--gray-400);text-wrap:balance}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:block;width:1px;height:12px;flex-shrink:0;background:var(--gray-300)}@media (max-width:480px){html .hero-eyebrow{flex-direction:column;justify-content:center;align-items:center;gap:4px;text-align:center}html .hero-eyebrow>span:not(.hero-eyebrow-sep):not(.eyebrow-bar){font-size:13px;letter-spacing:.06em}html .hero-eyebrow>.hero-eyebrow-sep,html .hero-eyebrow>.eyebrow-bar{display:none}}</style>
 <style>/*lbfix*/.acct-desc,.cta-body,.refl-card-text,.appr-lead,.prob-callout-body,.method-d,.kc-item,.cc-body,.hero-tagline,.sec-lead,.sec-body-sm{text-wrap:balance}</style>
+<style>/*eb-wrap*/html .hero-eyebrow.eb-wrap>.hero-eyebrow-sep,html .hero-eyebrow.eb-wrap>.eyebrow-bar{display:none}html .hero-eyebrow.eb-wrap{flex-direction:column;align-items:flex-start;gap:4px}@media (max-width:1024px){html .hero-eyebrow.eb-wrap{align-items:center;text-align:center}}</style>
+<style>/* content max width 1280px: nav and footer content align with the landing page on wide screens */
+@media (max-width:804px){.pg-foot,footer{padding-left:1.2rem;padding-right:1.2rem}}
+@media (min-width:805px){nav,.pg-foot,footer{padding-left:max(2.5rem,calc((100% - 1280px)/2));padding-right:max(2.5rem,calc((100% - 1280px)/2))}}
+</style>
+<style>/* footer: same composition as the landing page: © year name | project - description, centred */
+.pg-foot,footer{justify-content:center}
+.pg-foot-in{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.4rem 12px}
+.pg-foot-div{width:1px;height:12px;background:#D8D2CC;border-radius:4px;flex-shrink:0}
+@media (max-width:640px){.pg-foot,footer{flex-direction:row}}
+.pg-foot,footer{position:relative}
+/* space between the last row of project pills and the footer line mirrors the space above the label (96px / 72px) */
+.od{padding-bottom:97px}
+@media (max-width:640px){.od{padding-bottom:73px}}
+.pg-foot::before,footer::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:#D8D2CC;pointer-events:none}
+@media (min-width:805px){.pg-foot::before,footer::before{left:80px;right:80px}}
+@media (min-width:1025px){.pg-foot::before,footer::before{left:max(80px,calc((100% - 1280px)/2 + 80px));right:max(80px,calc((100% - 1280px)/2 + 80px))}}
+</style>
+<style>html[data-theme="dark"] .pg-foot::before,html[data-theme="dark"] footer::before,html[data-theme="dark"] .pg-foot-div{background:#3A342F}</style>
 </head>
 <body>
 <script>
@@ -2049,7 +2068,7 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
   <div class="od-dock" role="navigation" aria-label="Other projects"><a class="od-item" data-proj="triangle" style="--ac:#FF084E;--i:0" aria-label="Triangle UI" href="hyundai-ht-design-system.html"><span class="od-lbl">Triangle UI</span><span class="od-hov" aria-hidden="true"><span>Triangle UI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a><span class="od-item is-cur" data-proj="engram" style="--ac:#F97316;--i:1" aria-label="Engram (current)" aria-current="page"><span class="od-lbl">Engram</span><span class="od-hov" aria-hidden="true"><span>Engram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></span><a class="od-item" data-proj="angelring" style="--ac:#08A0FF;--i:2" aria-label="Angelring" href="angelring.html"><span class="od-lbl">Angelring</span><span class="od-hov" aria-hidden="true"><span>Angelring</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a></div>
 </section>
 </div>
-<footer class="pg-foot"><span>Engram | UIUX redesign</span><span>Simon Choi © <span id="pgYr"></span></span></footer>
+<footer class="pg-foot"><div class="pg-foot-in"><span>© <span id="pgYr"></span> Simon Choi</span><i class="pg-foot-div"></i><span>Engram - UIUX redesign</span></div></footer>
 <script>document.getElementById("pgYr").textContent=new Date().getFullYear();</script>
 
 <script>
@@ -3025,6 +3044,10 @@ el.addEventListener("click",go);el.addEventListener("keydown",function(e){if(e.k
   window.addEventListener('storage', function (e) { if (e.key === 'lang') sync(); });
 })();
 </script>
+<script>/*eb-wrap*/(function(){function fix(){document.querySelectorAll(".hero-eyebrow").forEach(function(e){e.classList.remove("eb-wrap");var s=[].slice.call(e.children).filter(function(c){return!c.classList.contains("hero-eyebrow-sep")&&!c.classList.contains("eyebrow-bar")});if(s.length<2)return;var lh=parseFloat(getComputedStyle(s[0]).lineHeight)||20;var r0=s[0].getBoundingClientRect(),r1=s[1].getBoundingClientRect();var w=Math.abs(r0.top-r1.top)>lh*.6||s.some(function(x){return x.getBoundingClientRect().height>lh*1.6});if(w)e.classList.add("eb-wrap")})}
+var t;function q(){clearTimeout(t);t=setTimeout(fix,30)}
+window.addEventListener("resize",q);window.addEventListener("load",fix);document.addEventListener("DOMContentLoaded",fix);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fix);
+document.querySelectorAll(".hero-eyebrow").forEach(function(e){new MutationObserver(q).observe(e,{childList:true,subtree:true,characterData:true})});fix()})();</script>
 </body>
 </html>
 

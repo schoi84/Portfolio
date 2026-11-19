@@ -801,6 +801,24 @@ html[data-theme="dark"] .pg-foot span{color:#8E857D}
 </style>
 <style>/*glass-toast*/.upd-toast{background:color-mix(in srgb,var(--white) 62%,transparent);color:var(--black);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid color-mix(in srgb,var(--black) 14%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.16),inset 0 1px 0 color-mix(in srgb,var(--white) 40%,transparent)}.upd-toast .upd-go{background:var(--black);color:var(--white);border-radius:50%;width:32px;height:32px;flex-shrink:0}.top-toast{z-index:119}body:has(#updToast.show) .top-toast{top:132px}.top-toast:hover .upd-go svg{transform:translateY(-2px)}@media (max-width:480px){body:has(#updToast.show) .top-toast{top:128px}}</style>
 <style>/*eb-wrap*/html .hero-eyebrow.eb-wrap>.hero-eyebrow-sep,html .hero-eyebrow.eb-wrap>.eyebrow-bar{display:none}html .hero-eyebrow.eb-wrap{flex-direction:column;align-items:flex-start;gap:4px}@media (max-width:1024px){html .hero-eyebrow.eb-wrap{align-items:center;text-align:center}}</style>
+<style>/* content max width 1280px: nav and footer content align with the landing page on wide screens */
+@media (max-width:804px){.pg-foot,footer{padding-left:1.2rem;padding-right:1.2rem}}
+@media (min-width:805px){nav,.pg-foot,footer{padding-left:max(2.5rem,calc((100% - 1280px)/2));padding-right:max(2.5rem,calc((100% - 1280px)/2))}}
+</style>
+<style>/* footer: same composition as the landing page: © year name | project - description, centred */
+.pg-foot,footer{justify-content:center}
+.pg-foot-in{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.4rem 12px}
+.pg-foot-div{width:1px;height:12px;background:#D8D2CC;border-radius:4px;flex-shrink:0}
+@media (max-width:640px){.pg-foot,footer{flex-direction:row}}
+.pg-foot,footer{position:relative}
+/* space between the last row of project pills and the footer line mirrors the space above the label (96px / 72px) */
+.od{padding-bottom:97px}
+@media (max-width:640px){.od{padding-bottom:73px}}
+.pg-foot::before,footer::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:#D8D2CC;pointer-events:none}
+@media (min-width:805px){.pg-foot::before,footer::before{left:80px;right:80px}}
+@media (min-width:1025px){.pg-foot::before,footer::before{left:max(80px,calc((100% - 1280px)/2 + 80px));right:max(80px,calc((100% - 1280px)/2 + 80px))}}
+</style>
+<style>html[data-theme="dark"] .pg-foot::before,html[data-theme="dark"] footer::before,html[data-theme="dark"] .pg-foot-div{background:#3A342F}</style>
 </head>
 <body>
 <script>
@@ -1198,7 +1216,7 @@ document.querySelectorAll('.stl').forEach(el => { el.classList.add('js'); var o 
   <div class="od-dock" role="navigation" aria-label="Other projects"><a class="od-item" data-proj="triangle" style="--ac:#FF084E;--i:0" aria-label="Triangle UI" href="hyundai-ht-design-system.html"><span class="od-lbl">Triangle UI</span><span class="od-hov" aria-hidden="true"><span>Triangle UI</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a><a class="od-item" data-proj="engram" style="--ac:#F97316;--i:1" aria-label="Engram" href="pcanpi-case-study-v7.html"><span class="od-lbl">Engram</span><span class="od-hov" aria-hidden="true"><span>Engram</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></a><span class="od-item is-cur" data-proj="angelring" style="--ac:#08A0FF;--i:2" aria-label="Angelring (current)" aria-current="page"><span class="od-lbl">Angelring</span><span class="od-hov" aria-hidden="true"><span>Angelring</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="od-dot" aria-hidden="true"></span></span></div>
 </section>
 </main>
-<footer class="pg-foot"><span>Angelring | UIUX design</span><span>Simon Choi © <span id="pgYr"></span></span></footer>
+<footer class="pg-foot"><div class="pg-foot-in"><span>© <span id="pgYr"></span> Simon Choi</span><i class="pg-foot-div"></i><span>Angelring - UIUX design</span></div></footer>
 <script>document.getElementById("pgYr").textContent=new Date().getFullYear();</script>
 <script>
 (function() {
