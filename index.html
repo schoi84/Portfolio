@@ -279,7 +279,7 @@ nav {
 ───────────────────────*/
 .hero {
   min-height: 100svh; height: auto; /* grows on short screens so the padding is never squeezed out */
-  padding: calc(64px + clamp(4rem, 8vh, 8rem)) 2.5rem calc(clamp(4rem, 8vh, 8rem) - 5px); /* top adds the fixed nav height so content centers in the visible area; margins shrink with screen height so the hero fits one screen */
+  padding: calc(64px + clamp(4rem, 8vh, 8rem)) 2.5rem clamp(4rem, 10vh, 10rem); /* top adds the fixed nav height so content centers in the visible area; margins shrink with screen height so the hero fits one screen */
   display: flex; flex-direction: row; align-items: stretch;
   border-bottom: 1px solid var(--gray-300);
   position: relative; overflow: hidden;
@@ -345,6 +345,14 @@ html[lang="ko"] .hero-title > span { white-space: nowrap; }
 .hero-desc .nw { white-space: nowrap; }
 .hero-desc .hd-line { display: block; text-wrap: pretty; word-break: keep-all; overflow-wrap: break-word; }
 .hero-meta { display: flex; gap: 0; flex-shrink: 0; }
+
+/* Short desktop windows: relax the margin floors and tighten the copy so the hero stays close to one screen */
+@media (min-width: 805px) and (max-height: 700px) {
+  .hero { padding-top: calc(64px + 2rem); padding-bottom: 2rem; }
+  .hero-tag { margin-bottom: 0.75rem; }
+  .hero-title { margin-bottom: 1rem; line-height: 1.05; }
+  .hero-desc { font-size: 15px; line-height: 1.6; }
+}
 
 /* ── Quote cards ── */
 .hero-quotes {
