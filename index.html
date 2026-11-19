@@ -655,6 +655,9 @@ html[lang="en"] .proj-spec > div { grid-template-columns: 68px 1fr; }
 .tools-label { font-size: clamp(16px, 1.5vw, 20px); font-weight: 500; color: var(--black); margin-bottom: 20px; }
 .tools-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .tool-chip { padding: 5px 9px; border-radius: 4px; border: 1px solid var(--gray-300); font-size: clamp(12px, 1vw, 14px); color: var(--gray-500); }
+.tool-chip--lv { display: inline-flex; align-items: baseline; gap: 6px; }
+.tool-chip--lv .lc-n { color: var(--gray-500); }
+.tool-chip--lv .lc-l { color: var(--gray-400); }
 
 /* ─────────────────────
    CONTACT
@@ -1210,7 +1213,7 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
       </div>
     </div>
     <div>
-      <div class="tools-label" data-i18n="about.exp.label">Experience</div>
+      <div class="tools-label" data-i18n="about.exp.label">Work Experience</div>
       <div class="exp-item exp-item--caption">
         <div class="exp-inline"><span class="exp-role">ROWILAB</span><div class="exp-divider"></div><span class="exp-co" data-i18n="about.exp0.role">UIUX Designer</span></div>
         <div class="exp-yr" data-i18n="about.exp0.yr">Dec 2026 – Present</div>
@@ -1267,9 +1270,9 @@ html[data-theme="dark"] .ld-screen { --ld-line: #7a7a7a; --ld-top: #262626; --ld
     <div>
       <div class="tools-label" data-i18n="about.lang.label">Languages</div>
       <div class="tools-row">
-        <span class="tool-chip" data-i18n="about.lang.ko">Korean</span>
-        <span class="tool-chip" data-i18n="about.lang.en">English</span>
-        <span class="tool-chip" data-i18n="about.lang.es">Spanish</span>
+        <span class="tool-chip tool-chip--lv"><span class="lc-n" data-i18n="about.lang.ko">Korean</span><span class="lc-l" data-i18n="about.lang.ko.lv">Native</span></span>
+        <span class="tool-chip tool-chip--lv"><span class="lc-n" data-i18n="about.lang.en">English</span><span class="lc-l" data-i18n="about.lang.en.lv">Fluent</span></span>
+        <span class="tool-chip tool-chip--lv"><span class="lc-n" data-i18n="about.lang.es">Spanish</span><span class="lc-l" data-i18n="about.lang.es.lv">Conversational</span></span>
       </div>
     </div>
   </div>
@@ -1657,7 +1660,7 @@ const i18n = {
     'about.edu.label': 'Education',
     'about.edu.school': '<span class="nw">University of Illinois at</span> <span class="nw">Urbana-Champaign</span>',
     'about.edu.degree': 'BFA in Industrial Design (2018)',
-    'about.exp.label': 'Experience',
+    'about.exp.label': 'Work Experience',
     'about.exp0.role': 'UIUX Designer',
     'about.exp0.yr': 'Dec 2026 – Present',
     'about.exp0.caption': 'B2B spatial tech company offering 3D web, AR navigation, solar analysis, and analytics dashboards.',
@@ -1681,6 +1684,9 @@ const i18n = {
     'about.lang.ko': 'Korean',
     'about.lang.en': 'English',
     'about.lang.es': 'Spanish',
+    'about.lang.ko.lv': 'Native',
+    'about.lang.en.lv': 'Fluent',
+    'about.lang.es.lv': 'Conversational',
     'contact.label': 'Get in touch',
     'contact.title': 'Let\'s Work<br>Together.',
     'contact.btn': 'Contact Me',
@@ -1744,6 +1750,9 @@ const i18n = {
     'about.lang.ko': '한국어',
     'about.lang.en': '영어',
     'about.lang.es': '스페인어',
+    'about.lang.ko.lv': '모국어',
+    'about.lang.en.lv': '유창',
+    'about.lang.es.lv': '일상 회화',
     'contact.label': '연락하기',
     'contact.title': '함께<br>일해요.',
     'contact.btn': 'Contact Me',
